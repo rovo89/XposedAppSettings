@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Xposed App Settings</string>
+    <string name="about_app">An <a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> module by
+ <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> and <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
+ You can use <a href="http://forum.xda-developers.com/showthread.php?t=2012770">this thread</a> for questions or suggestions.</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_save"
+          android:icon="@android:drawable/ic_menu_save"
+          android:title="Save"
+          android:showAsAction="always" /> 
+    <item android:id="@+id/menu_app_launch"
+          android:icon="@android:drawable/ic_media_play"
+          android:title="Launch"
+          android:showAsAction="always|collapseActionView" />
+    <item android:id="@+id/menu_app_settings"
+          android:icon="@android:drawable/ic_menu_manage"
+          android:title="Settings"
+          android:showAsAction="always|collapseActionView" />
+</menu>

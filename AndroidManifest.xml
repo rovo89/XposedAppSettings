@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.robv.android.xposed.mods.appsettings"
+    android:versionCode="5"
+    android:versionName="0.0.5" >
+
+    <uses-sdk android:minSdkVersion="15" />
+    <permission-tree android:name="de.robv.android.xposed.mods.appsettings"/>
+    <uses-permission android:name="de.robv.android.xposed.mods.appsettings.BROADCAST_PERMISSION"/>
+    <permission android:name="de.robv.android.xposed.mods.appsettings.BROADCAST_PERMISSION" android:protectionLevel="dangerous"></permission>
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <activity
+            android:name=".XposedModActivity"
+            android:label="@string/app_name"
+            android:configChanges="orientation|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+           	android:name=".settings.ApplicationSettings"
+            android:label="Application Settings"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        
+        <meta-data
+            android:name="xposedmodule"
+            android:value="true" />
+        <meta-data
+            android:name="xposeddescription"
+            android:value="Ability to set configurations on a per-app basis:
+\n- Language
+\n- Screen size and DPI
+\n- Revoke permissions
+\n- Stay in memory" />
+        <meta-data
+            android:name="xposedminversion"
+            android:value="2.0rc1.*" />
+    </application>
+
+</manifest>

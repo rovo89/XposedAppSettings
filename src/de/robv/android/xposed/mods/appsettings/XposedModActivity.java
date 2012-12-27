@@ -239,7 +239,8 @@ public class XposedModActivity extends Activity {
                 Pattern regexp = Pattern.compile(constraint.toString(), Pattern.LITERAL | Pattern.CASE_INSENSITIVE);
                 for (Iterator<ApplicationInfo> i = items.iterator(); i.hasNext(); ) {
                     ApplicationInfo app = i.next();
-                    if (!regexp.matcher(app.name).find() && !regexp.matcher(app.packageName).find()) {
+                    if (!regexp.matcher(app.name == null ? "" : app.name).find()
+                    		&& !regexp.matcher(app.packageName).find()) {
                         i.remove();
                     }
                 }
@@ -293,9 +294,15 @@ public class XposedModActivity extends Activity {
             for(int i = filteredAppList.size() - 1; i >= 0; i--)
             {
                 ApplicationInfo app = filteredAppList.get(i);
-                String firstChar = app.name.substring(0, 1).toUpperCase();
-                if(firstChar.charAt(0) > 'Z' || firstChar.charAt(0) < 'A')
-                    firstChar = "@";
+                String appName = app.name;
+                String firstChar;
+                if (appName == null || appName.length() < 1) {
+                	firstChar = "@";
+                } else {
+	                firstChar = appName.substring(0, 1).toUpperCase();
+	                if(firstChar.charAt(0) > 'Z' || firstChar.charAt(0) < 'A')
+	                    firstChar = "@";
+                }
 
                 alphaIndexer.put(firstChar, i);
             }
@@ -322,7 +329,7 @@ public class XposedModActivity extends Activity {
 
 			ApplicationInfo app = filteredAppList.get(position);
 
-			((TextView) row.findViewById(R.id.app_name)).setText(app.name);
+			((TextView) row.findViewById(R.id.app_name)).setText(app.name == null ? "" : app.name);
 			((TextView) row.findViewById(R.id.app_package)).setTextColor(prefs.getBoolean(app.packageName + XposedMod.PREF_ACTIVE,
 			    false) ? Color.RED : Color.parseColor("#0099CC"));
 			((TextView) row.findViewById(R.id.app_package)).setText(app.packageName);
@@ -337,9 +344,15 @@ public class XposedModActivity extends Activity {
 			alphaIndexer.clear();
 			for (int i = filteredAppList.size() - 1; i >= 0; i--) {
 				ApplicationInfo app = filteredAppList.get(i);
-				String firstChar = app.name.substring(0, 1).toUpperCase();
-				if (firstChar.charAt(0) > 'Z' || firstChar.charAt(0) < 'A')
-					firstChar = "@";
+                String appName = app.name;
+                String firstChar;
+                if (appName == null || appName.length() < 1) {
+                	firstChar = "@";
+                } else {
+	                firstChar = appName.substring(0, 1).toUpperCase();
+	                if(firstChar.charAt(0) > 'Z' || firstChar.charAt(0) < 'A')
+	                    firstChar = "@";
+                }
 				alphaIndexer.put(firstChar, i);
 			}
 

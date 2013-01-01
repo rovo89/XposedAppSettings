@@ -6,6 +6,7 @@ import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 import static de.robv.android.xposed.XposedHelpers.setFloatField;
 
+import java.io.File;
 import java.util.Locale;
 
 import android.app.AndroidAppHelper;
@@ -15,6 +16,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.XResources;
+import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import de.robv.android.xposed.IXposedHookCmdInit;
@@ -68,7 +70,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 					// Load the preferences object that can be used throughout
 					// the entire systemserver process
-					prefs = AndroidAppHelper.getSharedPreferencesForPackage(MY_PACKAGE_NAME, PREFS, Context.MODE_PRIVATE);
+					loadPrefs();
 
 					// Other actions done at the very beginning of systemserver
 					// may go here
@@ -86,7 +88,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 					// Load the preferences object that can be used throughout
 					// the entire process
-					prefs = AndroidAppHelper.getSharedPreferencesForPackage(MY_PACKAGE_NAME, PREFS, Context.MODE_PRIVATE);
+					loadPrefs();
 
 					// Other actions done at the very beginning of other
 					// processes forked by Zygote may go here
@@ -105,7 +107,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     String packageName = AndroidAppHelper.currentPackageName();
 
-                    if (!prefs.getBoolean(packageName + PREF_ACTIVE, false)) {
+                    if (prefs == null || !prefs.getBoolean(packageName + PREF_ACTIVE, false)) {
                         // No overrides for this package
                         return;
                     }
@@ -130,6 +132,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 
 				@Override
 				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+					if (prefs == null)
+						return;
+					
 					if (param.args[0] != null && param.thisObject instanceof XResources) {
 						String packageName = ((XResources) param.thisObject).getPackageName();
 						if (packageName != null) {
@@ -232,7 +237,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
     public void handleLoadPackage(LoadPackageParam lpparam) throws Throwable {
 
         // Override the default Locale if one is defined (not res-related, here)
-        if (prefs.getBoolean(lpparam.packageName + PREF_ACTIVE, false)) {
+        if (prefs != null && prefs.getBoolean(lpparam.packageName + PREF_ACTIVE, false)) {
     		Locale packageLocale = getPackageSpecificLocale(lpparam.packageName);
     		if (packageLocale != null)
     			Locale.setDefault(packageLocale);
@@ -255,7 +260,16 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 
 	@Override
     public void initCmdApp(de.robv.android.xposed.IXposedHookCmdInit.StartupParam startupParam) throws Throwable {
-		prefs = AndroidAppHelper.getSharedPreferencesForPackage(MY_PACKAGE_NAME, PREFS, Context.MODE_PRIVATE);
+		loadPrefs();
     }
+	
+	
+	public static void loadPrefs() {
+		File prefFile = new File(Environment.getDataDirectory(), "data/" + MY_PACKAGE_NAME + "/shared_prefs/" + PREFS + ".xml");
+		if (prefFile.exists())
+			prefs = AndroidAppHelper.getSharedPreferencesForPackage(MY_PACKAGE_NAME, PREFS, Context.MODE_PRIVATE);
+		else
+			prefs = null;
+	}
 
 }

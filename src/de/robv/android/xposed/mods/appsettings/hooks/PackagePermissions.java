@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import android.app.AndroidAppHelper;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -59,14 +58,15 @@ public class PackagePermissions extends BroadcastReceiver {
     public static void revokePermissions(Object pmSvc, String pkgName, boolean killApp, boolean force) throws Throwable {
     	// Reload preferences if they were updated before the broadcast
     	if (force)
-    		XposedMod.prefs = AndroidAppHelper.getSharedPreferencesForPackage(XposedMod.MY_PACKAGE_NAME, XposedMod.PREFS, Context.MODE_PRIVATE);
+    		XposedMod.loadPrefs();
 
         Map<String, Object> mPackages = (Map<String, Object>) getObjectField(pmSvc, "mPackages");
         synchronized (mPackages) {
             Object pkgInfo = mPackages.get(pkgName);
             
             // Apply new permissions if needed
-            if (XposedMod.prefs.getBoolean(pkgName + XposedMod.PREF_ACTIVE, false) || force)
+            if ((XposedMod.prefs != null && XposedMod.prefs.getBoolean(pkgName + XposedMod.PREF_ACTIVE, false))
+            		|| force)
             	doRevokePermissions(pmSvc, pkgName, mPackages, pkgInfo);
             
             if (killApp) {
@@ -92,7 +92,7 @@ public class PackagePermissions extends BroadcastReceiver {
 	    Set<String> grantedPermissions = (Set<String>) getObjectField(pkgSettings, "grantedPermissions");
 	    
 	    Set<String> disabledPermissions;
-	    if (XposedMod.prefs.getBoolean(pkgName + XposedMod.PREF_REVOKEPERMS, false))
+	    if (XposedMod.prefs != null && XposedMod.prefs.getBoolean(pkgName + XposedMod.PREF_REVOKEPERMS, false))
 	    	disabledPermissions = XposedMod.prefs.getStringSet(pkgName + XposedMod.PREF_REVOKELIST, new HashSet<String>());
 	    else
 	    	disabledPermissions = new HashSet<String>();

@@ -54,8 +54,8 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import de.robv.android.xposed.mods.appsettings.Common;
 import de.robv.android.xposed.mods.appsettings.R;
-import de.robv.android.xposed.mods.appsettings.XposedMod;
 import de.robv.android.xposed.mods.appsettings.hooks.PackagePermissions;
 
 @SuppressLint("WorldReadableFiles")
@@ -88,7 +88,7 @@ public class ApplicationSettings extends Activity {
         Intent i = getIntent();
         parentIntent = i;
 
-        prefs = getSharedPreferences(XposedMod.PREFS, Context.MODE_WORLD_READABLE);        
+        prefs = getSharedPreferences(Common.PREFS, Context.MODE_WORLD_READABLE);        
         
         ApplicationInfo app;
         try {
@@ -104,7 +104,7 @@ public class ApplicationSettings extends Activity {
         ((ImageView) findViewById(R.id.app_icon)).setImageDrawable(app.loadIcon(getPackageManager()));
         
         // Update switch of active/inactive tweaks
-        if (prefs.getBoolean(pkgName + XposedMod.PREF_ACTIVE, false)) {
+        if (prefs.getBoolean(pkgName + Common.PREF_ACTIVE, false)) {
             ((Switch) findViewById(R.id.switchAppTweaked)).setChecked(true);
             findViewById(R.id.viewTweaks).setVisibility(View.VISIBLE);
         } else {
@@ -121,9 +121,9 @@ public class ApplicationSettings extends Activity {
         });
         
         // Update DPI field
-        if (prefs.getBoolean(pkgName + XposedMod.PREF_ACTIVE, false)) {
+        if (prefs.getBoolean(pkgName + Common.PREF_ACTIVE, false)) {
         	((EditText) findViewById(R.id.txtDPI)).setText(String.valueOf(
-        		prefs.getInt(pkgName + XposedMod.PREF_DPI, 0)));
+        		prefs.getInt(pkgName + Common.PREF_DPI, 0)));
         } else {        
         	((EditText) findViewById(R.id.txtDPI)).setText("0");
         }
@@ -142,13 +142,13 @@ public class ApplicationSettings extends Activity {
 		});
 
         // Load and render current screen setting + possible options
-        int screen = prefs.getInt(pkgName + XposedMod.PREF_SCREEN, 0);
-        if (screen < 0 || screen >= XposedMod.screens.length)
+        int screen = prefs.getInt(pkgName + Common.PREF_SCREEN, 0);
+        if (screen < 0 || screen >= Common.screens.length)
         	screen = 0;
         final int selectedScreen = screen;
         
 		Spinner spnScreen = (Spinner) findViewById(R.id.spnScreen);
-		List<String> lstScreens = Arrays.asList(XposedMod.screens);
+		List<String> lstScreens = Arrays.asList(Common.screens);
 		ArrayAdapter<String> screenAdapter = new ArrayAdapter<String>(this,
 			android.R.layout.simple_spinner_item, lstScreens);
 		screenAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -169,7 +169,7 @@ public class ApplicationSettings extends Activity {
         
         
         // Update Tablet field
-        ((CheckBox) findViewById(R.id.chkTablet)).setChecked(prefs.getBoolean(pkgName + XposedMod.PREF_TABLET, false));
+        ((CheckBox) findViewById(R.id.chkTablet)).setChecked(prefs.getBoolean(pkgName + Common.PREF_TABLET, false));
 		// Track changes to the Tablet checkbox to know if the settings were changed
         ((CheckBox) findViewById(R.id.chkTablet)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -252,7 +252,7 @@ public class ApplicationSettings extends Activity {
 		
 
 		// Setting for permissions revoking
-        allowRevoking = prefs.getBoolean(pkgName + XposedMod.PREF_REVOKEPERMS, false);
+        allowRevoking = prefs.getBoolean(pkgName + Common.PREF_REVOKEPERMS, false);
         ((CheckBox) findViewById(R.id.chkRevokePerms)).setChecked(allowRevoking);
 		// Track changes to the Revoke checkbox to know if the settings were changed
         // and to lock or unlock the list of permissions 
@@ -268,7 +268,7 @@ public class ApplicationSettings extends Activity {
         
 
 		// Setting for making the app resident in memory
-        ((CheckBox) findViewById(R.id.chkResident)).setChecked(prefs.getBoolean(pkgName + XposedMod.PREF_RESIDENT, false));
+        ((CheckBox) findViewById(R.id.chkResident)).setChecked(prefs.getBoolean(pkgName + Common.PREF_RESIDENT, false));
 		// Track changes to know if the settings were changed
         ((CheckBox) findViewById(R.id.chkResident)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -357,7 +357,7 @@ public class ApplicationSettings extends Activity {
                 permsList.add(unknownPerm);
             }
         }
-        disabledPermissions = prefs.getStringSet(pkgName + XposedMod.PREF_REVOKELIST, new HashSet<String>());
+        disabledPermissions = prefs.getStringSet(pkgName + Common.PREF_REVOKELIST, new HashSet<String>());
         
         Collections.sort(permsList, new Comparator<PermissionInfo>() {
             @Override
@@ -469,7 +469,7 @@ public class ApplicationSettings extends Activity {
         if (item.getItemId() == R.id.menu_save) {
             Editor prefsEditor = prefs.edit();
             if (((Switch) findViewById(R.id.switchAppTweaked)).isChecked()) {
-                prefsEditor.putBoolean(pkgName + XposedMod.PREF_ACTIVE, true);
+                prefsEditor.putBoolean(pkgName + Common.PREF_ACTIVE, true);
                 int dpi;
                 try {
                 	dpi = Integer.parseInt(((EditText) findViewById(R.id.txtDPI)).getText().toString());
@@ -477,51 +477,51 @@ public class ApplicationSettings extends Activity {
                 	dpi = 0;
                 }
                 if (dpi != 0) {
-                    prefsEditor.putInt(pkgName + XposedMod.PREF_DPI, dpi);
+                    prefsEditor.putInt(pkgName + Common.PREF_DPI, dpi);
                 } else {
-                    prefsEditor.remove(pkgName + XposedMod.PREF_DPI);
+                    prefsEditor.remove(pkgName + Common.PREF_DPI);
                 }
                 int screen = ((Spinner) findViewById(R.id.spnScreen)).getSelectedItemPosition();
                 if (screen > 0) {
-                    prefsEditor.putInt(pkgName + XposedMod.PREF_SCREEN, screen);
+                    prefsEditor.putInt(pkgName + Common.PREF_SCREEN, screen);
                 } else {
-                	prefsEditor.remove(pkgName + XposedMod.PREF_SCREEN);
+                	prefsEditor.remove(pkgName + Common.PREF_SCREEN);
                 }
                 if (((CheckBox) findViewById(R.id.chkTablet)).isChecked()) {
-                    prefsEditor.putBoolean(pkgName + XposedMod.PREF_TABLET, true);
+                    prefsEditor.putBoolean(pkgName + Common.PREF_TABLET, true);
                 }  else {
-                    prefsEditor.remove(pkgName + XposedMod.PREF_TABLET);
+                    prefsEditor.remove(pkgName + Common.PREF_TABLET);
                 }
                 if (((CheckBox) findViewById(R.id.chkResident)).isChecked()) {
-                    prefsEditor.putBoolean(pkgName + XposedMod.PREF_RESIDENT, true);
+                    prefsEditor.putBoolean(pkgName + Common.PREF_RESIDENT, true);
                 }  else {
-                    prefsEditor.remove(pkgName + XposedMod.PREF_RESIDENT);
+                    prefsEditor.remove(pkgName + Common.PREF_RESIDENT);
                 }
-                prefsEditor.remove(pkgName + XposedMod.PREF_REVOKELIST);
+                prefsEditor.remove(pkgName + Common.PREF_REVOKELIST);
                 if (disabledPermissions.size() > 0) {
-                    prefsEditor.putStringSet(pkgName + XposedMod.PREF_REVOKELIST, disabledPermissions);
+                    prefsEditor.putStringSet(pkgName + Common.PREF_REVOKELIST, disabledPermissions);
                 }
                 if (((CheckBox) findViewById(R.id.chkRevokePerms)).isChecked()) {
-                    prefsEditor.putBoolean(pkgName + XposedMod.PREF_REVOKEPERMS, true);
+                    prefsEditor.putBoolean(pkgName + Common.PREF_REVOKEPERMS, true);
                 }  else {
-                    prefsEditor.remove(pkgName + XposedMod.PREF_REVOKEPERMS);
+                    prefsEditor.remove(pkgName + Common.PREF_REVOKEPERMS);
                 }
                 selectedLocale = ((Spinner) findViewById(R.id.spnLanguage)).getSelectedItemPosition();
                 if (selectedLocale > 0) {
-                    prefsEditor.putString(pkgName + XposedMod.PREF_LOCALE, localeCodes[selectedLocale]);
+                    prefsEditor.putString(pkgName + Common.PREF_LOCALE, localeCodes[selectedLocale]);
                 } else {
-                	prefsEditor.remove(pkgName + XposedMod.PREF_LOCALE);
+                	prefsEditor.remove(pkgName + Common.PREF_LOCALE);
                 }
                 
             } else {
-                prefsEditor.remove(pkgName + XposedMod.PREF_ACTIVE);
-                prefsEditor.remove(pkgName + XposedMod.PREF_RESIDENT);
-                prefsEditor.remove(pkgName + XposedMod.PREF_REVOKEPERMS);
-                prefsEditor.remove(pkgName + XposedMod.PREF_REVOKELIST);
-                prefsEditor.remove(pkgName + XposedMod.PREF_DPI);
-                prefsEditor.remove(pkgName + XposedMod.PREF_SCREEN);
-                prefsEditor.remove(pkgName + XposedMod.PREF_TABLET);
-                prefsEditor.remove(pkgName + XposedMod.PREF_LOCALE);
+                prefsEditor.remove(pkgName + Common.PREF_ACTIVE);
+                prefsEditor.remove(pkgName + Common.PREF_RESIDENT);
+                prefsEditor.remove(pkgName + Common.PREF_REVOKEPERMS);
+                prefsEditor.remove(pkgName + Common.PREF_REVOKELIST);
+                prefsEditor.remove(pkgName + Common.PREF_DPI);
+                prefsEditor.remove(pkgName + Common.PREF_SCREEN);
+                prefsEditor.remove(pkgName + Common.PREF_TABLET);
+                prefsEditor.remove(pkgName + Common.PREF_LOCALE);
             }
             prefsEditor.commit();
             
@@ -535,11 +535,11 @@ public class ApplicationSettings extends Activity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                 	// Send the broadcast requesting to kill the app
-                    Intent applyIntent = new Intent(XposedMod.MY_PACKAGE_NAME + ".UPDATE_PERMISSIONS");
-                    applyIntent.putExtra("action", XposedMod.ACTION_PERMISSIONS);
+                    Intent applyIntent = new Intent(Common.MY_PACKAGE_NAME + ".UPDATE_PERMISSIONS");
+                    applyIntent.putExtra("action", Common.ACTION_PERMISSIONS);
                     applyIntent.putExtra("Package", pkgName);
                     applyIntent.putExtra("Kill", true);
-                    sendBroadcast(applyIntent, XposedMod.MY_PACKAGE_NAME + ".BROADCAST_PERMISSION");
+                    sendBroadcast(applyIntent, Common.MY_PACKAGE_NAME + ".BROADCAST_PERMISSION");
                     
                     dialog.dismiss();
                 }
@@ -548,11 +548,11 @@ public class ApplicationSettings extends Activity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                 	// Send the broadcast but not requesting kill
-                    Intent applyIntent = new Intent(XposedMod.MY_PACKAGE_NAME + ".UPDATE_PERMISSIONS");
-                    applyIntent.putExtra("action", XposedMod.ACTION_PERMISSIONS);
+                    Intent applyIntent = new Intent(Common.MY_PACKAGE_NAME + ".UPDATE_PERMISSIONS");
+                    applyIntent.putExtra("action", Common.ACTION_PERMISSIONS);
                     applyIntent.putExtra("Package", pkgName);
                     applyIntent.putExtra("Kill", false);
-                    sendBroadcast(applyIntent, XposedMod.MY_PACKAGE_NAME + ".BROADCAST_PERMISSION");
+                    sendBroadcast(applyIntent, Common.MY_PACKAGE_NAME + ".BROADCAST_PERMISSION");
 
                     dialog.dismiss();
                 }
@@ -645,7 +645,7 @@ public class ApplicationSettings extends Activity {
 	    }
 	    Arrays.sort(localeInfos);
 	    
-	    String configuredLang = prefs.getString(pkgName + XposedMod.PREF_LOCALE, null);
+	    String configuredLang = prefs.getString(pkgName + Common.PREF_LOCALE, null);
 	    selectedLocale = 0;
 	    
 	    localeCodes = new String[localeInfos.length + 1];

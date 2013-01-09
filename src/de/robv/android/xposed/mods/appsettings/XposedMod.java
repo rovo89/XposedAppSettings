@@ -29,35 +29,10 @@ import de.robv.android.xposed.mods.appsettings.hooks.PackagePermissions;
 
 public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage, IXposedHookCmdInit {
 
-	public static final String MY_PACKAGE_NAME = XposedMod.class.getPackage().getName();
-    public static SharedPreferences prefs;
+	public static SharedPreferences prefs;
     
-    public static final String ACTION_PERMISSIONS = "update_permissions";
-
-	public static final String PREFS = "ModSettings";
 	
-	public static final String PREF_ACTIVE = "/active";
-	public static final String PREF_DPI = "/dpi";
-	public static final String PREF_LOCALE = "/locale";
-	public static final String PREF_SCREEN = "/screen";
-	public static final String PREF_TABLET = "/tablet";
-	public static final String PREF_RESIDENT = "/resident";
-	public static final String PREF_REVOKEPERMS = "/revoke-perms";
-	public static final String PREF_REVOKELIST = "/revoke-list";
-	
-
-	public static final String PREF_DEFAULT = "default";
-
-	
-	private static int[] swdp = { 0, 320, 480, 600, 800, 1000 };
-	private static int[] wdp = { 0, 320, 480, 600, 800, 1000 };
-	private static int[] hdp = { 0, 480, 854, 1024, 1280, 1600 };
-	private static int[] w = { 0, 320, 480, 600, 800, 1000 };
-	private static int[] h = { 0, 480, 854, 1024, 1280, 1600 };
-	public static String[] screens = { "(default)", "320x480", "480x854", "600x1024", "800x1280", "1000x1600" };
-	
-	
-	@Override
+    @Override
 	public void initZygote(de.robv.android.xposed.IXposedHookZygoteInit.StartupParam startupParam) throws Throwable {
 		
 		/*
@@ -107,13 +82,13 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     String packageName = AndroidAppHelper.currentPackageName();
 
-                    if (prefs == null || !prefs.getBoolean(packageName + PREF_ACTIVE, false)) {
+                    if (prefs == null || !prefs.getBoolean(packageName + Common.PREF_ACTIVE, false)) {
                         // No overrides for this package
                         return;
                     }
                     
-                    int packageDPI = prefs.getInt(packageName + PREF_DPI,
-                    	prefs.getInt(PREF_DEFAULT + PREF_DPI, 0));
+                    int packageDPI = prefs.getInt(packageName + Common.PREF_DPI,
+                    	prefs.getInt(Common.PREF_DEFAULT + Common.PREF_DPI, 0));
                     if (packageDPI > 0) {
                         // Density for this package is overridden, change density
                         setFloatField(param.thisObject, "mDensity", packageDPI / 160.0f);
@@ -139,18 +114,18 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 						String packageName = ((XResources) param.thisObject).getPackageName();
 						if (packageName != null) {
 							
-							int screen = prefs.getInt(packageName + PREF_SCREEN,
-								prefs.getInt(PREF_DEFAULT + PREF_SCREEN, 0));
-							if (screen < 0 || screen >= swdp.length)
+							int screen = prefs.getInt(packageName + Common.PREF_SCREEN,
+								prefs.getInt(Common.PREF_DEFAULT + Common.PREF_SCREEN, 0));
+							if (screen < 0 || screen >= Common.swdp.length)
 								screen = 0;
 							
-							int swdp = XposedMod.swdp[screen];
-							int wdp = XposedMod.wdp[screen];
-							int hdp = XposedMod.hdp[screen];
-							int w = XposedMod.w[screen];
-							int h = XposedMod.h[screen];
+							int swdp = Common.swdp[screen];
+							int wdp = Common.wdp[screen];
+							int hdp = Common.hdp[screen];
+							int w = Common.w[screen];
+							int h = Common.h[screen];
 							
-							boolean tablet = prefs.getBoolean(packageName + PREF_TABLET, false);
+							boolean tablet = prefs.getBoolean(packageName + Common.PREF_TABLET, false);
 							
 							Locale loc = getPackageSpecificLocale(packageName);
 							
@@ -203,8 +178,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
                         throws Throwable {
                     Context mContext = (Context) getObjectField(param.thisObject, "mContext");
                     mContext.registerReceiver(new PackagePermissions(param.thisObject),
-                                              new IntentFilter(MY_PACKAGE_NAME + ".UPDATE_PERMISSIONS"),
-                                              MY_PACKAGE_NAME + ".BROADCAST_PERMISSION",
+                                              new IntentFilter(Common.MY_PACKAGE_NAME + ".UPDATE_PERMISSIONS"),
+                                              Common.MY_PACKAGE_NAME + ".BROADCAST_PERMISSION",
                                               null);
                 }
             });
@@ -237,7 +212,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
     public void handleLoadPackage(LoadPackageParam lpparam) throws Throwable {
 
         // Override the default Locale if one is defined (not res-related, here)
-        if (prefs != null && prefs.getBoolean(lpparam.packageName + PREF_ACTIVE, false)) {
+        if (prefs != null && prefs.getBoolean(lpparam.packageName + Common.PREF_ACTIVE, false)) {
     		Locale packageLocale = getPackageSpecificLocale(lpparam.packageName);
     		if (packageLocale != null)
     			Locale.setDefault(packageLocale);
@@ -246,7 +221,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 	
 	
 	private static Locale getPackageSpecificLocale(String packageName) {
-		String locale = prefs.getString(packageName + PREF_LOCALE, null);
+		String locale = prefs.getString(packageName + Common.PREF_LOCALE, null);
 		if (locale == null || locale.isEmpty())
 			return null;
 
@@ -265,9 +240,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 	
 	
 	public static void loadPrefs() {
-		File prefFile = new File(Environment.getDataDirectory(), "data/" + MY_PACKAGE_NAME + "/shared_prefs/" + PREFS + ".xml");
+		File prefFile = new File(Environment.getDataDirectory(), "data/" + Common.MY_PACKAGE_NAME + "/shared_prefs/" + Common.PREFS + ".xml");
 		if (prefFile.exists())
-			prefs = AndroidAppHelper.getSharedPreferencesForPackage(MY_PACKAGE_NAME, PREFS, Context.MODE_PRIVATE);
+			prefs = AndroidAppHelper.getSharedPreferencesForPackage(Common.MY_PACKAGE_NAME, Common.PREFS, Context.MODE_PRIVATE);
 		else
 			prefs = null;
 	}

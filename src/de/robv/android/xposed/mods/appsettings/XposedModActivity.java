@@ -54,7 +54,7 @@ public class XposedModActivity extends Activity {
 		setTitle(R.string.app_name);
 		super.onCreate(savedInstanceState);
 
-        prefs = getSharedPreferences(XposedMod.PREFS, Context.MODE_WORLD_READABLE);
+        prefs = getSharedPreferences(Common.PREFS, Context.MODE_WORLD_READABLE);
 		
         setContentView(R.layout.main);
         
@@ -232,7 +232,7 @@ public class XposedModActivity extends Activity {
             }
             
             boolean onlyTweaked = ((CheckBox) findViewById(R.id.chkOnlyTweaked)).isChecked();
-            SharedPreferences prefs = getSharedPreferences(XposedMod.PREFS, Context.MODE_WORLD_READABLE);
+            SharedPreferences prefs = getSharedPreferences(Common.PREFS, Context.MODE_WORLD_READABLE);
             
             FilterResults result = new FilterResults();
             if (constraint != null && constraint.length() > 0) {
@@ -247,7 +247,7 @@ public class XposedModActivity extends Activity {
             }
             for (Iterator<ApplicationInfo> i = items.iterator(); i.hasNext(); ) {
                 ApplicationInfo app = i.next();
-                if (onlyTweaked && !prefs.getBoolean(app.packageName + XposedMod.PREF_ACTIVE, false)) {
+                if (onlyTweaked && !prefs.getBoolean(app.packageName + Common.PREF_ACTIVE, false)) {
                     i.remove();
                 }
             }
@@ -330,7 +330,7 @@ public class XposedModActivity extends Activity {
 			ApplicationInfo app = filteredAppList.get(position);
 
 			((TextView) row.findViewById(R.id.app_name)).setText(app.name == null ? "" : app.name);
-			((TextView) row.findViewById(R.id.app_package)).setTextColor(prefs.getBoolean(app.packageName + XposedMod.PREF_ACTIVE,
+			((TextView) row.findViewById(R.id.app_package)).setTextColor(prefs.getBoolean(app.packageName + Common.PREF_ACTIVE,
 			    false) ? Color.RED : Color.parseColor("#0099CC"));
 			((TextView) row.findViewById(R.id.app_package)).setText(app.packageName);
 			((ImageView) row.findViewById(R.id.app_icon)).setImageDrawable(app.loadIcon(getPackageManager()));

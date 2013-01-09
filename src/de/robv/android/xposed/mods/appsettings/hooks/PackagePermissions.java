@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.Build;
 import de.robv.android.xposed.XposedBridge;
+import de.robv.android.xposed.mods.appsettings.Common;
 import de.robv.android.xposed.mods.appsettings.XposedMod;
 
 
@@ -39,7 +40,7 @@ public class PackagePermissions extends BroadcastReceiver {
             // The app broadcasted a request to update settings for a running app
             
             // Validate the action being requested
-        	if (!XposedMod.ACTION_PERMISSIONS.equals(intent.getExtras().getString("action")))
+        	if (!Common.ACTION_PERMISSIONS.equals(intent.getExtras().getString("action")))
         		return;
             
             String pkgName = intent.getExtras().getString("Package");
@@ -65,7 +66,7 @@ public class PackagePermissions extends BroadcastReceiver {
             Object pkgInfo = mPackages.get(pkgName);
             
             // Apply new permissions if needed
-            if ((XposedMod.prefs != null && XposedMod.prefs.getBoolean(pkgName + XposedMod.PREF_ACTIVE, false))
+            if ((XposedMod.prefs != null && XposedMod.prefs.getBoolean(pkgName + Common.PREF_ACTIVE, false))
             		|| force)
             	doRevokePermissions(pmSvc, pkgName, mPackages, pkgInfo);
             
@@ -92,8 +93,8 @@ public class PackagePermissions extends BroadcastReceiver {
 	    Set<String> grantedPermissions = (Set<String>) getObjectField(pkgSettings, "grantedPermissions");
 	    
 	    Set<String> disabledPermissions;
-	    if (XposedMod.prefs != null && XposedMod.prefs.getBoolean(pkgName + XposedMod.PREF_REVOKEPERMS, false))
-	    	disabledPermissions = XposedMod.prefs.getStringSet(pkgName + XposedMod.PREF_REVOKELIST, new HashSet<String>());
+	    if (XposedMod.prefs != null && XposedMod.prefs.getBoolean(pkgName + Common.PREF_REVOKEPERMS, false))
+	    	disabledPermissions = XposedMod.prefs.getStringSet(pkgName + Common.PREF_REVOKELIST, new HashSet<String>());
 	    else
 	    	disabledPermissions = new HashSet<String>();
 	    

@@ -218,7 +218,7 @@ public class ApplicationSettings extends Activity {
 		        Matcher m = Pattern.compile("res/(.+)/[^/]+").matcher("");
 		        try {
 		            ApplicationInfo app = getPackageManager().getApplicationInfo(pkgName, 0);
-		            jar = new JarFile(app.sourceDir);
+		            jar = new JarFile(app.publicSourceDir);
 		            Enumeration<JarEntry> entries = jar.entries();
 		            while (entries.hasMoreElements()) {
 		            	JarEntry entry = entries.nextElement();

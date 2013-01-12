@@ -251,6 +251,42 @@ public class ApplicationSettings extends Activity {
 		});
 		
 
+        // Update Fullscreen field
+        ((CheckBox) findViewById(R.id.chkFullscreen)).setChecked(prefs.getBoolean(pkgName + Common.PREF_FULLSCREEN, false));
+		// Track changes to the Tablet checkbox to know if the settings were changed
+        ((CheckBox) findViewById(R.id.chkFullscreen)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                dirty = true;
+            }
+        });
+
+        // Load and render current screen setting + possible options
+        int orientation = prefs.getInt(pkgName + Common.PREF_ORIENTATION, 0);
+		if (orientation < 0 || orientation >= Common.orientations.length)
+			orientation = 0;
+		final int selectedOrientation = orientation;
+
+		Spinner spnOrientation = (Spinner) findViewById(R.id.spnOrientation);
+		List<String> lstOrientations = Arrays.asList(Common.orientations);
+		ArrayAdapter<String> orientationAdapter = new ArrayAdapter<String>(this,
+			android.R.layout.simple_spinner_item, lstOrientations);
+		orientationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spnOrientation.setAdapter(orientationAdapter);
+		spnOrientation.setSelection(selectedOrientation);
+		// Track changes to the orientation to know if the settings were changed
+		spnOrientation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
+				if (pos != selectedOrientation) {
+				    dirty = true;
+				}
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}
+		});
+
 		// Setting for permissions revoking
         allowRevoking = prefs.getBoolean(pkgName + Common.PREF_REVOKEPERMS, false);
         ((CheckBox) findViewById(R.id.chkRevokePerms)).setChecked(allowRevoking);
@@ -497,6 +533,17 @@ public class ApplicationSettings extends Activity {
                 }  else {
                     prefsEditor.remove(pkgName + Common.PREF_RESIDENT);
                 }
+                if (((CheckBox) findViewById(R.id.chkFullscreen)).isChecked()) {
+                    prefsEditor.putBoolean(pkgName + Common.PREF_FULLSCREEN, true);
+                }  else {
+                    prefsEditor.remove(pkgName + Common.PREF_FULLSCREEN);
+                }
+                int orientation = ((Spinner) findViewById(R.id.spnOrientation)).getSelectedItemPosition();
+				if (orientation > 0) {
+					prefsEditor.putInt(pkgName + Common.PREF_ORIENTATION, orientation);
+				} else {
+					prefsEditor.remove(pkgName + Common.PREF_ORIENTATION);
+				}
                 prefsEditor.remove(pkgName + Common.PREF_REVOKELIST);
                 if (disabledPermissions.size() > 0) {
                     prefsEditor.putStringSet(pkgName + Common.PREF_REVOKELIST, disabledPermissions);
@@ -522,6 +569,8 @@ public class ApplicationSettings extends Activity {
                 prefsEditor.remove(pkgName + Common.PREF_SCREEN);
                 prefsEditor.remove(pkgName + Common.PREF_TABLET);
                 prefsEditor.remove(pkgName + Common.PREF_LOCALE);
+                prefsEditor.remove(pkgName + Common.PREF_FULLSCREEN);
+                prefsEditor.remove(pkgName + Common.PREF_ORIENTATION);
             }
             prefsEditor.commit();
             

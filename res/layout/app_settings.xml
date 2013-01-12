@@ -96,25 +96,38 @@
             android:layout_alignTop="@id/lblLanguage"
 	        android:layout_toLeftOf="@id/btnListRes"
 	        android:layout_toRightOf="@id/lblLanguage" />
+        <CheckBox
+            android:id="@+id/chkFullscreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/spnLanguage"
+            android:text="Fullscreen" />
+        <Spinner
+            android:id="@+id/spnOrientation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/chkFullscreen"
+            android:layout_toRightOf="@id/chkFullscreen" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/spnLanguage"
+            android:layout_below="@id/spnOrientation"
             android:background="@android:color/darker_gray" />
         <CheckBox
             android:id="@+id/chkRevokePerms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-            android:layout_below="@id/spnLanguage"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/spnOrientation"
             android:text="Revoke Perms." />
         <CheckBox
             android:id="@+id/chkResident"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-	        android:layout_alignParentRight="true"
-            android:layout_below="@id/spnLanguage"
-            android:enabled="false"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/spnOrientation"
             android:text="Resident" />
         <ListView
             android:id="@+id/lstPermissions"

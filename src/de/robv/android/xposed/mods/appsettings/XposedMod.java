@@ -25,6 +25,7 @@ import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
+import de.robv.android.xposed.mods.appsettings.hooks.Activities;
 import de.robv.android.xposed.mods.appsettings.hooks.PackagePermissions;
 
 public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage, IXposedHookCmdInit {
@@ -113,7 +114,6 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 					if (param.args[0] != null && param.thisObject instanceof XResources) {
 						String packageName = ((XResources) param.thisObject).getPackageName();
 						if (packageName != null) {
-							
 							int screen = prefs.getInt(packageName + Common.PREF_SCREEN,
 								prefs.getInt(Common.PREF_DEFAULT + Common.PREF_SCREEN, 0));
 							if (screen < 0 || screen >= Common.swdp.length)
@@ -217,7 +217,13 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
     		if (packageLocale != null)
     			Locale.setDefault(packageLocale);
         }
+        
+        if ("android".equals(lpparam.packageName)) {
+            Activities.hookActivitySettings(lpparam);
+        }
     }
+
+
 	
 	
 	private static Locale getPackageSpecificLocale(String packageName) {

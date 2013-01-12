@@ -5,6 +5,7 @@ import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 import static de.robv.android.xposed.XposedHelpers.setFloatField;
+import static de.robv.android.xposed.XposedHelpers.setIntField;
 
 import java.io.File;
 import java.util.Locale;
@@ -16,6 +17,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.XResources;
+import android.os.Build;
 import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -31,9 +33,9 @@ import de.robv.android.xposed.mods.appsettings.hooks.PackagePermissions;
 public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage, IXposedHookCmdInit {
 
 	public static SharedPreferences prefs;
-    
 	
-    @Override
+	
+	@Override
 	public void initZygote(de.robv.android.xposed.IXposedHookZygoteInit.StartupParam startupParam) throws Throwable {
 		
 		/*
@@ -77,25 +79,47 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 		
 
 		// Hook to override DPI (globally, including resource load + rendering)
-        try {
-            findAndHookMethod(Display.class, "init", int.class, new XC_MethodHook() {
-                @Override
-                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                    String packageName = AndroidAppHelper.currentPackageName();
+		try {
+			if (Build.VERSION.SDK_INT < 17) {
+				findAndHookMethod(Display.class, "init", int.class, new XC_MethodHook() {
+					@Override
+					protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+						String packageName = AndroidAppHelper.currentPackageName();
 
-                    if (prefs == null || !prefs.getBoolean(packageName + Common.PREF_ACTIVE, false)) {
-                        // No overrides for this package
-                        return;
-                    }
-                    
-                    int packageDPI = prefs.getInt(packageName + Common.PREF_DPI,
-                    	prefs.getInt(Common.PREF_DEFAULT + Common.PREF_DPI, 0));
-                    if (packageDPI > 0) {
-                        // Density for this package is overridden, change density
-                        setFloatField(param.thisObject, "mDensity", packageDPI / 160.0f);
-                    }
-                };
-            });
+						if (prefs == null || !prefs.getBoolean(packageName + Common.PREF_ACTIVE, false)) {
+							// No overrides for this package
+							return;
+						}
+
+						int packageDPI = prefs.getInt(packageName + Common.PREF_DPI,
+							prefs.getInt(Common.PREF_DEFAULT + Common.PREF_DPI, 0));
+						if (packageDPI > 0) {
+							// Density for this package is overridden, change density
+							setFloatField(param.thisObject, "mDensity", packageDPI / 160.0f);
+						}
+					};
+				});
+			} else {
+				findAndHookMethod(Display.class, "updateDisplayInfoLocked", new XC_MethodHook() {
+					@Override
+					protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+						String packageName = AndroidAppHelper.currentPackageName();
+
+						if (prefs == null || !prefs.getBoolean(packageName + Common.PREF_ACTIVE, false)) {
+							// No overrides for this package
+							return;
+						}
+
+						int packageDPI = prefs.getInt(packageName + Common.PREF_DPI,
+							prefs.getInt(Common.PREF_DEFAULT + Common.PREF_DPI, 0));
+						if (packageDPI > 0) {
+							// Density for this package is overridden, change density
+							Object mDisplayInfo = getObjectField(param.thisObject, "mDisplayInfo");
+							setIntField(mDisplayInfo, "logicalDensityDpi", packageDPI);
+						}
+					};
+				});
+			}
         } catch (Throwable t) {
             XposedBridge.log(t);
         }
@@ -114,11 +138,15 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 					if (param.args[0] != null && param.thisObject instanceof XResources) {
 						String packageName = ((XResources) param.thisObject).getPackageName();
 						if (packageName != null) {
+							boolean isActiveApp = AndroidAppHelper.currentPackageName().equals(packageName);
+							
 							int screen = prefs.getInt(packageName + Common.PREF_SCREEN,
 								prefs.getInt(Common.PREF_DEFAULT + Common.PREF_SCREEN, 0));
 							if (screen < 0 || screen >= Common.swdp.length)
 								screen = 0;
 							
+							int dpi = (isActiveApp && Build.VERSION.SDK_INT >= 17) ?
+								prefs.getInt(packageName + Common.PREF_DPI, prefs.getInt(Common.PREF_DEFAULT + Common.PREF_DPI, 0)) : 0;
 							int swdp = Common.swdp[screen];
 							int wdp = Common.wdp[screen];
 							int hdp = Common.hdp[screen];
@@ -129,7 +157,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 							
 							Locale loc = getPackageSpecificLocale(packageName);
 							
-							if (swdp > 0 || loc != null || tablet) {
+							if (swdp > 0 || loc != null || tablet || dpi > 0) {
 								Configuration newConfig = new Configuration((Configuration) param.args[0]);
 								if (swdp > 0) {
 									newConfig.smallestScreenWidthDp = swdp;
@@ -140,11 +168,13 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 									newConfig.locale = loc;
 									// Also set the locale as the app-wide default,
 									// for purposes other than resource loading
-									if (AndroidAppHelper.currentPackageName().equals(packageName))
+									if (isActiveApp)
 										Locale.setDefault(loc);
 								}
 								if (tablet)
 									newConfig.screenLayout |= Configuration.SCREENLAYOUT_SIZE_XLARGE;
+								if (dpi > 0)
+									setIntField(newConfig, "densityDpi", dpi);
 								param.args[0] = newConfig;
 								
 								if (w > 0 && param.args[1] != null) {

@@ -2,7 +2,6 @@ package de.robv.android.xposed.mods.appsettings;
 
 
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
-import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 import static de.robv.android.xposed.XposedHelpers.setFloatField;
 import static de.robv.android.xposed.XposedHelpers.setIntField;
@@ -12,7 +11,6 @@ import java.util.Locale;
 
 import android.app.AndroidAppHelper;
 import android.content.Context;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -193,48 +191,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 			XposedBridge.log(t);
 		}
         
-        
-        /* Hook to the PackageManager service in order to
-         * - Listen for broadcasts to apply new settings
-         * - Intercept package installations and apply existing settings
-         */
-        try {
-            final Class<?> clsPMS = findClass("com.android.server.pm.PackageManagerService", XposedMod.class.getClassLoader());
-            
-            // Listen for broadcasts from the Settings part of the mod, so it's applied immediately
-            findAndHookMethod(clsPMS, "systemReady", new XC_MethodHook() {
-                @Override
-                protected void afterHookedMethod(MethodHookParam param)
-                        throws Throwable {
-                    Context mContext = (Context) getObjectField(param.thisObject, "mContext");
-                    mContext.registerReceiver(new PackagePermissions(param.thisObject),
-                                              new IntentFilter(Common.MY_PACKAGE_NAME + ".UPDATE_PERMISSIONS"),
-                                              Common.MY_PACKAGE_NAME + ".BROADCAST_PERMISSION",
-                                              null);
-                }
-            });
-            
-            // Re-apply revoked permissions after a certain package is reinstalled or updated
-            findAndHookMethod(clsPMS, "installPackageLI", "com.android.server.pm.PackageManagerService$InstallArgs",
-            		boolean.class, "com.android.server.pm.PackageManagerService$PackageInstalledInfo",
-                    new XC_MethodHook() {
-                  @Override
-                  protected void afterHookedMethod(MethodHookParam param)
-                          throws Throwable {
-                      String pkgName = (String) getObjectField(param.args[2], "name");
-                      if (pkgName == null) {
-                          return;
-                      }
-                      try {
-                    	  PackagePermissions.revokePermissions(param.thisObject, pkgName, false, false);
-                      } catch (Throwable t) {
-                    	  XposedBridge.log(t);
-                      }
-                  }
-              });
-        } catch (Throwable e) {
-            XposedBridge.log(e);
-        }
+        PackagePermissions.initHooks();
+        Activities.hookActivitySettings();
 	}
 
 	
@@ -246,10 +204,6 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
     		Locale packageLocale = getPackageSpecificLocale(lpparam.packageName);
     		if (packageLocale != null)
     			Locale.setDefault(packageLocale);
-        }
-        
-        if ("android".equals(lpparam.packageName)) {
-            Activities.hookActivitySettings(lpparam);
         }
     }
 
@@ -282,5 +236,12 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 		else
 			prefs = null;
 	}
-
+	
+	public static boolean isActive(String packageName) {
+		return prefs.getBoolean(packageName + Common.PREF_ACTIVE, false);
+	}
+	
+	public static boolean isActive(String packageName, String sub) {
+		return prefs.getBoolean(packageName + Common.PREF_ACTIVE, false) && prefs.getBoolean(packageName + sub, false);
+	}
 }

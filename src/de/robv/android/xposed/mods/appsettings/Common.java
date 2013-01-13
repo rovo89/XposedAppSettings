@@ -1,7 +1,12 @@
 package de.robv.android.xposed.mods.appsettings;
 
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
+
 public class Common {
 
+	public static final String TAG = "XposedAppSettings";
 	public static final String MY_PACKAGE_NAME = Common.class.getPackage().getName();
 
 	public static final String ACTION_PERMISSIONS = "update_permissions";
@@ -30,6 +35,6 @@ public class Common {
 	public static final String[] screens = { "(default)", "320x480", "480x854", "600x1024", "800x1280", "1000x1600" };
 	
 	public static final String[] orientations = { "(default app rotation)", "Normal rotation", "Always portrait", "Always landscape" };
-	public static final int[] orientationCodes = { Integer.MIN_VALUE, -1, 1, 0 };
+	public static final int[] orientationCodes = { Integer.MIN_VALUE, SCREEN_ORIENTATION_UNSPECIFIED, SCREEN_ORIENTATION_PORTRAIT, SCREEN_ORIENTATION_LANDSCAPE };
 
 }

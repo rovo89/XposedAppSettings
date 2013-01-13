@@ -56,7 +56,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 import de.robv.android.xposed.mods.appsettings.Common;
 import de.robv.android.xposed.mods.appsettings.R;
-import de.robv.android.xposed.mods.appsettings.hooks.PackagePermissions;
 
 @SuppressLint("WorldReadableFiles")
 public class ApplicationSettings extends Activity {
@@ -382,9 +381,6 @@ public class ApplicationSettings extends Activity {
             permissions = new String[0];
         }
         for (String perm : permissions) {
-            if (perm.startsWith(PackagePermissions.REVOKED_PREFIX)) {
-                perm = perm.substring(PackagePermissions.REVOKED_PREFIX.length());
-            }
             try {
                 permsList.add(pm.getPermissionInfo(perm, 0));
             } catch (NameNotFoundException e) {

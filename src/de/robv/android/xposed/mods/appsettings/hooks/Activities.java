@@ -64,27 +64,23 @@ public class Activities {
 
 	    		@Override
 	    		protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-	    			if (XposedMod.prefs == null)
-	    				return;
-
 	    			String pkgName = (String) getObjectField(param.args[0], "packageName");
-	    			if (XposedMod.prefs.getBoolean(pkgName + Common.PREF_ACTIVE, false)) {
-	    				if (XposedMod.prefs.getBoolean(pkgName + Common.PREF_RESIDENT, false)) {
-	    					int adj = -12;
-	    					Object proc = getObjectField(param.args[0], "app");
-	    					
-	    					// Override the *Adj values if meant to be resident in memory
-	    					if (proc != null) {
-	    						setIntField(proc, "maxAdj", adj);
-	    						setIntField(proc, "hiddenAdj", adj);
-	    						setIntField(proc, "curRawAdj", adj);
-	    						setIntField(proc, "setRawAdj", adj);
-	    						setIntField(proc, "curAdj", adj);
-	    						setIntField(proc, "setAdj", adj);
-	    					}
-	    				}
-	    			}
-	    		};
+	    			if (!XposedMod.isActive(pkgName, Common.PREF_RESIDENT))
+	    				return;
+	    			
+					int adj = -12;
+					Object proc = getObjectField(param.args[0], "app");
+					
+					// Override the *Adj values if meant to be resident in memory
+					if (proc != null) {
+						setIntField(proc, "maxAdj", adj);
+						setIntField(proc, "hiddenAdj", adj);
+						setIntField(proc, "curRawAdj", adj);
+						setIntField(proc, "setRawAdj", adj);
+						setIntField(proc, "curAdj", adj);
+						setIntField(proc, "setAdj", adj);
+					}
+	    		}
 	    	});
 	    } catch (Throwable e) {
 	        XposedBridge.log(e);

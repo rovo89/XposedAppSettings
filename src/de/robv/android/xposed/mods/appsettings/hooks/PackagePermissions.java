@@ -111,7 +111,7 @@ public class PackagePermissions extends BroadcastReceiver {
 			String pkgName = intent.getExtras().getString("Package");
 			boolean killApp = intent.getExtras().getBoolean("Kill", false);
 
-			XposedMod.loadPrefs();
+			XposedMod.prefs.reload();
 
 			Object pkgInfo;
 			synchronized (mPackages) {

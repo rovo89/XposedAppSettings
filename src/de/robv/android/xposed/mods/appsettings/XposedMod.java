@@ -6,76 +6,32 @@ import static de.robv.android.xposed.XposedHelpers.getObjectField;
 import static de.robv.android.xposed.XposedHelpers.setFloatField;
 import static de.robv.android.xposed.XposedHelpers.setIntField;
 
-import java.io.File;
 import java.util.Locale;
 
 import android.app.AndroidAppHelper;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.XResources;
 import android.os.Build;
-import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import de.robv.android.xposed.IXposedHookCmdInit;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 import de.robv.android.xposed.mods.appsettings.hooks.Activities;
 import de.robv.android.xposed.mods.appsettings.hooks.PackagePermissions;
 
 public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage, IXposedHookCmdInit {
-
-	public static SharedPreferences prefs;
-	
+	public static XSharedPreferences prefs;
 	
 	@Override
-	public void initZygote(de.robv.android.xposed.IXposedHookZygoteInit.StartupParam startupParam) throws Throwable {
+	public void initZygote(IXposedHookZygoteInit.StartupParam startupParam) throws Throwable {
+		loadPrefs();
 		
-		/*
-		 * Do not load the preferences in the Zygote process (else they will be
-		 * inherited) but rather on startup of each forked process.
-		 */
-		try {
-			findAndHookMethod("com.android.internal.os.ZygoteInit", XposedMod.class.getClassLoader(), "handleSystemServerProcess", "com.android.internal.os.ZygoteConnection.Arguments", new XC_MethodHook() {
-				@Override
-				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-					// Load the preferences object that can be used throughout
-					// the entire systemserver process
-					loadPrefs();
-
-					// Other actions done at the very beginning of systemserver
-					// may go here
-				}
-			});
-		} catch (Throwable t) {
-			XposedBridge.log(t);
-		}
-		
-		try {
-			findAndHookMethod("com.android.internal.os.ZygoteConnection", XposedMod.class.getClassLoader(), "handleChildProc",
-					"com.android.internal.os.ZygoteConnection.Arguments", "[Ljava.io.FileDescriptor;",
-					"java.io.FileDescriptor", "java.io.PrintStream", new XC_MethodHook() {
-				@Override
-				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-					// Load the preferences object that can be used throughout
-					// the entire process
-					loadPrefs();
-
-					// Other actions done at the very beginning of other
-					// processes forked by Zygote may go here
-				}
-			});
-		} catch (Throwable t) {
-			XposedBridge.log(t);
-		}
-		
-		
-
 		// Hook to override DPI (globally, including resource load + rendering)
 		try {
 			if (Build.VERSION.SDK_INT < 17) {
@@ -84,7 +40,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 					protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 						String packageName = AndroidAppHelper.currentPackageName();
 
-						if (prefs == null || !prefs.getBoolean(packageName + Common.PREF_ACTIVE, false)) {
+						if (!isActive(packageName)) {
 							// No overrides for this package
 							return;
 						}
@@ -103,7 +59,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 					protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 						String packageName = AndroidAppHelper.currentPackageName();
 
-						if (prefs == null || !prefs.getBoolean(packageName + Common.PREF_ACTIVE, false)) {
+						if (!isActive(packageName)) {
 							// No overrides for this package
 							return;
 						}
@@ -130,12 +86,12 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 
 				@Override
 				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-					if (prefs == null)
-						return;
-					
 					if (param.args[0] != null && param.thisObject instanceof XResources) {
 						String packageName = ((XResources) param.thisObject).getPackageName();
 						if (packageName != null) {
+							if (!isActive(packageName))
+								return;
+
 							boolean isActiveApp = AndroidAppHelper.currentPackageName().equals(packageName);
 							
 							int screen = prefs.getInt(packageName + Common.PREF_SCREEN,
@@ -198,18 +154,16 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 	
     @Override
     public void handleLoadPackage(LoadPackageParam lpparam) throws Throwable {
+    	prefs.reload();
 
         // Override the default Locale if one is defined (not res-related, here)
-        if (prefs != null && prefs.getBoolean(lpparam.packageName + Common.PREF_ACTIVE, false)) {
+        if (isActive(lpparam.packageName)) {
     		Locale packageLocale = getPackageSpecificLocale(lpparam.packageName);
     		if (packageLocale != null)
     			Locale.setDefault(packageLocale);
         }
     }
 
-
-	
-	
 	private static Locale getPackageSpecificLocale(String packageName) {
 		String locale = prefs.getString(packageName + Common.PREF_LOCALE, null);
 		if (locale == null || locale.isEmpty())
@@ -230,11 +184,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 	
 	
 	public static void loadPrefs() {
-		File prefFile = new File(Environment.getDataDirectory(), "data/" + Common.MY_PACKAGE_NAME + "/shared_prefs/" + Common.PREFS + ".xml");
-		if (prefFile.exists())
-			prefs = AndroidAppHelper.getSharedPreferencesForPackage(Common.MY_PACKAGE_NAME, Common.PREFS, Context.MODE_PRIVATE);
-		else
-			prefs = null;
+		prefs = new XSharedPreferences(Common.MY_PACKAGE_NAME, Common.PREFS);
 	}
 	
 	public static boolean isActive(String packageName) {

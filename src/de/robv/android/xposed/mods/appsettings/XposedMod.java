@@ -9,6 +9,8 @@ import static de.robv.android.xposed.XposedHelpers.setIntField;
 import java.util.Locale;
 
 import android.app.AndroidAppHelper;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.XResources;
@@ -101,17 +103,19 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 							
 							int dpi = (isActiveApp && Build.VERSION.SDK_INT >= 17) ?
 								prefs.getInt(packageName + Common.PREF_DPI, prefs.getInt(Common.PREF_DEFAULT + Common.PREF_DPI, 0)) : 0;
+							int fontScale = prefs.getInt(packageName + Common.PREF_FONT_SCALE,
+									prefs.getInt(Common.PREF_DEFAULT + Common.PREF_FONT_SCALE, 0));
 							int swdp = Common.swdp[screen];
 							int wdp = Common.wdp[screen];
 							int hdp = Common.hdp[screen];
 							int w = Common.w[screen];
 							int h = Common.h[screen];
 							
-							boolean tablet = prefs.getBoolean(packageName + Common.PREF_TABLET, false);
+							boolean xlarge = prefs.getBoolean(packageName + Common.PREF_XLARGE, false);
 							
 							Locale loc = getPackageSpecificLocale(packageName);
 							
-							if (swdp > 0 || loc != null || tablet || dpi > 0) {
+							if (swdp > 0 || loc != null || xlarge || dpi > 0 || fontScale > 0) {
 								Configuration newConfig = new Configuration((Configuration) param.args[0]);
 								if (swdp > 0) {
 									newConfig.smallestScreenWidthDp = swdp;
@@ -125,10 +129,12 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 									if (isActiveApp)
 										Locale.setDefault(loc);
 								}
-								if (tablet)
+								if (xlarge)
 									newConfig.screenLayout |= Configuration.SCREENLAYOUT_SIZE_XLARGE;
 								if (dpi > 0)
 									setIntField(newConfig, "densityDpi", dpi);
+								if (fontScale > 0)
+									newConfig.fontScale = fontScale / 100.0f;
 								param.args[0] = newConfig;
 								
 								if (w > 0 && param.args[1] != null) {
@@ -146,7 +152,27 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 		} catch (Throwable t) {
 			XposedBridge.log(t);
 		}
-        
+
+		try {
+			findAndHookMethod(NotificationManager.class, "notify", String.class, int.class, Notification.class, 
+					new XC_MethodHook() {
+				@Override
+				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+					String packageName = AndroidAppHelper.currentPackageName();
+
+					if (!isActive(packageName, Common.PREF_INSISTENT_NOTIF)) {
+						// Not active for this package
+						return;
+					}
+
+					Notification n = (Notification) param.args[2];
+					n.flags |= Notification.FLAG_INSISTENT;
+				}
+			});
+		} catch (Throwable t) {
+			XposedBridge.log(t);
+		}
+
         PackagePermissions.initHooks();
         Activities.hookActivitySettings();
 	}

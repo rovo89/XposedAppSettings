@@ -35,9 +35,11 @@ public class Activities {
 					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_FULLSCREEN, false))
 						window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-					// TODO: This should be a separate setting
-					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_FULLSCREEN, false))
+					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_NO_TITLE, false))
 						window.requestFeature(Window.FEATURE_NO_TITLE);
+
+					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_SCREEN_ON, false))
+						window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 					int orientation = XposedMod.prefs.getInt(packageName + Common.PREF_ORIENTATION, XposedMod.prefs.getInt(Common.PREF_DEFAULT + Common.PREF_ORIENTATION, 0));
 					if (orientation > 0 && orientation < Common.orientationCodes.length && context instanceof Activity)

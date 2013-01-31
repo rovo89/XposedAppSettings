@@ -3,13 +3,16 @@
     <item android:id="@+id/menu_save"
           android:icon="@android:drawable/ic_menu_save"
           android:title="Save"
-          android:showAsAction="always" /> 
+          android:showAsAction="always|withText" /> 
     <item android:id="@+id/menu_app_launch"
           android:icon="@android:drawable/ic_media_play"
           android:title="Launch"
-          android:showAsAction="always|collapseActionView" />
+          android:showAsAction="withText" />
     <item android:id="@+id/menu_app_settings"
           android:icon="@android:drawable/ic_menu_manage"
           android:title="Settings"
-          android:showAsAction="always|collapseActionView" />
+          android:showAsAction="withText" />
+    <item android:id="@+id/menu_app_store"
+          android:title="Play Store"
+          android:showAsAction="withText" />
 </menu>

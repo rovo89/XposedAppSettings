@@ -3,12 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="vertical"
     android:orientation="vertical" >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:paddingBottom="4dp" >
+        <ImageView
+            android:id="@+id/app_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true" />
         <TextView
             android:id="@+id/app_label"
             android:layout_width="match_parent"
@@ -22,120 +26,143 @@
             android:layout_below="@id/app_label"
             android:layout_toLeftOf="@id/app_icon"
             android:textColor="#0099CC" />
-	    <Switch
-	        android:id="@+id/switchAppTweaked"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentRight="true"
-	        android:paddingLeft="8dp" />
-        <ImageView
-            android:id="@+id/app_icon"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_toLeftOf="@id/switchAppTweaked"
-            android:layout_gravity="right" />
-	</RelativeLayout>
-    <RelativeLayout
+    </RelativeLayout>
+    <ScrollView
         android:id="@+id/viewTweaks"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-        
-        <TextView
-            android:id="@+id/lblDPI"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:layout_alignParentLeft="true"
-            android:text="DPI:" >
-	        <requestFocus />
-        </TextView>
-        <EditText
-            android:id="@+id/txtDPI"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-	        android:layout_alignTop="@id/lblDPI"
-	        android:layout_toRightOf="@id/lblDPI"
-            android:ems="3"
-            android:inputType="number"
-            android:imeOptions="actionDone|flagNavigateNext" >
-        </EditText>
-        <Spinner
-            android:id="@+id/spnScreen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/lblDPI"
-	        android:layout_toRightOf="@id/txtDPI" />
-        <CheckBox
-            android:id="@+id/chkTablet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-	        android:layout_toRightOf="@id/spnScreen"
-	        android:layout_alignParentRight="true"
-	        android:layout_alignTop="@id/lblDPI"
-            android:text="Tablet" />
-        <TextView
-	        android:id="@+id/lblLanguage"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-	        android:layout_alignParentLeft="true"
-	        android:layout_below="@id/spnScreen"
-	        android:text="Language: " />
-		<Button
-		    android:id="@+id/btnListRes"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-            android:layout_alignTop="@id/lblLanguage"
-	        android:layout_alignParentRight="true"
-	        android:text="List Res" />
-        <Spinner
-            android:id="@+id/spnLanguage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/lblLanguage"
-	        android:layout_toLeftOf="@id/btnListRes"
-	        android:layout_toRightOf="@id/lblLanguage" />
-        <CheckBox
-            android:id="@+id/chkFullscreen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/spnLanguage"
-            android:text="Fullscreen" />
-        <Spinner
-            android:id="@+id/spnOrientation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@id/chkFullscreen"
-            android:layout_toRightOf="@id/chkFullscreen" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/spnOrientation"
-            android:background="@android:color/darker_gray" />
-        <CheckBox
-            android:id="@+id/chkRevokePerms"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/spnOrientation"
-            android:text="Revoke Perms." />
-        <CheckBox
-            android:id="@+id/chkResident"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/spnOrientation"
-            android:text="Resident" />
-        <ListView
-            android:id="@+id/lstPermissions"
+        android:layout_height="wrap_content" >
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/chkRevokePerms"
-            android:fadingEdge="vertical"
-            android:fastScrollEnabled="false"
-            android:textFilterEnabled="false" />
-        </RelativeLayout>
+            android:orientation="vertical" >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DPI:" >
+                </TextView>
+                <EditText
+                    android:id="@+id/txtDPI"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="3"
+                    android:imeOptions="actionDone|flagNavigateNext"
+                    android:inputType="number" >
+                </EditText>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Font scale:" >
+                </TextView>
+                <EditText
+                    android:id="@+id/txtFontScale"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="3"
+                    android:imeOptions="actionDone|flagNavigateNext"
+                    android:inputType="number" >
+                </EditText>
+                <Button
+                    android:id="@+id/btnListRes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="List Res" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Screen (dp,px):" >
+                </TextView>
+                <Spinner
+                    android:id="@+id/spnScreen"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+                <CheckBox
+                    android:id="@+id/chkXlarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="xlarge res" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Locale" />
+                <Spinner
+                    android:id="@+id/spnLocale"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+                <CheckBox
+                    android:id="@+id/chkFullscreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fullscreen" />
+                <CheckBox
+                    android:id="@+id/chkNoTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No Title" />
+                <CheckBox
+                    android:id="@+id/chkScreenOn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Screen on" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Orientation:" />
+                <Spinner
+                    android:id="@+id/spnOrientation"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+                <CheckBox
+                    android:id="@+id/chkResident"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Resident" />
+                <CheckBox
+                    android:id="@+id/chkInsistentNotifications"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Insistent Notifications" />
+            </LinearLayout>
+            <Button
+                android:id="@+id/btnPermissions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Permissions" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

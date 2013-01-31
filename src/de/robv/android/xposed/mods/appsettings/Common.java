@@ -18,13 +18,17 @@ public class Common {
 	
 	public static final String PREF_ACTIVE = "/active";
 	public static final String PREF_DPI = "/dpi";
+	public static final String PREF_FONT_SCALE = "/font-scale";
 	public static final String PREF_LOCALE = "/locale";
 	public static final String PREF_SCREEN = "/screen";
-	public static final String PREF_TABLET = "/tablet";
+	public static final String PREF_XLARGE = "/tablet";
 	public static final String PREF_RESIDENT = "/resident";
+	public static final String PREF_INSISTENT_NOTIF = "/insistent-notif";
 	public static final String PREF_REVOKEPERMS = "/revoke-perms";
 	public static final String PREF_REVOKELIST = "/revoke-list";
 	public static final String PREF_FULLSCREEN = "/fullscreen";
+	public static final String PREF_NO_TITLE = "/no-title";
+	public static final String PREF_SCREEN_ON = "/screen-on";
 	public static final String PREF_ORIENTATION = "/orientation";
 
 	public static final int[] swdp = { 0, 320, 480, 600, 800, 1000 };

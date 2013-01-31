@@ -1,29 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="left|center"
-    >
+    android:orientation="vertical" >
     <TextView
         android:id="@+id/perm_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/chkPermDisabled"
-        android:gravity="left" />
+        android:textStyle="bold" />
     <TextView
         android:id="@+id/perm_description"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/perm_name"
-        android:layout_alignRight="@id/perm_name"
-        android:layout_below="@id/perm_name"
-        android:gravity="left"
         android:textColor="#0099CC" />
-    <CheckBox
-        android:id="@+id/chkPermDisabled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" />
-</RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="fill_vertical"
+    android:gravity="fill_vertical"
+    android:orientation="vertical"
+    android:padding="10dp" >
+    <Switch
+        android:id="@+id/swtRevokePerms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:text="Revoke Permissions" />
+    <ListView
+        android:id="@+id/lstPermissions"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:fadingEdge="vertical"
+        android:fastScrollEnabled="false"
+        android:textFilterEnabled="false" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:paddingTop="10dp" >
+        <Button
+            android:id="@+id/btnPermsCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel" />
+        <Button
+            android:id="@+id/btnPermsOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ok" />
+    </LinearLayout>
+</LinearLayout>

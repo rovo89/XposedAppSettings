@@ -542,6 +542,10 @@ public class ApplicationSettings extends Activity {
 				}
                 prefsEditor.remove(pkgName + Common.PREF_REVOKELIST);
                 if (disabledPermissions.size() > 0) {
+					// Commit and reopen the editor, as it seems to be bugged when updating a StringSet
+					prefsEditor.commit();
+					prefsEditor = prefs.edit();
+
                     prefsEditor.putStringSet(pkgName + Common.PREF_REVOKELIST, disabledPermissions);
                 }
                 if (((CheckBox) findViewById(R.id.chkRevokePerms)).isChecked()) {

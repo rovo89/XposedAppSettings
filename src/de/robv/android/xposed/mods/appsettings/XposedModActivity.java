@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -27,9 +28,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.Button;
 import android.widget.Filter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -37,17 +38,30 @@ import android.widget.SectionIndexer;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
+import de.robv.android.xposed.mods.appsettings.FilterItemComponent.FilterState;
 import de.robv.android.xposed.mods.appsettings.settings.ApplicationSettings;
 
 
 public class XposedModActivity extends Activity {
 
-    private ArrayList<ApplicationInfo> appList = new ArrayList<ApplicationInfo>();    
-    private ArrayList<ApplicationInfo> filteredAppList = new ArrayList<ApplicationInfo>();    
-    private String activeFilter;
+	private ArrayList<ApplicationInfo> appList = new ArrayList<ApplicationInfo>();
+	private ArrayList<ApplicationInfo> filteredAppList = new ArrayList<ApplicationInfo>();
+	private String nameFilter;
+	private FilterState filterActive;
+	private FilterState filterDPI;
+	private FilterState filterTextScale;
+	private FilterState filterResLoad;
+	private FilterState filterLocale;
+	private FilterState filterFullscreen;
+	private FilterState filterNoTitle;
+	private FilterState filterScreenOn;
+	private FilterState filterOrientation;
+	private FilterState filterResident;
+	private FilterState filterInsNotif;
+	private FilterState filterPermissions;
+
     private SharedPreferences prefs;
 	
-
 	@SuppressLint("WorldReadableFiles")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -151,28 +165,121 @@ public class XposedModActivity extends Activity {
             
             @Override
             public boolean onQueryTextSubmit(String query) {
-                activeFilter = query;
-                appListAdaptor.getFilter().filter(activeFilter);
+                nameFilter = query;
+                appListAdaptor.getFilter().filter(nameFilter);
                 ((SearchView) findViewById(R.id.searchApp)).clearFocus();
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                activeFilter = newText;
-                appListAdaptor.getFilter().filter(activeFilter);
+                nameFilter = newText;
+                appListAdaptor.getFilter().filter(nameFilter);
                 return false;
             }
             
             
         });
         
-        ((CheckBox) findViewById(R.id.chkOnlyTweaked)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                appListAdaptor.getFilter().filter(activeFilter);
-            }
+		((ImageButton) findViewById(R.id.btnFilter)).setOnClickListener(new View.OnClickListener() {
+			Dialog filterDialog;
+
+			@Override
+			public void onClick(View v) {
+				// set up dialog
+				filterDialog = new Dialog(XposedModActivity.this);
+				filterDialog.setContentView(R.layout.filter_dialog);
+				filterDialog.setTitle("Filter");
+				filterDialog.setCancelable(true);
+				filterDialog.setOwnerActivity(XposedModActivity.this);
+
+				// Load previously used filters
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltActive)).setFilterState(filterActive);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltDPI)).setFilterState(filterDPI);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltTextScale)).setFilterState(filterTextScale);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltResLoad)).setFilterState(filterResLoad);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltLocale)).setFilterState(filterLocale);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltFullscreen)).setFilterState(filterFullscreen);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltNoTitle)).setFilterState(filterNoTitle);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltScreenOn)).setFilterState(filterScreenOn);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltOrientation)).setFilterState(filterOrientation);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltResident)).setFilterState(filterResident);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltInsNotif)).setFilterState(filterInsNotif);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltPermissions)).setFilterState(filterPermissions);
+
+				// Block or unblock the details based on the Active setting
+				enableFilterDetails(!FilterState.UNCHANGED.equals(filterActive));
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltActive)).setOnFilterChangeListener(new FilterItemComponent.OnFilterChangeListener() {
+					@Override
+					public void onFilterChanged(FilterItemComponent item, FilterState state) {
+						enableFilterDetails(!FilterState.UNCHANGED.equals(state));
+					}
+				});
+
+				// Close the dialog with the possible options
+				((Button) filterDialog.findViewById(R.id.btnFilterCancel)).setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						filterDialog.dismiss();
+					}
+				});
+				((Button) filterDialog.findViewById(R.id.btnFilterClear)).setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						filterActive = FilterState.ALL;
+						filterDPI = FilterState.ALL;
+						filterTextScale = FilterState.ALL;
+						filterResLoad = FilterState.ALL;
+						filterLocale = FilterState.ALL;
+						filterFullscreen = FilterState.ALL;
+						filterNoTitle = FilterState.ALL;
+						filterScreenOn = FilterState.ALL;
+						filterOrientation = FilterState.ALL;
+						filterResident = FilterState.ALL;
+						filterInsNotif = FilterState.ALL;
+						filterPermissions = FilterState.ALL;
+
+						filterDialog.dismiss();
+						appListAdaptor.getFilter().filter(nameFilter);
+					}
+				});
+				((Button) filterDialog.findViewById(R.id.btnFilterApply)).setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						filterActive = ((FilterItemComponent) filterDialog.findViewById(R.id.fltActive)).getFilterState();
+						filterDPI = ((FilterItemComponent) filterDialog.findViewById(R.id.fltDPI)).getFilterState();
+						filterTextScale = ((FilterItemComponent) filterDialog.findViewById(R.id.fltTextScale)).getFilterState();
+						filterResLoad = ((FilterItemComponent) filterDialog.findViewById(R.id.fltResLoad)).getFilterState();
+						filterLocale = ((FilterItemComponent) filterDialog.findViewById(R.id.fltLocale)).getFilterState();
+						filterFullscreen = ((FilterItemComponent) filterDialog.findViewById(R.id.fltFullscreen)).getFilterState();
+						filterNoTitle = ((FilterItemComponent) filterDialog.findViewById(R.id.fltNoTitle)).getFilterState();
+						filterScreenOn = ((FilterItemComponent) filterDialog.findViewById(R.id.fltScreenOn)).getFilterState();
+						filterOrientation = ((FilterItemComponent) filterDialog.findViewById(R.id.fltOrientation)).getFilterState();
+						filterResident = ((FilterItemComponent) filterDialog.findViewById(R.id.fltResident)).getFilterState();
+						filterInsNotif = ((FilterItemComponent) filterDialog.findViewById(R.id.fltInsNotif)).getFilterState();
+						filterPermissions = ((FilterItemComponent) filterDialog.findViewById(R.id.fltPermissions)).getFilterState();
+
+						filterDialog.dismiss();
+						appListAdaptor.getFilter().filter(nameFilter);
+					}
+				});
+
+				filterDialog.show();
+			}
+
+			private void enableFilterDetails(boolean enable) {
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltDPI)).setEnabled(enable);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltTextScale)).setEnabled(enable);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltResLoad)).setEnabled(enable);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltLocale)).setEnabled(enable);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltFullscreen)).setEnabled(enable);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltNoTitle)).setEnabled(enable);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltScreenOn)).setEnabled(enable);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltOrientation)).setEnabled(enable);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltResident)).setEnabled(enable);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltInsNotif)).setEnabled(enable);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltPermissions)).setEnabled(enable);
+			}
         });
     }
     
@@ -231,7 +338,6 @@ public class XposedModActivity extends Activity {
                 items.addAll(appList);
             }
             
-            boolean onlyTweaked = ((CheckBox) findViewById(R.id.chkOnlyTweaked)).isChecked();
             SharedPreferences prefs = getSharedPreferences(Common.PREFS, Context.MODE_WORLD_READABLE);
             
             FilterResults result = new FilterResults();
@@ -247,9 +353,8 @@ public class XposedModActivity extends Activity {
             }
             for (Iterator<ApplicationInfo> i = items.iterator(); i.hasNext(); ) {
                 ApplicationInfo app = i.next();
-                if (onlyTweaked && !prefs.getBoolean(app.packageName + Common.PREF_ACTIVE, false)) {
-                    i.remove();
-                }
+				if (filteredOut(prefs, app.packageName))
+					i.remove();
             }
 
             result.values = items;
@@ -257,6 +362,55 @@ public class XposedModActivity extends Activity {
             
             return result;
         }
+
+		private boolean filteredOut(SharedPreferences prefs, String packageName) {
+			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_ACTIVE, false), filterActive))
+				return true;
+
+			if (FilterState.UNCHANGED.equals(filterActive))
+				// Ignore additional filters
+				return false;
+
+			if (filteredOut(prefs.getInt(packageName + Common.PREF_DPI, 0) > 0, filterDPI))
+				return true;
+			if (filteredOut(prefs.getInt(packageName + Common.PREF_FONT_SCALE, 100) != 100, filterTextScale))
+				return true;
+			if (filteredOut(prefs.getInt(packageName + Common.PREF_SCREEN, 0) > 0
+					|| prefs.getBoolean(packageName + Common.PREF_XLARGE, false), filterResLoad))
+				return true;
+			if (filteredOut(!prefs.getString(packageName + Common.PREF_LOCALE, "").isEmpty(), filterLocale))
+				return true;
+			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_FULLSCREEN, false), filterFullscreen))
+				return true;
+			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_NO_TITLE, false), filterNoTitle))
+				return true;
+			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_SCREEN_ON, false), filterScreenOn))
+				return true;
+			if (filteredOut(prefs.getInt(packageName + Common.PREF_ORIENTATION, 0) > 0, filterOrientation))
+				return true;
+			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_RESIDENT, false), filterResident))
+				return true;
+			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_INSISTENT_NOTIF, false), filterInsNotif))
+				return true;
+			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_REVOKEPERMS, false), filterPermissions))
+				return true;
+
+			return false;
+		}
+
+		private boolean filteredOut(boolean set, FilterState state) {
+			if (state == null)
+				return false;
+
+			switch (state) {
+			case UNCHANGED:
+				return set;
+			case OVERRIDDEN:
+				return !set;
+			default:
+				return false;
+			}
+		}
 
     	
         @SuppressWarnings("unchecked")

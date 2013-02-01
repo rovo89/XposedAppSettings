@@ -22,23 +22,22 @@
                 android:id="@+id/tab1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
-                <CheckBox
-                    android:id="@+id/chkOnlyTweaked"
+                <ImageButton
+                    android:id="@+id/btnFilter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:text="Tweaked" />
+                    android:src="@android:drawable/ic_menu_view"
+                    android:contentDescription="Filter"/>
                 <SearchView
                     android:id="@+id/searchApp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/chkOnlyTweaked"
+                    android:layout_toRightOf="@id/btnFilter"
                     android:focusable="false"
                     android:iconifiedByDefault="false"
                     android:imeOptions="actionSearch|flagNoEnterAction|flagNoExtractUi"
                     android:inputType="textFilter"
-                    android:queryHint="filter" >
-                </SearchView>
+                    android:queryHint="name or package" />
                 <ListView
                     android:id="@+id/lstApps"
                     android:layout_width="match_parent"

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/de.robv.android.xposed.mods.appsettings"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp" >
+    <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+        android:id="@+id/fltActive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:label="Settings active"
+        app:overridden_label="Active"
+        app:unchanged_label="Not active" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+                android:id="@+id/fltDPI"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:label="DPI" />
+            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+                android:id="@+id/fltTextScale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:label="Font scale" />
+            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+                android:id="@+id/fltResLoad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:label="Resource loading" />
+            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+                android:id="@+id/fltLocale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:label="Locale" />
+            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+                android:id="@+id/fltFullscreen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:label="Fullscreen" />
+            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+                android:id="@+id/fltNoTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:label="No title" />
+            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+                android:id="@+id/fltScreenOn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:label="Screen on" />
+            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+                android:id="@+id/fltOrientation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:label="Orientation" />
+            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+                android:id="@+id/fltResident"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:label="Resident" />
+            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+                android:id="@+id/fltInsNotif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:label="Insistent notifications" />
+            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+                android:id="@+id/fltPermissions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:label="Permissions" />
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:paddingTop="10dp" >
+        <Button
+            android:id="@+id/btnFilterCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel" />
+        <Button
+            android:id="@+id/btnFilterClear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear" />
+        <Button
+            android:id="@+id/btnFilterApply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apply" />
+    </LinearLayout>
+</LinearLayout>

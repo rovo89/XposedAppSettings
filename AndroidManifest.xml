@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.robv.android.xposed.mods.appsettings"
-    android:versionCode="10"
-    android:versionName="0.1" xmlns:tools="http://schemas.android.com/tools">
+    android:versionCode="12"
+    android:versionName="0.2" xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk android:minSdkVersion="15" tools:ignore="UsesMinSdkAttributes"/>
     <permission-tree android:name="de.robv.android.xposed.mods.appsettings"/>
@@ -39,7 +39,7 @@ Fullscreen; No title; Keep screen on; Orientation;
 Resident in memory; Insistent Notifications; Revoke Permissions" />
         <meta-data
             android:name="xposedminversion"
-            android:value="2.1.0-DEV*" />
+            android:value="2.1+" />
     </application>
 
 </manifest>

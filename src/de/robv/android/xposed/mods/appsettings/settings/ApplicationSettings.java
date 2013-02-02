@@ -87,7 +87,9 @@ public class ApplicationSettings extends Activity {
             app = getPackageManager().getApplicationInfo(i.getStringExtra("package"), 0);
             pkgName = app.packageName;
         } catch (NameNotFoundException e) {
-            throw new RuntimeException("Invalid package: " + i.getStringExtra("package"));
+			// Close the dialog gracefully, package might have been uninstalled
+			finish();
+			return;
         }
         
         // Display app info
@@ -348,17 +350,20 @@ public class ApplicationSettings extends Activity {
 			@Override
 			public void onClick(View v) {
 				// set up permissions editor
-				final PermissionSettings permsDlg = new PermissionSettings(ApplicationSettings.this, pkgName, allowRevoking, disabledPermissions);
-				permsDlg.setOnOkListener(new PermissionSettings.OnDismissListener() {
-					@Override
-					public void onDismiss(PermissionSettings obj) {
-						dirty = true;
-						allowRevoking = permsDlg.getRevokeActive();
-						disabledPermissions.clear();
-						disabledPermissions.addAll(permsDlg.getDisabledPermissions());
-					}
-				});
-				permsDlg.display();
+				try {
+					final PermissionSettings permsDlg = new PermissionSettings(ApplicationSettings.this, pkgName, allowRevoking, disabledPermissions);
+					permsDlg.setOnOkListener(new PermissionSettings.OnDismissListener() {
+						@Override
+						public void onDismiss(PermissionSettings obj) {
+							dirty = true;
+							allowRevoking = permsDlg.getRevokeActive();
+							disabledPermissions.clear();
+							disabledPermissions.addAll(permsDlg.getDisabledPermissions());
+						}
+					});
+					permsDlg.display();
+				} catch (NameNotFoundException e) {
+				}
 			}
 		});
 	}
@@ -414,10 +419,13 @@ public class ApplicationSettings extends Activity {
 		}
 
 		boolean hasMarketLink = false;
-		PackageManager pm = getPackageManager();
-		String installer = pm.getInstallerPackageName(pkgName);
-		if (installer != null)
-			hasMarketLink = installer.equals("com.android.vending") || installer.contains("google");
+		try {
+			PackageManager pm = getPackageManager();
+			String installer = pm.getInstallerPackageName(pkgName);
+			if (installer != null)
+				hasMarketLink = installer.equals("com.android.vending") || installer.contains("google");
+		} catch (Exception e) {
+		}
 		menu.findItem(R.id.menu_app_store).setEnabled(hasMarketLink);
 		try {
 			Resources res = createPackageContext("com.android.vending", 0).getResources();

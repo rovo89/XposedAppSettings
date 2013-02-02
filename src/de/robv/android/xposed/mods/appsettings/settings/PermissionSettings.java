@@ -46,7 +46,7 @@ public class PermissionSettings {
 	 * Prepare a dialog for editing the permissions for the supplied package,
 	 * with the provided owner activity and initial settings
 	 */
-	public PermissionSettings(Activity owner, String pkgName, boolean revoking, Set<String> disabledPermissions) {
+	public PermissionSettings(Activity owner, String pkgName, boolean revoking, Set<String> disabledPermissions) throws NameNotFoundException {
 		dialog = new Dialog(owner);
 		dialog.setContentView(R.layout.permissions_dialog);
 		dialog.setTitle("Permissions");
@@ -74,11 +74,7 @@ public class PermissionSettings {
 		dialog.findViewById(R.id.lstPermissions).setBackgroundColor(revokeActive ? Color.BLACK : Color.DKGRAY);
 
 		// Load the list of permissions for the package and present them
-		try {
-			loadPermissionsList(pkgName);
-		} catch (NameNotFoundException e) {
-			throw new RuntimeException("Invalid package permissions: " + pkgName, e);
-		}
+		loadPermissionsList(pkgName);
 
 		final PermsListAdaptor appListAdaptor = new PermsListAdaptor(owner, permsList);
 		((ListView) dialog.findViewById(R.id.lstPermissions)).setAdapter(appListAdaptor);

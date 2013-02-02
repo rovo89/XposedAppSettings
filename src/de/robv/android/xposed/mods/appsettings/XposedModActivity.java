@@ -526,6 +526,9 @@ public class XposedModActivity extends Activity {
 
         @Override
 		public int getPositionForSection(int section) {
+			if (section >= sections.length)
+				return filteredAppList.size() - 1;
+
 			return alphaIndexer.get(sections[section]);
 		}
  

@@ -6,7 +6,7 @@ import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
 
 public class Common {
 
-	public static final String TAG = "XposedAppSettings";
+	public static final String TAG = "AppSettings";
 	public static final String MY_PACKAGE_NAME = Common.class.getPackage().getName();
 
 	public static final String ACTION_PERMISSIONS = "update_permissions";

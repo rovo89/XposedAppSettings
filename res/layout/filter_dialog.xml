@@ -6,6 +6,13 @@
     android:orientation="vertical"
     android:padding="10dp" >
     <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+        android:id="@+id/fltAppType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:label="Type"
+        app:overridden_label="User"
+        app:unchanged_label="System" />
+    <de.robv.android.xposed.mods.appsettings.FilterItemComponent
         android:id="@+id/fltActive"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

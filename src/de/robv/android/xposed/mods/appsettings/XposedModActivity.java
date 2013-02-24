@@ -47,6 +47,7 @@ public class XposedModActivity extends Activity {
 	private ArrayList<ApplicationInfo> appList = new ArrayList<ApplicationInfo>();
 	private ArrayList<ApplicationInfo> filteredAppList = new ArrayList<ApplicationInfo>();
 	private String nameFilter;
+	private FilterState filterAppType;
 	private FilterState filterActive;
 	private FilterState filterDPI;
 	private FilterState filterTextScale;
@@ -194,6 +195,7 @@ public class XposedModActivity extends Activity {
 				filterDialog.setOwnerActivity(XposedModActivity.this);
 
 				// Load previously used filters
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltAppType)).setFilterState(filterAppType);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltActive)).setFilterState(filterActive);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltDPI)).setFilterState(filterDPI);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltTextScale)).setFilterState(filterTextScale);
@@ -226,6 +228,7 @@ public class XposedModActivity extends Activity {
 				((Button) filterDialog.findViewById(R.id.btnFilterClear)).setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
+						filterAppType = FilterState.ALL;
 						filterActive = FilterState.ALL;
 						filterDPI = FilterState.ALL;
 						filterTextScale = FilterState.ALL;
@@ -246,6 +249,7 @@ public class XposedModActivity extends Activity {
 				((Button) filterDialog.findViewById(R.id.btnFilterApply)).setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
+						filterAppType = ((FilterItemComponent) filterDialog.findViewById(R.id.fltAppType)).getFilterState();
 						filterActive = ((FilterItemComponent) filterDialog.findViewById(R.id.fltActive)).getFilterState();
 						filterDPI = ((FilterItemComponent) filterDialog.findViewById(R.id.fltDPI)).getFilterState();
 						filterTextScale = ((FilterItemComponent) filterDialog.findViewById(R.id.fltTextScale)).getFilterState();
@@ -268,6 +272,7 @@ public class XposedModActivity extends Activity {
 			}
 
 			private void enableFilterDetails(boolean enable) {
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltAppType)).setEnabled(true);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltDPI)).setEnabled(enable);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltTextScale)).setEnabled(enable);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltResLoad)).setEnabled(enable);
@@ -353,7 +358,7 @@ public class XposedModActivity extends Activity {
             }
             for (Iterator<ApplicationInfo> i = items.iterator(); i.hasNext(); ) {
                 ApplicationInfo app = i.next();
-				if (filteredOut(prefs, app.packageName))
+				if (filteredOut(prefs, app))
 					i.remove();
             }
 
@@ -363,7 +368,14 @@ public class XposedModActivity extends Activity {
             return result;
         }
 
-		private boolean filteredOut(SharedPreferences prefs, String packageName) {
+		private boolean filteredOut(SharedPreferences prefs, ApplicationInfo app) {
+			String packageName = app.packageName;
+			boolean isUser = (app.flags & ApplicationInfo.FLAG_SYSTEM) == 0;
+
+			// AppType = Overridden is used for USER apps
+			if (filteredOut(isUser, filterAppType))
+				return true;
+
 			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_ACTIVE, false), filterActive))
 				return true;
 

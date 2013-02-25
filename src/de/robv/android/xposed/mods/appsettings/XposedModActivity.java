@@ -76,12 +76,12 @@ public class XposedModActivity extends Activity {
         TabHost tabHost=(TabHost)findViewById(R.id.tabHost);
         tabHost.setup();
         
-        TabSpec spec1=tabHost.newTabSpec("App Settings");
-        spec1.setIndicator("App Settings");
+        TabSpec spec1=tabHost.newTabSpec(R.string.app_settings);
+        spec1.setIndicator(R.string.app_settings);
         spec1.setContent(R.id.tab1);
 
-        TabSpec spec2=tabHost.newTabSpec("About");
-        spec2.setIndicator("About");
+        TabSpec spec2=tabHost.newTabSpec(R.string.about);
+        spec2.setIndicator(R.string.about);
         spec2.setContent(R.id.tab2);
         
         tabHost.addTab(spec1);
@@ -91,7 +91,7 @@ public class XposedModActivity extends Activity {
         ((TextView) findViewById(R.id.about_title)).setMovementMethod(LinkMovementMethod.getInstance());
         
         try {
-	        ((TextView) findViewById(R.id.version)).setText("Version: " +
+	        ((TextView) findViewById(R.id.version)).setText(R.string.version +
 	        		getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
         } catch (NameNotFoundException e) {
         }
@@ -190,7 +190,7 @@ public class XposedModActivity extends Activity {
 				// set up dialog
 				filterDialog = new Dialog(XposedModActivity.this);
 				filterDialog.setContentView(R.layout.filter_dialog);
-				filterDialog.setTitle("Filter");
+				filterDialog.setTitle(R.string.filter);
 				filterDialog.setCancelable(true);
 				filterDialog.setOwnerActivity(XposedModActivity.this);
 
@@ -296,7 +296,7 @@ public class XposedModActivity extends Activity {
         @Override
         protected void onPreExecute() {
             dialog = new ProgressDialog(((ListView) findViewById(R.id.lstApps)).getContext());
-            dialog.setMessage("Loading apps, please wait");
+            dialog.setMessage(R.string.loading_apps);
             dialog.setIndeterminate(true);
             dialog.setCancelable(false);
             dialog.show();

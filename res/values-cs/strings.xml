@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Nastavení aplikací</string>
     <string name="about_app">Modul do <a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> od
  <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> a <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
  Pro otázky a návrhy je možné použít <a href="http://forum.xda-developers.com/showthread.php?t=2012770">toto téma</a>.</string>
@@ -48,4 +49,8 @@
     <string name="version">Verze: </string>
     <string name="density_note">Poznámka: Pro funkčnost této konfigurace je nutné mít nainstalován Xposed framework a tento modul v něm mít povolený!</string>
     <string name="revoke_permissions">Odvolat oprávnění</string>
+    <string name="save">Uložit</string>
+    <string name="launch">Spustit</string>
+    <string name="settings">Nastavení</string>
+    <string name="play_store">Obchod Play</string>
 </resources>

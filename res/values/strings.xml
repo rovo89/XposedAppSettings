@@ -53,4 +53,7 @@
     <string name="launch">Launch</string>
     <string name="settings">Settings</string>
     <string name="play_store">Play Store</string>
+    <string name="about">About</string>
+    <string name="app_settings">App Settings</string>
+    <string name="loading_apps">Loading apps, please wait</string>
 </resources>

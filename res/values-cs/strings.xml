@@ -53,4 +53,11 @@
     <string name="launch">Spustit</string>
     <string name="settings">Nastavení</string>
     <string name="play_store">Obchod Play</string>
+    <string name="about">O aplikaci</string>
+    <string name="app_settings">Nastavení aplikací</string>
+    <string name="loading_apps">Načitání aplikací, prosím čekejte</string>
+    <string name="description">Umožňuje konfigurovat různá nastavení pro jednotlivé aplikace:
+        DPI; velikost písma; přepisovat načtené zdroje; jazyk;
+        celou obrazovku; bez nadpisu; držet obrazovku zapnutou; orientace;
+        rezidentní v paměti; nestálá oznámení; odvolat oprávnění</string>
 </resources>

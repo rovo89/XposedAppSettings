@@ -49,4 +49,8 @@
     <string name="version">Version: </string>
     <string name="density_note">Note: Although the configuration panels can be used as-is, they will only affect the apps if the Xposed framework is installed and if this module is enabled in its configuration!</string>
     <string name="revoke_permissions">Revoke Permissions</string>
+    <string name="save">Save</string>
+    <string name="launch">Launch</string>
+    <string name="settings">Settings</string>
+    <string name="play_store">Play Store</string>
 </resources>

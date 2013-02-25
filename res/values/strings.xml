@@ -29,7 +29,6 @@
     <string name="active">Active</string>
     <string name="not_active">Not active</string>
     <string name="resource_loading">Resource loading</string>
-    <string name="permissions">Permissions</string>
     <string name="all">All</string>
     <string name="overridden">Overridden</string>
     <string name="unchanged">Unchanged</string>

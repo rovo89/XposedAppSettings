@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_app">Modul do <a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> od
+ <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> a <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
+ Pro otázky a návrhy je možné použít <a href="http://forum.xda-developers.com/showthread.php?t=2012770">toto téma</a>.</string>
+    <string name="dpi">DPI:</string>
+    <string name="dpi2">DPI</string>
+    <string name="font_scale">Velikost písma:</string>
+    <string name="font_scale2">Velikost písma</string>
+    <string name="list_res">Seznam rozlišení</string>
+    <string name="screen_dp">Obrazovka (dp):</string>
+    <string name="xlarge_res">Vysoké rozlišení</string>
+    <string name="locale">Jazyk</string>
+    <string name="fullscreen">Celá obrazovka</string>
+    <string name="no_title">Bez nadpisu</string>
+    <string name="screen_on">Obrazovka zapnuta</string>
+    <string name="orientation">Orientace:</string>
+    <string name="orientation2">Orientace</string>
+    <string name="resident">Rezidentní</string>
+    <string name="insistent_notifications">Nestálá oznámení</string>
+    <string name="permissions">Oprávnění</string>
+    <string name="cancel">Zrušit</string>
+    <string name="ok">Ok</string>
+    <string name="clear">Vyčistit</string>
+    <string name="apply">Použít</string>
+    <string name="user">Uživatel</string>
+    <string name="system">Systém</string>
+    <string name="active">Aktivní</string>
+    <string name="not_active">Neaktivní</string>
+    <string name="resource_loading">Načítání prostředků</string>
+    <string name="all">Vše</string>
+    <string name="overridden">Přepsáno</string>
+    <string name="unchanged">Nezměněno</string>
+    <string name="filter">Filtr</string>
+    <string name="name_or_package">jméno nebo balíček</string>
+    <string name="density_description">Tento modul umožňuje měnit některá nastavení pro jednitlivé aplikace, bez nuntnosti editovat APK soubory:
+        \n- densitu / dpi
+        \n- velikost písma
+        \n- rozlišení obrazovky pro načítání prostředků
+        \n- jazyk
+        \n- celoobrazovkový režim
+        \n- skrytí lišty s nadpisem
+        \n- držet zapnutou obrazovku, když je aplikace spuštěna
+        \n- vynutit orientaci obrazovky (portrét/na šířku/auto)
+        \n- zůstat rezidentní v paměti
+        \n- nestálá oznámení (opakovat zvuk)
+        \n- odvolat oprávnění</string>
+    <string name="version">Verze: </string>
+    <string name="density_note">Poznámka: Pro funkčnost této konfigurace je nutné mít nainstalován Xposed framework a tento modul v něm mít povolený!</string>
+    <string name="revoke_permissions">Odvolat oprávnění</string>
+</resources>

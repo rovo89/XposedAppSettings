@@ -27,7 +27,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@android:drawable/ic_menu_view"
-                    android:contentDescription="Filter"/>
+                    android:contentDescription="@string/filter"/>
                 <SearchView
                     android:id="@+id/searchApp"
                     android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                     android:iconifiedByDefault="false"
                     android:imeOptions="actionSearch|flagNoEnterAction|flagNoExtractUi"
                     android:inputType="textFilter"
-                    android:queryHint="name or package" />
+                    android:queryHint="@string/name_or_package" />
                 <ListView
                     android:id="@+id/lstApps"
                     android:layout_width="match_parent"
@@ -68,29 +68,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="16dp"
-                        android:text="This mod allows certain configurations to be changed on a per-app basis, without needing to edit APKs:
-\n- density / dpi
-\n- font scale
-\n- fake screen size for resources loading
-\n- locale (language)
-\n- fullscreen mode
-\n- hide title bar
-\n- keep screen on while app is visible
-\n- force orientation (portrait/landscape/auto)
-\n- stay resident in memory
-\n- insistent notifications (loop the sound)
-\n- revoke permissions" />
+                        android:text="@string/density_description" />
                     <TextView
                         android:id="@+id/version"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="20dp"
-                        android:text="Version: " />
+                        android:text="@string/version" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="16dp"
-                        android:text="Note: Although the configuration panels can be used as-is, they will only affect the apps if the Xposed framework is installed and if this module is enabled in its configuration!"
+                        android:text="@string/density_note"
                         android:textColor="@android:color/holo_red_dark" />
                 </LinearLayout>
             </ScrollView>

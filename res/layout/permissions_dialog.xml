@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
-        android:text="Revoke Permissions" />
+        android:text="@string/revoke_permissions" />
     <ListView
         android:id="@+id/lstPermissions"
         android:layout_width="match_parent"
@@ -30,11 +30,11 @@
             android:id="@+id/btnPermsCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel" />
+            android:text="@string/cancel" />
         <Button
             android:id="@+id/btnPermsOk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ok" />
+            android:text="@string/ok" />
     </LinearLayout>
 </LinearLayout>

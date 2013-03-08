@@ -63,7 +63,8 @@ public class XposedModActivity extends Activity {
 
     private SharedPreferences prefs;
 	
-	@SuppressLint("WorldReadableFiles")
+	@SuppressWarnings("deprecation")
+    @SuppressLint("WorldReadableFiles")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		setTitle(R.string.app_name);
@@ -332,7 +333,8 @@ public class XposedModActivity extends Activity {
             this.adaptor = adaptor;
         }
         
-    	@SuppressLint("WorldReadableFiles")
+    	@SuppressWarnings("deprecation")
+        @SuppressLint("WorldReadableFiles")
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             // NOTE: this function is *always* called from a background thread, and

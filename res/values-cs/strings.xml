@@ -60,4 +60,14 @@
         DPI; velikost písma; přepisovat načtené zdroje; jazyk;
         celou obrazovku; bez nadpisu; držet obrazovku zapnutou; orientace;
         rezidentní v paměti; nestálá oznámení; odvolat oprávnění</string>
+    <string name="apply_settings">Použít nastavení</string>
+    <string name="apply_settings_note">Také ukončit aplikaci, takže při dalším spuštění u ni bude použito nové nastavení?</string>
+    <string name="yes">Ano</string>
+    <string name="no">Ne</string>
+    <string name="warning">Varování</string>
+    <string name="conf_not_saved">Konfigurace není uložena. </string>
+    <string name="realy_go_back">Opravdu se vrátit zpět a zahodit nastavení?</string>
+    <string name="resources">Zdroje</string>
+    <string name="failed_to_load">Chyba při načítání obsahu APK</string>
+    <string name="no_resource_found">Nenalzeny žádné zdroje</string>
 </resources>

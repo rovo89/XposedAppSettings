@@ -21,7 +21,7 @@
     <string name="insistent_notifications">Insistent Notifications</string>
     <string name="permissions">Permissions</string>
     <string name="cancel">Cancel</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="clear">Clear</string>
     <string name="apply">Apply</string>
     <string name="user">User</string>
@@ -60,4 +60,14 @@
         DPI; Font scale; Override loaded resouces; Locale;
         Fullscreen; No title; Keep screen on; Orientation;
         Resident in memory; Insistent Notifications; Revoke Permissions</string>
+    <string name="apply_settings">Apply settings</string>
+    <string name="apply_settings_note">Also kill the application so when it\'s relaunched it uses the new settings?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="warning">Warning</string>
+    <string name="conf_not_saved">You didn\'t save the configuration. </string>
+    <string name="realy_go_back">Really go back and discard changes?</string>
+    <string name="resources">Resources</string>
+    <string name="failed_to_load">Failed to load APK contents</string>
+    <string name="no_resource_found">No resources found</string>
 </resources>

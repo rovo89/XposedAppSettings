@@ -89,21 +89,22 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 				@Override
 				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 					if (param.args[0] != null && param.thisObject instanceof XResources) {
-						String packageName = ((XResources) param.thisObject).getPackageName();
-						if (packageName != null) {
-							if (!isActive(packageName))
-								return;
-
-							boolean isActiveApp = AndroidAppHelper.currentPackageName().equals(packageName);
-							
-							int screen = prefs.getInt(packageName + Common.PREF_SCREEN,
+						XResources res = ((XResources) param.thisObject);
+						String packageName = res.getPackageName();
+						String hostPackageName = AndroidAppHelper.currentPackageName();
+						boolean isActiveApp = hostPackageName.equals(packageName);
+						
+						// settings related to the density etc. are calculated for the running app...
+						Configuration newConfig = null;
+						if (hostPackageName != null && isActive(hostPackageName)) {
+							int screen = prefs.getInt(hostPackageName + Common.PREF_SCREEN,
 								prefs.getInt(Common.PREF_DEFAULT + Common.PREF_SCREEN, 0));
 							if (screen < 0 || screen >= Common.swdp.length)
 								screen = 0;
 							
-							int dpi = (isActiveApp && Build.VERSION.SDK_INT >= 17) ?
-								prefs.getInt(packageName + Common.PREF_DPI, prefs.getInt(Common.PREF_DEFAULT + Common.PREF_DPI, 0)) : 0;
-							int fontScale = prefs.getInt(packageName + Common.PREF_FONT_SCALE,
+							int dpi = prefs.getInt(hostPackageName + Common.PREF_DPI,
+									prefs.getInt(Common.PREF_DEFAULT + Common.PREF_DPI, 0));
+							int fontScale = prefs.getInt(hostPackageName + Common.PREF_FONT_SCALE,
 									prefs.getInt(Common.PREF_DEFAULT + Common.PREF_FONT_SCALE, 0));
 							int swdp = Common.swdp[screen];
 							int wdp = Common.wdp[screen];
@@ -111,41 +112,60 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 							int w = Common.w[screen];
 							int h = Common.h[screen];
 							
-							boolean xlarge = prefs.getBoolean(packageName + Common.PREF_XLARGE, false);
+							boolean xlarge = prefs.getBoolean(hostPackageName + Common.PREF_XLARGE, false);
 							
-							Locale loc = getPackageSpecificLocale(packageName);
-							
-							if (swdp > 0 || loc != null || xlarge || dpi > 0 || fontScale > 0) {
-								Configuration newConfig = new Configuration((Configuration) param.args[0]);
+							if (swdp > 0 || xlarge || dpi > 0 || fontScale > 0) {
+								newConfig = new Configuration((Configuration) param.args[0]);
+								
+								DisplayMetrics newMetrics;
+								if (param.args[1] != null) {
+									newMetrics = new DisplayMetrics();
+									newMetrics.setTo((DisplayMetrics) param.args[1]);
+									param.args[1] = newMetrics;
+								} else {
+									newMetrics = res.getDisplayMetrics();
+								}
+								
 								if (swdp > 0) {
 									newConfig.smallestScreenWidthDp = swdp;
 									newConfig.screenWidthDp = wdp;
 									newConfig.screenHeightDp = hdp;
 								}
-								if (loc != null) {
-									newConfig.locale = loc;
-									// Also set the locale as the app-wide default,
-									// for purposes other than resource loading
-									if (isActiveApp)
-										Locale.setDefault(loc);
-								}
 								if (xlarge)
 									newConfig.screenLayout |= Configuration.SCREENLAYOUT_SIZE_XLARGE;
-								if (dpi > 0)
-									setIntField(newConfig, "densityDpi", dpi);
+								if (dpi > 0) {
+									newMetrics.density = dpi / 160f;
+									newMetrics.densityDpi = dpi;
+									
+									if (Build.VERSION.SDK_INT >= 17)
+										setIntField(newConfig, "densityDpi", dpi);
+								}
 								if (fontScale > 0)
 									newConfig.fontScale = fontScale / 100.0f;
-								param.args[0] = newConfig;
-								
-								if (w > 0 && param.args[1] != null) {
-									DisplayMetrics newMetrics = new DisplayMetrics();
-									newMetrics.setTo((DisplayMetrics) param.args[1]);
+								if (w > 0) {
 									newMetrics.widthPixels = w;
 									newMetrics.heightPixels = h;
-									param.args[1] = newMetrics;
 								}
 							}
 						}
+
+						// ... whereas the locale is taken from the app for which resources are loaded
+						if (packageName != null && isActive(packageName)) {
+							Locale loc = getPackageSpecificLocale(packageName);
+							if (loc != null) {
+								if (newConfig == null)
+									newConfig = new Configuration((Configuration) param.args[0]);
+
+								newConfig.locale = loc;
+								// Also set the locale as the app-wide default,
+								// for purposes other than resource loading
+								if (isActiveApp)
+									Locale.setDefault(loc);
+							}
+						}
+
+						if (newConfig != null)
+							param.args[0] = newConfig;
 					}
 				}
 			});

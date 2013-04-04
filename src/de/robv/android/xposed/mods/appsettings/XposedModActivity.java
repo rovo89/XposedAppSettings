@@ -132,13 +132,16 @@ public class XposedModActivity extends Activity {
     
     
     @SuppressLint("DefaultLocale")
-    private void loadApps() {
+    private void loadApps(ProgressDialog dialog) {
 
         appList.clear();
         
         PackageManager pm = getPackageManager();
         List<ApplicationInfo> apps = getPackageManager().getInstalledApplications(0);
+        dialog.setMax(apps.size());
+        int i = 1;
         for (ApplicationInfo appInfo : apps) {
+            dialog.setProgress(i++);
             appInfo.name = appInfo.loadLabel(pm).toString();
             appList.add(appInfo);
         }
@@ -297,7 +300,7 @@ public class XposedModActivity extends Activity {
         protected void onPreExecute() {
             dialog = new ProgressDialog(((ListView) findViewById(R.id.lstApps)).getContext());
             dialog.setMessage("Loading apps, please wait");
-            dialog.setIndeterminate(true);
+            dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             dialog.setCancelable(false);
             dialog.show();
         }
@@ -305,7 +308,7 @@ public class XposedModActivity extends Activity {
         @Override
         protected AppListAdaptor doInBackground(Void... params) {
             if (appList.size() == 0) {
-                loadApps();
+                loadApps(dialog);
             }
             return null;
         }

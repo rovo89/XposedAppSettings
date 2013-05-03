@@ -37,6 +37,11 @@ public class Activities {
 
 					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_NO_TITLE, false))
 						window.requestFeature(Window.FEATURE_NO_TITLE);
+					
+					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_ALLOW_ON_LOCKSCREEN, false))
+		    				window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+		    				    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+		    				    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
 					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_SCREEN_ON, false))
 						window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

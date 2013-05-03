@@ -28,6 +28,7 @@ public class Common {
 	public static final String PREF_REVOKELIST = "/revoke-list";
 	public static final String PREF_FULLSCREEN = "/fullscreen";
 	public static final String PREF_NO_TITLE = "/no-title";
+	public static final String PREF_ALLOW_ON_LOCKSCREEN = "/allow-on-lockscreen";
 	public static final String PREF_SCREEN_ON = "/screen-on";
 	public static final String PREF_ORIENTATION = "/orientation";
 

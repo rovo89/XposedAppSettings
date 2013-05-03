@@ -285,6 +285,16 @@ public class ApplicationSettings extends Activity {
 			}
 		});
 
+		// Update Allow On Lockscreen field
+		((CheckBox) findViewById(R.id.chkAllowOnLockscreen)).setChecked(prefs.getBoolean(pkgName + Common.PREF_ALLOW_ON_LOCKSCREEN, false));
+		// Track changes to the Allow On Lockscreen checkbox to know if the settings were changed
+		((CheckBox) findViewById(R.id.chkAllowOnLockscreen)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				dirty = true;
+			}
+		});
+
 		// Update Screen On field
 		((CheckBox) findViewById(R.id.chkScreenOn)).setChecked(prefs.getBoolean(pkgName + Common.PREF_SCREEN_ON, false));
 		// Track changes to the Screen On checkbox to know if the settings were changed
@@ -498,6 +508,11 @@ public class ApplicationSettings extends Activity {
 				} else {
 					prefsEditor.remove(pkgName + Common.PREF_NO_TITLE);
 				}
+				if (((CheckBox) findViewById(R.id.chkAllowOnLockscreen)).isChecked()) {
+					prefsEditor.putBoolean(pkgName + Common.PREF_ALLOW_ON_LOCKSCREEN, true);
+				} else {
+					prefsEditor.remove(pkgName + Common.PREF_ALLOW_ON_LOCKSCREEN);
+				}
 				if (((CheckBox) findViewById(R.id.chkScreenOn)).isChecked()) {
 					prefsEditor.putBoolean(pkgName + Common.PREF_SCREEN_ON, true);
 				} else {
@@ -541,6 +556,7 @@ public class ApplicationSettings extends Activity {
                 prefsEditor.remove(pkgName + Common.PREF_LOCALE);
                 prefsEditor.remove(pkgName + Common.PREF_FULLSCREEN);
                 prefsEditor.remove(pkgName + Common.PREF_NO_TITLE);
+                prefsEditor.remove(pkgName + Common.PREF_ALLOW_ON_LOCKSCREEN);
                 prefsEditor.remove(pkgName + Common.PREF_SCREEN_ON);
                 prefsEditor.remove(pkgName + Common.PREF_ORIENTATION);
                 prefsEditor.remove(pkgName + Common.PREF_RESIDENT);

@@ -10,21 +10,16 @@ import java.util.Set;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PermissionInfo;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
-import android.widget.TextView;
 import de.robv.android.xposed.mods.appsettings.R;
 
 
@@ -62,6 +57,13 @@ public class PermissionSettings {
 		Switch swtRevoke = (Switch) dialog.findViewById(R.id.swtRevokePerms);
 		swtRevoke.setChecked(revokeActive);
 
+		// Load the list of permissions for the package and present them
+		loadPermissionsList(pkgName);
+
+		final PermissionsListAdapter appListAdapter = new PermissionsListAdapter(owner, permsList, disabledPerms, true);
+		appListAdapter.setCanEdit(revokeActive);
+		((ListView) dialog.findViewById(R.id.lstPermissions)).setAdapter(appListAdapter);
+
 		// Track changes to the Revoke checkbox to lock or unlock the list of
 		// permissions
 		swtRevoke.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -69,15 +71,10 @@ public class PermissionSettings {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				revokeActive = isChecked;
 				dialog.findViewById(R.id.lstPermissions).setBackgroundColor(revokeActive ? Color.BLACK : Color.DKGRAY);
+				appListAdapter.setCanEdit(revokeActive);
 			}
 		});
 		dialog.findViewById(R.id.lstPermissions).setBackgroundColor(revokeActive ? Color.BLACK : Color.DKGRAY);
-
-		// Load the list of permissions for the package and present them
-		loadPermissionsList(pkgName);
-
-		final PermsListAdaptor appListAdaptor = new PermsListAdaptor(owner, permsList);
-		((ListView) dialog.findViewById(R.id.lstPermissions)).setAdapter(appListAdaptor);
 
 		((Button) dialog.findViewById(R.id.btnPermsCancel)).setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -132,95 +129,6 @@ public class PermissionSettings {
 	 */
 	public Set<String> getDisabledPermissions() {
 		return new HashSet<String>(disabledPerms);
-	}
-
-	/*
-	 * Adapter to feed the list of permission entries
-	 */
-	private class PermsListAdaptor extends ArrayAdapter<PermissionInfo> {
-
-		public PermsListAdaptor(Context context, List<PermissionInfo> items) {
-
-			super(context, R.layout.app_list_item, items);
-		}
-
-		private class ViewHolder {
-			TextView tvName;
-			TextView tvDescription;
-		}
-
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View row = convertView;
-			ViewHolder vHolder;
-			if (row == null) {
-				row = dialog.getLayoutInflater().inflate(R.layout.app_permission_item, parent, false);
-				vHolder = new ViewHolder();
-				vHolder.tvName = (TextView) row.findViewById(R.id.perm_name);
-				vHolder.tvDescription = (TextView) row.findViewById(R.id.perm_description);
-				row.setTag(vHolder);
-			} else {
-				vHolder = (ViewHolder) row.getTag();
-			}
-
-			PermissionInfo perm = permsList.get(position);
-			PackageManager pm = dialog.getContext().getPackageManager();
-
-			CharSequence label = perm.loadLabel(pm);
-			if (!label.equals(perm.name)) {
-				label = perm.name + " (" + label + ")";
-			}
-
-			vHolder.tvName.setText(label);
-			CharSequence description = perm.loadDescription(pm);
-			description = (description == null) ? "" : description.toString().trim();
-			if (description.length() == 0)
-				description = "( no description provided )";
-			vHolder.tvDescription.setText(description);
-			switch (perm.protectionLevel) {
-			case PermissionInfo.PROTECTION_DANGEROUS:
-				vHolder.tvDescription.setTextColor(Color.RED);
-				break;
-			case PermissionInfo.PROTECTION_SIGNATURE:
-				vHolder.tvDescription.setTextColor(Color.GREEN);
-				break;
-			case PermissionInfo.PROTECTION_SIGNATURE_OR_SYSTEM:
-				vHolder.tvDescription.setTextColor(Color.YELLOW);
-				break;
-			default:
-				vHolder.tvDescription.setTextColor(Color.parseColor("#0099CC"));
-				break;
-			}
-
-			vHolder.tvName.setTag(perm.name);
-			if (disabledPerms.contains(perm.name)) {
-				vHolder.tvName.setPaintFlags(vHolder.tvName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-				vHolder.tvName.setTextColor(Color.MAGENTA);
-			} else {
-				vHolder.tvName.setPaintFlags(vHolder.tvName.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-				vHolder.tvName.setTextColor(Color.WHITE);
-			}
-			row.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					if (!revokeActive)
-						return;
-
-					TextView tv = (TextView) v.findViewById(R.id.perm_name);
-					if ((tv.getPaintFlags() & Paint.STRIKE_THRU_TEXT_FLAG) != 0) {
-						disabledPerms.remove(tv.getTag());
-						tv.setPaintFlags(tv.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-						tv.setTextColor(Color.WHITE);
-					} else {
-						disabledPerms.add((String) tv.getTag());
-						tv.setPaintFlags(tv.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-						tv.setTextColor(Color.MAGENTA);
-					}
-				}
-			});
-
-			return row;
-		}
-
 	}
 
 	/*

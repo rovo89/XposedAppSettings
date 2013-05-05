@@ -28,11 +28,18 @@
                     android:layout_height="wrap_content"
                     android:src="@android:drawable/ic_menu_view"
                     android:contentDescription="Filter"/>
+                <ImageButton
+                    android:id="@+id/btnPermsFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/btnFilter"
+                    android:src="@android:drawable/ic_lock_lock"
+                    android:contentDescription="Permissions"/>
                 <SearchView
                     android:id="@+id/searchApp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/btnFilter"
+                    android:layout_toRightOf="@id/btnPermsFilter"
                     android:focusable="false"
                     android:iconifiedByDefault="false"
                     android:imeOptions="actionSearch|flagNoEnterAction|flagNoExtractUi"

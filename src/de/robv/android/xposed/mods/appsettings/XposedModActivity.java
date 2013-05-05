@@ -1,5 +1,6 @@
 package de.robv.android.xposed.mods.appsettings;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,6 +24,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +71,9 @@ public class XposedModActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		setTitle(R.string.app_name);
 		super.onCreate(savedInstanceState);
+
+		new File(Environment.getDataDirectory(), "data/" + Common.MY_PACKAGE_NAME + "/shared_prefs/" +
+				Common.PREFS + ".xml").setReadable(true, false);
 
         prefs = getSharedPreferences(Common.PREFS, Context.MODE_WORLD_READABLE);
 		

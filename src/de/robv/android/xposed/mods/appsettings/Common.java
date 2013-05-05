@@ -2,6 +2,7 @@ package de.robv.android.xposed.mods.appsettings;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
 
 public class Common {
@@ -39,7 +40,7 @@ public class Common {
 	public static final int[] h = { 0, 480, 854, 1024, 1280, 1600 };
 	public static final String[] screens = { "(default)", "320x480", "480x854", "600x1024", "800x1280", "1000x1600" };
 	
-	public static final String[] orientations = { "(default app rotation)", "Normal rotation", "Always portrait", "Always landscape" };
-	public static final int[] orientationCodes = { Integer.MIN_VALUE, SCREEN_ORIENTATION_UNSPECIFIED, SCREEN_ORIENTATION_PORTRAIT, SCREEN_ORIENTATION_LANDSCAPE };
+	public static final String[] orientations = { "(default app rotation)", "Normal rotation", "Always portrait", "Always landscape", "Force auto-rotation" };
+	public static final int[] orientationCodes = { Integer.MIN_VALUE, SCREEN_ORIENTATION_UNSPECIFIED, SCREEN_ORIENTATION_PORTRAIT, SCREEN_ORIENTATION_LANDSCAPE, SCREEN_ORIENTATION_SENSOR };
 
 }

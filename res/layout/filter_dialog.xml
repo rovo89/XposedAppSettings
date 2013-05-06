@@ -10,15 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:label="Type"
-        app:overridden_label="User"
-        app:unchanged_label="System" />
+        app:overridden_label="@string/user"
+        app:unchanged_label="@string/system" />
     <de.robv.android.xposed.mods.appsettings.FilterItemComponent
         android:id="@+id/fltActive"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:label="Settings active"
-        app:overridden_label="Active"
-        app:unchanged_label="Not active" />
+        app:overridden_label="@string/active"
+        app:unchanged_label="@string/not_active" />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -35,62 +35,62 @@
                 android:id="@+id/fltDPI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:label="DPI" />
+                app:label="@string/dpi2" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
                 android:id="@+id/fltTextScale"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:label="Font scale" />
+                app:label="@string/font_scale2" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
                 android:id="@+id/fltResLoad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:label="Resource loading" />
+                app:label="@string/resource_loading" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
                 android:id="@+id/fltLocale"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:label="Locale" />
+                app:label="@string/locale" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
                 android:id="@+id/fltFullscreen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:label="Fullscreen" />
+                app:label="@string/fullscreen" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
                 android:id="@+id/fltNoTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:label="No title" />
+                app:label="@string/no_title" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
                 android:id="@+id/fltAllowOnLockscreen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:label="Allowed on lockscreen" />
+                app:label="@string/allowed_on_lockscreen" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
                 android:id="@+id/fltScreenOn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:label="Screen on" />
+                app:label="@string/screen_on" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
                 android:id="@+id/fltOrientation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:label="Orientation" />
+                app:label="@string/orientation2" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
                 android:id="@+id/fltResident"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:label="Resident" />
+                app:label="@string/resident" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
                 android:id="@+id/fltInsNotif"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:label="Insistent notifications" />
+                app:label="@string/insistent_notifications" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
                 android:id="@+id/fltPermissions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:label="Permissions" />
+                app:label="@string/permissions" />
         </LinearLayout>
     </ScrollView>
     <LinearLayout
@@ -103,16 +103,16 @@
             android:id="@+id/btnFilterCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel" />
+            android:text="@string/cancel" />
         <Button
             android:id="@+id/btnFilterClear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Clear" />
+            android:text="@string/clear" />
         <Button
             android:id="@+id/btnFilterApply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Apply" />
+            android:text="@string/apply" />
     </LinearLayout>
 </LinearLayout>

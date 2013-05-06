@@ -66,6 +66,7 @@ public class ApplicationSettings extends Activity {
     
     
     /** Called when the activity is first created. */
+    @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	
@@ -241,7 +242,7 @@ public class ApplicationSettings extends Activity {
 		            		resEntries.add(m.group(1));
 		            }
 		            if (resEntries.size() == 0)
-		            	resEntries.add("No resources found");
+		            	resEntries.add(getString(R.string.no_resource_found));
 		            jar.close();
 			        for (String dir : resEntries) {
 			        	contents.append('\n');
@@ -249,7 +250,7 @@ public class ApplicationSettings extends Activity {
 			        }
 			        contents.deleteCharAt(0);
 		        } catch (Exception e) {
-		            contents.append("Failed to load APK contents");
+		            contents.append(R.string.failed_to_load);
 		            if (jar != null) {
 			            try {
 			            	jar.close();
@@ -259,7 +260,7 @@ public class ApplicationSettings extends Activity {
 		        txtPane.setText(contents);
 		        scrollPane.addView(txtPane);
 		        builder.setView(scrollPane);
-		        builder.setTitle("Resources");
+		        builder.setTitle(R.string.resources);
 		        builder.show();
 			}
 		});
@@ -389,17 +390,17 @@ public class ApplicationSettings extends Activity {
     	
     	// Require confirmation to exit the screen and lose configuration changes
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Warning");
+        builder.setTitle(R.string.warning);
         builder.setIconAttribute(android.R.attr.alertDialogIcon);
-        builder.setMessage("You didn't save the configuration. " +
-        		"Really go back and discard changes?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setMessage(getString(R.string.conf_not_saved) +
+        		getString(R.string.realy_go_back));
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 ApplicationSettings.this.finish();
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
@@ -570,9 +571,9 @@ public class ApplicationSettings extends Activity {
             
             // Check if in addition so saving the settings, the app should also be killed
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Apply settings");
-            builder.setMessage("Also kill the application so when it's relaunched it uses the new settings?");
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            builder.setTitle(R.string.apply_settings);
+            builder.setMessage(getString(R.string.apply_settings_note));
+            builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                 	// Send the broadcast requesting to kill the app
@@ -585,7 +586,7 @@ public class ApplicationSettings extends Activity {
                     dialog.dismiss();
                 }
             });
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                 	// Send the broadcast but not requesting kill

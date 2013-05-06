@@ -42,7 +42,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="DPI:" >
+                    android:text="@string/dpi" >
                 </TextView>
                 <EditText
                     android:id="@+id/txtDPI"
@@ -56,7 +56,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Font scale:" >
+                    android:text="@string/font_scale" >
                 </TextView>
                 <EditText
                     android:id="@+id/txtFontScale"
@@ -71,7 +71,7 @@
                     android:id="@+id/btnListRes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="List Res" />
+                    android:text="@string/list_res" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -80,7 +80,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Screen (dp):" >
+                    android:text="@string/screen_dp" >
                 </TextView>
                 <Spinner
                     android:id="@+id/spnScreen"
@@ -91,7 +91,7 @@
                     android:id="@+id/chkXlarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="xlarge res" />
+                    android:text="@string/xlarge_res" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -101,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Locale" />
+                    android:text="@string/locale" />
                 <Spinner
                     android:id="@+id/spnLocale"
                     android:layout_width="0dip"
@@ -116,23 +116,23 @@
                     android:id="@+id/chkFullscreen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fullscreen" />
+                    android:text="@string/fullscreen" />
                 <CheckBox
                     android:id="@+id/chkNoTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No Title" />
+                    android:text="@string/no_title" />
                 <CheckBox
                     android:id="@+id/chkScreenOn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Screen on" />
+                    android:text="@string/screen_on" />
             </LinearLayout>
             <CheckBox
                 android:id="@+id/chkAllowOnLockscreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Show when phone locked" />    
+                android:text="@string/show_phone_locked" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Orientation:" />
+                    android:text="@string/orientation" />
                 <Spinner
                     android:id="@+id/spnOrientation"
                     android:layout_width="0dip"
@@ -156,18 +156,18 @@
                     android:id="@+id/chkResident"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Resident" />
+                    android:text="@string/resident" />
                 <CheckBox
                     android:id="@+id/chkInsistentNotifications"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Insistent Notifications" />
+                    android:text="@string/insistent_notifications" />
             </LinearLayout>
             <Button
                 android:id="@+id/btnPermissions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Permissions" />
+                android:text="@string/permissions" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

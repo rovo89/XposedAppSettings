@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
@@ -20,6 +21,7 @@ import de.robv.android.xposed.mods.appsettings.R;
 /*
  * Adapter to feed the list of permission entries
  */
+@SuppressLint("DefaultLocale")
 public class PermissionsListAdapter extends ArrayAdapter<PermissionInfo> implements Filterable {
 
 	Activity context;
@@ -131,6 +133,7 @@ public class PermissionsListAdapter extends ArrayAdapter<PermissionInfo> impleme
 	}
 
 	/* Filter permissions by name, label or description based on contained text */
+	@SuppressLint("DefaultLocale")
 	private class CustomFilter extends Filter {
 
 		private boolean matches(CharSequence value, CharSequence filter) {
@@ -157,7 +160,8 @@ public class PermissionsListAdapter extends ArrayAdapter<PermissionInfo> impleme
 			return result;
 		}
 
-		@Override
+		@SuppressWarnings("unchecked")
+        @Override
 		protected void publishResults(CharSequence constraint, FilterResults results) {
 			clear();
 			addAll((List<PermissionInfo>) results.values);

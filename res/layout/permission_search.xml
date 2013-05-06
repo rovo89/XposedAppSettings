@@ -13,3 +13,4 @@
         android:inputType="textFilter"
         android:queryHint="name or description" />
 </LinearLayout>
+

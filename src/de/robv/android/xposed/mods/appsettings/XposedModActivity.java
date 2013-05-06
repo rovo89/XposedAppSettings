@@ -1,28 +1,37 @@
 package de.robv.android.xposed.mods.appsettings;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.PermissionInfo;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,12 +49,18 @@ import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 import de.robv.android.xposed.mods.appsettings.FilterItemComponent.FilterState;
 import de.robv.android.xposed.mods.appsettings.settings.ApplicationSettings;
+import de.robv.android.xposed.mods.appsettings.settings.PermissionsListAdapter;
 
 
 public class XposedModActivity extends Activity {
 
 	private ArrayList<ApplicationInfo> appList = new ArrayList<ApplicationInfo>();
 	private ArrayList<ApplicationInfo> filteredAppList = new ArrayList<ApplicationInfo>();
+
+	private Map<String, Set<String>> permUsage = new HashMap<String, Set<String>>();
+	private Map<String, Set<String>> sharedUsers = new HashMap<String, Set<String>>();
+	private Map<String, String> pkgSharedUsers = new HashMap<String, String>();
+
 	private String nameFilter;
 	private FilterState filterAppType;
 	private FilterState filterActive;
@@ -55,11 +70,14 @@ public class XposedModActivity extends Activity {
 	private FilterState filterLocale;
 	private FilterState filterFullscreen;
 	private FilterState filterNoTitle;
+	private FilterState filterAllowOnLockscreen;
 	private FilterState filterScreenOn;
 	private FilterState filterOrientation;
 	private FilterState filterResident;
 	private FilterState filterInsNotif;
 	private FilterState filterPermissions;
+
+	private String filterPermissionUsage;
 
     private SharedPreferences prefs;
 	
@@ -69,6 +87,9 @@ public class XposedModActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		setTitle(R.string.app_name);
 		super.onCreate(savedInstanceState);
+
+		new File(Environment.getDataDirectory(), "data/" + Common.MY_PACKAGE_NAME + "/shared_prefs/" +
+				Common.PREFS + ".xml").setReadable(true, false);
 
         prefs = getSharedPreferences(Common.PREFS, Context.MODE_WORLD_READABLE);
 		
@@ -136,15 +157,45 @@ public class XposedModActivity extends Activity {
     private void loadApps(ProgressDialog dialog) {
 
         appList.clear();
+        permUsage.clear();
+        sharedUsers.clear();
+        pkgSharedUsers.clear();
         
         PackageManager pm = getPackageManager();
-        List<ApplicationInfo> apps = getPackageManager().getInstalledApplications(0);
-        dialog.setMax(apps.size());
+        List<PackageInfo> pkgs = getPackageManager().getInstalledPackages(PackageManager.GET_PERMISSIONS);
+        dialog.setMax(pkgs.size());
         int i = 1;
-        for (ApplicationInfo appInfo : apps) {
+        for (PackageInfo pkgInfo : pkgs) {
             dialog.setProgress(i++);
+
+			ApplicationInfo appInfo = pkgInfo.applicationInfo;
+			if (appInfo == null)
+				continue;
+
             appInfo.name = appInfo.loadLabel(pm).toString();
             appList.add(appInfo);
+
+			String[] perms = pkgInfo.requestedPermissions;
+			if (perms != null)
+				for (String perm : perms) {
+					Set<String> permUsers = permUsage.get(perm);
+					if (permUsers == null) {
+						permUsers = new TreeSet<String>();
+						permUsage.put(perm, permUsers);
+					}
+					permUsers.add(pkgInfo.packageName);
+				}
+
+			if (pkgInfo.sharedUserId != null) {
+				Set<String> sharedUserPackages = sharedUsers.get(pkgInfo.sharedUserId);
+				if (sharedUserPackages == null) {
+					sharedUserPackages = new TreeSet<String>();
+					sharedUsers.put(pkgInfo.sharedUserId, sharedUserPackages);
+				}
+				sharedUserPackages.add(pkgInfo.packageName);
+
+				pkgSharedUsers.put(pkgInfo.packageName, pkgInfo.sharedUserId);
+			}
         }
         
         Collections.sort(appList, new Comparator<ApplicationInfo>() {
@@ -207,6 +258,7 @@ public class XposedModActivity extends Activity {
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltLocale)).setFilterState(filterLocale);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltFullscreen)).setFilterState(filterFullscreen);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltNoTitle)).setFilterState(filterNoTitle);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltAllowOnLockscreen)).setFilterState(filterAllowOnLockscreen);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltScreenOn)).setFilterState(filterScreenOn);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltOrientation)).setFilterState(filterOrientation);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltResident)).setFilterState(filterResident);
@@ -240,6 +292,7 @@ public class XposedModActivity extends Activity {
 						filterLocale = FilterState.ALL;
 						filterFullscreen = FilterState.ALL;
 						filterNoTitle = FilterState.ALL;
+						filterAllowOnLockscreen = FilterState.ALL;
 						filterScreenOn = FilterState.ALL;
 						filterOrientation = FilterState.ALL;
 						filterResident = FilterState.ALL;
@@ -261,6 +314,7 @@ public class XposedModActivity extends Activity {
 						filterLocale = ((FilterItemComponent) filterDialog.findViewById(R.id.fltLocale)).getFilterState();
 						filterFullscreen = ((FilterItemComponent) filterDialog.findViewById(R.id.fltFullscreen)).getFilterState();
 						filterNoTitle = ((FilterItemComponent) filterDialog.findViewById(R.id.fltNoTitle)).getFilterState();
+						filterAllowOnLockscreen = ((FilterItemComponent) filterDialog.findViewById(R.id.fltAllowOnLockscreen)).getFilterState();
 						filterScreenOn = ((FilterItemComponent) filterDialog.findViewById(R.id.fltScreenOn)).getFilterState();
 						filterOrientation = ((FilterItemComponent) filterDialog.findViewById(R.id.fltOrientation)).getFilterState();
 						filterResident = ((FilterItemComponent) filterDialog.findViewById(R.id.fltResident)).getFilterState();
@@ -283,6 +337,7 @@ public class XposedModActivity extends Activity {
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltLocale)).setEnabled(enable);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltFullscreen)).setEnabled(enable);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltNoTitle)).setEnabled(enable);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltAllowOnLockscreen)).setEnabled(enable);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltScreenOn)).setEnabled(enable);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltOrientation)).setEnabled(enable);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltResident)).setEnabled(enable);
@@ -290,6 +345,70 @@ public class XposedModActivity extends Activity {
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltPermissions)).setEnabled(enable);
 			}
         });
+
+		((ImageButton) findViewById(R.id.btnPermsFilter)).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				AlertDialog.Builder bld = new AlertDialog.Builder(XposedModActivity.this);
+				bld.setCancelable(true);
+				bld.setTitle("Select permission to filter for, or Cancel to show all");
+
+				List<String> perms = new LinkedList<String>(permUsage.keySet());
+				Collections.sort(perms);
+				List<PermissionInfo> items = new ArrayList<PermissionInfo>();
+				PackageManager pm = getPackageManager();
+				for (String perm : perms) {
+					try {
+						items.add(pm.getPermissionInfo(perm, 0));
+					} catch (NameNotFoundException e) {
+						PermissionInfo unknownPerm = new PermissionInfo();
+						unknownPerm.name = perm;
+						items.add(unknownPerm);
+					}
+				}
+				final PermissionsListAdapter adapter = new PermissionsListAdapter(XposedModActivity.this, items, new HashSet<String>(), false);
+				bld.setAdapter(adapter, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						filterPermissionUsage = adapter.getItem(which).name;
+						appListAdaptor.getFilter().filter(nameFilter);
+					}
+				});
+
+				final View permsView = getLayoutInflater().inflate(R.layout.permission_search, null);
+				((SearchView) permsView.findViewById(R.id.searchPermission)).setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+					@Override
+					public boolean onQueryTextSubmit(String query) {
+						adapter.getFilter().filter(query);
+						((SearchView) permsView.findViewById(R.id.searchPermission)).clearFocus();
+						return false;
+					}
+
+					@Override
+					public boolean onQueryTextChange(String newText) {
+						adapter.getFilter().filter(newText);
+						return false;
+					}
+				});
+				bld.setView(permsView);
+
+				bld.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						filterPermissionUsage = null;
+						appListAdaptor.getFilter().filter(nameFilter);
+					}
+				});
+
+				AlertDialog dialog = bld.create();
+				dialog.getListView().setFastScrollEnabled(true);
+
+				dialog.show();
+			}
+		});
+
     }
     
     
@@ -401,6 +520,8 @@ public class XposedModActivity extends Activity {
 				return true;
 			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_NO_TITLE, false), filterNoTitle))
 				return true;
+			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_ALLOW_ON_LOCKSCREEN, false), filterAllowOnLockscreen))
+				return true;
 			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_SCREEN_ON, false), filterScreenOn))
 				return true;
 			if (filteredOut(prefs.getInt(packageName + Common.PREF_ORIENTATION, 0) > 0, filterOrientation))
@@ -411,6 +532,12 @@ public class XposedModActivity extends Activity {
 				return true;
 			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_REVOKEPERMS, false), filterPermissions))
 				return true;
+
+			if (filterPermissionUsage != null) {
+				Set<String> pkgsForPerm = permUsage.get(filterPermissionUsage);
+				if (!pkgsForPerm.contains(packageName))
+					return true;
+			}
 
 			return false;
 		}

@@ -70,4 +70,6 @@
     <string name="resources">Resources</string>
     <string name="failed_to_load">Failed to load APK contents</string>
     <string name="no_resource_found">No resources found</string>
+    <string name="allowed_on_lockscreen">Allowed on lockscreen</string>
+    <string name="show_phone_locked">Show when phone locked</string>
 </resources>

@@ -70,4 +70,6 @@
     <string name="resources">Zdroje</string>
     <string name="failed_to_load">Chyba při načítání obsahu APK</string>
     <string name="no_resource_found">Nenalzeny žádné zdroje</string>
+    <string name="allowed_on_lockscreen">Povoleno na zamčené obrazovce</string>
+    <string name="show_phone_locked">Zobrazit, když je telefon uzamčen</string>
 </resources>

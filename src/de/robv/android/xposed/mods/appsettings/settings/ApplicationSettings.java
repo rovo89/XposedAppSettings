@@ -77,14 +77,13 @@ public class ApplicationSettings extends Activity {
 
         setContentView(R.layout.app_settings);
         
-        Intent i = getIntent();
-        parentIntent = i;
+        parentIntent = getIntent();
 
         prefs = getSharedPreferences(Common.PREFS, Context.MODE_WORLD_READABLE);        
         
         ApplicationInfo app;
         try {
-            app = getPackageManager().getApplicationInfo(i.getStringExtra("package"), 0);
+            app = getPackageManager().getApplicationInfo(parentIntent.getStringExtra("package"), 0);
             pkgName = app.packageName;
         } catch (NameNotFoundException e) {
 			// Close the dialog gracefully, package might have been uninstalled
@@ -204,17 +203,7 @@ public class ApplicationSettings extends Activity {
 		selectedLocalePos = localeList.getLocalePos(prefs.getString(pkgName + Common.PREF_LOCALE, null));
 		spnLanguage.setSelection(selectedLocalePos);
 		// Track changes to the language to know if the settings were changed
-		spnLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
-				if (pos != selectedLocalePos) {
-				    dirty = true;
-				}
-			}
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-			}
-		});
+		spnLanguage.setOnItemSelectedListener(new DirtyClassListener());
 		
 		
 		// Helper to list all apk folders under /res
@@ -268,42 +257,22 @@ public class ApplicationSettings extends Activity {
         // Update Fullscreen field
         ((CheckBox) findViewById(R.id.chkFullscreen)).setChecked(prefs.getBoolean(pkgName + Common.PREF_FULLSCREEN, false));
         // Track changes to the Fullscreen checkbox to know if the settings were changed
-        ((CheckBox) findViewById(R.id.chkFullscreen)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dirty = true;
-            }
-        });
+        ((CheckBox) findViewById(R.id.chkFullscreen)).setOnCheckedChangeListener(new DirtyClassListener());
         
 		// Update No Title field
 		((CheckBox) findViewById(R.id.chkNoTitle)).setChecked(prefs.getBoolean(pkgName + Common.PREF_NO_TITLE, false));
 		// Track changes to the No Title checkbox to know if the settings were changed
-		((CheckBox) findViewById(R.id.chkNoTitle)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				dirty = true;
-			}
-		});
+		((CheckBox) findViewById(R.id.chkNoTitle)).setOnCheckedChangeListener(new DirtyClassListener());
 
 		// Update Allow On Lockscreen field
 		((CheckBox) findViewById(R.id.chkAllowOnLockscreen)).setChecked(prefs.getBoolean(pkgName + Common.PREF_ALLOW_ON_LOCKSCREEN, false));
 		// Track changes to the Allow On Lockscreen checkbox to know if the settings were changed
-		((CheckBox) findViewById(R.id.chkAllowOnLockscreen)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				dirty = true;
-			}
-		});
+		((CheckBox) findViewById(R.id.chkAllowOnLockscreen)).setOnCheckedChangeListener(new DirtyClassListener());
 
 		// Update Screen On field
 		((CheckBox) findViewById(R.id.chkScreenOn)).setChecked(prefs.getBoolean(pkgName + Common.PREF_SCREEN_ON, false));
 		// Track changes to the Screen On checkbox to know if the settings were changed
-		((CheckBox) findViewById(R.id.chkScreenOn)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				dirty = true;
-			}
-		});
+		((CheckBox) findViewById(R.id.chkScreenOn)).setOnCheckedChangeListener(new DirtyClassListener());
 
         // Load and render current screen setting + possible options
         int orientation = prefs.getInt(pkgName + Common.PREF_ORIENTATION, 0);
@@ -319,37 +288,17 @@ public class ApplicationSettings extends Activity {
 		spnOrientation.setAdapter(orientationAdapter);
 		spnOrientation.setSelection(selectedOrientation);
 		// Track changes to the orientation to know if the settings were changed
-		spnOrientation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
-				if (pos != selectedOrientation) {
-				    dirty = true;
-				}
-			}
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-			}
-		});
+		spnOrientation.setOnItemSelectedListener(new DirtyClassListener());
 
 		// Setting for making the app resident in memory
         ((CheckBox) findViewById(R.id.chkResident)).setChecked(prefs.getBoolean(pkgName + Common.PREF_RESIDENT, false));
 		// Track changes to know if the settings were changed
-        ((CheckBox) findViewById(R.id.chkResident)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dirty = true;
-            }
-        });
+        ((CheckBox) findViewById(R.id.chkResident)).setOnCheckedChangeListener(new DirtyClassListener());
         
         // Update Insistent Notifications field
         ((CheckBox) findViewById(R.id.chkInsistentNotifications)).setChecked(prefs.getBoolean(pkgName + Common.PREF_INSISTENT_NOTIF, false));
 		// Track changes to the Insistent Notifications checkbox to know if the settings were changed
-        ((CheckBox) findViewById(R.id.chkInsistentNotifications)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dirty = true;
-            }
-        });
+        ((CheckBox) findViewById(R.id.chkInsistentNotifications)).setOnCheckedChangeListener(new DirtyClassListener());
 
 		// Setting for permissions revoking
 		allowRevoking = prefs.getBoolean(pkgName + Common.PREF_REVOKEPERMS, false);
@@ -456,116 +405,8 @@ public class ApplicationSettings extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         
         if (item.getItemId() == R.id.menu_save) {
-            Editor prefsEditor = prefs.edit();
-            if (swtActive.isChecked()) {
-                prefsEditor.putBoolean(pkgName + Common.PREF_ACTIVE, true);
-                int dpi;
-                try {
-                	dpi = Integer.parseInt(((EditText) findViewById(R.id.txtDPI)).getText().toString());
-                } catch (Exception ex) {
-                	dpi = 0;
-                }
-                if (dpi != 0) {
-                    prefsEditor.putInt(pkgName + Common.PREF_DPI, dpi);
-                } else {
-                    prefsEditor.remove(pkgName + Common.PREF_DPI);
-                }
-				int fontScale;
-				try {
-					fontScale = Integer.parseInt(((EditText) findViewById(R.id.txtFontScale)).getText().toString());
-				} catch (Exception ex) {
-					fontScale = 0;
-				}
-				if (fontScale != 0 && fontScale != 100) {
-					prefsEditor.putInt(pkgName + Common.PREF_FONT_SCALE, fontScale);
-				} else {
-					prefsEditor.remove(pkgName + Common.PREF_FONT_SCALE);
-				}
-                int screen = ((Spinner) findViewById(R.id.spnScreen)).getSelectedItemPosition();
-                if (screen > 0) {
-                    prefsEditor.putInt(pkgName + Common.PREF_SCREEN, screen);
-                } else {
-                	prefsEditor.remove(pkgName + Common.PREF_SCREEN);
-                }
-                if (((CheckBox) findViewById(R.id.chkXlarge)).isChecked()) {
-                    prefsEditor.putBoolean(pkgName + Common.PREF_XLARGE, true);
-                }  else {
-                    prefsEditor.remove(pkgName + Common.PREF_XLARGE);
-                }
-				selectedLocalePos = ((Spinner) findViewById(R.id.spnLocale)).getSelectedItemPosition();
-				if (selectedLocalePos > 0) {
-					prefsEditor.putString(pkgName + Common.PREF_LOCALE, localeList.getLocale(selectedLocalePos));
-				} else {
-					prefsEditor.remove(pkgName + Common.PREF_LOCALE);
-				}
-                if (((CheckBox) findViewById(R.id.chkFullscreen)).isChecked()) {
-                    prefsEditor.putBoolean(pkgName + Common.PREF_FULLSCREEN, true);
-                }  else {
-                    prefsEditor.remove(pkgName + Common.PREF_FULLSCREEN);
-                }
-				if (((CheckBox) findViewById(R.id.chkNoTitle)).isChecked()) {
-					prefsEditor.putBoolean(pkgName + Common.PREF_NO_TITLE, true);
-				} else {
-					prefsEditor.remove(pkgName + Common.PREF_NO_TITLE);
-				}
-				if (((CheckBox) findViewById(R.id.chkAllowOnLockscreen)).isChecked()) {
-					prefsEditor.putBoolean(pkgName + Common.PREF_ALLOW_ON_LOCKSCREEN, true);
-				} else {
-					prefsEditor.remove(pkgName + Common.PREF_ALLOW_ON_LOCKSCREEN);
-				}
-				if (((CheckBox) findViewById(R.id.chkScreenOn)).isChecked()) {
-					prefsEditor.putBoolean(pkgName + Common.PREF_SCREEN_ON, true);
-				} else {
-					prefsEditor.remove(pkgName + Common.PREF_SCREEN_ON);
-				}
-				int orientation = ((Spinner) findViewById(R.id.spnOrientation)).getSelectedItemPosition();
-				if (orientation > 0) {
-					prefsEditor.putInt(pkgName + Common.PREF_ORIENTATION, orientation);
-				} else {
-					prefsEditor.remove(pkgName + Common.PREF_ORIENTATION);
-				}
-				if (((CheckBox) findViewById(R.id.chkResident)).isChecked()) {
-					prefsEditor.putBoolean(pkgName + Common.PREF_RESIDENT, true);
-				} else {
-					prefsEditor.remove(pkgName + Common.PREF_RESIDENT);
-				}
-				if (((CheckBox) findViewById(R.id.chkInsistentNotifications)).isChecked()) {
-					prefsEditor.putBoolean(pkgName + Common.PREF_INSISTENT_NOTIF, true);
-				} else {
-					prefsEditor.remove(pkgName + Common.PREF_INSISTENT_NOTIF);
-				}
-				if (allowRevoking) {
-					prefsEditor.putBoolean(pkgName + Common.PREF_REVOKEPERMS, true);
-				} else {
-					prefsEditor.remove(pkgName + Common.PREF_REVOKEPERMS);
-				}
-                prefsEditor.remove(pkgName + Common.PREF_REVOKELIST);
-                if (disabledPermissions.size() > 0) {
-					// Commit and reopen the editor, as it seems to be bugged when updating a StringSet
-                    prefsEditor.commit();
-                    prefsEditor = prefs.edit();
-                    prefsEditor.putStringSet(pkgName + Common.PREF_REVOKELIST, disabledPermissions);
-                }
-                
-            } else {
-                prefsEditor.remove(pkgName + Common.PREF_ACTIVE);
-                prefsEditor.remove(pkgName + Common.PREF_DPI);
-                prefsEditor.remove(pkgName + Common.PREF_FONT_SCALE);
-                prefsEditor.remove(pkgName + Common.PREF_SCREEN);
-                prefsEditor.remove(pkgName + Common.PREF_XLARGE);
-                prefsEditor.remove(pkgName + Common.PREF_LOCALE);
-                prefsEditor.remove(pkgName + Common.PREF_FULLSCREEN);
-                prefsEditor.remove(pkgName + Common.PREF_NO_TITLE);
-                prefsEditor.remove(pkgName + Common.PREF_ALLOW_ON_LOCKSCREEN);
-                prefsEditor.remove(pkgName + Common.PREF_SCREEN_ON);
-                prefsEditor.remove(pkgName + Common.PREF_ORIENTATION);
-                prefsEditor.remove(pkgName + Common.PREF_RESIDENT);
-                prefsEditor.remove(pkgName + Common.PREF_INSISTENT_NOTIF);
-                prefsEditor.remove(pkgName + Common.PREF_REVOKEPERMS);
-                prefsEditor.remove(pkgName + Common.PREF_REVOKELIST);
-            }
-            prefsEditor.commit();
-            
+   
+        	SaveChanges();
             dirty = false;
             
             // Check if in addition so saving the settings, the app should also be killed
@@ -612,6 +453,134 @@ public class ApplicationSettings extends Activity {
         return super.onOptionsItemSelected(item);
     }
     
-    
-    
+    private void SaveChanges(){
+        Editor prefsEditor = prefs.edit();
+        if (swtActive.isChecked()) {
+            prefsEditor.putBoolean(pkgName + Common.PREF_ACTIVE, true);
+            int dpi;
+            try {
+            	dpi = Integer.parseInt(((EditText) findViewById(R.id.txtDPI)).getText().toString());
+            } catch (Exception ex) {
+            	dpi = 0;
+            }
+            if (dpi != 0) {
+                prefsEditor.putInt(pkgName + Common.PREF_DPI, dpi);
+            } else {
+                prefsEditor.remove(pkgName + Common.PREF_DPI);
+            }
+			int fontScale;
+			try {
+				fontScale = Integer.parseInt(((EditText) findViewById(R.id.txtFontScale)).getText().toString());
+			} catch (Exception ex) {
+				fontScale = 0;
+			}
+			if (fontScale != 0 && fontScale != 100) {
+				prefsEditor.putInt(pkgName + Common.PREF_FONT_SCALE, fontScale);
+			} else {
+				prefsEditor.remove(pkgName + Common.PREF_FONT_SCALE);
+			}
+            int screen = ((Spinner) findViewById(R.id.spnScreen)).getSelectedItemPosition();
+            if (screen > 0) {
+                prefsEditor.putInt(pkgName + Common.PREF_SCREEN, screen);
+            } else {
+            	prefsEditor.remove(pkgName + Common.PREF_SCREEN);
+            }
+            if (((CheckBox) findViewById(R.id.chkXlarge)).isChecked()) {
+                prefsEditor.putBoolean(pkgName + Common.PREF_XLARGE, true);
+            }  else {
+                prefsEditor.remove(pkgName + Common.PREF_XLARGE);
+            }
+			selectedLocalePos = ((Spinner) findViewById(R.id.spnLocale)).getSelectedItemPosition();
+			if (selectedLocalePos > 0) {
+				prefsEditor.putString(pkgName + Common.PREF_LOCALE, localeList.getLocale(selectedLocalePos));
+			} else {
+				prefsEditor.remove(pkgName + Common.PREF_LOCALE);
+			}
+            if (((CheckBox) findViewById(R.id.chkFullscreen)).isChecked()) {
+                prefsEditor.putBoolean(pkgName + Common.PREF_FULLSCREEN, true);
+            }  else {
+                prefsEditor.remove(pkgName + Common.PREF_FULLSCREEN);
+            }
+			if (((CheckBox) findViewById(R.id.chkNoTitle)).isChecked()) {
+				prefsEditor.putBoolean(pkgName + Common.PREF_NO_TITLE, true);
+			} else {
+				prefsEditor.remove(pkgName + Common.PREF_NO_TITLE);
+			}
+			if (((CheckBox) findViewById(R.id.chkAllowOnLockscreen)).isChecked()) {
+				prefsEditor.putBoolean(pkgName + Common.PREF_ALLOW_ON_LOCKSCREEN, true);
+			} else {
+				prefsEditor.remove(pkgName + Common.PREF_ALLOW_ON_LOCKSCREEN);
+			}
+			if (((CheckBox) findViewById(R.id.chkScreenOn)).isChecked()) {
+				prefsEditor.putBoolean(pkgName + Common.PREF_SCREEN_ON, true);
+			} else {
+				prefsEditor.remove(pkgName + Common.PREF_SCREEN_ON);
+			}
+			int orientation = ((Spinner) findViewById(R.id.spnOrientation)).getSelectedItemPosition();
+			if (orientation > 0) {
+				prefsEditor.putInt(pkgName + Common.PREF_ORIENTATION, orientation);
+			} else {
+				prefsEditor.remove(pkgName + Common.PREF_ORIENTATION);
+			}
+			if (((CheckBox) findViewById(R.id.chkResident)).isChecked()) {
+				prefsEditor.putBoolean(pkgName + Common.PREF_RESIDENT, true);
+			} else {
+				prefsEditor.remove(pkgName + Common.PREF_RESIDENT);
+			}
+			if (((CheckBox) findViewById(R.id.chkInsistentNotifications)).isChecked()) {
+				prefsEditor.putBoolean(pkgName + Common.PREF_INSISTENT_NOTIF, true);
+			} else {
+				prefsEditor.remove(pkgName + Common.PREF_INSISTENT_NOTIF);
+			}
+			if (allowRevoking) {
+				prefsEditor.putBoolean(pkgName + Common.PREF_REVOKEPERMS, true);
+			} else {
+				prefsEditor.remove(pkgName + Common.PREF_REVOKEPERMS);
+			}
+            prefsEditor.remove(pkgName + Common.PREF_REVOKELIST);
+            if (disabledPermissions.size() > 0) {
+				// Commit and reopen the editor, as it seems to be bugged when updating a StringSet
+                prefsEditor.commit();
+                prefsEditor = prefs.edit();
+                prefsEditor.putStringSet(pkgName + Common.PREF_REVOKELIST, disabledPermissions);
+            }
+            
+        } else {
+            prefsEditor.remove(pkgName + Common.PREF_ACTIVE);
+            prefsEditor.remove(pkgName + Common.PREF_DPI);
+            prefsEditor.remove(pkgName + Common.PREF_FONT_SCALE);
+            prefsEditor.remove(pkgName + Common.PREF_SCREEN);
+            prefsEditor.remove(pkgName + Common.PREF_XLARGE);
+            prefsEditor.remove(pkgName + Common.PREF_LOCALE);
+            prefsEditor.remove(pkgName + Common.PREF_FULLSCREEN);
+            prefsEditor.remove(pkgName + Common.PREF_NO_TITLE);
+            prefsEditor.remove(pkgName + Common.PREF_ALLOW_ON_LOCKSCREEN);
+            prefsEditor.remove(pkgName + Common.PREF_SCREEN_ON);
+            prefsEditor.remove(pkgName + Common.PREF_ORIENTATION);
+            prefsEditor.remove(pkgName + Common.PREF_RESIDENT);
+            prefsEditor.remove(pkgName + Common.PREF_INSISTENT_NOTIF);
+            prefsEditor.remove(pkgName + Common.PREF_REVOKEPERMS);
+            prefsEditor.remove(pkgName + Common.PREF_REVOKELIST);
+        }
+        prefsEditor.commit();
+    	
+    }
+	private class DirtyClassListener implements AdapterView.OnItemSelectedListener, CompoundButton.OnCheckedChangeListener {
+
+		@Override
+		public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
+			dirty = true;
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> arg0) {
+		}
+
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			dirty = true;
+		}
+
+	}
+
 }

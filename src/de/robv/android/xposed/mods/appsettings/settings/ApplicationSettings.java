@@ -329,16 +329,16 @@ public class ApplicationSettings extends Activity {
 		// Require confirmation to exit the screen and lose configuration
 		// changes
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Warning");
+		builder.setTitle("Discard changes?");
 		builder.setIconAttribute(android.R.attr.alertDialogIcon);
-		builder.setMessage("You didn't save the configuration. " + "Really go back and discard changes?");
-		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+		builder.setMessage("You didn't save the configuration. Really go back and discard changes?");
+		builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				ApplicationSettings.this.finish();
 			}
 		});
-		builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+		builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 			}
@@ -401,7 +401,7 @@ public class ApplicationSettings extends Activity {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle("Apply settings");
 			builder.setMessage("Also kill the application so when it's relaunched it uses the new settings?");
-			builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// Send the broadcast requesting to kill the app
@@ -414,7 +414,7 @@ public class ApplicationSettings extends Activity {
 					dialog.dismiss();
 				}
 			});
-			builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// Send the broadcast but not requesting kill

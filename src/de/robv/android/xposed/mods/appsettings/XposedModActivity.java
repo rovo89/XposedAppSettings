@@ -29,10 +29,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PermissionInfo;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.method.LinkMovementMethod;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -87,7 +89,8 @@ public class XposedModActivity extends Activity {
 		TextView app_name;
 		TextView app_package;
 		ImageView app_icon;
-
+		ApplicationInfo app;
+		int position;
 	}
 	@SuppressLint("WorldReadableFiles")
 	@Override
@@ -584,12 +587,16 @@ public class XposedModActivity extends Activity {
         private Map<String, Integer> alphaIndexer;
         private String[] sections;
         private Filter filter;
+		private LayoutInflater mLayoutInflater;
+		private int color_dark_cyan;
  
         
         @SuppressLint("DefaultLocale")
         public AppListAdaptor(Context context, List<ApplicationInfo> items) {
             super(context, R.layout.app_list_item, new ArrayList<ApplicationInfo>(items));
-            
+            //cache color
+            color_dark_cyan = Color.parseColor("#0099CC");
+            mLayoutInflater=getLayoutInflater();
             filteredAppList.addAll(items);
             
             filter = new AppListFilter(this);
@@ -624,26 +631,47 @@ public class XposedModActivity extends Activity {
         }
  
         @Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(final int position, View convertView, ViewGroup parent) {
 			// Load or reuse the view for this row
-			
+        	ViewHolder holder; 
 			if (convertView == null) {
-				ViewHolder holder = new ViewHolder();
-				convertView = getLayoutInflater().inflate(R.layout.app_list_item, parent, false);
+				holder = new ViewHolder();
+				convertView = mLayoutInflater.inflate(R.layout.app_list_item, parent, false);
 				holder.app_name = (TextView) convertView.findViewById(R.id.app_name);
 				holder.app_icon = (ImageView) convertView.findViewById(R.id.app_icon);
 				holder.app_package = (TextView) convertView.findViewById(R.id.app_package);
 				convertView.setTag(holder);
+			}else{
+				holder = (ViewHolder) convertView.getTag();
 			}
 			
-			ViewHolder holder = (ViewHolder) convertView.getTag();
-			
 			ApplicationInfo app = filteredAppList.get(position);
-
+			holder.app = app;
 			holder.app_name.setText(app.name == null ? "" : app.name);
-			holder.app_package.setTextColor(prefs.getBoolean(app.packageName + Common.PREF_ACTIVE, false) ? Color.RED : Color.parseColor("#0099CC"));
+			holder.app_package.setTextColor(prefs.getBoolean(app.packageName + Common.PREF_ACTIVE, false) ? Color.RED : color_dark_cyan);
 			holder.app_package.setText(app.packageName);
-			holder.app_icon.setImageDrawable(app.loadIcon(pm));
+			holder.position = position;
+			//load image in another thread. Very very fast scrolling
+			new AsyncTask<ViewHolder, Void, Drawable>() {
+				private ViewHolder v;
+
+				@Override
+				protected Drawable doInBackground(ViewHolder... params) {
+					v = params[0];
+					Drawable drawable = v.app.loadIcon(pm);
+				    return drawable;
+				}
+
+				@Override
+				protected void onPostExecute(Drawable result) {
+					super.onPostExecute(result);
+					if (v.position == position) {
+						v.app_icon.setImageDrawable(result);
+					}
+				}
+
+			}.execute(holder);
+			//holder.app_icon.setImageDrawable(app.loadIcon(pm));
 
 			return convertView;
 		}

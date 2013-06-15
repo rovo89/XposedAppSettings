@@ -80,11 +80,20 @@ public class XposedModActivity extends Activity {
 	private String filterPermissionUsage;
 
     private SharedPreferences prefs;
+	private PackageManager pm;
+	private ListView mListView;
 	
+	static class ViewHolder{
+		TextView app_name;
+		TextView app_package;
+		ImageView app_icon;
+
+	}
 	@SuppressLint("WorldReadableFiles")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		setTitle(R.string.app_name);
+		pm = getPackageManager();
 		super.onCreate(savedInstanceState);
 
 		new File(Environment.getDataDirectory(), "data/" + Common.MY_PACKAGE_NAME + "/shared_prefs/" +
@@ -113,14 +122,14 @@ public class XposedModActivity extends Activity {
         
         try {
 	        ((TextView) findViewById(R.id.version)).setText("Version: " +
-	        		getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
+	        		pm.getPackageInfo(getPackageName(), 0).versionName);
         } catch (NameNotFoundException e) {
         }
         
         
-        ListView list = (ListView) findViewById(R.id.lstApps);
+        mListView = (ListView) findViewById(R.id.lstApps);
 
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -142,11 +151,11 @@ public class XposedModActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         
         // Refresh the app that was just edited, if it's visible in the list
-        ListView list = (ListView) findViewById(R.id.lstApps);
-        if (requestCode >= list.getFirstVisiblePosition() &&
-                requestCode <= list.getLastVisiblePosition()) {
-            View v = list.getChildAt(requestCode - list.getFirstVisiblePosition());
-            list.getAdapter().getView(requestCode, v, list);
+        
+        if (requestCode >= mListView.getFirstVisiblePosition() &&
+                requestCode <= mListView.getLastVisiblePosition()) {
+            View v = mListView.getChildAt(requestCode - mListView.getFirstVisiblePosition());
+            mListView.getAdapter().getView(requestCode, v, mListView);
         }
     }
     
@@ -160,8 +169,7 @@ public class XposedModActivity extends Activity {
         sharedUsers.clear();
         pkgSharedUsers.clear();
         
-        PackageManager pm = getPackageManager();
-        List<PackageInfo> pkgs = getPackageManager().getInstalledPackages(PackageManager.GET_PERMISSIONS);
+        List<PackageInfo> pkgs = pm.getInstalledPackages(PackageManager.GET_PERMISSIONS);
         dialog.setMax(pkgs.size());
         int i = 1;
         for (PackageInfo pkgInfo : pkgs) {
@@ -618,20 +626,26 @@ public class XposedModActivity extends Activity {
         @Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// Load or reuse the view for this row
-			View row = convertView;
-			if (row == null) {
-				row = getLayoutInflater().inflate(R.layout.app_list_item, parent, false);
+			
+			if (convertView == null) {
+				ViewHolder holder = new ViewHolder();
+				convertView = getLayoutInflater().inflate(R.layout.app_list_item, parent, false);
+				holder.app_name = (TextView) convertView.findViewById(R.id.app_name);
+				holder.app_icon = (ImageView) convertView.findViewById(R.id.app_icon);
+				holder.app_package = (TextView) convertView.findViewById(R.id.app_package);
+				convertView.setTag(holder);
 			}
-
+			
+			ViewHolder holder = (ViewHolder) convertView.getTag();
+			
 			ApplicationInfo app = filteredAppList.get(position);
 
-			((TextView) row.findViewById(R.id.app_name)).setText(app.name == null ? "" : app.name);
-			((TextView) row.findViewById(R.id.app_package)).setTextColor(prefs.getBoolean(app.packageName + Common.PREF_ACTIVE,
-			    false) ? Color.RED : Color.parseColor("#0099CC"));
-			((TextView) row.findViewById(R.id.app_package)).setText(app.packageName);
-			((ImageView) row.findViewById(R.id.app_icon)).setImageDrawable(app.loadIcon(getPackageManager()));
+			holder.app_name.setText(app.name == null ? "" : app.name);
+			holder.app_package.setTextColor(prefs.getBoolean(app.packageName + Common.PREF_ACTIVE, false) ? Color.RED : Color.parseColor("#0099CC"));
+			holder.app_package.setText(app.packageName);
+			holder.app_icon.setImageDrawable(app.loadIcon(pm));
 
-			return row;
+			return convertView;
 		}
 
         @SuppressLint("DefaultLocale")
@@ -701,7 +715,7 @@ public class XposedModActivity extends Activity {
 		}
 
         @Override
-		public Object[] getSections() {
+		public String[] getSections() {
 			return sections;
 		}
 

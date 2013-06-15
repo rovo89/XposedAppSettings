@@ -29,10 +29,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PermissionInfo;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.method.LinkMovementMethod;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -80,11 +82,21 @@ public class XposedModActivity extends Activity {
 	private String filterPermissionUsage;
 
     private SharedPreferences prefs;
+	private PackageManager pm;
+	private ListView mListView;
 	
+	static class ViewHolder{
+		TextView app_name;
+		TextView app_package;
+		ImageView app_icon;
+		ApplicationInfo app;
+		int position;
+	}
 	@SuppressLint("WorldReadableFiles")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		setTitle(R.string.app_name);
+		pm = getPackageManager();
 		super.onCreate(savedInstanceState);
 
 		new File(Environment.getDataDirectory(), "data/" + Common.MY_PACKAGE_NAME + "/shared_prefs/" +
@@ -113,14 +125,14 @@ public class XposedModActivity extends Activity {
         
         try {
 	        ((TextView) findViewById(R.id.version)).setText("Version: " +
-	        		getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
+	        		pm.getPackageInfo(getPackageName(), 0).versionName);
         } catch (NameNotFoundException e) {
         }
         
         
-        ListView list = (ListView) findViewById(R.id.lstApps);
+        mListView = (ListView) findViewById(R.id.lstApps);
 
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -142,11 +154,11 @@ public class XposedModActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         
         // Refresh the app that was just edited, if it's visible in the list
-        ListView list = (ListView) findViewById(R.id.lstApps);
-        if (requestCode >= list.getFirstVisiblePosition() &&
-                requestCode <= list.getLastVisiblePosition()) {
-            View v = list.getChildAt(requestCode - list.getFirstVisiblePosition());
-            list.getAdapter().getView(requestCode, v, list);
+        
+        if (requestCode >= mListView.getFirstVisiblePosition() &&
+                requestCode <= mListView.getLastVisiblePosition()) {
+            View v = mListView.getChildAt(requestCode - mListView.getFirstVisiblePosition());
+            mListView.getAdapter().getView(requestCode, v, mListView);
         }
     }
     
@@ -160,8 +172,7 @@ public class XposedModActivity extends Activity {
         sharedUsers.clear();
         pkgSharedUsers.clear();
         
-        PackageManager pm = getPackageManager();
-        List<PackageInfo> pkgs = getPackageManager().getInstalledPackages(PackageManager.GET_PERMISSIONS);
+        List<PackageInfo> pkgs = pm.getInstalledPackages(PackageManager.GET_PERMISSIONS);
         dialog.setMax(pkgs.size());
         int i = 1;
         for (PackageInfo pkgInfo : pkgs) {
@@ -576,12 +587,16 @@ public class XposedModActivity extends Activity {
         private Map<String, Integer> alphaIndexer;
         private String[] sections;
         private Filter filter;
+		private LayoutInflater mLayoutInflater;
+		private int color_dark_cyan;
  
         
         @SuppressLint("DefaultLocale")
         public AppListAdaptor(Context context, List<ApplicationInfo> items) {
             super(context, R.layout.app_list_item, new ArrayList<ApplicationInfo>(items));
-            
+            //cache color
+            color_dark_cyan = Color.parseColor("#0099CC");
+            mLayoutInflater=getLayoutInflater();
             filteredAppList.addAll(items);
             
             filter = new AppListFilter(this);
@@ -616,22 +631,49 @@ public class XposedModActivity extends Activity {
         }
  
         @Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(final int position, View convertView, ViewGroup parent) {
 			// Load or reuse the view for this row
-			View row = convertView;
-			if (row == null) {
-				row = getLayoutInflater().inflate(R.layout.app_list_item, parent, false);
+        	ViewHolder holder; 
+			if (convertView == null) {
+				holder = new ViewHolder();
+				convertView = mLayoutInflater.inflate(R.layout.app_list_item, parent, false);
+				holder.app_name = (TextView) convertView.findViewById(R.id.app_name);
+				holder.app_icon = (ImageView) convertView.findViewById(R.id.app_icon);
+				holder.app_package = (TextView) convertView.findViewById(R.id.app_package);
+				convertView.setTag(holder);
+			}else{
+				holder = (ViewHolder) convertView.getTag();
 			}
-
+			
 			ApplicationInfo app = filteredAppList.get(position);
+			holder.app = app;
+			holder.app_name.setText(app.name == null ? "" : app.name);
+			holder.app_package.setTextColor(prefs.getBoolean(app.packageName + Common.PREF_ACTIVE, false) ? Color.RED : color_dark_cyan);
+			holder.app_package.setText(app.packageName);
+			holder.position = position;
+			//load image in another thread. Very very fast scrolling
+			new AsyncTask<ViewHolder, Void, Drawable>() {
+				private ViewHolder v;
 
-			((TextView) row.findViewById(R.id.app_name)).setText(app.name == null ? "" : app.name);
-			((TextView) row.findViewById(R.id.app_package)).setTextColor(prefs.getBoolean(app.packageName + Common.PREF_ACTIVE,
-			    false) ? Color.RED : Color.parseColor("#0099CC"));
-			((TextView) row.findViewById(R.id.app_package)).setText(app.packageName);
-			((ImageView) row.findViewById(R.id.app_icon)).setImageDrawable(app.loadIcon(getPackageManager()));
+				@Override
+				protected Drawable doInBackground(ViewHolder... params) {
+					v = params[0];
+					Drawable drawable = v.app.loadIcon(pm);
+				    return drawable;
+				}
 
-			return row;
+				@Override
+				protected void onPostExecute(Drawable result) {
+					super.onPostExecute(result);
+					if (v.position == position) {
+						v.app_icon.setImageDrawable(result);
+					}
+				}
+
+			}.execute(holder);
+			//holder.app_icon.setImageDrawable(app.loadIcon(pm));
+
+			return convertView;
 		}
 
         @SuppressLint("DefaultLocale")
@@ -701,7 +743,7 @@ public class XposedModActivity extends Activity {
 		}
 
         @Override
-		public Object[] getSections() {
+		public String[] getSections() {
 			return sections;
 		}
 

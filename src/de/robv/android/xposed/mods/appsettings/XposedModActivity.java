@@ -33,6 +33,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.method.LinkMovementMethod;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -150,7 +151,17 @@ public class XposedModActivity extends Activity {
         }
     }
     
-    
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_SEARCH && (event.getFlags() & KeyEvent.FLAG_CANCELED) == 0) {
+			SearchView searchV = (SearchView) findViewById(R.id.searchApp);
+			if (searchV.isShown()) {
+				searchV.setIconified(false);
+				return true;
+			}
+		}
+		return super.onKeyUp(keyCode, event);
+	}
     
     @SuppressLint("DefaultLocale")
     private void loadApps(ProgressDialog dialog) {

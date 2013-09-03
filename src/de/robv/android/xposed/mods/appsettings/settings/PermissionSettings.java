@@ -142,9 +142,7 @@ public class PermissionSettings {
 		PackageInfo pkgInfo = pm.getPackageInfo(pkgName, PackageManager.GET_PERMISSIONS);
 		if (pkgInfo.sharedUserId != null) {
 			Switch swtRevoke = (Switch) dialog.findViewById(R.id.swtRevokePerms);
-			swtRevoke.setEnabled(false);
-			swtRevoke.setChecked(false);
-			swtRevoke.setText("Shared packages not yet supported");
+			swtRevoke.setText("WARNING: Shared package!");
 			swtRevoke.setTextColor(Color.RED);
 		}
 		String[] permissions = pkgInfo.requestedPermissions;

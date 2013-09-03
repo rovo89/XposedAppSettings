@@ -36,8 +36,6 @@ public class Common {
 	public static final int[] swdp = { 0, 320, 480, 600, 800, 1000 };
 	public static final int[] wdp = { 0, 320, 480, 600, 800, 1000 };
 	public static final int[] hdp = { 0, 480, 854, 1024, 1280, 1600 };
-	public static final int[] w = { 0, 320, 480, 600, 800, 1000 };
-	public static final int[] h = { 0, 480, 854, 1024, 1280, 1600 };
 	public static final String[] screens = { "(default)", "320x480", "480x854", "600x1024", "800x1280", "1000x1600" };
 	
 	public static final String[] orientations = { "(default app rotation)", "Normal rotation", "Always portrait", "Always landscape", "Force auto-rotation" };

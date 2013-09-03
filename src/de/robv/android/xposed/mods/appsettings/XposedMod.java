@@ -109,8 +109,6 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 							int swdp = Common.swdp[screen];
 							int wdp = Common.wdp[screen];
 							int hdp = Common.hdp[screen];
-							int w = Common.w[screen];
-							int h = Common.h[screen];
 							
 							boolean xlarge = prefs.getBoolean(hostPackageName + Common.PREF_XLARGE, false);
 							
@@ -142,10 +140,6 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 								}
 								if (fontScale > 0)
 									newConfig.fontScale = fontScale / 100.0f;
-								if (w > 0) {
-									newMetrics.widthPixels = w;
-									newMetrics.heightPixels = h;
-								}
 							}
 						}
 

@@ -5,12 +5,12 @@ import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 import static de.robv.android.xposed.XposedHelpers.setFloatField;
 import static de.robv.android.xposed.XposedHelpers.setIntField;
+import static de.robv.android.xposed.XposedHelpers.setObjectField;
 
 import java.util.Locale;
 
 import android.app.AndroidAppHelper;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.XResources;
@@ -168,21 +168,42 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 		}
 
 		try {
-			findAndHookMethod(NotificationManager.class, "notify", String.class, int.class, Notification.class, 
-					new XC_MethodHook() {
+			final int sdk = Build.VERSION.SDK_INT;
+			XC_MethodHook notifyHook = new XC_MethodHook() {
 				@Override
 				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-					String packageName = AndroidAppHelper.currentPackageName();
+					String packageName = (String) param.args[0];
 
-					if (!isActive(packageName, Common.PREF_INSISTENT_NOTIF)) {
-						// Not active for this package
-						return;
+					Notification n;
+					if (sdk <= 15)
+						n = (Notification) param.args[6];
+					else
+						n = (Notification) param.args[5];
+
+					prefs.reload();
+					if (isActive(packageName, Common.PREF_INSISTENT_NOTIF)) {
+						n.flags |= Notification.FLAG_INSISTENT;
 					}
-
-					Notification n = (Notification) param.args[2];
-					n.flags |= Notification.FLAG_INSISTENT;
+					if (isActive(packageName, Common.PREF_NO_BIG_NOTIFICATIONS)) {
+						try {
+							setObjectField(n, "bigContentView", null);
+						} catch (Exception e) { }
+					}
 				}
-			});
+			};
+			if (sdk <= 15) {
+				findAndHookMethod("com.android.server.NotificationManagerService", null, "enqueueNotificationInternal", String.class, int.class, int.class,
+						String.class, int.class, int.class, Notification.class, int[].class,
+						notifyHook);
+			} else if (sdk == 16) {
+				findAndHookMethod("com.android.server.NotificationManagerService", null, "enqueueNotificationInternal", String.class, int.class, int.class,
+						String.class, int.class, Notification.class, int[].class,
+						notifyHook);
+			} else if (sdk >= 17) {
+				findAndHookMethod("com.android.server.NotificationManagerService", null, "enqueueNotificationInternal", String.class, int.class, int.class,
+						String.class, int.class, Notification.class, int[].class, int.class,
+						notifyHook);
+			}
 		} catch (Throwable t) {
 			XposedBridge.log(t);
 		}

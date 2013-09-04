@@ -341,6 +341,16 @@ public class ApplicationSettings extends Activity {
             }
         });
         
+		// Update No Big Notifications field
+		((CheckBox) findViewById(R.id.chkNoBigNotifications)).setChecked(prefs.getBoolean(pkgName + Common.PREF_NO_BIG_NOTIFICATIONS, false));
+		// Track changes to the No Big Notifications checkbox to know if the settings were changed
+		((CheckBox) findViewById(R.id.chkNoBigNotifications)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				dirty = true;
+			}
+		});
+
         // Update Insistent Notifications field
         ((CheckBox) findViewById(R.id.chkInsistentNotifications)).setChecked(prefs.getBoolean(pkgName + Common.PREF_INSISTENT_NOTIF, false));
 		// Track changes to the Insistent Notifications checkbox to know if the settings were changed
@@ -529,6 +539,11 @@ public class ApplicationSettings extends Activity {
 				} else {
 					prefsEditor.remove(pkgName + Common.PREF_RESIDENT);
 				}
+				if (((CheckBox) findViewById(R.id.chkNoBigNotifications)).isChecked()) {
+					prefsEditor.putBoolean(pkgName + Common.PREF_NO_BIG_NOTIFICATIONS, true);
+				} else {
+					prefsEditor.remove(pkgName + Common.PREF_NO_BIG_NOTIFICATIONS);
+				}
 				if (((CheckBox) findViewById(R.id.chkInsistentNotifications)).isChecked()) {
 					prefsEditor.putBoolean(pkgName + Common.PREF_INSISTENT_NOTIF, true);
 				} else {
@@ -560,6 +575,7 @@ public class ApplicationSettings extends Activity {
                 prefsEditor.remove(pkgName + Common.PREF_SCREEN_ON);
                 prefsEditor.remove(pkgName + Common.PREF_ORIENTATION);
                 prefsEditor.remove(pkgName + Common.PREF_RESIDENT);
+                prefsEditor.remove(pkgName + Common.PREF_NO_BIG_NOTIFICATIONS);
                 prefsEditor.remove(pkgName + Common.PREF_INSISTENT_NOTIF);
                 prefsEditor.remove(pkgName + Common.PREF_REVOKEPERMS);
                 prefsEditor.remove(pkgName + Common.PREF_REVOKELIST);

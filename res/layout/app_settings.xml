@@ -128,11 +128,21 @@
                     android:layout_height="wrap_content"
                     android:text="Screen on" />
             </LinearLayout>
-            <CheckBox
-                android:id="@+id/chkAllowOnLockscreen"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Show when phone locked" />    
+                android:orientation="horizontal" >
+                <CheckBox
+                    android:id="@+id/chkAllowOnLockscreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Show when locked" />
+                <CheckBox
+                    android:id="@+id/chkResident"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Resident" />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -153,15 +163,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
                 <CheckBox
-                    android:id="@+id/chkResident"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Resident" />
-                <CheckBox
                     android:id="@+id/chkInsistentNotifications"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Insistent Notifications" />
+                <CheckBox
+                    android:id="@+id/chkNoBigNotifications"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No Big Notifications" />
             </LinearLayout>
             <Button
                 android:id="@+id/btnPermissions"

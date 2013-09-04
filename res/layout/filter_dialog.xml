@@ -67,6 +67,11 @@
                 android:layout_height="wrap_content"
                 app:label="Allowed on lockscreen" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+                android:id="@+id/fltResident"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:label="Resident" />
+            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
                 android:id="@+id/fltScreenOn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,10 +82,10 @@
                 android:layout_height="wrap_content"
                 app:label="Orientation" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
-                android:id="@+id/fltResident"
+                android:id="@+id/fltNoBigNotif"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:label="Resident" />
+                app:label="No big notifications" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
                 android:id="@+id/fltInsNotif"
                 android:layout_width="match_parent"

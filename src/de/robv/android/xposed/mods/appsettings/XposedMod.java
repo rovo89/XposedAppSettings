@@ -246,6 +246,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 	
 	public static void loadPrefs() {
 		prefs = new XSharedPreferences(Common.MY_PACKAGE_NAME, Common.PREFS);
+		prefs.makeWorldReadable();
 	}
 	
 	public static boolean isActive(String packageName) {

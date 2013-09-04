@@ -39,7 +39,7 @@ Fullscreen; No title; Keep screen on; Orientation;
 Resident in memory; Insistent Notifications; Revoke Permissions" />
         <meta-data
             android:name="xposedminversion"
-            android:value="2.1+" />
+            android:value="30+" />
     </application>
 
 </manifest>

@@ -452,8 +452,12 @@ public class ApplicationSettings extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_app, menu);
-        
-		if (getPackageManager().getLaunchIntentForPackage(pkgName) == null) {
+        updateMenuEntries(getApplicationContext(), menu, pkgName);
+        return true;
+    }
+
+	public static void updateMenuEntries(Context context, Menu menu, String pkgName) {
+		if (context.getPackageManager().getLaunchIntentForPackage(pkgName) == null) {
 			menu.findItem(R.id.menu_app_launch).setEnabled(false);
 			Drawable icon = menu.findItem(R.id.menu_app_launch).getIcon().mutate();
 			icon.setColorFilter(Color.GRAY, Mode.SRC_IN);
@@ -462,15 +466,16 @@ public class ApplicationSettings extends Activity {
 
 		boolean hasMarketLink = false;
 		try {
-			PackageManager pm = getPackageManager();
+			PackageManager pm = context.getPackageManager();
 			String installer = pm.getInstallerPackageName(pkgName);
 			if (installer != null)
 				hasMarketLink = installer.equals("com.android.vending") || installer.contains("google");
 		} catch (Exception e) {
 		}
+
 		menu.findItem(R.id.menu_app_store).setEnabled(hasMarketLink);
 		try {
-			Resources res = createPackageContext("com.android.vending", 0).getResources();
+			Resources res = context.createPackageContext("com.android.vending", 0).getResources();
 			int id = res.getIdentifier("ic_launcher_play_store", "mipmap", "com.android.vending");
 			Drawable icon = res.getDrawable(id);
 			if (!hasMarketLink) {
@@ -480,9 +485,7 @@ public class ApplicationSettings extends Activity {
 			menu.findItem(R.id.menu_app_store).setIcon(icon);
 		} catch (Exception e) {
 		}
-
-		return true;
-    }
+	}
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

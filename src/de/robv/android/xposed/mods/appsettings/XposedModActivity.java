@@ -29,14 +29,19 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PermissionInfo;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.method.LinkMovementMethod;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Filter;
@@ -121,7 +126,7 @@ public class XposedModActivity extends Activity {
         
         
         ListView list = (ListView) findViewById(R.id.lstApps);
-
+        registerForContextMenu(list);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -152,6 +157,40 @@ public class XposedModActivity extends Activity {
         }
     }
     
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		if (v.getId() == R.id.lstApps) {
+			AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
+			ApplicationInfo appInfo = filteredAppList.get(info.position);
+
+			menu.setHeaderTitle(getPackageManager().getApplicationLabel(appInfo));
+			getMenuInflater().inflate(R.menu.menu_app, menu);
+			menu.findItem(R.id.menu_save).setVisible(false);
+
+			ApplicationSettings.updateMenuEntries(getApplicationContext(), menu, appInfo.packageName);
+		} else {
+			super.onCreateContextMenu(menu, v, menuInfo);
+		}
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		String pkgName = filteredAppList.get(info.position).packageName;
+		if (item.getItemId() == R.id.menu_app_launch) {
+			Intent LaunchIntent = getPackageManager().getLaunchIntentForPackage(pkgName);
+			startActivity(LaunchIntent);
+			return true;
+		} else if (item.getItemId() == R.id.menu_app_settings) {
+			startActivity(new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + pkgName)));
+			return true;
+		} else if (item.getItemId() == R.id.menu_app_store) {
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + pkgName)));
+			return true;
+		}
+		return super.onContextItemSelected(item);
+	}
+
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_SEARCH && (event.getFlags() & KeyEvent.FLAG_CANCELED) == 0) {

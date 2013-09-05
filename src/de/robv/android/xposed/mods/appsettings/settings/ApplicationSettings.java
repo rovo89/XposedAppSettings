@@ -265,16 +265,38 @@ public class ApplicationSettings extends Activity {
 		});
 		
 
-        // Update Fullscreen field
-        ((CheckBox) findViewById(R.id.chkFullscreen)).setChecked(prefs.getBoolean(pkgName + Common.PREF_FULLSCREEN, false));
-        // Track changes to the Fullscreen checkbox to know if the settings were changed
-        ((CheckBox) findViewById(R.id.chkFullscreen)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dirty = true;
-            }
-        });
-        
+		// Setup fullscreen settings
+		{
+			int fullscreen;
+			try {
+				fullscreen = prefs.getInt(pkgName + Common.PREF_FULLSCREEN, 0);
+			} catch (ClassCastException ex) {
+				// Legacy boolean setting
+				fullscreen = prefs.getBoolean(pkgName + Common.PREF_FULLSCREEN, false) ? 1 : 0;
+			}
+			final int fullscreenSelection = fullscreen;
+			Spinner spnFullscreen = (Spinner) findViewById(R.id.spnFullscreen);
+			List<String> lstFullscreen = Arrays.asList(
+					new String[] { "(default)", "Yes", "No" });
+			ArrayAdapter<String> fullscreenAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, lstFullscreen);
+			fullscreenAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			spnFullscreen.setAdapter(fullscreenAdapter);
+			spnFullscreen.setSelection(fullscreenSelection);
+			// Track changes to the fullscreen option to know if the settings were changed
+			spnFullscreen.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+				@Override
+				public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
+					if (pos != selectedScreen) {
+						dirty = true;
+					}
+				}
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+				}
+			});
+		}
+
 		// Update No Title field
 		((CheckBox) findViewById(R.id.chkNoTitle)).setChecked(prefs.getBoolean(pkgName + Common.PREF_NO_TITLE, false));
 		// Track changes to the No Title checkbox to know if the settings were changed
@@ -508,11 +530,12 @@ public class ApplicationSettings extends Activity {
 				} else {
 					prefsEditor.remove(pkgName + Common.PREF_LOCALE);
 				}
-                if (((CheckBox) findViewById(R.id.chkFullscreen)).isChecked()) {
-                    prefsEditor.putBoolean(pkgName + Common.PREF_FULLSCREEN, true);
-                }  else {
-                    prefsEditor.remove(pkgName + Common.PREF_FULLSCREEN);
-                }
+				int fullscreen = ((Spinner) findViewById(R.id.spnFullscreen)).getSelectedItemPosition();
+				if (fullscreen > 0) {
+					prefsEditor.putInt(pkgName + Common.PREF_FULLSCREEN, fullscreen);
+				} else {
+					prefsEditor.remove(pkgName + Common.PREF_FULLSCREEN);
+				}
 				if (((CheckBox) findViewById(R.id.chkNoTitle)).isChecked()) {
 					prefsEditor.putBoolean(pkgName + Common.PREF_NO_TITLE, true);
 				} else {

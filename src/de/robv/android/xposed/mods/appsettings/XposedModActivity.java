@@ -529,7 +529,13 @@ public class XposedModActivity extends Activity {
 				return true;
 			if (filteredOut(!prefs.getString(packageName + Common.PREF_LOCALE, "").isEmpty(), filterLocale))
 				return true;
-			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_FULLSCREEN, false), filterFullscreen))
+			boolean fullscreenSet;
+			try {
+				fullscreenSet = prefs.getInt(packageName + Common.PREF_FULLSCREEN, 0) > 0;
+			} catch (ClassCastException ex) {
+				fullscreenSet = prefs.getBoolean(packageName + Common.PREF_FULLSCREEN, false);
+			}
+			if (filteredOut(fullscreenSet, filterFullscreen))
 				return true;
 			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_NO_TITLE, false), filterNoTitle))
 				return true;

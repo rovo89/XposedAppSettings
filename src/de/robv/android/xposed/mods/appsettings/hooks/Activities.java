@@ -3,7 +3,9 @@ package de.robv.android.xposed.mods.appsettings.hooks;
 import static de.robv.android.xposed.XposedBridge.hookMethod;
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import static de.robv.android.xposed.XposedHelpers.findMethodExact;
+import static de.robv.android.xposed.XposedHelpers.getAdditionalInstanceField;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
+import static de.robv.android.xposed.XposedHelpers.setAdditionalInstanceField;
 import static de.robv.android.xposed.XposedHelpers.setIntField;
 
 import java.lang.reflect.Method;
@@ -20,6 +22,8 @@ import de.robv.android.xposed.mods.appsettings.XposedMod;
 
 public class Activities {
 
+	private static final String PROP_FULLSCREEN = "AppSettings-Fullscreen";
+
 	public static void hookActivitySettings() {
 		try {
 			findAndHookMethod("com.android.internal.policy.impl.PhoneWindow", null, "generateLayout",
@@ -32,8 +36,20 @@ public class Activities {
 					if (!XposedMod.isActive(packageName))
 						return;
 
-					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_FULLSCREEN, false))
+					int fullscreen;
+					try {
+						fullscreen = XposedMod.prefs.getInt(packageName + Common.PREF_FULLSCREEN, 0);
+					} catch (ClassCastException ex) {
+						// Legacy boolean setting
+						fullscreen = XposedMod.prefs.getBoolean(packageName + Common.PREF_FULLSCREEN, false) ? 1 : 0;
+					}
+					if (fullscreen == 1) {
 						window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+						setAdditionalInstanceField(window, PROP_FULLSCREEN, Boolean.TRUE);
+					} else if (fullscreen == 2) {
+						window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+						setAdditionalInstanceField(window, PROP_FULLSCREEN, Boolean.FALSE);
+					}
 
 					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_NO_TITLE, false))
 						window.requestFeature(Window.FEATURE_NO_TITLE);
@@ -55,6 +71,31 @@ public class Activities {
 			XposedBridge.log(e);
 		}
 		
+		try {
+			findAndHookMethod(Window.class, "setFlags", int.class, int.class,
+					new XC_MethodHook() {
+				@Override
+				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+					Boolean fullscreen = (Boolean) getAdditionalInstanceField(param.thisObject, PROP_FULLSCREEN);
+					if (fullscreen == null)
+						return;
+
+					int flags = (Integer) param.args[0];
+					int mask = (Integer) param.args[1];
+					if ((mask & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0) {
+						if (fullscreen.booleanValue()) {
+							flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+						} else {
+							flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
+						}
+						param.args[0] = flags;
+					}
+				}
+			});
+		} catch (Throwable e) {
+			XposedBridge.log(e);
+		}
+
 	    try {
 	    	// Hook one of the several variations of ActivityStack.realStartActivityLocked from different ROMs
 	    	Method mthRealStartActivityLocked;

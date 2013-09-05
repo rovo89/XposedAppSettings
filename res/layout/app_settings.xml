@@ -112,37 +112,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
-                <CheckBox
-                    android:id="@+id/chkFullscreen"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text="Fullscreen" />
+                <Spinner
+                    android:id="@+id/spnFullscreen"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
                 <CheckBox
                     android:id="@+id/chkNoTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="No Title" />
-                <CheckBox
-                    android:id="@+id/chkScreenOn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Screen on" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
                 <CheckBox
+                    android:id="@+id/chkScreenOn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Screen on" />
+                <CheckBox
                     android:id="@+id/chkAllowOnLockscreen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Show when locked" />
-                <CheckBox
-                    android:id="@+id/chkResident"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Resident" />
             </LinearLayout>
+            <CheckBox
+                android:id="@+id/chkResident"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Resident" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

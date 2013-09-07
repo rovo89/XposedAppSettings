@@ -1,5 +1,6 @@
 package de.robv.android.xposed.mods.appsettings.settings;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashSet;
@@ -157,12 +158,15 @@ public class ApplicationSettings extends Activity {
 
         // Load and render current screen setting + possible options
         int screen = prefs.getInt(pkgName + Common.PREF_SCREEN, 0);
-        if (screen < 0 || screen >= Common.screens.length)
+        if (screen < 0 || screen >= Common.swdp.length)
         	screen = 0;
         final int selectedScreen = screen;
         
 		Spinner spnScreen = (Spinner) findViewById(R.id.spnScreen);
-		List<String> lstScreens = Arrays.asList(Common.screens);
+		List<String> lstScreens = new ArrayList<String>(Common.swdp.length);
+		lstScreens.add(getString(R.string.settings_default));
+		for (int j = 1; j < Common.swdp.length; j++)
+			lstScreens.add(String.format("%dx%d", Common.wdp[j], Common.hdp[j]));
 		ArrayAdapter<String> screenAdapter = new ArrayAdapter<String>(this,
 			android.R.layout.simple_spinner_item, lstScreens);
 		screenAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -194,7 +198,7 @@ public class ApplicationSettings extends Activity {
 		
         
         // Update Language and list of possibilities
-		localeList = new LocaleList();
+		localeList = new LocaleList(getString(R.string.settings_default));
 
 		Spinner spnLanguage = (Spinner) findViewById(R.id.spnLocale);
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
@@ -241,7 +245,7 @@ public class ApplicationSettings extends Activity {
 		            		resEntries.add(m.group(1));
 		            }
 		            if (resEntries.size() == 0)
-		            	resEntries.add("No resources found");
+		            	resEntries.add(getString(R.string.res_noentries));
 		            jar.close();
 			        for (String dir : resEntries) {
 			        	contents.append('\n');
@@ -249,7 +253,7 @@ public class ApplicationSettings extends Activity {
 			        }
 			        contents.deleteCharAt(0);
 		        } catch (Exception e) {
-		            contents.append("Failed to load APK contents");
+		            contents.append(getString(R.string.res_failedtoload));
 		            if (jar != null) {
 			            try {
 			            	jar.close();
@@ -259,7 +263,7 @@ public class ApplicationSettings extends Activity {
 		        txtPane.setText(contents);
 		        scrollPane.addView(txtPane);
 		        builder.setView(scrollPane);
-		        builder.setTitle("Resources");
+		        builder.setTitle(R.string.res_title);
 		        builder.show();
 			}
 		});
@@ -277,7 +281,9 @@ public class ApplicationSettings extends Activity {
 			final int fullscreenSelection = fullscreen;
 			Spinner spnFullscreen = (Spinner) findViewById(R.id.spnFullscreen);
 			List<String> lstFullscreen = Arrays.asList(
-					new String[] { "(default)", "Yes", "No" });
+					new String[] { getString(R.string.settings_default),
+							getString(R.string.settings_yes),
+							getString(R.string.settings_no) });
 			ArrayAdapter<String> fullscreenAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, lstFullscreen);
 			fullscreenAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -329,12 +335,14 @@ public class ApplicationSettings extends Activity {
 
         // Load and render current screen setting + possible options
         int orientation = prefs.getInt(pkgName + Common.PREF_ORIENTATION, 0);
-		if (orientation < 0 || orientation >= Common.orientations.length)
+		if (orientation < 0 || orientation >= Common.orientationCodes.length)
 			orientation = 0;
 		final int selectedOrientation = orientation;
 
 		Spinner spnOrientation = (Spinner) findViewById(R.id.spnOrientation);
-		List<String> lstOrientations = Arrays.asList(Common.orientations);
+		List<String> lstOrientations = new ArrayList<String>(Common.orientationLabels.length);
+		for (int j = 0; j < Common.orientationLabels.length; j++)
+			lstOrientations.add(getString(Common.orientationLabels[j]));
 		ArrayAdapter<String> orientationAdapter = new ArrayAdapter<String>(this,
 			android.R.layout.simple_spinner_item, lstOrientations);
 		orientationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -421,17 +429,16 @@ public class ApplicationSettings extends Activity {
     	
     	// Require confirmation to exit the screen and lose configuration changes
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Warning");
+        builder.setTitle(R.string.settings_unsaved_title);
         builder.setIconAttribute(android.R.attr.alertDialogIcon);
-        builder.setMessage("You didn't save the configuration. " +
-        		"Really go back and discard changes?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.settings_unsaved_detail);
+        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 ApplicationSettings.this.finish();
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
@@ -612,9 +619,9 @@ public class ApplicationSettings extends Activity {
             
             // Check if in addition so saving the settings, the app should also be killed
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Apply settings");
-            builder.setMessage("Also kill the application so when it's relaunched it uses the new settings?");
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            builder.setTitle(R.string.settings_apply_title);
+            builder.setMessage(R.string.settings_apply_detail);
+            builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                 	// Send the broadcast requesting to kill the app
@@ -627,7 +634,7 @@ public class ApplicationSettings extends Activity {
                     dialog.dismiss();
                 }
             });
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                 	// Send the broadcast but not requesting kill

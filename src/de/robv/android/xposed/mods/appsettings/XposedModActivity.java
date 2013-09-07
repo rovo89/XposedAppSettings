@@ -104,16 +104,25 @@ public class XposedModActivity extends Activity {
         TabHost tabHost=(TabHost)findViewById(R.id.tabHost);
         tabHost.setup();
         
-        TabSpec spec1=tabHost.newTabSpec("App Settings");
-        spec1.setIndicator("App Settings");
+        TabSpec spec1=tabHost.newTabSpec("Apps");
+        spec1.setIndicator(getString(R.string.app_tab_main));
         spec1.setContent(R.id.tab1);
 
         TabSpec spec2=tabHost.newTabSpec("About");
-        spec2.setIndicator("About");
+        spec2.setIndicator(getString(R.string.app_tab_about));
         spec2.setContent(R.id.tab2);
 
 		if (!isModActive())
 			findViewById(R.id.about_notactive).setVisibility(View.VISIBLE);
+
+		String translator = getResources().getString(R.string.translator);
+		TextView txtTranslation = (TextView) findViewById(R.id.about_translation);
+		if (translator.isEmpty()) {
+			txtTranslation.setVisibility(View.GONE);
+		} else {
+			txtTranslation.setText(getString(R.string.app_translation, translator));
+			txtTranslation.setMovementMethod(LinkMovementMethod.getInstance());
+		}
         
         tabHost.addTab(spec1);
         tabHost.addTab(spec2);
@@ -122,8 +131,9 @@ public class XposedModActivity extends Activity {
         ((TextView) findViewById(R.id.about_title)).setMovementMethod(LinkMovementMethod.getInstance());
         
         try {
-	        ((TextView) findViewById(R.id.version)).setText("Version: " +
-	        		getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
+			((TextView) findViewById(R.id.version)).setText(
+					getString(R.string.app_version,
+							getPackageManager().getPackageInfo(getPackageName(), 0).versionName));
         } catch (NameNotFoundException e) {
         }
         
@@ -303,7 +313,7 @@ public class XposedModActivity extends Activity {
 				// set up dialog
 				filterDialog = new Dialog(XposedModActivity.this);
 				filterDialog.setContentView(R.layout.filter_dialog);
-				filterDialog.setTitle("Filter");
+				filterDialog.setTitle(R.string.filter_title);
 				filterDialog.setCancelable(true);
 				filterDialog.setOwnerActivity(XposedModActivity.this);
 
@@ -413,7 +423,7 @@ public class XposedModActivity extends Activity {
 
 				AlertDialog.Builder bld = new AlertDialog.Builder(XposedModActivity.this);
 				bld.setCancelable(true);
-				bld.setTitle("Select permission to filter for, or Cancel to show all");
+				bld.setTitle(R.string.perms_filter_title);
 
 				List<String> perms = new LinkedList<String>(permUsage.keySet());
 				Collections.sort(perms);
@@ -455,7 +465,7 @@ public class XposedModActivity extends Activity {
 				});
 				bld.setView(permsView);
 
-				bld.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				bld.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						filterPermissionUsage = null;
@@ -480,7 +490,7 @@ public class XposedModActivity extends Activity {
         @Override
         protected void onPreExecute() {
             dialog = new ProgressDialog(((ListView) findViewById(R.id.lstApps)).getContext());
-            dialog.setMessage("Loading apps, please wait");
+            dialog.setMessage(getString(R.string.app_loading));
             dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             dialog.setCancelable(false);
             dialog.show();

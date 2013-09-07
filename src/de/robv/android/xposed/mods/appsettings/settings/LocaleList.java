@@ -40,7 +40,7 @@ public class LocaleList {
 	private String[] localeCodes;
 	private String[] localeDescriptions;
 
-	public LocaleList() {
+	public LocaleList(String defaultLabel) {
 		final String[] locales = Resources.getSystem().getAssets().getLocales();
 		Arrays.sort(locales);
 		final int origSize = locales.length;
@@ -86,7 +86,7 @@ public class LocaleList {
 		localeCodes = new String[localeInfos.length + 1];
 		localeDescriptions = new String[localeInfos.length + 1];
 		localeCodes[0] = "";
-		localeDescriptions[0] = "(Default)";
+		localeDescriptions[0] = defaultLabel;
 		for (int i = 1; i < finalSize + 1; i++) {
 			localeCodes[i] = getLocaleCode(localeInfos[i - 1].locale);
 			localeDescriptions[i] = localeInfos[i - 1].label;

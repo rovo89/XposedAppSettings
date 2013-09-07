@@ -11,5 +11,5 @@
         android:iconifiedByDefault="false"
         android:imeOptions="actionSearch|flagNoEnterAction|flagNoExtractUi"
         android:inputType="textFilter"
-        android:queryHint="name or description" />
+        android:queryHint="@string/perms_searchhint" />
 </LinearLayout>

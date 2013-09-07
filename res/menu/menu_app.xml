@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menu_save"
           android:icon="@android:drawable/ic_menu_save"
-          android:title="Save"
+          android:title="@string/menu_save"
           android:showAsAction="always|withText" /> 
     <item android:id="@+id/menu_app_launch"
           android:icon="@android:drawable/ic_media_play"
-          android:title="Launch"
+          android:title="@string/menu_launch"
           android:showAsAction="withText" />
     <item android:id="@+id/menu_app_settings"
           android:icon="@android:drawable/ic_menu_manage"
-          android:title="Settings"
+          android:title="@string/menu_settings"
           android:showAsAction="withText" />
     <item android:id="@+id/menu_app_store"
-          android:title="Play Store"
+          android:title="@string/menu_playstore"
           android:showAsAction="withText" />
 </menu>

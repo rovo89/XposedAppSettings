@@ -23,7 +23,7 @@
         </activity>
         <activity
            	android:name=".settings.ApplicationSettings"
-            android:label="Application Settings"
+            android:label="@string/settings_title"
             android:windowSoftInputMode="stateHidden"
             android:configChanges="orientation|screenSize">
         </activity>
@@ -33,10 +33,7 @@
             android:value="true" />
         <meta-data
             android:name="xposeddescription"
-            android:value="Ability to set several configurations on a per-app basis:
-DPI; Font scale; Override loaded resouces; Locale;
-Fullscreen; No title; Keep screen on; Orientation;
-Resident in memory; Insistent Notifications; Revoke Permissions" />
+            android:value="@string/app_mod_summary" />
         <meta-data
             android:name="xposedminversion"
             android:value="30+" />

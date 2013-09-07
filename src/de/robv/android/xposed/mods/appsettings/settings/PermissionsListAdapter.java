@@ -72,7 +72,7 @@ public class PermissionsListAdapter extends ArrayAdapter<PermissionInfo> impleme
 		CharSequence description = perm.loadDescription(pm);
 		description = (description == null) ? "" : description.toString().trim();
 		if (description.length() == 0)
-			description = "( no description provided )";
+			description = context.getString(R.string.perms_nodescription);
 		vHolder.tvDescription.setText(description);
 		switch (perm.protectionLevel) {
 		case PermissionInfo.PROTECTION_DANGEROUS:

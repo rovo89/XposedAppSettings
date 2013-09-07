@@ -21,19 +21,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="All"
+            android:text="@string/filter_all"
             android:textAppearance="?android:attr/textAppearanceSmall" />
         <RadioButton
             android:id="@+id/radOverridden"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Overridden"
+            android:text="@string/filter_overridden"
             android:textAppearance="?android:attr/textAppearanceSmall" />
         <RadioButton
             android:id="@+id/radUnchanged"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Unchanged"
+            android:text="@string/filter_unchanged"
             android:textAppearance="?android:attr/textAppearanceSmall" />
     </RadioGroup>
 </LinearLayout>

@@ -111,6 +111,9 @@ public class XposedModActivity extends Activity {
         TabSpec spec2=tabHost.newTabSpec("About");
         spec2.setIndicator("About");
         spec2.setContent(R.id.tab2);
+
+		if (!isModActive())
+			findViewById(R.id.about_notactive).setVisibility(View.VISIBLE);
         
         tabHost.addTab(spec1);
         tabHost.addTab(spec2);
@@ -202,6 +205,11 @@ public class XposedModActivity extends Activity {
 		}
 		return super.onKeyUp(keyCode, event);
 	}
+
+	private static boolean isModActive() {
+		return false;
+	}
+
     
     @SuppressLint("DefaultLocale")
     private void loadApps(ProgressDialog dialog) {

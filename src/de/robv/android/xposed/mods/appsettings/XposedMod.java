@@ -21,6 +21,7 @@ import de.robv.android.xposed.IXposedHookCmdInit;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
@@ -28,6 +29,9 @@ import de.robv.android.xposed.mods.appsettings.hooks.Activities;
 import de.robv.android.xposed.mods.appsettings.hooks.PackagePermissions;
 
 public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage, IXposedHookCmdInit {
+
+	public static final String this_package = XposedMod.class.getPackage().getName();
+
 	public static XSharedPreferences prefs;
 	
 	@Override
@@ -223,6 +227,11 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
     		if (packageLocale != null)
     			Locale.setDefault(packageLocale);
         }
+
+		if (this_package.equals(lpparam.packageName)) {
+			findAndHookMethod("de.robv.android.xposed.mods.appsettings.XposedModActivity",
+					lpparam.classLoader, "isModActive", XC_MethodReplacement.returnConstant(true));
+		}
     }
 
 	private static Locale getPackageSpecificLocale(String packageName) {

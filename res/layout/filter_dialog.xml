@@ -62,6 +62,11 @@
                 android:layout_height="wrap_content"
                 app:label="@string/settings_notitle" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+                android:id="@+id/fltScreenOn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:label="@string/settings_screenon" />
+            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
                 android:id="@+id/fltAllowOnLockscreen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,25 +77,20 @@
                 android:layout_height="wrap_content"
                 app:label="@string/settings_resident" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
-                android:id="@+id/fltScreenOn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:label="@string/settings_screenon" />
-            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
                 android:id="@+id/fltOrientation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:label="@string/settings_orientation" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
-                android:id="@+id/fltNoBigNotif"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:label="@string/settings_nobignotif" />
-            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
                 android:id="@+id/fltInsNotif"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:label="@string/settings_insistentnotif" />
+            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+                android:id="@+id/fltNoBigNotif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:label="@string/settings_nobignotif" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
                 android:id="@+id/fltPermissions"
                 android:layout_width="match_parent"

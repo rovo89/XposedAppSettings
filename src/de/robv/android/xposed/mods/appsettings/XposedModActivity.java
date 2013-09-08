@@ -76,12 +76,12 @@ public class XposedModActivity extends Activity {
 	private FilterState filterLocale;
 	private FilterState filterFullscreen;
 	private FilterState filterNoTitle;
-	private FilterState filterAllowOnLockscreen;
 	private FilterState filterScreenOn;
-	private FilterState filterOrientation;
+	private FilterState filterAllowOnLockscreen;
 	private FilterState filterResident;
-	private FilterState filterNoBigNotif;
+	private FilterState filterOrientation;
 	private FilterState filterInsNotif;
+	private FilterState filterNoBigNotif;
 	private FilterState filterPermissions;
 
 	private String filterPermissionUsage;
@@ -326,12 +326,12 @@ public class XposedModActivity extends Activity {
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltLocale)).setFilterState(filterLocale);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltFullscreen)).setFilterState(filterFullscreen);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltNoTitle)).setFilterState(filterNoTitle);
-				((FilterItemComponent) filterDialog.findViewById(R.id.fltAllowOnLockscreen)).setFilterState(filterAllowOnLockscreen);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltScreenOn)).setFilterState(filterScreenOn);
-				((FilterItemComponent) filterDialog.findViewById(R.id.fltOrientation)).setFilterState(filterOrientation);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltAllowOnLockscreen)).setFilterState(filterAllowOnLockscreen);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltResident)).setFilterState(filterResident);
-				((FilterItemComponent) filterDialog.findViewById(R.id.fltNoBigNotif)).setFilterState(filterNoBigNotif);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltOrientation)).setFilterState(filterOrientation);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltInsNotif)).setFilterState(filterInsNotif);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltNoBigNotif)).setFilterState(filterNoBigNotif);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltPermissions)).setFilterState(filterPermissions);
 
 				// Block or unblock the details based on the Active setting
@@ -361,12 +361,12 @@ public class XposedModActivity extends Activity {
 						filterLocale = FilterState.ALL;
 						filterFullscreen = FilterState.ALL;
 						filterNoTitle = FilterState.ALL;
-						filterAllowOnLockscreen = FilterState.ALL;
 						filterScreenOn = FilterState.ALL;
-						filterOrientation = FilterState.ALL;
+						filterAllowOnLockscreen = FilterState.ALL;
 						filterResident = FilterState.ALL;
-						filterNoBigNotif = FilterState.ALL;
+						filterOrientation = FilterState.ALL;
 						filterInsNotif = FilterState.ALL;
+						filterNoBigNotif = FilterState.ALL;
 						filterPermissions = FilterState.ALL;
 
 						filterDialog.dismiss();
@@ -384,12 +384,12 @@ public class XposedModActivity extends Activity {
 						filterLocale = ((FilterItemComponent) filterDialog.findViewById(R.id.fltLocale)).getFilterState();
 						filterFullscreen = ((FilterItemComponent) filterDialog.findViewById(R.id.fltFullscreen)).getFilterState();
 						filterNoTitle = ((FilterItemComponent) filterDialog.findViewById(R.id.fltNoTitle)).getFilterState();
-						filterAllowOnLockscreen = ((FilterItemComponent) filterDialog.findViewById(R.id.fltAllowOnLockscreen)).getFilterState();
 						filterScreenOn = ((FilterItemComponent) filterDialog.findViewById(R.id.fltScreenOn)).getFilterState();
-						filterOrientation = ((FilterItemComponent) filterDialog.findViewById(R.id.fltOrientation)).getFilterState();
+						filterAllowOnLockscreen = ((FilterItemComponent) filterDialog.findViewById(R.id.fltAllowOnLockscreen)).getFilterState();
 						filterResident = ((FilterItemComponent) filterDialog.findViewById(R.id.fltResident)).getFilterState();
-						filterNoBigNotif = ((FilterItemComponent) filterDialog.findViewById(R.id.fltNoBigNotif)).getFilterState();
+						filterOrientation = ((FilterItemComponent) filterDialog.findViewById(R.id.fltOrientation)).getFilterState();
 						filterInsNotif = ((FilterItemComponent) filterDialog.findViewById(R.id.fltInsNotif)).getFilterState();
+						filterNoBigNotif = ((FilterItemComponent) filterDialog.findViewById(R.id.fltNoBigNotif)).getFilterState();
 						filterPermissions = ((FilterItemComponent) filterDialog.findViewById(R.id.fltPermissions)).getFilterState();
 
 						filterDialog.dismiss();
@@ -408,11 +408,12 @@ public class XposedModActivity extends Activity {
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltLocale)).setEnabled(enable);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltFullscreen)).setEnabled(enable);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltNoTitle)).setEnabled(enable);
-				((FilterItemComponent) filterDialog.findViewById(R.id.fltAllowOnLockscreen)).setEnabled(enable);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltScreenOn)).setEnabled(enable);
-				((FilterItemComponent) filterDialog.findViewById(R.id.fltOrientation)).setEnabled(enable);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltAllowOnLockscreen)).setEnabled(enable);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltResident)).setEnabled(enable);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltOrientation)).setEnabled(enable);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltInsNotif)).setEnabled(enable);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltNoBigNotif)).setEnabled(enable);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltPermissions)).setEnabled(enable);
 			}
         });
@@ -596,17 +597,17 @@ public class XposedModActivity extends Activity {
 				return true;
 			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_NO_TITLE, false), filterNoTitle))
 				return true;
-			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_ALLOW_ON_LOCKSCREEN, false), filterAllowOnLockscreen))
-				return true;
 			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_SCREEN_ON, false), filterScreenOn))
 				return true;
-			if (filteredOut(prefs.getInt(packageName + Common.PREF_ORIENTATION, 0) > 0, filterOrientation))
+			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_ALLOW_ON_LOCKSCREEN, false), filterAllowOnLockscreen))
 				return true;
 			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_RESIDENT, false), filterResident))
 				return true;
-			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_NO_BIG_NOTIFICATIONS, false), filterNoBigNotif))
+			if (filteredOut(prefs.getInt(packageName + Common.PREF_ORIENTATION, 0) > 0, filterOrientation))
 				return true;
 			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_INSISTENT_NOTIF, false), filterInsNotif))
+				return true;
+			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_NO_BIG_NOTIFICATIONS, false), filterNoBigNotif))
 				return true;
 			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_REVOKEPERMS, false), filterPermissions))
 				return true;

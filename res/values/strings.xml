@@ -15,7 +15,7 @@ Resident in memory; Orientation; Insistent notifications; No big notifications; 
     <string name="app_searchhint">name or package</string>
     <string name="app_about">An <a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> module by
  <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> and <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
- \nYou can use <a href="http://forum.xda-developers.com/showthread.php?t=2012770">this thread</a> for questions or suggestions.</string>
+ \nYou can use <a href="http://forum.xda-developers.com/showthread.php?t=2437377">this thread</a> for questions or suggestions.</string>
     <string name="app_description">This mod allows certain generic configurations to be changed on a per-app basis, without needing to edit APKs:
 \n- density / dpi
 \n- font scale

@@ -38,15 +38,17 @@ public class Activities {
 
 					int fullscreen;
 					try {
-						fullscreen = XposedMod.prefs.getInt(packageName + Common.PREF_FULLSCREEN, 0);
+						fullscreen = XposedMod.prefs.getInt(packageName + Common.PREF_FULLSCREEN,
+								Common.FULLSCREEN_DEFAULT);
 					} catch (ClassCastException ex) {
 						// Legacy boolean setting
-						fullscreen = XposedMod.prefs.getBoolean(packageName + Common.PREF_FULLSCREEN, false) ? 1 : 0;
+						fullscreen = XposedMod.prefs.getBoolean(packageName + Common.PREF_FULLSCREEN, false)
+								? Common.FULLSCREEN_FORCE : Common.FULLSCREEN_DEFAULT;
 					}
-					if (fullscreen == 1) {
+					if (fullscreen == Common.FULLSCREEN_FORCE) {
 						window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 						setAdditionalInstanceField(window, PROP_FULLSCREEN, Boolean.TRUE);
-					} else if (fullscreen == 2) {
+					} else if (fullscreen == Common.FULLSCREEN_PREVENT) {
 						window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 						setAdditionalInstanceField(window, PROP_FULLSCREEN, Boolean.FALSE);
 					}

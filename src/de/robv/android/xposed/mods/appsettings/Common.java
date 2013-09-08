@@ -42,4 +42,8 @@ public class Common {
 	public static final int[] orientationLabels = { R.string.settings_default, R.string.settings_ori_normal,
 		R.string.settings_ori_portrait, R.string.settings_ori_landscape, R.string.settings_ori_forceauto };
 
+	public static final int FULLSCREEN_DEFAULT = 0;
+	public static final int FULLSCREEN_FORCE = 1;
+	public static final int FULLSCREEN_PREVENT = 2;
+
 }

@@ -273,17 +273,19 @@ public class ApplicationSettings extends Activity {
 		{
 			int fullscreen;
 			try {
-				fullscreen = prefs.getInt(pkgName + Common.PREF_FULLSCREEN, 0);
+				fullscreen = prefs.getInt(pkgName + Common.PREF_FULLSCREEN, Common.FULLSCREEN_DEFAULT);
 			} catch (ClassCastException ex) {
 				// Legacy boolean setting
-				fullscreen = prefs.getBoolean(pkgName + Common.PREF_FULLSCREEN, false) ? 1 : 0;
+				fullscreen = prefs.getBoolean(pkgName + Common.PREF_FULLSCREEN, false)
+						? Common.FULLSCREEN_FORCE : Common.FULLSCREEN_DEFAULT;
 			}
 			final int fullscreenSelection = fullscreen;
 			Spinner spnFullscreen = (Spinner) findViewById(R.id.spnFullscreen);
+			// Note: the order of these items must match the Common.FULLSCREEN_... constants
 			List<String> lstFullscreen = Arrays.asList(
 					new String[] { getString(R.string.settings_default),
-							getString(R.string.settings_yes),
-							getString(R.string.settings_no) });
+							getString(R.string.settings_force),
+							getString(R.string.settings_prevent) });
 			ArrayAdapter<String> fullscreenAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, lstFullscreen);
 			fullscreenAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

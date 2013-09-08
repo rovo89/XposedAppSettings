@@ -64,8 +64,8 @@ is enabled in its configuration!</string>
 
     <string name="settings_default">(default)</string>
 
-    <string name="settings_yes">Yes</string>
-    <string name="settings_no">No</string>
+    <string name="settings_force">Force</string>
+    <string name="settings_prevent">Prevent</string>
 
     <string name="settings_ori_normal">Normal rotation</string>
     <string name="settings_ori_portrait">Always portrait</string>

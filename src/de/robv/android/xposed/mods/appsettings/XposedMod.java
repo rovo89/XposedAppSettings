@@ -179,7 +179,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 					String packageName = (String) param.args[0];
 
 					Notification n;
-					if (sdk <= 15)
+					if (sdk <= 15 || sdk >= 18)
 						n = (Notification) param.args[6];
 					else
 						n = (Notification) param.args[5];
@@ -203,9 +203,13 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 				findAndHookMethod("com.android.server.NotificationManagerService", null, "enqueueNotificationInternal", String.class, int.class, int.class,
 						String.class, int.class, Notification.class, int[].class,
 						notifyHook);
-			} else if (sdk >= 17) {
+			} else if (sdk == 17) {
 				findAndHookMethod("com.android.server.NotificationManagerService", null, "enqueueNotificationInternal", String.class, int.class, int.class,
 						String.class, int.class, Notification.class, int[].class, int.class,
+						notifyHook);
+			} else if (sdk >= 18) {
+				findAndHookMethod("com.android.server.NotificationManagerService", null, "enqueueNotificationInternal", String.class, String.class,
+						int.class, int.class, String.class, int.class, Notification.class, int[].class, int.class,
 						notifyHook);
 			}
 		} catch (Throwable t) {

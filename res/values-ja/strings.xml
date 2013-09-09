@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">App Settings</string>
+    <string name="app_mod_summary">アプリ毎に様々な設定ができます:
+DPI; フォントスケール; 読み込むリソースの上書き; 言語;
+全画面; タイトル非表示; 画面常時点灯; ロック画面上に表示;
+常駐化; 画面の向き; 通知の繰り返し; 大きい通知無効化; 権限の拒否</string>
+
+
+    <!-- Main screen -->
+    <string name="app_tab_main">アプリ</string>
+    <string name="app_tab_about">情報</string>
+
+    <string name="app_loading">アプリの読み込み中、しばらくお待ちください</string>
+    <string name="app_searchhint">名前かパッケージ名</string>
+    <string name="app_about">この<a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a>モジュールは<a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a>と<a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>により制作されました。
+ \n<a href="http://forum.xda-developers.com/showthread.php?t=2437377">このスレ</a>で質問や提案をしてください。</string>
+    <string name="app_description">このモジュールではapkを編集することなくアプリ毎に様々な設定ができます:
+\n- 画面密度 / dpi
+\n- フォントスケール
+\n- リソース読み込み変更用の画面サイズ偽装
+\n- 言語
+\n- 全画面モード
+\n- タイトルバーの非表示(アプリが起動しない場合があります)
+\n- アプリ起動中に画面を常時点灯する
+\n- ロック画面上にアプリを表示する
+\n- メモリに常駐するようにする
+\n- 画面の向きの強制(縦/横/自動)
+\n- 通知の繰り返し(通地音をループ)
+\n- 大きな(拡大された)通知の無効化
+\n- 権限の拒否</string>
+    <string name="app_version">バージョン: %s</string>
+    <string name="app_translation">翻訳: %s</string>
+    <string name="app_notactive_warning">注意:Xposedフレームワークがインストールされていてこのモジュールが有効化されているときのみ設定が反映されます!</string>
+
+
+    <!-- app-specific menu -->
+    <string name="menu_save">保存</string>
+    <string name="menu_launch">起動</string>
+    <string name="menu_settings">設定</string>
+    <string name="menu_playstore">Playストア</string>
+
+
+    <!-- Settings screen -->
+    <string name="settings_title">設定</string>
+    <string name="settings_dpi">DPI</string>
+    <string name="settings_fontscale">フォントスケール</string>
+    <string name="settings_listres">ﾘｿｰｽﾘｽﾄ</string>
+    <string name="settings_screen">画面サイズ(dp)</string>
+    <string name="settings_xlargeres">リソース拡大</string>
+    <string name="settings_locale">言語</string>
+    <string name="settings_fullscreen">全画面</string>
+    <string name="settings_notitle">タイトル非表示</string>
+    <string name="settings_screenon">画面常時点灯</string>
+    <string name="settings_showwhenlocked">ロック画面に表示</string>
+    <string name="settings_resident">常駐化</string>
+    <string name="settings_orientation">画面の向き</string>
+    <string name="settings_insistentnotif">通知の繰り返し</string>
+    <string name="settings_nobignotif">大きい通知無効化</string>
+    <string name="settings_permissions">権限</string>
+
+    <string name="settings_default">(デフォルト)</string>
+
+    <string name="settings_force">強制</string>
+    <string name="settings_prevent">阻止</string>
+
+    <string name="settings_ori_normal">通常の向き</string>
+    <string name="settings_ori_portrait">常に縦向き</string>
+    <string name="settings_ori_landscape">常に横向き</string>
+    <string name="settings_ori_forceauto">自動回転を強制</string>
+
+    <!-- List resources -->
+    <string name="res_title">リソース</string>
+    <string name="res_noentries">リソースなし</string>
+    <string name="res_failedtoload">APKコンテンツの読み込み失敗</string>
+
+    <!-- Show / search / revoke permissions -->
+    <string name="perms_title">権限</string>
+    <string name="perms_revoke">権限の拒否</string>
+    <string name="perms_shared_warning">警告: 共有パッケージです!</string>
+    <string name="perms_searchhint">名前か説明</string>
+    <string name="perms_nodescription">(説明無し)</string>
+    <string name="perms_filter_title">絞り込む権限を選択します。キャンセルで全て表示します。</string>
+
+    <!-- Saving settings -->
+    <string name="settings_unsaved_title">警告</string>
+    <string name="settings_unsaved_detail">設定をまだ保存していません。
+変更を破棄しますか?</string>
+    <string name="settings_apply_title">設定の適用</string>
+    <string name="settings_apply_detail">設定を反映させるためアプリを終了させますか?</string>
+
+
+    <!-- Filter dialog -->
+    <string name="filter_title">絞り込み</string>
+    <string name="filter_all">全て</string>
+    <string name="filter_overridden">変更済み</string>
+    <string name="filter_unchanged">未変更</string>
+    <string name="filter_type">タイプ</string>
+    <string name="filter_user">ユーザー</string>
+    <string name="filter_system">システム</string>
+    <string name="filter_settingsactive">アプリ毎の設定</string>
+    <string name="filter_active">有効化済み</string>
+    <string name="filter_notactive">無効</string>
+    <string name="filter_resources">リソース読み込み</string>
+    <string name="filter_cancel">キャンセル</string>
+    <string name="filter_clear">消去</string>
+    <string name="filter_apply">適用</string>
+
+
+    <string name="translator">WedyDQ10</string>
+</resources>

@@ -109,19 +109,19 @@
             android:id="@+id/btnFilterCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="?android:attr/buttonBarButtonStyle"
+            style="?attr/buttonBarButtonStyle"
             android:text="@string/filter_cancel" />
         <Button
             android:id="@+id/btnFilterClear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="?android:attr/buttonBarButtonStyle"
+            style="?attr/buttonBarButtonStyle"
             android:text="@string/filter_clear" />
         <Button
             android:id="@+id/btnFilterApply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="?android:attr/buttonBarButtonStyle"
+            style="?attr/buttonBarButtonStyle"
             android:text="@string/filter_apply" />
     </LinearLayout>
 </LinearLayout>

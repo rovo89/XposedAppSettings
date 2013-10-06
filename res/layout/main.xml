@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yourapp="http://schemas.android.com/apk/res-auto"
     android:id="@+id/tabHost"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,21 +25,21 @@
                 android:layout_height="match_parent" >
                 <ImageButton
                     android:id="@+id/btnFilter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:src="@android:drawable/ic_menu_view"
                     android:contentDescription="@string/filter_title"/>
                 <ImageButton
                     android:id="@+id/btnPermsFilter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_toRightOf="@id/btnFilter"
                     android:src="@android:drawable/ic_lock_lock"
                     android:contentDescription="@string/perms_title"/>
-                <SearchView
+                <android.support.v7.widget.SearchView
                     android:id="@+id/searchApp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_toRightOf="@id/btnPermsFilter"
                     android:focusable="false"
                     android:iconifiedByDefault="false"
@@ -50,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/searchApp"
-                    android:divider="@android:color/holo_blue_dark"
+                    android:divider="@color/holo_blue_dark"
                     android:dividerHeight="1dp"
                     android:fadingEdge="vertical"
                     android:fastScrollEnabled="true"
@@ -95,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="16dp"
                         android:text="@string/app_notactive_warning"
-                        android:textColor="@android:color/holo_red_dark" />
+                        android:textColor="@color/holo_red_dark" />
                 </LinearLayout>
             </ScrollView>
         </FrameLayout>

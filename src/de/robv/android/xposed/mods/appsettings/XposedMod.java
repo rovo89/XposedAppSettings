@@ -86,8 +86,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 
         // Override settings used when loading resources
         try {
-			findAndHookMethod(Resources.class, "updateConfiguration",
-				Configuration.class, DisplayMetrics.class, "android.content.res.CompatibilityInfo",
+			XC_MethodHook configHook =
 				new XC_MethodHook() {
 
 				@Override
@@ -128,7 +127,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 									newMetrics = res.getDisplayMetrics();
 								}
 								
-								if (swdp > 0) {
+								if (swdp > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
 									newConfig.smallestScreenWidthDp = swdp;
 									newConfig.screenWidthDp = wdp;
 									newConfig.screenHeightDp = hdp;
@@ -166,7 +165,14 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 							param.args[0] = newConfig;
 					}
 				}
-			});
+			};
+			if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1) {
+				findAndHookMethod(Resources.class, "updateConfiguration", Configuration.class, DisplayMetrics.class,
+					configHook);
+			} else {
+				findAndHookMethod(Resources.class, "updateConfiguration", Configuration.class, DisplayMetrics.class,
+					"android.content.res.CompatibilityInfo", configHook);
+			}
 		} catch (Throwable t) {
 			XposedBridge.log(t);
 		}
@@ -179,7 +185,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 					String packageName = (String) param.args[0];
 
 					Notification n;
-					if (sdk <= 15 || sdk >= 18)
+					if (sdk <= 10)
+						n = (Notification) param.args[5];
+					else if (sdk <= 15 || sdk >= 18)
 						n = (Notification) param.args[6];
 					else
 						n = (Notification) param.args[5];
@@ -195,7 +203,11 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 					}
 				}
 			};
-			if (sdk <= 15) {
+			if (sdk <= 10) {
+				findAndHookMethod("com.android.server.NotificationManagerService", null, "enqueueNotificationInternal", String.class, int.class, int.class,
+						String.class, int.class, Notification.class, int[].class,
+						notifyHook);
+			} else if (sdk <= 15) {
 				findAndHookMethod("com.android.server.NotificationManagerService", null, "enqueueNotificationInternal", String.class, int.class, int.class,
 						String.class, int.class, int.class, Notification.class, int[].class,
 						notifyHook);

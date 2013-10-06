@@ -6,7 +6,7 @@
     android:gravity="fill_vertical"
     android:orientation="vertical"
     android:padding="10dp" >
-    <CheckBox
+    <Switch
         android:id="@+id/swtRevokePerms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

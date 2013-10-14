@@ -130,10 +130,11 @@ public class PackagePermissions extends BroadcastReceiver {
 				pkgInfo = mPackages.get(pkgName);
 				if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
 					callMethod(pmSvc, "grantPermissionsLPw", pkgInfo, true);
+					callMethod(mSettings, "writeLPr");
 				} else {
 					callMethod(pmSvc, "grantPermissionsLP", pkgInfo, true);
+					callMethod(mSettings, "writeLP");
 				}
-				callMethod(mSettings, "writeLPr");
 			}
 
 			// Apply new permissions if needed

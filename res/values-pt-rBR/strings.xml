@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">App Settings</string>
+    <string name="app_mod_summary">Capaz de definir uma série de configurações comuns individualmente por app:
+DPI; Escala de fonte; Substituir recursos carregados; Localidade;
+Tela cheia; Remover barra de título; Manter tela ligada; Exibir sobre a tela de bloqueio;
+Permanecer na memória; Orientação; Notificações persistentes; Sem notificações grandes; Revogar permissões</string>
+
+
+    <!-- Main screen -->
+    <string name="app_tab_main">Apps</string>
+    <string name="app_tab_about">Sobre</string>
+
+    <string name="app_loading">Carregando apps, aguarde</string>
+    <string name="app_searchhint">nome ou pacote</string>
+    <string name="app_about">Um módulo <a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> por
+ <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> e <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
+ \nVocê pode usar <a href="http://forum.xda-developers.com/showthread.php?t=2437377">este tópico</a> para questões ou sugestões.</string>
+    <string name="app_description">Este mod permite que certas configurações genéricas sejam mudadas individualmente por app, sem a necessidade de editar APKs:
+\n- densidade / dpi
+\n- escala de fonte
+\n- falsificar a densidade da tela para carregamento de recursos
+\n- localidade (idioma)
+\n- modo tela cheia
+\n- ocultar barra de título
+\n- manter a tela ligada enquanto o app estiver visível
+\n- mostrar o app sobre a lockscreen
+\n- permanecer na memória RAM
+\n- forçar orientação (retrato/paisagem/auto)
+\n- notificações persistentes (repetir os sons)
+\n- desativar notificações expandidas
+\n- revogar permissões</string>
+    <string name="app_version">Versão: %s</string>
+    <string name="app_translation">Tradutor: %s</string>
+    <string name="app_notactive_warning">Nota: Apesar das configurações poderem ser ajustadas do jeito que estão,
+elas só afetarão os apps se o Xposed framework estiver instalado e este módulo 
+ativado nas configurações!</string>
+
+
+    <!-- app-specific menu -->
+    <string name="menu_save">Salvar</string>
+    <string name="menu_launch">Abrir</string>
+    <string name="menu_settings">Configurações</string>
+    <string name="menu_playstore">Play Store</string>
+
+
+    <!-- Settings screen -->
+    <string name="settings_title">Configurações</string>
+    <string name="settings_dpi">DPI</string>
+    <string name="settings_fontscale">Escala de fonte</string>
+    <string name="settings_listres">Lista de res.</string>
+    <string name="settings_screen">Tela (dp)</string>
+    <string name="settings_xlargeres">Rec xlarge</string>
+    <string name="settings_locale">Local</string>
+    <string name="settings_fullscreen">Tela cheia</string>
+    <string name="settings_notitle">Sem título</string>
+    <string name="settings_screenon">Manter tela</string>
+    <string name="settings_showwhenlocked">Exibir bloqueado</string>
+    <string name="settings_resident">Residente</string>
+    <string name="settings_orientation">Orientação</string>
+    <string name="settings_insistentnotif">Notificações insistentes</string>
+    <string name="settings_nobignotif">Sem expansão de notif.</string>
+    <string name="settings_permissions">Permissões</string>
+
+    <string name="settings_default">(padrão)</string>
+
+    <string name="settings_force">Forçar</string>
+    <string name="settings_prevent">Previnir</string>
+
+    <string name="settings_ori_normal">Rotação normal</string>
+    <string name="settings_ori_portrait">Sempre retrato</string>
+    <string name="settings_ori_landscape">Sempre paisagem</string>
+    <string name="settings_ori_forceauto">Forçar auto-rotação</string>
+
+    <!-- List resources -->
+    <string name="res_title">Recursos</string>
+    <string name="res_noentries">Nenhum recurso encontrado</string>
+    <string name="res_failedtoload">Falha ao carregar conteúdo do APK</string>
+
+    <!-- Show / search / revoke permissions -->
+    <string name="perms_title">Permissões</string>
+    <string name="perms_revoke">Revogar Permissões</string>
+    <string name="perms_shared_warning">AVISO: Pacote compartilhado!</string>
+    <string name="perms_searchhint">nome ou descrição</string>
+    <string name="perms_nodescription">(nenhuma descrição)</string>
+    <string name="perms_filter_title">Selecione uma permissão para filtrar, ou Cancelar para exibir todas</string>
+
+    <!-- Saving settings -->
+    <string name="settings_unsaved_title">Aviso</string>
+    <string name="settings_unsaved_detail">Você não salvou as configurações.
+Confirma descartar as mudanças e voltar?</string>
+    <string name="settings_apply_title">Aplicar configurações</string>
+    <string name="settings_apply_detail">Também matar o aplicativo para que na sua próxima execução ele use as novas configurações?</string>
+
+
+    <!-- Filter dialog -->
+    <string name="filter_title">Filtrar</string>
+    <string name="filter_all">Todos</string>
+    <string name="filter_overridden">Sobreposto</string>
+    <string name="filter_unchanged">Inalterado</string>
+    <string name="filter_type">Tipo</string>
+    <string name="filter_user">Usuário</string>
+    <string name="filter_system">Sistema</string>
+    <string name="filter_settingsactive">Configurações ativas</string>
+    <string name="filter_active">Ativo</string>
+    <string name="filter_notactive">Não inativo</string>
+    <string name="filter_resources">Carregamento de recursos</string>
+    <string name="filter_cancel">Cancelar</string>
+    <string name="filter_clear">Limpar</string>
+    <string name="filter_apply">Aplicar</string>
+
+
+    <string name="translator">Marcio Andrade (@marciozomb13)</string>
+</resources>

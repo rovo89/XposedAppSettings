@@ -23,6 +23,7 @@ import de.robv.android.xposed.mods.appsettings.XposedMod;
 public class Activities {
 
 	private static final String PROP_FULLSCREEN = "AppSettings-Fullscreen";
+	private static final String PROP_ORIENTATION = "AppSettings-Orientation";
 
 	public static void hookActivitySettings() {
 		try {
@@ -65,8 +66,10 @@ public class Activities {
 						window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 					int orientation = XposedMod.prefs.getInt(packageName + Common.PREF_ORIENTATION, XposedMod.prefs.getInt(Common.PREF_DEFAULT + Common.PREF_ORIENTATION, 0));
-					if (orientation > 0 && orientation < Common.orientationCodes.length && context instanceof Activity)
+					if (orientation > 0 && orientation < Common.orientationCodes.length && context instanceof Activity) {
 						((Activity) context).setRequestedOrientation(Common.orientationCodes[orientation]);
+						setAdditionalInstanceField(context, PROP_ORIENTATION, orientation);
+					}
 				}
 			});
 		} catch (Throwable e) {
@@ -92,6 +95,19 @@ public class Activities {
 						}
 						param.args[0] = flags;
 					}
+				}
+			});
+		} catch (Throwable e) {
+			XposedBridge.log(e);
+		}
+
+		try {
+			findAndHookMethod(Activity.class, "setRequestedOrientation", int.class, new XC_MethodHook() {
+				@Override
+				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+					Integer orientation = (Integer) getAdditionalInstanceField(param.thisObject, PROP_ORIENTATION);
+					if (orientation != null)
+						param.args[0] = orientation;
 				}
 			});
 		} catch (Throwable e) {

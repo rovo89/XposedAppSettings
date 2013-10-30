@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="120dp"
+    android:minHeight="80dp"
+    android:updatePeriodMillis="0"
+    android:initialKeyguardLayout="@layout/lockscreen_launcher"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="keyguard" >
+    
+</appwidget-provider>

@@ -12,6 +12,7 @@ import java.lang.reflect.Method;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.view.Window;
 import android.view.WindowManager;
 import de.robv.android.xposed.XC_MethodHook;
@@ -114,19 +115,25 @@ public class Activities {
 			XposedBridge.log(e);
 		}
 
-	    try {
-	    	// Hook one of the several variations of ActivityStack.realStartActivityLocked from different ROMs
-	    	Method mthRealStartActivityLocked;
-	    	try {
-	        	mthRealStartActivityLocked = findMethodExact("com.android.server.am.ActivityStack", null, "realStartActivityLocked",
-	    				"com.android.server.am.ActivityRecord", "com.android.server.am.ProcessRecord",
-	    				boolean.class, boolean.class, boolean.class);
-	    	} catch (Throwable t) {
-	    		mthRealStartActivityLocked = findMethodExact("com.android.server.am.ActivityStack", null, "realStartActivityLocked",
-	    				"com.android.server.am.ActivityRecord", "com.android.server.am.ProcessRecord",
-	    				boolean.class, boolean.class);
-	    	}
-	    	hookMethod(mthRealStartActivityLocked, new XC_MethodHook() {
+		try {
+			// Hook one of the several variations of ActivityStack.realStartActivityLocked from different ROMs
+			Method mthRealStartActivityLocked;
+			if (Build.VERSION.SDK_INT <= 18) {
+				try {
+					mthRealStartActivityLocked = findMethodExact("com.android.server.am.ActivityStack", null, "realStartActivityLocked",
+							"com.android.server.am.ActivityRecord", "com.android.server.am.ProcessRecord",
+							boolean.class, boolean.class, boolean.class);
+				} catch (NoSuchMethodError t) {
+					mthRealStartActivityLocked = findMethodExact("com.android.server.am.ActivityStack", null, "realStartActivityLocked",
+							"com.android.server.am.ActivityRecord", "com.android.server.am.ProcessRecord",
+							boolean.class, boolean.class);
+				}
+			} else {
+				mthRealStartActivityLocked = findMethodExact("com.android.server.am.ActivityStackSupervisor", null, "realStartActivityLocked",
+						"com.android.server.am.ActivityRecord", "com.android.server.am.ProcessRecord",
+						boolean.class, boolean.class);
+			}
+			hookMethod(mthRealStartActivityLocked, new XC_MethodHook() {
 
 	    		@Override
 	    		protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -140,7 +147,8 @@ public class Activities {
 					// Override the *Adj values if meant to be resident in memory
 					if (proc != null) {
 						setIntField(proc, "maxAdj", adj);
-						setIntField(proc, "hiddenAdj", adj);
+						if (Build.VERSION.SDK_INT <= 18)
+							setIntField(proc, "hiddenAdj", adj);
 						setIntField(proc, "curRawAdj", adj);
 						setIntField(proc, "setRawAdj", adj);
 						setIntField(proc, "curAdj", adj);

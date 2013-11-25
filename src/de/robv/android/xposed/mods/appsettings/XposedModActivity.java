@@ -255,7 +255,7 @@ public class XposedModActivity extends Activity {
 				// Refresh preferences
 				prefs = getSharedPreferences(Common.PREFS, Context.MODE_WORLD_READABLE | Context.MODE_MULTI_PROCESS);
 				// Refresh listed apps (account for filters)
-				AppListAdaptor appListAdapter = (AppListAdaptor) ((ListView) findViewById(R.id.lstApps)).getAdapter();
+				AppListAdapter appListAdapter = (AppListAdapter) ((ListView) findViewById(R.id.lstApps)).getAdapter();
 				appListAdapter.getFilter().filter(nameFilter);
 			}
 
@@ -452,15 +452,15 @@ public class XposedModActivity extends Activity {
     
 
     private void prepareAppList() {
-        final AppListAdaptor appListAdaptor = new AppListAdaptor(XposedModActivity.this,appList);
+        final AppListAdapter appListAdapter = new AppListAdapter(XposedModActivity.this,appList);
 
-        ((ListView) findViewById(R.id.lstApps)).setAdapter(appListAdaptor);
+        ((ListView) findViewById(R.id.lstApps)).setAdapter(appListAdapter);
         ((SearchView) findViewById(R.id.searchApp)).setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             
             @Override
             public boolean onQueryTextSubmit(String query) {
                 nameFilter = query;
-                appListAdaptor.getFilter().filter(nameFilter);
+                appListAdapter.getFilter().filter(nameFilter);
                 ((SearchView) findViewById(R.id.searchApp)).clearFocus();
                 return false;
             }
@@ -468,7 +468,7 @@ public class XposedModActivity extends Activity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 nameFilter = newText;
-                appListAdaptor.getFilter().filter(nameFilter);
+                appListAdapter.getFilter().filter(nameFilter);
                 return false;
             }
             
@@ -540,7 +540,7 @@ public class XposedModActivity extends Activity {
 						filterPermissions = FilterState.ALL;
 
 						filterDialog.dismiss();
-						appListAdaptor.getFilter().filter(nameFilter);
+						appListAdapter.getFilter().filter(nameFilter);
 					}
 				});
 				((Button) filterDialog.findViewById(R.id.btnFilterApply)).setOnClickListener(new View.OnClickListener() {
@@ -563,7 +563,7 @@ public class XposedModActivity extends Activity {
 						filterPermissions = ((FilterItemComponent) filterDialog.findViewById(R.id.fltPermissions)).getFilterState();
 
 						filterDialog.dismiss();
-						appListAdaptor.getFilter().filter(nameFilter);
+						appListAdapter.getFilter().filter(nameFilter);
 					}
 				});
 
@@ -614,7 +614,7 @@ public class XposedModActivity extends Activity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						filterPermissionUsage = adapter.getItem(which).name;
-						appListAdaptor.getFilter().filter(nameFilter);
+						appListAdapter.getFilter().filter(nameFilter);
 					}
 				});
 
@@ -640,7 +640,7 @@ public class XposedModActivity extends Activity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						filterPermissionUsage = null;
-						appListAdaptor.getFilter().filter(nameFilter);
+						appListAdapter.getFilter().filter(nameFilter);
 					}
 				});
 
@@ -655,7 +655,7 @@ public class XposedModActivity extends Activity {
     
     
     // Handle background loading of apps
-    private class PrepareAppsAdapter extends AsyncTask<Void,Void,AppListAdaptor> {
+    private class PrepareAppsAdapter extends AsyncTask<Void,Void,AppListAdapter> {
         ProgressDialog dialog;
         
         @Override
@@ -668,7 +668,7 @@ public class XposedModActivity extends Activity {
         }
         
         @Override
-        protected AppListAdaptor doInBackground(Void... params) {
+        protected AppListAdapter doInBackground(Void... params) {
             if (appList.size() == 0) {
                 loadApps(dialog);
             }
@@ -676,7 +676,7 @@ public class XposedModActivity extends Activity {
         }
 
         @Override
-        protected void onPostExecute(final AppListAdaptor result) {
+        protected void onPostExecute(final AppListAdapter result) {
             prepareAppList();
             
             try {
@@ -690,11 +690,11 @@ public class XposedModActivity extends Activity {
 	
     private class AppListFilter extends Filter {
 
-        private AppListAdaptor adaptor;
+        private AppListAdapter adapter;
         
-        AppListFilter(AppListAdaptor adaptor) {
+        AppListFilter(AppListAdapter adapter) {
             super();
-            this.adaptor = adaptor;
+            this.adapter = adapter;
         }
         
     	@SuppressLint("WorldReadableFiles")
@@ -811,18 +811,18 @@ public class XposedModActivity extends Activity {
         protected void publishResults(CharSequence constraint, FilterResults results) {
             // NOTE: this function is *always* called from the UI thread.
             filteredAppList = (ArrayList<ApplicationInfo>) results.values;
-            adaptor.notifyDataSetChanged();
-            adaptor.clear();
+            adapter.notifyDataSetChanged();
+            adapter.clear();
             for(int i = 0, l = filteredAppList.size(); i < l; i++) {
-                adaptor.add(filteredAppList.get(i));
+                adapter.add(filteredAppList.get(i));
             }
-            adaptor.notifyDataSetInvalidated();            
+            adapter.notifyDataSetInvalidated();
         }
     }
     
     
     
-    class AppListAdaptor extends ArrayAdapter<ApplicationInfo> implements SectionIndexer {
+    class AppListAdapter extends ArrayAdapter<ApplicationInfo> implements SectionIndexer {
         
         private Map<String, Integer> alphaIndexer;
         private String[] sections;
@@ -830,7 +830,7 @@ public class XposedModActivity extends Activity {
  
         
         @SuppressLint("DefaultLocale")
-        public AppListAdaptor(Context context, List<ApplicationInfo> items) {
+        public AppListAdapter(Context context, List<ApplicationInfo> items) {
             super(context, R.layout.app_list_item, new ArrayList<ApplicationInfo>(items));
             
             filteredAppList.addAll(items);

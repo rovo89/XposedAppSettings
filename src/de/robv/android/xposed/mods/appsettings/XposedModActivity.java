@@ -1,6 +1,11 @@
 package de.robv.android.xposed.mods.appsettings;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -17,6 +22,7 @@ import java.util.regex.Pattern;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -37,6 +43,7 @@ import android.text.method.LinkMovementMethod;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,9 +57,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SectionIndexer;
-import android.widget.TabHost;
-import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
+import android.widget.Toast;
 import de.robv.android.xposed.mods.appsettings.FilterItemComponent.FilterState;
 import de.robv.android.xposed.mods.appsettings.settings.ApplicationSettings;
 import de.robv.android.xposed.mods.appsettings.settings.PermissionsListAdapter;
@@ -86,6 +92,9 @@ public class XposedModActivity extends Activity {
 
 	private String filterPermissionUsage;
 
+	private static File prefsFile = new File(Environment.getDataDirectory(),
+			"data/" + Common.MY_PACKAGE_NAME + "/shared_prefs/" + Common.PREFS + ".xml");
+	private static File backupPrefsFile = new File(Environment.getExternalStorageDirectory(), "AppSettings-Backup.xml");
     private SharedPreferences prefs;
 	
 	@SuppressLint("WorldReadableFiles")
@@ -94,48 +103,11 @@ public class XposedModActivity extends Activity {
 		setTitle(R.string.app_name);
 		super.onCreate(savedInstanceState);
 
-		new File(Environment.getDataDirectory(), "data/" + Common.MY_PACKAGE_NAME + "/shared_prefs/" +
-				Common.PREFS + ".xml").setReadable(true, false);
-
+		prefsFile.setReadable(true, false);
         prefs = getSharedPreferences(Common.PREFS, Context.MODE_WORLD_READABLE);
 		
         setContentView(R.layout.main);
         
-        TabHost tabHost=(TabHost)findViewById(R.id.tabHost);
-        tabHost.setup();
-        
-        TabSpec spec1=tabHost.newTabSpec("Apps");
-        spec1.setIndicator(getString(R.string.app_tab_main));
-        spec1.setContent(R.id.tab1);
-
-        TabSpec spec2=tabHost.newTabSpec("About");
-        spec2.setIndicator(getString(R.string.app_tab_about));
-        spec2.setContent(R.id.tab2);
-
-		if (!isModActive())
-			findViewById(R.id.about_notactive).setVisibility(View.VISIBLE);
-
-		String translator = getResources().getString(R.string.translator);
-		TextView txtTranslation = (TextView) findViewById(R.id.about_translation);
-		if (translator.isEmpty()) {
-			txtTranslation.setVisibility(View.GONE);
-		} else {
-			txtTranslation.setText(getString(R.string.app_translation, translator));
-			txtTranslation.setMovementMethod(LinkMovementMethod.getInstance());
-		}
-        
-        tabHost.addTab(spec1);
-        tabHost.addTab(spec2);
-        tabHost.setCurrentTab(0);
-        
-        ((TextView) findViewById(R.id.about_title)).setMovementMethod(LinkMovementMethod.getInstance());
-        
-        try {
-			((TextView) findViewById(R.id.version)).setText(
-					getString(R.string.app_version,
-							getPackageManager().getPackageInfo(getPackageName(), 0).versionName));
-        } catch (NameNotFoundException e) {
-        }
         
         
         ListView list = (ListView) findViewById(R.id.lstApps);
@@ -169,7 +141,205 @@ public class XposedModActivity extends Activity {
             list.getAdapter().getView(requestCode, v, list);
         }
     }
-    
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_export:
+			doExport();
+			return true;
+		case R.id.menu_import:
+			doImport();
+			return true;
+		case R.id.menu_about:
+			showAboutDialog();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	private void doExport() {
+		new ExportTask().execute(backupPrefsFile);
+	}
+
+	private void doImport() {
+		if (!backupPrefsFile.exists()) {
+			Toast.makeText(this, getString(R.string.imp_exp_file_doesnt_exist, backupPrefsFile.getAbsolutePath()),
+					Toast.LENGTH_LONG).show();
+			return;
+		}
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.menu_import);
+		builder.setMessage(R.string.imp_exp_confirm);
+		builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				new ImportTask().execute(backupPrefsFile);
+			}
+		});
+		builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// Do nothing
+				dialog.dismiss();
+			}
+		});
+		AlertDialog alert = builder.create();
+		alert.show();
+	}
+
+	private class ExportTask extends AsyncTask<File, String, String> {
+		@Override
+		protected String doInBackground(File... params) {
+			File outFile = params[0];
+			try {
+				copyFile(prefsFile, outFile);
+				return getString(R.string.imp_exp_exported, outFile.getAbsolutePath());
+			} catch (IOException ex) {
+				return getString(R.string.imp_exp_export_error, ex.getMessage());
+			}
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			Toast.makeText(XposedModActivity.this, result, Toast.LENGTH_LONG).show();
+		}
+	}
+
+	private class ImportTask extends AsyncTask<File, String, String> {
+		private boolean importSuccessful;
+
+		@Override
+		protected String doInBackground(File... params) {
+			importSuccessful = false;
+
+			File inFile = params[0];
+			String tempFilename = Common.PREFS + "-new";
+			File newPrefsFile = new File(prefsFile.getParentFile(), tempFilename + ".xml");
+			try {
+				copyFile(inFile, newPrefsFile);
+			} catch (IOException ex) {
+				return getString(R.string.imp_exp_import_error, ex.getMessage());
+			}
+
+			newPrefsFile.setReadable(true, false);
+			SharedPreferences newPrefs = getSharedPreferences(tempFilename, Context.MODE_WORLD_READABLE | Context.MODE_MULTI_PROCESS);
+			if (newPrefs.getAll().size() == 0) {
+				// No entries in imported file, discard it
+				newPrefsFile.delete();
+				return getString(R.string.imp_exp_invalid_import_file, inFile.getAbsoluteFile());
+			} else {
+				if (newPrefsFile.renameTo(prefsFile)) {
+					importSuccessful = true;
+				} else {
+					prefsFile.delete();
+					if (newPrefsFile.renameTo(prefsFile))
+						importSuccessful = true;
+				}
+
+				return getString(R.string.imp_exp_imported);
+			}
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			if (importSuccessful) {
+				// Refresh preferences
+				prefs = getSharedPreferences(Common.PREFS, Context.MODE_WORLD_READABLE | Context.MODE_MULTI_PROCESS);
+				// Refresh listed apps (account for filters)
+				AppListAdaptor appListAdapter = (AppListAdaptor) ((ListView) findViewById(R.id.lstApps)).getAdapter();
+				appListAdapter.getFilter().filter(nameFilter);
+			}
+
+			Toast.makeText(XposedModActivity.this, result, Toast.LENGTH_LONG).show();
+		}
+	}
+
+
+	private static void copyFile(File source, File dest) throws IOException {
+		InputStream in = null;
+		OutputStream out = null;
+		boolean success = false;
+		try {
+			in = new FileInputStream(source);
+			out = new FileOutputStream(dest);
+			byte[] buf = new byte[10 * 1024];
+			int len;
+			while ((len = in.read(buf)) > 0) {
+				out.write(buf, 0, len);
+			}
+			out.flush();
+			out.close();
+			out = null;
+			success = true;
+		} catch (IOException ex) {
+			throw ex;
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (Exception ex) {
+				}
+			}
+			if (out != null) {
+				try {
+					out.close();
+				} catch (Exception ex) {
+				}
+			}
+			if (!success) {
+				dest.delete();
+			}
+		}
+	}
+
+
+	private void showAboutDialog() {
+		View vAbout;
+		vAbout = getLayoutInflater().inflate(R.layout.about, null);
+
+		// Warn if the module is not active
+		if (!isModActive())
+			findViewById(R.id.about_notactive).setVisibility(View.VISIBLE);
+
+		// Display the resources translator, or hide it if none
+		String translator = getResources().getString(R.string.translator);
+		TextView txtTranslation = (TextView) vAbout.findViewById(R.id.about_translation);
+		if (translator.isEmpty()) {
+			txtTranslation.setVisibility(View.GONE);
+		} else {
+			txtTranslation.setText(getString(R.string.app_translation, translator));
+			txtTranslation.setMovementMethod(LinkMovementMethod.getInstance());
+		}
+
+		// Clickable links
+		((TextView) vAbout.findViewById(R.id.about_title)).setMovementMethod(LinkMovementMethod.getInstance());
+
+		// Display the correct version
+		try {
+			((TextView) vAbout.findViewById(R.id.version)).setText(getString(R.string.app_version,
+					getPackageManager().getPackageInfo(getPackageName(), 0).versionName));
+		} catch (NameNotFoundException e) {
+		}
+
+		// Prepare and show the dialog
+		Builder dlgBuilder = new AlertDialog.Builder(this);
+		dlgBuilder.setTitle(R.string.app_name);
+		dlgBuilder.setCancelable(true);
+		dlgBuilder.setIcon(R.drawable.ic_launcher);
+		dlgBuilder.setPositiveButton(android.R.string.ok, null);
+		dlgBuilder.setView(vAbout);
+		dlgBuilder.show();
+	}
+
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		if (v.getId() == R.id.lstApps) {

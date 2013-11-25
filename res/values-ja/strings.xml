@@ -8,9 +8,6 @@ DPI; フォントスケール; 読み込むリソースの上書き; 言語;
 
 
     <!-- Main screen -->
-    <string name="app_tab_main">アプリ</string>
-    <string name="app_tab_about">情報</string>
-
     <string name="app_loading">アプリの読み込み中、しばらくお待ちください</string>
     <string name="app_searchhint">名前かパッケージ名</string>
     <string name="app_about">この<a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a>モジュールは<a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a>と<a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>により制作されました。
@@ -32,6 +29,21 @@ DPI; フォントスケール; 読み込むリソースの上書き; 言語;
     <string name="app_version">バージョン: %s</string>
     <string name="app_translation">翻訳: %s</string>
     <string name="app_notactive_warning">注意:Xposedフレームワークがインストールされていてこのモジュールが有効化されているときのみ設定が反映されます!</string>
+
+
+    <!-- main menu -->
+    <string name="menu_export">Export</string>
+    <string name="menu_import">Import</string>
+    <string name="menu_about">情報</string>
+
+    <!-- Import / Export -->
+    <string name="imp_exp_file_doesnt_exist">File does not exist: %s</string>
+    <string name="imp_exp_confirm">Replace all settings with the ones that are about to be imported?</string>
+    <string name="imp_exp_exported">Settings exported to file: %s</string>
+    <string name="imp_exp_export_error">Export failed: %s</string>
+    <string name="imp_exp_import_error">Import failed: %s</string>
+    <string name="imp_exp_invalid_import_file">Invalid or empty file to import: %s</string>
+    <string name="imp_exp_imported">Import successful; settings replaced</string>
 
 
     <!-- app-specific menu -->

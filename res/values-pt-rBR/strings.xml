@@ -8,9 +8,6 @@ Permanecer na memória; Orientação; Notificações persistentes; Sem notifica�
 
 
     <!-- Main screen -->
-    <string name="app_tab_main">Apps</string>
-    <string name="app_tab_about">Sobre</string>
-
     <string name="app_loading">Carregando apps, aguarde</string>
     <string name="app_searchhint">nome ou pacote</string>
     <string name="app_about">Um módulo <a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> por
@@ -35,6 +32,21 @@ Permanecer na memória; Orientação; Notificações persistentes; Sem notifica�
     <string name="app_notactive_warning">Nota: Apesar das configurações poderem ser ajustadas do jeito que estão,
 elas só afetarão os apps se o Xposed framework estiver instalado e este módulo 
 ativado nas configurações!</string>
+
+
+    <!-- main menu -->
+    <string name="menu_export">Export</string>
+    <string name="menu_import">Import</string>
+    <string name="menu_about">Sobre</string>
+
+    <!-- Import / Export -->
+    <string name="imp_exp_file_doesnt_exist">File does not exist: %s</string>
+    <string name="imp_exp_confirm">Replace all settings with the ones that are about to be imported?</string>
+    <string name="imp_exp_exported">Settings exported to file: %s</string>
+    <string name="imp_exp_export_error">Export failed: %s</string>
+    <string name="imp_exp_import_error">Import failed: %s</string>
+    <string name="imp_exp_invalid_import_file">Invalid or empty file to import: %s</string>
+    <string name="imp_exp_imported">Import successful; settings replaced</string>
 
 
     <!-- app-specific menu -->

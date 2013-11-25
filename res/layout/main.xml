@@ -1,103 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tabHost"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="?android:attr/scrollbarSize"
-    android:paddingRight="?android:attr/scrollbarSize" >
-    <LinearLayout
+    android:layout_height="match_parent" >
+    <ImageButton
+        android:id="@+id/btnFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_view"
+        android:contentDescription="@string/filter_title"/>
+    <ImageButton
+        android:id="@+id/btnPermsFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/btnFilter"
+        android:src="@android:drawable/ic_lock_lock"
+        android:contentDescription="@string/perms_title"/>
+    <SearchView
+        android:id="@+id/searchApp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/btnPermsFilter"
+        android:focusable="false"
+        android:iconifiedByDefault="false"
+        android:imeOptions="actionSearch|flagNoEnterAction|flagNoExtractUi"
+        android:inputType="textFilter"
+        android:queryHint="@string/app_searchhint" />
+    <ListView
+        android:id="@+id/lstApps"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="5dp" >
-        <TabWidget
-            android:id="@android:id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <FrameLayout
-            android:id="@android:id/tabcontent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-            <RelativeLayout
-                android:id="@+id/tab1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-                <ImageButton
-                    android:id="@+id/btnFilter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@android:drawable/ic_menu_view"
-                    android:contentDescription="@string/filter_title"/>
-                <ImageButton
-                    android:id="@+id/btnPermsFilter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/btnFilter"
-                    android:src="@android:drawable/ic_lock_lock"
-                    android:contentDescription="@string/perms_title"/>
-                <SearchView
-                    android:id="@+id/searchApp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/btnPermsFilter"
-                    android:focusable="false"
-                    android:iconifiedByDefault="false"
-                    android:imeOptions="actionSearch|flagNoEnterAction|flagNoExtractUi"
-                    android:inputType="textFilter"
-                    android:queryHint="@string/app_searchhint" />
-                <ListView
-                    android:id="@+id/lstApps"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/searchApp"
-                    android:divider="@android:color/holo_blue_dark"
-                    android:dividerHeight="1dp"
-                    android:fadingEdge="vertical"
-                    android:fastScrollEnabled="true"
-                    android:scrollbars="vertical"
-                    android:textFilterEnabled="true" />
-            </RelativeLayout>
-            <ScrollView
-                android:id="@+id/tab2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" >
-                    <TextView
-                        android:id="@+id/about_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/app_about"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="16dp"
-                        android:text="@string/app_description" />
-                    <TextView
-                        android:id="@+id/version"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="20dp"
-                        android:text="@string/app_version" />
-                    <TextView
-                        android:id="@+id/about_translation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="8dp"
-                        android:text="@string/app_translation" />
-                    <TextView
-                        android:id="@+id/about_notactive"
-                        android:visibility="gone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="16dp"
-                        android:text="@string/app_notactive_warning"
-                        android:textColor="@android:color/holo_red_dark" />
-                </LinearLayout>
-            </ScrollView>
-        </FrameLayout>
-   	</LinearLayout>
-</TabHost>
+        android:layout_below="@id/searchApp"
+        android:divider="@android:color/holo_blue_dark"
+        android:dividerHeight="1dp"
+        android:fadingEdge="vertical"
+        android:fastScrollEnabled="true"
+        android:scrollbars="vertical"
+        android:textFilterEnabled="true" />
+</RelativeLayout>

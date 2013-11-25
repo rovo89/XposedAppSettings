@@ -8,9 +8,6 @@ Resident in memory; Orientation; Insistent notifications; No big notifications; 
 
 
     <!-- Main screen -->
-    <string name="app_tab_main">Apps</string>
-    <string name="app_tab_about">About</string>
-
     <string name="app_loading">Loading apps, please wait</string>
     <string name="app_searchhint">name or package</string>
     <string name="app_about">An <a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> module by
@@ -35,6 +32,21 @@ Resident in memory; Orientation; Insistent notifications; No big notifications; 
     <string name="app_notactive_warning">Note: Although the configuration panels can be used as-is,
 they will only affect the apps if the Xposed framework is installed and if this module
 is enabled in its configuration!</string>
+
+
+    <!-- main menu -->
+    <string name="menu_export">Export</string>
+    <string name="menu_import">Import</string>
+    <string name="menu_about">About</string>
+
+    <!-- Import / Export -->
+    <string name="imp_exp_file_doesnt_exist">File does not exist: %s</string>
+    <string name="imp_exp_confirm">Replace all settings with the ones that are about to be imported?</string>
+    <string name="imp_exp_exported">Settings exported to file: %s</string>
+    <string name="imp_exp_export_error">Export failed: %s</string>
+    <string name="imp_exp_import_error">Import failed: %s</string>
+    <string name="imp_exp_invalid_import_file">Invalid or empty file to import: %s</string>
+    <string name="imp_exp_imported">Import successful; settings replaced</string>
 
 
     <!-- app-specific menu -->

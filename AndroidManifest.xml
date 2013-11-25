@@ -5,9 +5,12 @@
     android:versionName="1.5" xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk android:minSdkVersion="15" tools:ignore="UsesMinSdkAttributes"/>
+
     <permission-tree android:name="de.robv.android.xposed.mods.appsettings"/>
-    <uses-permission android:name="de.robv.android.xposed.mods.appsettings.BROADCAST_PERMISSION"/>
     <permission android:name="de.robv.android.xposed.mods.appsettings.BROADCAST_PERMISSION" android:protectionLevel="dangerous"></permission>
+
+    <uses-permission android:name="de.robv.android.xposed.mods.appsettings.BROADCAST_PERMISSION"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:icon="@drawable/ic_launcher"

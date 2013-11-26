@@ -309,7 +309,7 @@ public class XposedModActivity extends Activity {
 
 		// Warn if the module is not active
 		if (!isModActive())
-			findViewById(R.id.about_notactive).setVisibility(View.VISIBLE);
+			vAbout.findViewById(R.id.about_notactive).setVisibility(View.VISIBLE);
 
 		// Display the resources translator, or hide it if none
 		String translator = getResources().getString(R.string.translator);

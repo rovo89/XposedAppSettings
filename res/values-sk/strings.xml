@@ -6,9 +6,6 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
 
 
     <!-- Main screen -->
-    <string name="app_tab_main">Aplikácie</string>
-    <string name="app_tab_about">O aplikácii</string>
-
     <string name="app_loading">Načítavam aplikácie, prosím čakajte</string>
     <string name="app_searchhint">meno, alebo balíček</string>
     <string name="app_about"><a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> modul od
@@ -31,6 +28,21 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
     <string name="app_version">Verzia: %s</string>
     <string name="app_translation">Prekladateľ: %s</string>
     <string name="app_notactive_warning">Poznámka: Aj keď nastavenia môžu byť zmenené, vplyv na aplikácie budú mať iba ak bude Xposed framework nainštalovaný a tento modul bude povolený!</string>
+
+
+    <!-- main menu -->
+    <string name="menu_export">Export</string>
+    <string name="menu_import">Import</string>
+    <string name="menu_about">O aplikácii</string>
+
+    <!-- Import / Export -->
+    <string name="imp_exp_file_doesnt_exist">File does not exist: %s</string>
+    <string name="imp_exp_confirm">Replace all settings with the ones that are about to be imported?</string>
+    <string name="imp_exp_exported">Settings exported to file: %s</string>
+    <string name="imp_exp_export_error">Export failed: %s</string>
+    <string name="imp_exp_import_error">Import failed: %s</string>
+    <string name="imp_exp_invalid_import_file">Invalid or empty file to import: %s</string>
+    <string name="imp_exp_imported">Import successful; settings replaced</string>
 
 
     <!-- app-specific menu -->

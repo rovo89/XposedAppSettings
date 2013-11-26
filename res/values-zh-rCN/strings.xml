@@ -32,18 +32,18 @@ DPI；字号缩放；覆盖加载资源；区域设置；
 
 
     <!-- main menu -->
-    <string name="menu_export">Export</string>
-    <string name="menu_import">Import</string>
+    <string name="menu_export">导出</string>
+    <string name="menu_import">导入</string>
     <string name="menu_about">关于</string>
 
     <!-- Import / Export -->
-    <string name="imp_exp_file_doesnt_exist">File does not exist: %s</string>
-    <string name="imp_exp_confirm">Replace all settings with the ones that are about to be imported?</string>
-    <string name="imp_exp_exported">Settings exported to file: %s</string>
-    <string name="imp_exp_export_error">Export failed: %s</string>
-    <string name="imp_exp_import_error">Import failed: %s</string>
-    <string name="imp_exp_invalid_import_file">Invalid or empty file to import: %s</string>
-    <string name="imp_exp_imported">Import successful; settings replaced</string>
+    <string name="imp_exp_file_doesnt_exist">文件不存在: %s</string>
+    <string name="imp_exp_confirm">使用导入文件替换所有设置吗？</string>
+    <string name="imp_exp_exported">设置已导出: %s</string>
+    <string name="imp_exp_export_error">导出失败: %s</string>
+    <string name="imp_exp_import_error">导入失败: %s</string>
+    <string name="imp_exp_invalid_import_file">导入文件无效或为空: %s</string>
+    <string name="imp_exp_imported">导入成功; 设置已替换</string>
 
 
     <!-- app-specific menu -->
@@ -77,8 +77,8 @@ DPI；字号缩放；覆盖加载资源；区域设置；
     <string name="settings_prevent">阻止</string>
 
     <string name="settings_ori_normal">正常旋转</string>
-    <string name="settings_ori_portrait">总是纵向</string>
-    <string name="settings_ori_landscape">总是横向</string>
+    <string name="settings_ori_portrait">保持纵向</string>
+    <string name="settings_ori_landscape">保持横向</string>
     <string name="settings_ori_forceauto">强制自动旋转</string>
 
     <!-- List resources -->

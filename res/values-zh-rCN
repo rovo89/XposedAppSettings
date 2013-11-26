@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">App Settings</string>
+    <string name="app_mod_summary">Ability to set several generic configurations on a per-app basis:
+DPI; Font scale; Override loaded resouces; Locale;
+Fullscreen; No title; Keep screen on; Show above lockscreen;
+Resident in memory; Orientation; Insistent notifications; No big notifications; Revoke Permissions</string>
+
+
+    <!-- Main screen -->
+    <string name="app_tab_main">Apps</string>
+    <string name="app_tab_about">About</string>
+
+    <string name="app_loading">Loading apps, please wait</string>
+    <string name="app_searchhint">name or package</string>
+    <string name="app_about">An <a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> module by
+ <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> and <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
+ \nYou can use <a href="http://forum.xda-developers.com/showthread.php?t=2437377">this thread</a> for questions or suggestions.</string>
+    <string name="app_description">This mod allows certain generic configurations to be changed on a per-app basis, without needing to edit APKs:
+\n- density / dpi
+\n- font scale
+\n- fake screen size for resources loading
+\n- locale (language)
+\n- fullscreen mode
+\n- hide title bar
+\n- keep screen on while app is visible
+\n- show app above lockscreen
+\n- stay resident in memory
+\n- force orientation (portrait/landscape/auto)
+\n- insistent notifications (loop the sound)
+\n- disable big (expanded) notifications
+\n- revoke permissions</string>
+    <string name="app_version">Version: %s</string>
+    <string name="app_translation">Translator: %s</string>
+    <string name="app_notactive_warning">Note: Although the configuration panels can be used as-is,
+they will only affect the apps if the Xposed framework is installed and if this module
+is enabled in its configuration!</string>
+
+
+    <!-- app-specific menu -->
+    <string name="menu_save">Save</string>
+    <string name="menu_launch">Launch</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_playstore">Play Store</string>
+
+
+    <!-- Settings screen -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_dpi">DPI</string>
+    <string name="settings_fontscale">Font scale</string>
+    <string name="settings_listres">List res.</string>
+    <string name="settings_screen">Screen (dp)</string>
+    <string name="settings_xlargeres">xlarge res.</string>
+    <string name="settings_locale">Locale</string>
+    <string name="settings_fullscreen">Fullscreen</string>
+    <string name="settings_notitle">No title</string>
+    <string name="settings_screenon">Keep screen on</string>
+    <string name="settings_showwhenlocked">Show when locked</string>
+    <string name="settings_resident">Resident</string>
+    <string name="settings_orientation">Orientation</string>
+    <string name="settings_insistentnotif">Insistent notifications</string>
+    <string name="settings_nobignotif">No big notifications</string>
+    <string name="settings_permissions">Permissions</string>
+
+    <string name="settings_default">(default)</string>
+
+    <string name="settings_force">Force</string>
+    <string name="settings_prevent">Prevent</string>
+
+    <string name="settings_ori_normal">Normal rotation</string>
+    <string name="settings_ori_portrait">Always portrait</string>
+    <string name="settings_ori_landscape">Always landscape</string>
+    <string name="settings_ori_forceauto">Force auto-rotation</string>
+
+    <!-- List resources -->
+    <string name="res_title">Resources</string>
+    <string name="res_noentries">No resources found</string>
+    <string name="res_failedtoload">Failed to load APK contents</string>
+
+    <!-- Show / search / revoke permissions -->
+    <string name="perms_title">Permissions</string>
+    <string name="perms_revoke">Revoke Permissions</string>
+    <string name="perms_shared_warning">WARNING: Shared package!</string>
+    <string name="perms_searchhint">name or description</string>
+    <string name="perms_nodescription">( no description provided )</string>
+    <string name="perms_filter_title">Select permission to filter for, or Cancel to show all</string>
+
+    <!-- Saving settings -->
+    <string name="settings_unsaved_title">Warning</string>
+    <string name="settings_unsaved_detail">You didn\'t save the configuration.
+Really go back and discard changes?</string>
+    <string name="settings_apply_title">Apply settings</string>
+    <string name="settings_apply_detail">Also kill the application so when it\'s relaunched it uses the new settings?</string>
+
+
+    <!-- Filter dialog -->
+    <string name="filter_title">Filter</string>
+    <string name="filter_all">All</string>
+    <string name="filter_overridden">Overridden</string>
+    <string name="filter_unchanged">Unchanged</string>
+    <string name="filter_type">Type</string>
+    <string name="filter_user">User</string>
+    <string name="filter_system">System</string>
+    <string name="filter_settingsactive">Settings active</string>
+    <string name="filter_active">Active</string>
+    <string name="filter_notactive">Not active</string>
+    <string name="filter_resources">Resource loading</string>
+    <string name="filter_cancel">Cancel</string>
+    <string name="filter_clear">Clear</string>
+    <string name="filter_apply">Apply</string>
+
+
+    <string name="translator"></string>
+</resources>

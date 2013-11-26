@@ -31,6 +31,19 @@
             android:configChanges="orientation|screenSize">
         </activity>
         
+        <receiver android:name=".lockscreen_launcher.LockscreenLauncherProvider" >
+		    <intent-filter>
+		        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+		        <action android:name="de.robv.android.xposed.mods.appsettings.lockscreen_launcher.CLICK_ACTION" />
+		    </intent-filter>
+		    <meta-data android:name="android.appwidget.provider"
+		               android:resource="@xml/lockscreen_launcher_provider" />
+		</receiver>
+		<!-- The service serving the RemoteViews to the launcher widget -->
+        <service android:name=".lockscreen_launcher.LauncherWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            android:exported="false" />
+        
         <meta-data
             android:name="xposedmodule"
             android:value="true" />

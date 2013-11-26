@@ -123,4 +123,5 @@ Really go back and discard changes?</string>
 
 
     <string name="translator"></string>
+    <string name="widget_no_apps_allowed">No apps have been allowed to show over the lockscreen.</string>
 </resources>

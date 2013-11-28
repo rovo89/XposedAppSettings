@@ -224,7 +224,8 @@ public class XposedModActivity extends Activity {
 			File inFile = params[0];
 			String tempFilename = Common.PREFS + "-new";
 			File newPrefsFile = new File(prefsFile.getParentFile(), tempFilename + ".xml");
-			newPrefsFile.getParentFile().mkdirs();
+			// Make sure the shared_prefs folder exists, with the proper permissions
+			getSharedPreferences(tempFilename, Context.MODE_WORLD_READABLE).edit().commit();
 			try {
 				copyFile(inFile, newPrefsFile);
 			} catch (IOException ex) {

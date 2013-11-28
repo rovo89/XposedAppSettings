@@ -35,18 +35,18 @@ ativado nas configurações!</string>
 
 
     <!-- main menu -->
-    <string name="menu_export">Export</string>
-    <string name="menu_import">Import</string>
+    <string name="menu_export">Exportar</string>
+    <string name="menu_import">Importar</string>
     <string name="menu_about">Sobre</string>
 
     <!-- Import / Export -->
-    <string name="imp_exp_file_doesnt_exist">File does not exist: %s</string>
-    <string name="imp_exp_confirm">Replace all settings with the ones that are about to be imported?</string>
-    <string name="imp_exp_exported">Settings exported to file: %s</string>
-    <string name="imp_exp_export_error">Export failed: %s</string>
-    <string name="imp_exp_import_error">Import failed: %s</string>
-    <string name="imp_exp_invalid_import_file">Invalid or empty file to import: %s</string>
-    <string name="imp_exp_imported">Import successful; settings replaced</string>
+    <string name="imp_exp_file_doesnt_exist">O arquivo %s não existe</string>
+    <string name="imp_exp_confirm">Todas as configurações atuais serão substituídas pelas importadas, confirma?</string>
+    <string name="imp_exp_exported">Configurações exportadas para o arquivo: %s</string>
+    <string name="imp_exp_export_error">Falha na exportação: %s</string>
+    <string name="imp_exp_import_error">Falha na importação: %s</string>
+    <string name="imp_exp_invalid_import_file">Arquivo de importação vazio ou inválido: %s</string>
+    <string name="imp_exp_imported">Importação concluída; configurações substituídas</string>
 
 
     <!-- app-specific menu -->

@@ -32,18 +32,18 @@ DPI；字号缩放；覆盖加载资源；区域设置；
 
 
     <!-- main menu -->
-    <string name="menu_export">Export</string>
-    <string name="menu_import">Import</string>
+    <string name="menu_export">导出</string>
+    <string name="menu_import">导入</string>
     <string name="menu_about">关于</string>
 
     <!-- Import / Export -->
-    <string name="imp_exp_file_doesnt_exist">File does not exist: %s</string>
-    <string name="imp_exp_confirm">Replace all settings with the ones that are about to be imported?</string>
-    <string name="imp_exp_exported">Settings exported to file: %s</string>
-    <string name="imp_exp_export_error">Export failed: %s</string>
-    <string name="imp_exp_import_error">Import failed: %s</string>
-    <string name="imp_exp_invalid_import_file">Invalid or empty file to import: %s</string>
-    <string name="imp_exp_imported">Import successful; settings replaced</string>
+    <string name="imp_exp_file_doesnt_exist">文件不存在: %s</string>
+    <string name="imp_exp_confirm">覆盖即将导入的所有设置？</string>
+    <string name="imp_exp_exported">导出设置到文件: %s</string>
+    <string name="imp_exp_export_error">导出失败: %s</string>
+    <string name="imp_exp_import_error">导入失败: %s</string>
+    <string name="imp_exp_invalid_import_file">导入无效或空文件: %s</string>
+    <string name="imp_exp_imported">导入成功;设置将替换</string>
 
 
     <!-- app-specific menu -->
@@ -96,7 +96,7 @@ DPI；字号缩放；覆盖加载资源；区域设置；
 
     <!-- Saving settings -->
     <string name="settings_unsaved_title">警告</string>
-    <string name="settings_unsaved_detail">你没有保存设置。
+    <string name="settings_unsaved_detail">你没有保存设置，
 确定返回并丢弃修改吗？</string>
     <string name="settings_apply_title">应用设置</string>
     <string name="settings_apply_detail">同时终止进程以便它使用新的设置重新启动吗？</string>

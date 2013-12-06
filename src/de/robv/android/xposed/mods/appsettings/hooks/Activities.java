@@ -10,9 +10,11 @@ import static de.robv.android.xposed.XposedHelpers.setIntField;
 
 import java.lang.reflect.Method;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import de.robv.android.xposed.XC_MethodHook;
@@ -30,6 +32,8 @@ public class Activities {
 		try {
 			findAndHookMethod("com.android.internal.policy.impl.PhoneWindow", null, "generateLayout",
 					"com.android.internal.policy.impl.PhoneWindow.DecorView", new XC_MethodHook() {
+
+				@SuppressLint("InlinedApi")
 				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 					Window window = (Window) param.thisObject;
 					Context context = window.getContext();
@@ -53,6 +57,17 @@ public class Activities {
 					} else if (fullscreen == Common.FULLSCREEN_PREVENT) {
 						window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 						setAdditionalInstanceField(window, PROP_FULLSCREEN, Boolean.FALSE);
+					} else if (fullscreen == Common.FULLSCREEN_IMMERSIVE) {
+						if (Build.VERSION.SDK_INT >= 19) {
+							window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+							setAdditionalInstanceField(window, PROP_FULLSCREEN, Boolean.TRUE);
+
+							View decorView = window.getDecorView();
+							decorView.setSystemUiVisibility(
+									View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+									| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+									| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+						}
 					}
 
 					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_NO_TITLE, false))

@@ -78,6 +78,7 @@ is enabled in its configuration!</string>
 
     <string name="settings_force">Force</string>
     <string name="settings_prevent">Prevent</string>
+    <string name="settings_immersive">Immersive</string>
 
     <string name="settings_ori_normal">Normal rotation</string>
     <string name="settings_ori_portrait">Always portrait</string>

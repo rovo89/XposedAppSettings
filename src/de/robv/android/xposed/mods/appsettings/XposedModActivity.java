@@ -43,6 +43,7 @@ import android.text.method.LinkMovementMethod;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -822,23 +823,26 @@ public class XposedModActivity extends Activity {
         }
     }
     
-    
+    static class ViewHolderAdapter{
+    	TextView app_name;
+    	TextView app_package;
+    	ImageView app_icon;
+    }
     
     class AppListAdapter extends ArrayAdapter<ApplicationInfo> implements SectionIndexer {
         
         private Map<String, Integer> alphaIndexer;
         private String[] sections;
         private Filter filter;
+		private LayoutInflater mInflater;
  
         
         @SuppressLint("DefaultLocale")
         public AppListAdapter(Context context, List<ApplicationInfo> items) {
             super(context, R.layout.app_list_item, new ArrayList<ApplicationInfo>(items));
-            
+            mInflater = getLayoutInflater();
             filteredAppList.addAll(items);
-            
-            filter = new AppListFilter(this);
- 
+
             alphaIndexer = new HashMap<String, Integer>();
             for(int i = filteredAppList.size() - 1; i >= 0; i--)
             {
@@ -866,23 +870,33 @@ public class XposedModActivity extends Activity {
             sections = new String[sectionList.size()];
  
             sectionList.toArray(sections);
+            
         }
- 
+
         @Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// Load or reuse the view for this row
 			View row = convertView;
+			ViewHolderAdapter holder;
 			if (row == null) {
-				row = getLayoutInflater().inflate(R.layout.app_list_item, parent, false);
+				row = mInflater.inflate(R.layout.app_list_item, parent, false);
+				holder = new ViewHolderAdapter();
+				holder.app_name = (TextView) row.findViewById(R.id.app_name);
+				holder.app_package = (TextView) row.findViewById(R.id.app_package);
+				holder.app_icon = (ImageView) row.findViewById(R.id.app_icon);
+				row.setTag(holder);
+			} else {
+				holder = (ViewHolderAdapter) row.getTag();
 			}
 
 			ApplicationInfo app = filteredAppList.get(position);
 
-			((TextView) row.findViewById(R.id.app_name)).setText(app.name == null ? "" : app.name);
-			((TextView) row.findViewById(R.id.app_package)).setTextColor(prefs.getBoolean(app.packageName + Common.PREF_ACTIVE,
+			holder.app_name.setText(app.name == null ? "" : app.name);
+			holder.app_package.setTextColor(prefs.getBoolean(app.packageName + Common.PREF_ACTIVE,
 			    false) ? Color.RED : Color.parseColor("#0099CC"));
-			((TextView) row.findViewById(R.id.app_package)).setText(app.packageName);
-			((ImageView) row.findViewById(R.id.app_icon)).setImageDrawable(app.loadIcon(getPackageManager()));
+			holder.app_package.setText(app.packageName);
+			// TODO move icon loading a different thread + cache. Laggy list :-/ 
+			holder.app_icon.setImageDrawable(app.loadIcon(getPackageManager()));
 
 			return row;
 		}
@@ -960,6 +974,8 @@ public class XposedModActivity extends Activity {
 
 		@Override
 		public Filter getFilter() {
+			if (filter == null)
+				filter = new AppListFilter(this);
 			return filter;
 		}
     }    

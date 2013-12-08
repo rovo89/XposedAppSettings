@@ -35,6 +35,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PermissionInfo;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -827,6 +828,7 @@ public class XposedModActivity extends Activity {
 		TextView app_name;
 		TextView app_package;
 		ImageView app_icon;
+		int position;
 	}
 	
 	class AppListAdapter extends ArrayAdapter<ApplicationInfo> implements SectionIndexer {
@@ -835,7 +837,7 @@ public class XposedModActivity extends Activity {
 		private String[] sections;
 		private Filter filter;
 		private LayoutInflater mInflater;
- 
+		private Drawable defaultIcon;
 		
 		@SuppressLint("DefaultLocale")
 		public AppListAdapter(Context context, List<ApplicationInfo> items) {
@@ -871,10 +873,11 @@ public class XposedModActivity extends Activity {
  
 			sectionList.toArray(sections);
 			
+			defaultIcon = getResources().getDrawable(android.R.drawable.sym_def_app_icon);
 		}
 
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(final int position, View convertView, ViewGroup parent) {
 			// Load or reuse the view for this row
 			View row = convertView;
 			ViewHolderAdapter holder;
@@ -888,16 +891,32 @@ public class XposedModActivity extends Activity {
 			} else {
 				holder = (ViewHolderAdapter) row.getTag();
 			}
-
-			ApplicationInfo app = filteredAppList.get(position);
-
+			holder.position = position;
+			final ApplicationInfo app = filteredAppList.get(position);
+			
 			holder.app_name.setText(app.name == null ? "" : app.name);
 			holder.app_package.setTextColor(prefs.getBoolean(app.packageName + Common.PREF_ACTIVE,
 				false) ? Color.RED : Color.parseColor("#0099CC"));
 			holder.app_package.setText(app.packageName);
 			// TODO move icon loading a different thread + cache. Laggy list :-/ 
-			holder.app_icon.setImageDrawable(app.loadIcon(getPackageManager()));
+			//holder.app_icon.setImageDrawable(app.loadIcon(getPackageManager()));
+			holder.app_icon.setImageDrawable(defaultIcon);
+			new AsyncTask<ViewHolderAdapter, Void, Drawable>(){
+				private ViewHolderAdapter v;
 
+				@Override
+                protected Drawable doInBackground(ViewHolderAdapter... params) {
+	               	v = params[0];
+	                return app.loadIcon(getPackageManager());
+                }
+				
+				@Override
+                protected void onPostExecute(Drawable result) {
+	                if(v.position == position){
+	                	v.app_icon.setImageDrawable(result);
+	                }
+                }
+			}.execute(holder);
 			return row;
 		}
 

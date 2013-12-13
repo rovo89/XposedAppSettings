@@ -35,6 +35,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PermissionInfo;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ import android.text.method.LinkMovementMethod;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -95,7 +97,7 @@ public class XposedModActivity extends Activity {
 	private static File prefsFile = new File(Environment.getDataDirectory(),
 			"data/" + Common.MY_PACKAGE_NAME + "/shared_prefs/" + Common.PREFS + ".xml");
 	private static File backupPrefsFile = new File(Environment.getExternalStorageDirectory(), "AppSettings-Backup.xml");
-    private SharedPreferences prefs;
+	private SharedPreferences prefs;
 	
 	@SuppressLint("WorldReadableFiles")
 	@Override
@@ -104,43 +106,43 @@ public class XposedModActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		prefsFile.setReadable(true, false);
-        prefs = getSharedPreferences(Common.PREFS, Context.MODE_WORLD_READABLE);
+		prefs = getSharedPreferences(Common.PREFS, Context.MODE_WORLD_READABLE);
 		
-        setContentView(R.layout.main);
-        
-        
-        
-        ListView list = (ListView) findViewById(R.id.lstApps);
-        registerForContextMenu(list);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		setContentView(R.layout.main);
+		
+		
+		
+		ListView list = (ListView) findViewById(R.id.lstApps);
+		registerForContextMenu(list);
+		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            	// Open settings activity when clicking on an application
-                String pkgName = ((TextView) view.findViewById(R.id.app_package)).getText().toString();
-                Intent i = new Intent(getApplicationContext(), ApplicationSettings.class);
-                i.putExtra("package", pkgName);
-                startActivityForResult(i, position);
-            }
-        });
-        
-        // Load the list of apps in the background
-        new PrepareAppsAdapter().execute();
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// Open settings activity when clicking on an application
+				String pkgName = ((TextView) view.findViewById(R.id.app_package)).getText().toString();
+				Intent i = new Intent(getApplicationContext(), ApplicationSettings.class);
+				i.putExtra("package", pkgName);
+				startActivityForResult(i, position);
+			}
+		});
+		
+		// Load the list of apps in the background
+		new PrepareAppsAdapter().execute();
 	}
 	
 	
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        
-        // Refresh the app that was just edited, if it's visible in the list
-        ListView list = (ListView) findViewById(R.id.lstApps);
-        if (requestCode >= list.getFirstVisiblePosition() &&
-                requestCode <= list.getLastVisiblePosition()) {
-            View v = list.getChildAt(requestCode - list.getFirstVisiblePosition());
-            list.getAdapter().getView(requestCode, v, list);
-        }
-    }
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		// Refresh the app that was just edited, if it's visible in the list
+		ListView list = (ListView) findViewById(R.id.lstApps);
+		if (requestCode >= list.getFirstVisiblePosition() &&
+				requestCode <= list.getLastVisiblePosition()) {
+			View v = list.getChildAt(requestCode - list.getFirstVisiblePosition());
+			list.getAdapter().getView(requestCode, v, list);
+		}
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -392,28 +394,28 @@ public class XposedModActivity extends Activity {
 		return false;
 	}
 
-    
-    @SuppressLint("DefaultLocale")
-    private void loadApps(ProgressDialog dialog) {
+	
+	@SuppressLint("DefaultLocale")
+	private void loadApps(ProgressDialog dialog) {
 
-        appList.clear();
-        permUsage.clear();
-        sharedUsers.clear();
-        pkgSharedUsers.clear();
-        
-        PackageManager pm = getPackageManager();
-        List<PackageInfo> pkgs = getPackageManager().getInstalledPackages(PackageManager.GET_PERMISSIONS);
-        dialog.setMax(pkgs.size());
-        int i = 1;
-        for (PackageInfo pkgInfo : pkgs) {
-            dialog.setProgress(i++);
+		appList.clear();
+		permUsage.clear();
+		sharedUsers.clear();
+		pkgSharedUsers.clear();
+		
+		PackageManager pm = getPackageManager();
+		List<PackageInfo> pkgs = getPackageManager().getInstalledPackages(PackageManager.GET_PERMISSIONS);
+		dialog.setMax(pkgs.size());
+		int i = 1;
+		for (PackageInfo pkgInfo : pkgs) {
+			dialog.setProgress(i++);
 
 			ApplicationInfo appInfo = pkgInfo.applicationInfo;
 			if (appInfo == null)
 				continue;
 
-            appInfo.name = appInfo.loadLabel(pm).toString();
-            appList.add(appInfo);
+			appInfo.name = appInfo.loadLabel(pm).toString();
+			appList.add(appInfo);
 
 			String[] perms = pkgInfo.requestedPermissions;
 			if (perms != null)
@@ -436,47 +438,47 @@ public class XposedModActivity extends Activity {
 
 				pkgSharedUsers.put(pkgInfo.packageName, pkgInfo.sharedUserId);
 			}
-        }
-        
-        Collections.sort(appList, new Comparator<ApplicationInfo>() {
-            @Override
-            public int compare(ApplicationInfo lhs, ApplicationInfo rhs) {
-                if (lhs.name == null) {
-                    return -1;
-                } else if (rhs.name == null) {
-                    return 1;
-                } else {
-                    return lhs.name.toUpperCase().compareTo(rhs.name.toUpperCase());
-                }
-            }
-        });
-    }
-    
+		}
+		
+		Collections.sort(appList, new Comparator<ApplicationInfo>() {
+			@Override
+			public int compare(ApplicationInfo lhs, ApplicationInfo rhs) {
+				if (lhs.name == null) {
+					return -1;
+				} else if (rhs.name == null) {
+					return 1;
+				} else {
+					return lhs.name.toUpperCase().compareTo(rhs.name.toUpperCase());
+				}
+			}
+		});
+	}
+	
 
-    private void prepareAppList() {
-        final AppListAdapter appListAdapter = new AppListAdapter(XposedModActivity.this,appList);
+	private void prepareAppList() {
+		final AppListAdapter appListAdapter = new AppListAdapter(XposedModActivity.this,appList);
 
-        ((ListView) findViewById(R.id.lstApps)).setAdapter(appListAdapter);
-        ((SearchView) findViewById(R.id.searchApp)).setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                nameFilter = query;
-                appListAdapter.getFilter().filter(nameFilter);
-                ((SearchView) findViewById(R.id.searchApp)).clearFocus();
-                return false;
-            }
+		((ListView) findViewById(R.id.lstApps)).setAdapter(appListAdapter);
+		((SearchView) findViewById(R.id.searchApp)).setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+			
+			@Override
+			public boolean onQueryTextSubmit(String query) {
+				nameFilter = query;
+				appListAdapter.getFilter().filter(nameFilter);
+				((SearchView) findViewById(R.id.searchApp)).clearFocus();
+				return false;
+			}
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                nameFilter = newText;
-                appListAdapter.getFilter().filter(nameFilter);
-                return false;
-            }
-            
-            
-        });
-        
+			@Override
+			public boolean onQueryTextChange(String newText) {
+				nameFilter = newText;
+				appListAdapter.getFilter().filter(nameFilter);
+				return false;
+			}
+			
+			
+		});
+		
 		((ImageButton) findViewById(R.id.btnFilter)).setOnClickListener(new View.OnClickListener() {
 			Dialog filterDialog;
 
@@ -588,7 +590,7 @@ public class XposedModActivity extends Activity {
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltNoBigNotif)).setEnabled(enable);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltPermissions)).setEnabled(enable);
 			}
-        });
+		});
 
 		((ImageButton) findViewById(R.id.btnPermsFilter)).setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -653,87 +655,87 @@ public class XposedModActivity extends Activity {
 			}
 		});
 
-    }
-    
-    
-    // Handle background loading of apps
-    private class PrepareAppsAdapter extends AsyncTask<Void,Void,AppListAdapter> {
-        ProgressDialog dialog;
-        
-        @Override
-        protected void onPreExecute() {
-            dialog = new ProgressDialog(((ListView) findViewById(R.id.lstApps)).getContext());
-            dialog.setMessage(getString(R.string.app_loading));
-            dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            dialog.setCancelable(false);
-            dialog.show();
-        }
-        
-        @Override
-        protected AppListAdapter doInBackground(Void... params) {
-            if (appList.size() == 0) {
-                loadApps(dialog);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(final AppListAdapter result) {
-            prepareAppList();
-            
-            try {
-                dialog.dismiss();
-            } catch (Exception e) {
-                
-            }
-        }
-    }    
-    
+	}
 	
-    private class AppListFilter extends Filter {
+	
+	// Handle background loading of apps
+	private class PrepareAppsAdapter extends AsyncTask<Void,Void,AppListAdapter> {
+		ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(((ListView) findViewById(R.id.lstApps)).getContext());
+			dialog.setMessage(getString(R.string.app_loading));
+			dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+			dialog.setCancelable(false);
+			dialog.show();
+		}
+		
+		@Override
+		protected AppListAdapter doInBackground(Void... params) {
+			if (appList.size() == 0) {
+				loadApps(dialog);
+			}
+			return null;
+		}
 
-        private AppListAdapter adapter;
-        
-        AppListFilter(AppListAdapter adapter) {
-            super();
-            this.adapter = adapter;
-        }
-        
-    	@SuppressLint("WorldReadableFiles")
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            // NOTE: this function is *always* called from a background thread, and
-            // not the UI thread.
-            
-            ArrayList<ApplicationInfo> items = new ArrayList<ApplicationInfo>();
-            synchronized (this) {
-                items.addAll(appList);
-            }
-            
-            SharedPreferences prefs = getSharedPreferences(Common.PREFS, Context.MODE_WORLD_READABLE);
-            
-            FilterResults result = new FilterResults();
-            if (constraint != null && constraint.length() > 0) {
-                Pattern regexp = Pattern.compile(constraint.toString(), Pattern.LITERAL | Pattern.CASE_INSENSITIVE);
-                for (Iterator<ApplicationInfo> i = items.iterator(); i.hasNext(); ) {
-                    ApplicationInfo app = i.next();
-                    if (!regexp.matcher(app.name == null ? "" : app.name).find()
-                    		&& !regexp.matcher(app.packageName).find()) {
-                        i.remove();
-                    }
-                }
-            }
-            for (Iterator<ApplicationInfo> i = items.iterator(); i.hasNext(); ) {
-                ApplicationInfo app = i.next();
+		@Override
+		protected void onPostExecute(final AppListAdapter result) {
+			prepareAppList();
+			
+			try {
+				dialog.dismiss();
+			} catch (Exception e) {
+				
+			}
+		}
+	}	
+	
+	
+	private class AppListFilter extends Filter {
+
+		private AppListAdapter adapter;
+		
+		AppListFilter(AppListAdapter adapter) {
+			super();
+			this.adapter = adapter;
+		}
+		
+		@SuppressLint("WorldReadableFiles")
+		@Override
+		protected FilterResults performFiltering(CharSequence constraint) {
+			// NOTE: this function is *always* called from a background thread, and
+			// not the UI thread.
+			
+			ArrayList<ApplicationInfo> items = new ArrayList<ApplicationInfo>();
+			synchronized (this) {
+				items.addAll(appList);
+			}
+			
+			SharedPreferences prefs = getSharedPreferences(Common.PREFS, Context.MODE_WORLD_READABLE);
+			
+			FilterResults result = new FilterResults();
+			if (constraint != null && constraint.length() > 0) {
+				Pattern regexp = Pattern.compile(constraint.toString(), Pattern.LITERAL | Pattern.CASE_INSENSITIVE);
+				for (Iterator<ApplicationInfo> i = items.iterator(); i.hasNext(); ) {
+					ApplicationInfo app = i.next();
+					if (!regexp.matcher(app.name == null ? "" : app.name).find()
+							&& !regexp.matcher(app.packageName).find()) {
+						i.remove();
+					}
+				}
+			}
+			for (Iterator<ApplicationInfo> i = items.iterator(); i.hasNext(); ) {
+				ApplicationInfo app = i.next();
 				if (filteredOut(prefs, app))
 					i.remove();
-            }
+			}
 
-            result.values = items;
-            result.count = items.size();
-            
-            return result;
-        }
+			result.values = items;
+			result.count = items.size();
+			
+			return result;
+		}
 
 		private boolean filteredOut(SharedPreferences prefs, ApplicationInfo app) {
 			String packageName = app.packageName;
@@ -807,101 +809,132 @@ public class XposedModActivity extends Activity {
 			}
 		}
 
-    	
-        @SuppressWarnings("unchecked")
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            // NOTE: this function is *always* called from the UI thread.
-            filteredAppList = (ArrayList<ApplicationInfo>) results.values;
-            adapter.notifyDataSetChanged();
-            adapter.clear();
-            for(int i = 0, l = filteredAppList.size(); i < l; i++) {
-                adapter.add(filteredAppList.get(i));
-            }
-            adapter.notifyDataSetInvalidated();
-        }
-    }
-    
-    
-    
-    class AppListAdapter extends ArrayAdapter<ApplicationInfo> implements SectionIndexer {
-        
-        private Map<String, Integer> alphaIndexer;
-        private String[] sections;
-        private Filter filter;
- 
-        
-        @SuppressLint("DefaultLocale")
-        public AppListAdapter(Context context, List<ApplicationInfo> items) {
-            super(context, R.layout.app_list_item, new ArrayList<ApplicationInfo>(items));
-            
-            filteredAppList.addAll(items);
-            
-            filter = new AppListFilter(this);
- 
-            alphaIndexer = new HashMap<String, Integer>();
-            for(int i = filteredAppList.size() - 1; i >= 0; i--)
-            {
-                ApplicationInfo app = filteredAppList.get(i);
-                String appName = app.name;
-                String firstChar;
-                if (appName == null || appName.length() < 1) {
-                	firstChar = "@";
-                } else {
-	                firstChar = appName.substring(0, 1).toUpperCase();
-	                if(firstChar.charAt(0) > 'Z' || firstChar.charAt(0) < 'A')
-	                    firstChar = "@";
-                }
+		
+		@SuppressWarnings("unchecked")
+		@Override
+		protected void publishResults(CharSequence constraint, FilterResults results) {
+			// NOTE: this function is *always* called from the UI thread.
+			filteredAppList = (ArrayList<ApplicationInfo>) results.values;
+			adapter.notifyDataSetChanged();
+			adapter.clear();
+			for(int i = 0, l = filteredAppList.size(); i < l; i++) {
+				adapter.add(filteredAppList.get(i));
+			}
+			adapter.notifyDataSetInvalidated();
+		}
+	}
+	
+	static class ViewHolderAdapter{
+		TextView app_name;
+		TextView app_package;
+		ImageView app_icon;
+		int position;
+	}
+	
+	class AppListAdapter extends ArrayAdapter<ApplicationInfo> implements SectionIndexer {
+		
+		private Map<String, Integer> alphaIndexer;
+		private String[] sections;
+		private Filter filter;
+		private LayoutInflater mInflater;
+		private Drawable defaultIcon;
+		
+		@SuppressLint("DefaultLocale")
+		public AppListAdapter(Context context, List<ApplicationInfo> items) {
+			super(context, R.layout.app_list_item, new ArrayList<ApplicationInfo>(items));
+			mInflater = getLayoutInflater();
+			filteredAppList.addAll(items);
 
-                alphaIndexer.put(firstChar, i);
-            }
+			alphaIndexer = new HashMap<String, Integer>();
+			for(int i = filteredAppList.size() - 1; i >= 0; i--)
+			{
+				ApplicationInfo app = filteredAppList.get(i);
+				String appName = app.name;
+				String firstChar;
+				if (appName == null || appName.length() < 1) {
+					firstChar = "@";
+				} else {
+					firstChar = appName.substring(0, 1).toUpperCase();
+					if(firstChar.charAt(0) > 'Z' || firstChar.charAt(0) < 'A')
+						firstChar = "@";
+				}
 
-            Set<String> sectionLetters = alphaIndexer.keySet();
- 
-            // create a list from the set to sort
-            List<String> sectionList = new ArrayList<String>(sectionLetters); 
- 
-            Collections.sort(sectionList);
- 
-            sections = new String[sectionList.size()];
- 
-            sectionList.toArray(sections);
-        }
- 
-        @Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			// Load or reuse the view for this row
-			View row = convertView;
-			if (row == null) {
-				row = getLayoutInflater().inflate(R.layout.app_list_item, parent, false);
+				alphaIndexer.put(firstChar, i);
 			}
 
-			ApplicationInfo app = filteredAppList.get(position);
+			Set<String> sectionLetters = alphaIndexer.keySet();
+ 
+			// create a list from the set to sort
+			List<String> sectionList = new ArrayList<String>(sectionLetters); 
+ 
+			Collections.sort(sectionList);
+ 
+			sections = new String[sectionList.size()];
+ 
+			sectionList.toArray(sections);
+			
+			defaultIcon = getResources().getDrawable(android.R.drawable.sym_def_app_icon);
+		}
 
-			((TextView) row.findViewById(R.id.app_name)).setText(app.name == null ? "" : app.name);
-			((TextView) row.findViewById(R.id.app_package)).setTextColor(prefs.getBoolean(app.packageName + Common.PREF_ACTIVE,
-			    false) ? Color.RED : Color.parseColor("#0099CC"));
-			((TextView) row.findViewById(R.id.app_package)).setText(app.packageName);
-			((ImageView) row.findViewById(R.id.app_icon)).setImageDrawable(app.loadIcon(getPackageManager()));
+		@Override
+		public View getView(final int position, View convertView, ViewGroup parent) {
+			// Load or reuse the view for this row
+			View row = convertView;
+			ViewHolderAdapter holder;
+			if (row == null) {
+				row = mInflater.inflate(R.layout.app_list_item, parent, false);
+				holder = new ViewHolderAdapter();
+				holder.app_name = (TextView) row.findViewById(R.id.app_name);
+				holder.app_package = (TextView) row.findViewById(R.id.app_package);
+				holder.app_icon = (ImageView) row.findViewById(R.id.app_icon);
+				row.setTag(holder);
+			} else {
+				holder = (ViewHolderAdapter) row.getTag();
+			}
+			holder.position = position;
+			final ApplicationInfo app = filteredAppList.get(position);
+			
+			holder.app_name.setText(app.name == null ? "" : app.name);
+			holder.app_package.setTextColor(prefs.getBoolean(app.packageName + Common.PREF_ACTIVE,
+				false) ? Color.RED : Color.parseColor("#0099CC"));
+			holder.app_package.setText(app.packageName);
+			// TODO move icon loading a different thread + cache. Laggy list :-/ 
+			//holder.app_icon.setImageDrawable(app.loadIcon(getPackageManager()));
+			holder.app_icon.setImageDrawable(defaultIcon);
+			new AsyncTask<ViewHolderAdapter, Void, Drawable>(){
+				private ViewHolderAdapter v;
 
+				@Override
+                protected Drawable doInBackground(ViewHolderAdapter... params) {
+	               	v = params[0];
+	                return app.loadIcon(getPackageManager());
+                }
+				
+				@Override
+                protected void onPostExecute(Drawable result) {
+	                if(v.position == position){
+	                	v.app_icon.setImageDrawable(result);
+	                }
+                }
+			}.execute(holder);
 			return row;
 		}
 
-        @SuppressLint("DefaultLocale")
-        @Override
+		@SuppressLint("DefaultLocale")
+		@Override
 		public void notifyDataSetInvalidated() {
 			alphaIndexer.clear();
 			for (int i = filteredAppList.size() - 1; i >= 0; i--) {
 				ApplicationInfo app = filteredAppList.get(i);
-                String appName = app.name;
-                String firstChar;
-                if (appName == null || appName.length() < 1) {
-                	firstChar = "@";
-                } else {
-	                firstChar = appName.substring(0, 1).toUpperCase();
-	                if(firstChar.charAt(0) > 'Z' || firstChar.charAt(0) < 'A')
-	                    firstChar = "@";
-                }
+				String appName = app.name;
+				String firstChar;
+				if (appName == null || appName.length() < 1) {
+					firstChar = "@";
+				} else {
+					firstChar = appName.substring(0, 1).toUpperCase();
+					if(firstChar.charAt(0) > 'Z' || firstChar.charAt(0) < 'A')
+						firstChar = "@";
+				}
 				alphaIndexer.put(firstChar, i);
 			}
 
@@ -919,7 +952,7 @@ public class XposedModActivity extends Activity {
 			super.notifyDataSetInvalidated();
 		}
 
-        @Override
+		@Override
 		public int getPositionForSection(int section) {
 			if (section >= sections.length)
 				return filteredAppList.size() - 1;
@@ -927,7 +960,7 @@ public class XposedModActivity extends Activity {
 			return alphaIndexer.get(sections[section]);
 		}
  
-        @Override
+		@Override
 		public int getSectionForPosition(int position) {
 
 			// Iterate over the sections to find the closest index
@@ -953,15 +986,17 @@ public class XposedModActivity extends Activity {
 			return closestIndex;
 		}
 
-        @Override
+		@Override
 		public Object[] getSections() {
 			return sections;
 		}
 
 		@Override
 		public Filter getFilter() {
+			if (filter == null)
+				filter = new AppListFilter(this);
 			return filter;
 		}
-    }    
+	}	
 
 }

@@ -35,6 +35,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PermissionInfo;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ import android.text.method.LinkMovementMethod;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -815,11 +817,21 @@ public class XposedModActivity extends Activity {
 		}
 	}
 
+	static class AppListViewHolder {
+		TextView app_name;
+		TextView app_package;
+		ImageView app_icon;
+
+		AsyncTask<AppListViewHolder, Void, Drawable> imageLoader;
+	}
+
 	class AppListAdapter extends ArrayAdapter<ApplicationInfo> implements SectionIndexer {
 
 		private Map<String, Integer> alphaIndexer;
 		private String[] sections;
 		private Filter filter;
+		private LayoutInflater inflater;
+		private Drawable defaultIcon;
 
 		@SuppressLint("DefaultLocale")
 		public AppListAdapter(Context context, List<ApplicationInfo> items) {
@@ -828,6 +840,8 @@ public class XposedModActivity extends Activity {
 			filteredAppList.addAll(items);
 
 			filter = new AppListFilter(this);
+			inflater = getLayoutInflater();
+			defaultIcon = getResources().getDrawable(android.R.drawable.sym_def_app_icon);
 
 			alphaIndexer = new HashMap<String, Integer>();
 			for (int i = filteredAppList.size() - 1; i >= 0; i--) {
@@ -861,17 +875,41 @@ public class XposedModActivity extends Activity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// Load or reuse the view for this row
 			View row = convertView;
+			AppListViewHolder holder;
 			if (row == null) {
-				row = getLayoutInflater().inflate(R.layout.app_list_item, parent, false);
+				row = inflater.inflate(R.layout.app_list_item, parent, false);
+				holder = new AppListViewHolder();
+				holder.app_name = (TextView) row.findViewById(R.id.app_name);
+				holder.app_package = (TextView) row.findViewById(R.id.app_package);
+				holder.app_icon = (ImageView) row.findViewById(R.id.app_icon);
+				row.setTag(holder);
+			} else {
+				holder = (AppListViewHolder) row.getTag();
+				holder.imageLoader.cancel(true);
 			}
 
-			ApplicationInfo app = filteredAppList.get(position);
+			final ApplicationInfo app = filteredAppList.get(position);
 
-			((TextView) row.findViewById(R.id.app_name)).setText(app.name == null ? "" : app.name);
-			((TextView) row.findViewById(R.id.app_package)).setTextColor(prefs.getBoolean(app.packageName + Common.PREF_ACTIVE,
-					false) ? Color.RED : Color.parseColor("#0099CC"));
-			((TextView) row.findViewById(R.id.app_package)).setText(app.packageName);
-			((ImageView) row.findViewById(R.id.app_icon)).setImageDrawable(app.loadIcon(getPackageManager()));
+			holder.app_name.setText(app.name == null ? "" : app.name);
+			holder.app_package.setTextColor(prefs.getBoolean(app.packageName + Common.PREF_ACTIVE, false)
+					? Color.RED : Color.parseColor("#0099CC"));
+			holder.app_package.setText(app.packageName);
+			holder.app_icon.setImageDrawable(defaultIcon);
+
+			holder.imageLoader = new AsyncTask<AppListViewHolder, Void, Drawable>() {
+				private AppListViewHolder v;
+
+				@Override
+				protected Drawable doInBackground(AppListViewHolder... params) {
+					v = params[0];
+					return app.loadIcon(getPackageManager());
+				}
+
+				@Override
+				protected void onPostExecute(Drawable result) {
+					v.app_icon.setImageDrawable(result);
+				}
+			}.execute(holder);
 
 			return row;
 		}

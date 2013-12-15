@@ -26,6 +26,7 @@ import de.robv.android.xposed.mods.appsettings.XposedMod;
 public class Activities {
 
 	private static final String PROP_FULLSCREEN = "AppSettings-Fullscreen";
+	private static final String PROP_KEEP_SCREEN_ON = "AppSettings-KeepScreenOn";
 	private static final String PROP_ORIENTATION = "AppSettings-Orientation";
 
 	public static void hookActivitySettings() {
@@ -78,8 +79,10 @@ public class Activities {
 		    				    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
 		    				    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
-					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_SCREEN_ON, false))
+					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_SCREEN_ON, false)) {
 						window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+						setAdditionalInstanceField(window, PROP_KEEP_SCREEN_ON, Boolean.TRUE);
+					}
 
 					int orientation = XposedMod.prefs.getInt(packageName + Common.PREF_ORIENTATION, XposedMod.prefs.getInt(Common.PREF_DEFAULT + Common.PREF_ORIENTATION, 0));
 					if (orientation > 0 && orientation < Common.orientationCodes.length && context instanceof Activity) {
@@ -97,19 +100,28 @@ public class Activities {
 					new XC_MethodHook() {
 				@Override
 				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-					Boolean fullscreen = (Boolean) getAdditionalInstanceField(param.thisObject, PROP_FULLSCREEN);
-					if (fullscreen == null)
-						return;
 
 					int flags = (Integer) param.args[0];
 					int mask = (Integer) param.args[1];
 					if ((mask & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0) {
-						if (fullscreen.booleanValue()) {
-							flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
-						} else {
-							flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
+						Boolean fullscreen = (Boolean) getAdditionalInstanceField(param.thisObject, PROP_FULLSCREEN);
+						if (fullscreen != null) {
+							if (fullscreen.booleanValue()) {
+								flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+							} else {
+								flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
+							}
+							param.args[0] = flags;
 						}
-						param.args[0] = flags;
+					}
+					if ((mask & WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON) != 0) {
+						Boolean keepScreenOn = (Boolean) getAdditionalInstanceField(param.thisObject, PROP_KEEP_SCREEN_ON);
+						if (keepScreenOn != null) {
+							if (keepScreenOn.booleanValue()) {
+								flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+							}
+							param.args[0] = flags;
+						}
 					}
 				}
 			});

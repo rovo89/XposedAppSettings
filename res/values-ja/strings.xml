@@ -32,18 +32,18 @@ DPI; フォントスケール; 読み込むリソースの上書き; 言語;
 
 
     <!-- main menu -->
-    <string name="menu_export">Export</string>
-    <string name="menu_import">Import</string>
+    <string name="menu_export">保存</string>
+    <string name="menu_import">読み込み</string>
     <string name="menu_about">情報</string>
 
     <!-- Import / Export -->
-    <string name="imp_exp_file_doesnt_exist">File does not exist: %s</string>
-    <string name="imp_exp_confirm">Replace all settings with the ones that are about to be imported?</string>
-    <string name="imp_exp_exported">Settings exported to file: %s</string>
-    <string name="imp_exp_export_error">Export failed: %s</string>
-    <string name="imp_exp_import_error">Import failed: %s</string>
-    <string name="imp_exp_invalid_import_file">Invalid or empty file to import: %s</string>
-    <string name="imp_exp_imported">Import successful; settings replaced</string>
+    <string name="imp_exp_file_doesnt_exist">ファイルがありません: %s</string>
+    <string name="imp_exp_confirm">読み込んだファイルで全ての設定を置換しますか?</string>
+    <string name="imp_exp_exported">設定の保存先: %s</string>
+    <string name="imp_exp_export_error">保存失敗: %s</string>
+    <string name="imp_exp_import_error">読み込み失敗: %s</string>
+    <string name="imp_exp_invalid_import_file">不正か壊れたファイルです: %s</string>
+    <string name="imp_exp_imported">読み込み成功; 設定を置換しました。</string>
 
 
     <!-- app-specific menu -->

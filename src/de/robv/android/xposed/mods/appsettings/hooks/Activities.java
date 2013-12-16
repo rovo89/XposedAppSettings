@@ -135,7 +135,7 @@ public class Activities {
 				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 					Integer orientation = (Integer) getAdditionalInstanceField(param.thisObject, PROP_ORIENTATION);
 					if (orientation != null)
-						param.args[0] = orientation;
+						param.args[0] = Common.orientationCodes[orientation];
 				}
 			});
 		} catch (Throwable e) {

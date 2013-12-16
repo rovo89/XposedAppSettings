@@ -75,6 +75,7 @@ DPI; フォントスケール; 読み込むリソースの上書き; 言語;
 
     <string name="settings_force">強制</string>
     <string name="settings_prevent">阻止</string>
+    <string name="settings_immersive">没入モード</string>
 
     <string name="settings_ori_normal">通常の向き</string>
     <string name="settings_ori_portrait">常に縦向き</string>

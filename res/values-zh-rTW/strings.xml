@@ -14,7 +14,7 @@
 \n如有任何建議或問題請洽<a href="http://forum.xda-developers.com/showthread.php?t=2437377">本討論串</a>。
     </string>
 
-    <string name="app_description">本模組可針對每個app設定環境變數，且不需自行修改APK檔；可修改功能包括：
+    <string name="app_description">本模組可針對每個app設定環境變數，不需自行修改APK檔；可修改功能包括：
 \n- DPI
 \n- 字體大小
 \n- 改變程式解析度
@@ -25,7 +25,7 @@
 \n- 顯示於鎖定螢幕
 \n- 常駐背景
 \n- 指定螢幕方向（垂直/水平/自動）
-\n- 常駐通知（播放因音效）
+\n- 常駐通知（播放音效）
 \n- 停用大型通知
 \n- 限制權限</string>
     <string name="app_version">版本: %s</string>
@@ -34,8 +34,8 @@
 
 
     <!-- main menu -->
-    <string name="menu_export">匯出</string>
-    <string name="menu_import">匯入</string>
+    <string name="menu_export">匯出設定</string>
+    <string name="menu_import">匯入設定</string>
     <string name="menu_about">關於</string>
 
     <!-- Import / Export -->
@@ -59,7 +59,7 @@
     <string name="settings_title">設定</string>
     <string name="settings_dpi">DPI</string>
     <string name="settings_fontscale">字體大小</string>
-    <string name="settings_listres">列表</string>
+    <string name="settings_listres">資源</string>
     <string name="settings_screen">螢幕(dp)</string>
     <string name="settings_xlargeres">放大</string>
     <string name="settings_locale">區域設定</string>
@@ -99,8 +99,8 @@
     <!-- Saving settings -->
     <string name="settings_unsaved_title">警告</string>
     <string name="settings_unsaved_detail">尚未儲存設定，確定離開？</string>
-    <string name="settings_apply_title">套用設定</string>
-    <string name="settings_apply_detail">同時關閉程式，並在下次開啟時套用新設定？</string>
+    <string name="settings_apply_title">已儲存新設定</string>
+    <string name="settings_apply_detail">是否同時關閉程式，以便在下次開啟時使新設定生效？</string>
 
 
     <!-- Filter dialog -->
@@ -116,7 +116,7 @@
     <string name="filter_notactive">未啟用</string>
     <string name="filter_resources">資源設定</string>
     <string name="filter_cancel">取消</string>
-    <string name="filter_clear">清空</string>
+    <string name="filter_clear">清除</string>
     <string name="filter_apply">套用</string>
 
 

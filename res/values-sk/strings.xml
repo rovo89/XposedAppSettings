@@ -74,11 +74,12 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
 
     <string name="settings_force">Vynútiť</string>
     <string name="settings_prevent">Zabrániť</string>
+    <string name="settings_immersive">Celá obrazovka</string>
 
     <string name="settings_ori_normal">Predvolené otočenie</string>
     <string name="settings_ori_portrait">Vždy na výšku</string>
     <string name="settings_ori_landscape">Vždy na šírku</string>
-    <string name="settings_ori_forceauto">Vynútiť autom. otáčanie</string>
+    <string name="settings_ori_forceauto">Vynútiť automatické otáčanie</string>
 
     <!-- List resources -->
     <string name="res_title">Zdroje</string>

@@ -80,12 +80,12 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 					};
 				});
 			}
-        } catch (Throwable t) {
-            XposedBridge.log(t);
-        }
+		} catch (Throwable t) {
+			XposedBridge.log(t);
+		}
 
-        // Override settings used when loading resources
-        try {
+		// Override settings used when loading resources
+		try {
 			XC_MethodHook configHook =
 				new XC_MethodHook() {
 
@@ -97,6 +97,11 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 						String hostPackageName = AndroidAppHelper.currentPackageName();
 						boolean isActiveApp = hostPackageName.equals(packageName);
 						
+						// Workaround for KitKat. The keyguard is a different package now but runs in the
+						// same process as SystemUI and displays as main package
+						if (Build.VERSION.SDK_INT >= 19 && hostPackageName.equals("com.android.keyguard"))
+							hostPackageName = "com.android.systemui";
+
 						// settings related to the density etc. are calculated for the running app...
 						Configuration newConfig = null;
 						if (hostPackageName != null && isActive(hostPackageName)) {

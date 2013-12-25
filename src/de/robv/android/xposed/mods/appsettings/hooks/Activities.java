@@ -10,8 +10,11 @@ import static de.robv.android.xposed.XposedHelpers.setIntField;
 
 import java.lang.reflect.Method;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import de.robv.android.xposed.XC_MethodHook;
@@ -23,12 +26,15 @@ import de.robv.android.xposed.mods.appsettings.XposedMod;
 public class Activities {
 
 	private static final String PROP_FULLSCREEN = "AppSettings-Fullscreen";
+	private static final String PROP_KEEP_SCREEN_ON = "AppSettings-KeepScreenOn";
 	private static final String PROP_ORIENTATION = "AppSettings-Orientation";
 
 	public static void hookActivitySettings() {
 		try {
 			findAndHookMethod("com.android.internal.policy.impl.PhoneWindow", null, "generateLayout",
 					"com.android.internal.policy.impl.PhoneWindow.DecorView", new XC_MethodHook() {
+
+				@SuppressLint("InlinedApi")
 				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 					Window window = (Window) param.thisObject;
 					Context context = window.getContext();
@@ -52,6 +58,17 @@ public class Activities {
 					} else if (fullscreen == Common.FULLSCREEN_PREVENT) {
 						window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 						setAdditionalInstanceField(window, PROP_FULLSCREEN, Boolean.FALSE);
+					} else if (fullscreen == Common.FULLSCREEN_IMMERSIVE) {
+						if (Build.VERSION.SDK_INT >= 19) {
+							window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+							setAdditionalInstanceField(window, PROP_FULLSCREEN, Boolean.TRUE);
+
+							View decorView = window.getDecorView();
+							decorView.setSystemUiVisibility(
+									View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+									| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+									| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+						}
 					}
 
 					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_NO_TITLE, false))
@@ -62,8 +79,10 @@ public class Activities {
 		    				    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
 		    				    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
-					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_SCREEN_ON, false))
+					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_SCREEN_ON, false)) {
 						window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+						setAdditionalInstanceField(window, PROP_KEEP_SCREEN_ON, Boolean.TRUE);
+					}
 
 					int orientation = XposedMod.prefs.getInt(packageName + Common.PREF_ORIENTATION, XposedMod.prefs.getInt(Common.PREF_DEFAULT + Common.PREF_ORIENTATION, 0));
 					if (orientation > 0 && orientation < Common.orientationCodes.length && context instanceof Activity) {
@@ -81,19 +100,28 @@ public class Activities {
 					new XC_MethodHook() {
 				@Override
 				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-					Boolean fullscreen = (Boolean) getAdditionalInstanceField(param.thisObject, PROP_FULLSCREEN);
-					if (fullscreen == null)
-						return;
 
 					int flags = (Integer) param.args[0];
 					int mask = (Integer) param.args[1];
 					if ((mask & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0) {
-						if (fullscreen.booleanValue()) {
-							flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
-						} else {
-							flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
+						Boolean fullscreen = (Boolean) getAdditionalInstanceField(param.thisObject, PROP_FULLSCREEN);
+						if (fullscreen != null) {
+							if (fullscreen.booleanValue()) {
+								flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+							} else {
+								flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
+							}
+							param.args[0] = flags;
 						}
-						param.args[0] = flags;
+					}
+					if ((mask & WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON) != 0) {
+						Boolean keepScreenOn = (Boolean) getAdditionalInstanceField(param.thisObject, PROP_KEEP_SCREEN_ON);
+						if (keepScreenOn != null) {
+							if (keepScreenOn.booleanValue()) {
+								flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+							}
+							param.args[0] = flags;
+						}
 					}
 				}
 			});
@@ -107,26 +135,32 @@ public class Activities {
 				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 					Integer orientation = (Integer) getAdditionalInstanceField(param.thisObject, PROP_ORIENTATION);
 					if (orientation != null)
-						param.args[0] = orientation;
+						param.args[0] = Common.orientationCodes[orientation];
 				}
 			});
 		} catch (Throwable e) {
 			XposedBridge.log(e);
 		}
 
-	    try {
-	    	// Hook one of the several variations of ActivityStack.realStartActivityLocked from different ROMs
-	    	Method mthRealStartActivityLocked;
-	    	try {
-	        	mthRealStartActivityLocked = findMethodExact("com.android.server.am.ActivityStack", null, "realStartActivityLocked",
-	    				"com.android.server.am.ActivityRecord", "com.android.server.am.ProcessRecord",
-	    				boolean.class, boolean.class, boolean.class);
-	    	} catch (Throwable t) {
-	    		mthRealStartActivityLocked = findMethodExact("com.android.server.am.ActivityStack", null, "realStartActivityLocked",
-	    				"com.android.server.am.ActivityRecord", "com.android.server.am.ProcessRecord",
-	    				boolean.class, boolean.class);
-	    	}
-	    	hookMethod(mthRealStartActivityLocked, new XC_MethodHook() {
+		try {
+			// Hook one of the several variations of ActivityStack.realStartActivityLocked from different ROMs
+			Method mthRealStartActivityLocked;
+			if (Build.VERSION.SDK_INT <= 18) {
+				try {
+					mthRealStartActivityLocked = findMethodExact("com.android.server.am.ActivityStack", null, "realStartActivityLocked",
+							"com.android.server.am.ActivityRecord", "com.android.server.am.ProcessRecord",
+							boolean.class, boolean.class, boolean.class);
+				} catch (NoSuchMethodError t) {
+					mthRealStartActivityLocked = findMethodExact("com.android.server.am.ActivityStack", null, "realStartActivityLocked",
+							"com.android.server.am.ActivityRecord", "com.android.server.am.ProcessRecord",
+							boolean.class, boolean.class);
+				}
+			} else {
+				mthRealStartActivityLocked = findMethodExact("com.android.server.am.ActivityStackSupervisor", null, "realStartActivityLocked",
+						"com.android.server.am.ActivityRecord", "com.android.server.am.ProcessRecord",
+						boolean.class, boolean.class);
+			}
+			hookMethod(mthRealStartActivityLocked, new XC_MethodHook() {
 
 	    		@Override
 	    		protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -140,7 +174,8 @@ public class Activities {
 					// Override the *Adj values if meant to be resident in memory
 					if (proc != null) {
 						setIntField(proc, "maxAdj", adj);
-						setIntField(proc, "hiddenAdj", adj);
+						if (Build.VERSION.SDK_INT <= 18)
+							setIntField(proc, "hiddenAdj", adj);
 						setIntField(proc, "curRawAdj", adj);
 						setIntField(proc, "setRawAdj", adj);
 						setIntField(proc, "curAdj", adj);

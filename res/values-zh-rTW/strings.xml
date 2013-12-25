@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">App Settings</string>
+    <string name="app_mod_summary">針對每個app設定環境變數，包括：
+    DPI、字體大小、資源存取、語言、
+    全螢幕、有無標題列、保持螢幕開啟、顯示在鎖定螢幕、
+    常駐背景、橫/豎介面、常駐通知、關閉大型通知、存取權限</string>
+
+
+    <!-- Main screen -->
+    <string name="app_loading">載入已安裝程式中....</string>
+    <string name="app_searchhint">程式名稱</string>
+    <string name="app_about">本<a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a>模組由<a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a>及<a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>設計纂寫，
+\n如有任何建議或問題請洽<a href="http://forum.xda-developers.com/showthread.php?t=2437377">本討論串</a>。
+    </string>
+
+    <string name="app_description">本模組可針對每個app設定環境變數，不需自行修改APK檔；可修改功能包括：
+\n- DPI
+\n- 字體大小
+\n- 改變程式解析度
+\n- 區域/語言設定
+\n- 全螢幕模式
+\n- 隱藏標提列
+\n- 程式使用中保持螢幕開啟
+\n- 顯示於鎖定螢幕
+\n- 常駐背景
+\n- 指定螢幕方向（垂直/水平/自動）
+\n- 常駐通知（播放音效）
+\n- 停用大型通知
+\n- 限制權限</string>
+    <string name="app_version">版本: %s</string>
+    <string name="app_translation">譯者: %s</string>
+    <string name="app_notactive_warning">注意：就算設定介面正常顯示，但本程式需要在Xposed framework中啟用才可以發揮作用！</string>
+
+
+    <!-- main menu -->
+    <string name="menu_export">匯出設定</string>
+    <string name="menu_import">匯入設定</string>
+    <string name="menu_about">關於</string>
+
+    <!-- Import / Export -->
+    <string name="imp_exp_file_doesnt_exist">找不到檔案： %s</string>
+    <string name="imp_exp_confirm">確定以匯入資料取代現有設定?</string>
+    <string name="imp_exp_exported">設定已匯出至： %s</string>
+    <string name="imp_exp_export_error">匯出失敗： %s</string>
+    <string name="imp_exp_import_error">匯入失敗： %s</string>
+    <string name="imp_exp_invalid_import_file">無效或空白設定檔： %s</string>
+    <string name="imp_exp_imported">匯入成功，設定已變更。</string>
+
+
+    <!-- app-specific menu -->
+    <string name="menu_save">儲存</string>
+    <string name="menu_launch">啟動</string>
+    <string name="menu_settings">設定</string>
+    <string name="menu_playstore">Play 商店</string>
+
+
+    <!-- Settings screen -->
+    <string name="settings_title">設定</string>
+    <string name="settings_dpi">DPI</string>
+    <string name="settings_fontscale">字體大小</string>
+    <string name="settings_listres">資源</string>
+    <string name="settings_screen">螢幕(dp)</string>
+    <string name="settings_xlargeres">放大</string>
+    <string name="settings_locale">區域設定</string>
+    <string name="settings_fullscreen">全螢幕</string>
+    <string name="settings_notitle">無標題列</string>
+    <string name="settings_screenon">保持螢幕開啟</string>
+    <string name="settings_showwhenlocked">於鎖定螢幕顯示</string>
+    <string name="settings_resident">常駐背景</string>
+    <string name="settings_orientation">方向</string>
+    <string name="settings_insistentnotif">常駐通知</string>
+    <string name="settings_nobignotif">停用大型通知</string>
+    <string name="settings_permissions">權限設定</string>
+
+    <string name="settings_default">（預設-依app設定）</string>
+
+    <string name="settings_force">強制</string>
+    <string name="settings_prevent">停用</string>
+
+    <string name="settings_ori_normal">依系統設定</string>
+    <string name="settings_ori_portrait">垂直</string>
+    <string name="settings_ori_landscape">水平</string>
+    <string name="settings_ori_forceauto">自動旋轉</string>
+
+    <!-- List resources -->
+    <string name="res_title">資源列表</string>
+    <string name="res_noentries">沒有使用資源</string>
+    <string name="res_failedtoload">載入資源列表失敗</string>
+
+    <!-- Show / search / revoke permissions -->
+    <string name="perms_title">權限設定</string>
+    <string name="perms_revoke">啟用</string>
+    <string name="perms_shared_warning">警告：共享程式!</string>
+    <string name="perms_searchhint">權限名稱或描述</string>
+    <string name="perms_nodescription">（沒有描述）</string>
+    <string name="perms_filter_title">權限篩選器</string>
+
+    <!-- Saving settings -->
+    <string name="settings_unsaved_title">警告</string>
+    <string name="settings_unsaved_detail">尚未儲存設定，確定離開？</string>
+    <string name="settings_apply_title">已儲存新設定</string>
+    <string name="settings_apply_detail">是否同時關閉程式，以便在下次開啟時使新設定生效？</string>
+
+
+    <!-- Filter dialog -->
+    <string name="filter_title">篩選器</string>
+    <string name="filter_all">全部</string>
+    <string name="filter_overridden">已修改</string>
+    <string name="filter_unchanged">未修改</string>
+    <string name="filter_type">程式類型</string>
+    <string name="filter_user">使用者</string>
+    <string name="filter_system">系統</string>
+    <string name="filter_settingsactive">設定狀態</string>
+    <string name="filter_active">已啟用</string>
+    <string name="filter_notactive">未啟用</string>
+    <string name="filter_resources">資源設定</string>
+    <string name="filter_cancel">取消</string>
+    <string name="filter_clear">清除</string>
+    <string name="filter_apply">套用</string>
+
+
+    <string name="translator">Chih-Hsun, Liao @TAIWAN, ROC</string>
+</resources>

@@ -287,10 +287,23 @@ public class ApplicationSettings extends ActionBarActivity {
 			final int fullscreenSelection = fullscreen;
 			Spinner spnFullscreen = (Spinner) findViewById(R.id.spnFullscreen);
 			// Note: the order of these items must match the Common.FULLSCREEN_... constants
-			List<String> lstFullscreen = Arrays.asList(
-					new String[] { getString(R.string.settings_default),
-							getString(R.string.settings_force),
-							getString(R.string.settings_prevent) });
+			String[] fullscreenArray;
+			if (Build.VERSION.SDK_INT >= 19) {
+				fullscreenArray = new String[] {
+						getString(R.string.settings_default),
+						getString(R.string.settings_force),
+						getString(R.string.settings_prevent),
+						getString(R.string.settings_immersive)
+				};
+			} else {
+				fullscreenArray = new String[] {
+						getString(R.string.settings_default),
+						getString(R.string.settings_force),
+						getString(R.string.settings_prevent)
+				};
+			}
+
+			List<String> lstFullscreen = Arrays.asList(fullscreenArray);
 			ArrayAdapter<String> fullscreenAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, lstFullscreen);
 			fullscreenAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

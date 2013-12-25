@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">App Settings</string>
+    <string name="app_mod_summary">Možnosť nastaviť niekoľko základných nastavení pre jednotlivé aplikácie:
+DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, bez názvu (skryť záhlavie), ponechať obrazovku zapnutú, zobraziť nad uzamykacou obrazovkou, ponechať v pamäti, orientácia, neústupné oznámenia, zrušiť povolenia</string>
+
+
+    <!-- Main screen -->
+    <string name="app_loading">Načítavam aplikácie, prosím čakajte</string>
+    <string name="app_searchhint">meno alebo balíček</string>
+    <string name="app_about"><a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> modul od
+ <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> a <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
+ \nMôžete použiť <a href="http://forum.xda-developers.com/showthread.php?t=2437377">toto vlákno</a> pre otázky a návrhy.</string>
+    <string name="app_description">Tento modul vám umožní zmeniť niekoľko základných nastavení pre jednotlivé aplikácie beznutnosti upravovať APK:
+\n- dpi
+\n- veľkosť písma
+\n- falošná veľkosť obrazovky pre načítanie zdrojov
+\n- jazyk
+\n- režim na celú obrazovku
+\n- skryť záhlavie
+\n- nevypínať obrazovku, ak je aplikácia aktívna
+\n- zobraziť aplikáciu nad uzamykacou obrazovkou
+\n- ponechať v pamäti
+\n- vynútiť orientáciu (na výšku, na šírku, autom.)
+\n- neústupné oznámenia (opakovať zvuk)
+\n- zrušiť veľké (rozšírené) oznámenia
+\n- zakázať oznámenia</string>
+    <string name="app_version">Verzia: %s</string>
+    <string name="app_translation">Prekladateľ: %s</string>
+    <string name="app_notactive_warning">Poznámka: Aj keď nastavenia môžu byť zmenené, vplyv na aplikácie budú mať iba ak bude Xposed framework nainštalovaný a tento modul bude povolený!</string>
+
+
+    <!-- main menu -->
+    <string name="menu_export">Exportovať</string>
+    <string name="menu_import">Importovať</string>
+    <string name="menu_about">O aplikácii</string>
+
+    <!-- Import / Export -->
+    <string name="imp_exp_file_doesnt_exist">Súbor neexistuje: %s</string>
+    <string name="imp_exp_confirm">Nahradiť všetky nastavenia nastaveniami, ktoré sa chystáte importovať?</string>
+    <string name="imp_exp_exported">Nastavenia boli exportované do súboru: %s</string>
+    <string name="imp_exp_export_error">Exportovanie zlyhalo: %s</string>
+    <string name="imp_exp_import_error">Importovanie zlyhalo: %s</string>
+    <string name="imp_exp_invalid_import_file">Neplatný alebo prázdny súbor na importovanie: %s</string>
+    <string name="imp_exp_imported">Importovanie bolo úspešné; nastavenia boli nahradené</string>
+
+
+    <!-- app-specific menu -->
+    <string name="menu_save">Uložiť</string>
+    <string name="menu_launch">Spustiť</string>
+    <string name="menu_settings">Nastavenia</string>
+    <string name="menu_playstore">Obchod Play</string>
+
+
+    <!-- Settings screen -->
+    <string name="settings_title">Nastavenia</string>
+    <string name="settings_dpi">DPI</string>
+    <string name="settings_fontscale">Zväčšenie písma</string>
+    <string name="settings_listres">Zdroje</string>
+    <string name="settings_screen">Rozlíšenie obrazovky</string>
+    <string name="settings_xlargeres">extra rozl.</string>
+    <string name="settings_locale">Jazyk</string>
+    <string name="settings_fullscreen">Na celú obrazovku</string>
+    <string name="settings_notitle">Bez záhlavia</string>
+    <string name="settings_screenon">Ponechať zap. obrazovku</string>
+    <string name="settings_showwhenlocked">Zobraziť pri uzamknutej obrazovke</string>
+    <string name="settings_resident">Ponechať v pamäti</string>
+    <string name="settings_orientation">Orientácia</string>
+    <string name="settings_insistentnotif">Neústupné oznámenia</string>
+    <string name="settings_nobignotif">Nezobrazovať veľké oznámenia</string>
+    <string name="settings_permissions">Povolenia</string>
+
+    <string name="settings_default">(predvolené)</string>
+
+    <string name="settings_force">Vynútiť</string>
+    <string name="settings_prevent">Zabrániť</string>
+
+    <string name="settings_ori_normal">Predvolené otočenie</string>
+    <string name="settings_ori_portrait">Vždy na výšku</string>
+    <string name="settings_ori_landscape">Vždy na šírku</string>
+    <string name="settings_ori_forceauto">Vynútiť autom. otáčanie</string>
+
+    <!-- List resources -->
+    <string name="res_title">Zdroje</string>
+    <string name="res_noentries">Nenašli sa žiadne zdroje</string>
+    <string name="res_failedtoload">Chyba pri načítaní obsahu APK</string>
+
+    <!-- Show / search / revoke permissions -->
+    <string name="perms_title">Povolenia</string>
+    <string name="perms_revoke">Zakázať povolenia</string>
+    <string name="perms_shared_warning">UPOZORNENIE: Zdieľaný balíček!</string>
+    <string name="perms_searchhint">meno alebo popis</string>
+    <string name="perms_nodescription">( nie je dostupný žiadny opis )</string>
+    <string name="perms_filter_title">Vyberte povolenie pre filtrovanie, alebo Zrušiť pre zobrazenie všetkých</string>
+
+    <!-- Saving settings -->
+    <string name="settings_unsaved_title">Upozornenie</string>
+    <string name="settings_unsaved_detail">Neuložili ste nastavenie.
+Naozaj sa chcete vrátiť a zrušiť zmeny?</string>
+    <string name="settings_apply_title">Použiť nastavenia</string>
+    <string name="settings_apply_detail">Chcte aj ukončiť aplikáciu aby po opätovnom spustení použila nové nastavenia?</string>
+
+
+    <!-- Filter dialog -->
+    <string name="filter_title">Filter</string>
+    <string name="filter_all">Všetky</string>
+    <string name="filter_overridden">Prepísané</string>
+    <string name="filter_unchanged">Nezmenené</string>
+    <string name="filter_type">Typ</string>
+    <string name="filter_user">Užívateľské</string>
+    <string name="filter_system">Systemové</string>
+    <string name="filter_settingsactive">Aktívne nastavenia</string>
+    <string name="filter_active">Aktívne</string>
+    <string name="filter_notactive">Neaktívne</string>
+    <string name="filter_resources">Načítané zdroje</string>
+    <string name="filter_cancel">Zrušiť</string>
+    <string name="filter_clear">Vyčistiť</string>
+    <string name="filter_apply">Použiť</string>
+
+
+    <string name="translator">ja_som</string>
+</resources>

@@ -8,9 +8,6 @@ DPI; フォントスケール; 読み込むリソースの上書き; 言語;
 
 
     <!-- Main screen -->
-    <string name="app_tab_main">アプリ</string>
-    <string name="app_tab_about">情報</string>
-
     <string name="app_loading">アプリの読み込み中、しばらくお待ちください</string>
     <string name="app_searchhint">名前かパッケージ名</string>
     <string name="app_about">この<a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a>モジュールは<a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a>と<a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>により制作されました。
@@ -32,6 +29,21 @@ DPI; フォントスケール; 読み込むリソースの上書き; 言語;
     <string name="app_version">バージョン: %s</string>
     <string name="app_translation">翻訳: %s</string>
     <string name="app_notactive_warning">注意:Xposedフレームワークがインストールされていてこのモジュールが有効化されているときのみ設定が反映されます!</string>
+
+
+    <!-- main menu -->
+    <string name="menu_export">保存</string>
+    <string name="menu_import">読み込み</string>
+    <string name="menu_about">情報</string>
+
+    <!-- Import / Export -->
+    <string name="imp_exp_file_doesnt_exist">ファイルがありません: %s</string>
+    <string name="imp_exp_confirm">読み込んだファイルで全ての設定を置換しますか?</string>
+    <string name="imp_exp_exported">設定の保存先: %s</string>
+    <string name="imp_exp_export_error">保存失敗: %s</string>
+    <string name="imp_exp_import_error">読み込み失敗: %s</string>
+    <string name="imp_exp_invalid_import_file">不正か壊れたファイルです: %s</string>
+    <string name="imp_exp_imported">読み込み成功; 設定を置換しました。</string>
 
 
     <!-- app-specific menu -->
@@ -63,6 +75,7 @@ DPI; フォントスケール; 読み込むリソースの上書き; 言語;
 
     <string name="settings_force">強制</string>
     <string name="settings_prevent">阻止</string>
+    <string name="settings_immersive">没入モード</string>
 
     <string name="settings_ori_normal">通常の向き</string>
     <string name="settings_ori_portrait">常に縦向き</string>

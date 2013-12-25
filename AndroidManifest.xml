@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.robv.android.xposed.mods.appsettings"
-    android:versionCode="21"
-    android:versionName="1.5" xmlns:tools="http://schemas.android.com/tools">
+    android:versionCode="25"
+    android:versionName="1.7.1" xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk android:minSdkVersion="10" tools:ignore="UsesMinSdkAttributes"/>
+
     <permission-tree android:name="de.robv.android.xposed.mods.appsettings"/>
-    <uses-permission android:name="de.robv.android.xposed.mods.appsettings.BROADCAST_PERMISSION"/>
     <permission android:name="de.robv.android.xposed.mods.appsettings.BROADCAST_PERMISSION" android:protectionLevel="dangerous"></permission>
+
+    <uses-permission android:name="de.robv.android.xposed.mods.appsettings.BROADCAST_PERMISSION"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:theme="@style/Theme.AppCompat"

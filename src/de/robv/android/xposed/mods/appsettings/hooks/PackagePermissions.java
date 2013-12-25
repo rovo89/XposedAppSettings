@@ -141,7 +141,10 @@ public class PackagePermissions extends BroadcastReceiver {
 			if (killApp) {
 				try {
 					ApplicationInfo appInfo = (ApplicationInfo) getObjectField(pkgInfo, "applicationInfo");
-					callMethod(pmSvc, "killApplication", pkgName, appInfo.uid);
+					if (Build.VERSION.SDK_INT <= 18)
+						callMethod(pmSvc, "killApplication", pkgName, appInfo.uid);
+					else
+						callMethod(pmSvc, "killApplication", pkgName, appInfo.uid, "apply App Settings");
 				} catch (Throwable t) {
 					XposedBridge.log(t);
 				}

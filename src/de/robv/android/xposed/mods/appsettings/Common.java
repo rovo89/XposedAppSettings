@@ -45,5 +45,6 @@ public class Common {
 	public static final int FULLSCREEN_DEFAULT = 0;
 	public static final int FULLSCREEN_FORCE = 1;
 	public static final int FULLSCREEN_PREVENT = 2;
+	public static final int FULLSCREEN_IMMERSIVE = 3;
 
 }

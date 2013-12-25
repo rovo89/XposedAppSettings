@@ -38,6 +38,6 @@
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
             android:text="@string/app_notactive_warning"
-            android:textColor="@android:color/holo_red_dark" />
+            android:textColor="@color/holo_red_dark" />
     </LinearLayout>
 </ScrollView>

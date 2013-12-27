@@ -5,14 +5,15 @@
     android:layout_height="match_parent" >
     <ImageButton
         android:id="@+id/btnFilter"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@android:drawable/ic_menu_view"
+        android:layout_alignBottom="@+id/btnPermsFilter"
         android:contentDescription="@string/filter_title"/>
     <ImageButton
-        android:id="@+id/btnPermsFilter"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:id="@id/btnPermsFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_toRightOf="@id/btnFilter"
         android:src="@android:drawable/ic_lock_lock"
         android:contentDescription="@string/perms_title"/>

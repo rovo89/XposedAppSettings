@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">App Settings</string>
+    <string name="app_mod_summary">Δυνατότητα να ρυθμιστούν γενικές ρυθμίσεις ανά εφαρμογή:
+DPI, Μέγεθος γραμματοσειράς, Αλλαγή φορτωμένων πώρων, Γλώσσα, Πλήρης οθόνη, Απόκρυψη τίτλου, Διατήρηση αναμμένης οθόνης, Εμφάνιση πάνω από την οθόνη κλειδώματος, Μόνιμο στην μνήμη, Προσανατολισμός οθόνης, Επίμονες ειδοποιήσεις, Όχι μεγάλες ειδοποιήσεις, Άρνηση αδειών</string>
+
+
+    <!-- Main screen -->
+    <string name="app_loading">Φόρτωση εφαρμογών, παρακαλώ περιμένετε...</string>
+    <string name="app_searchhint">όνομα ή όνομα πακέτου</string>
+    <string name="app_about">Ένα <a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> module από
+ <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> και <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
+ \nΜπορείτε να χρησιμοποιήσετε <a href="http://forum.xda-developers.com/showthread.php?t=2437377">αυτό το θέμα</a> για ερωτήσεις ή προτάσεις.</string>
+    <string name="app_description">Αυτό το mod επιτρέπει σε μερικές γενικές ρυθμίσεις να αλλάξουν ανά εφαρμογή, χωρίς να χρειάζεται να επεξεργαστήτε αρχεία APK:
+\n- πυκνότητα οθόνης / dpi
+\n- μέγεθος γραμματοσειράς
+\n- ψεύτικο μέγεθος οθόνης για φόρτωση πώρων
+\n- τοπικότητα (γλώσσα)
+\n- λειτουργία πλήρης οθόνης
+\n- απόκρυψη μπάρας τίτλου
+\n- διατήρηση αναμμένης οθόνης όσο η εφαρμογή είναι ορατή
+\n- εμφάνιση εφαρμογής πάνω από την οθόνη κλειδώματος
+\n- μόνιμο στη μνήμη
+\n- προσανατολισμός (portrait/landscape/αυτόματο)
+\n- επίμονες ειδοποιήσεις (loop the sound)
+\n- απενεργοποίηση μεγάλων (επεκταμένων) ειδοποιήσεων
+\n- άρνηση αδειών</string>
+    <string name="app_version">Έκδοση: %s</string>
+    <string name="app_translation">Μεταφραστής: %s</string>
+    <string name="app_notactive_warning">Σημείωση: Αν και οι ρυθμίσεις μπορούν να χρησιμοποιηθούν όπως είναι,
+οι εφαρμογές θα επηρεαστούν μόνο αν το Xposed framework είναι εγκατεστημένο και αν αυτό το module
+είναι ενεργοποιημένο στις ρυθμίσεις του!</string>
+
+
+    <!-- main menu -->
+    <string name="menu_export">Εξαγωγή</string>
+    <string name="menu_import">Εισαγωγή</string>
+    <string name="menu_about">Σχετικά</string>
+
+    <!-- Import / Export -->
+    <string name="imp_exp_file_doesnt_exist">Το αρχείο δεν υπάρχει: %s</string>
+    <string name="imp_exp_confirm">Αντικατάσταση όλων των ρυθμίσεων με αυτές που θα εισαχθούν;</string>
+    <string name="imp_exp_exported">Οι ρυθμίσεις εξάχθηκαν στο αρχείο: %s</string>
+    <string name="imp_exp_export_error">Εξαγωγή απέτυχε: %s</string>
+    <string name="imp_exp_import_error">Εισαγωγή απέτυχε: %s</string>
+    <string name="imp_exp_invalid_import_file">Άκυρο ή άδειο αρχείο για εισαγωγή: %s</string>
+    <string name="imp_exp_imported">Εισαγωγή επιτυχής. Οι ρυθμίσεις αντικαταστάθηκαν.</string>
+
+
+    <!-- app-specific menu -->
+    <string name="menu_save">Αποθήκευση</string>
+    <string name="menu_launch">Τρέξιμο</string>
+    <string name="menu_settings">Ρυθμίσεις</string>
+    <string name="menu_playstore">Play Store</string>
+
+
+    <!-- Settings screen -->
+    <string name="settings_title">Ρυθμίσεις</string>
+    <string name="settings_dpi">DPI</string>
+    <string name="settings_fontscale">Μέγεθος γραμματοσειράς</string>
+    <string name="settings_listres">Κατάλογος των πόρων</string>
+    <string name="settings_screen">Οθόνη (dp)</string>
+    <string name="settings_xlargeres">xlarge πόροι</string>
+    <string name="settings_locale">Τοπικότητα</string>
+    <string name="settings_fullscreen">Πλήρης οθόνη</string>
+    <string name="settings_notitle">Χωρίς τίτλο</string>
+    <string name="settings_screenon">Διατήρηση αναμμένης οθόνης</string>
+    <string name="settings_showwhenlocked">Εμφάνιση πάνω από την οθόνη κλειδώματος</string>
+    <string name="settings_resident">Μόνιμο</string>
+    <string name="settings_orientation">Προσανατολισμός</string>
+    <string name="settings_insistentnotif">Επίμονες ειδοποιήσεις</string>
+    <string name="settings_nobignotif">Όχι μεγάλες ειδοποιήσεις</string>
+    <string name="settings_permissions">Άδειες</string>
+
+    <string name="settings_default">(προεπιλογή)</string>
+
+    <string name="settings_force">Επιβολή</string>
+    <string name="settings_prevent">Αποτροπή</string>
+    <string name="settings_immersive">Μοναδικό</string>
+
+    <string name="settings_ori_normal">Κανονική περιστροφή</string>
+    <string name="settings_ori_portrait">Πάντα portrait</string>
+    <string name="settings_ori_landscape">Πάντα landscape</string>
+    <string name="settings_ori_forceauto">Επιβολή auto-rotation</string>
+
+    <!-- List resources -->
+    <string name="res_title">Πόροι</string>
+    <string name="res_noentries">Δεν βρέθηκαν πόροι</string>
+    <string name="res_failedtoload">Αποτυχία φόρτωσης πόρων του APK</string>
+
+    <!-- Show / search / revoke permissions -->
+    <string name="perms_title">Άδειες</string>
+    <string name="perms_revoke">Άρνηση αδειών</string>
+    <string name="perms_shared_warning">ΠΡΟΣΟΧΉ: Διαμοιραζόμενο πακέτο!</string>
+    <string name="perms_searchhint">όνομα ή περιγραφή</string>
+    <string name="perms_nodescription">( δεν υπάρχει περιγραφή διαθέσιμη )</string>
+    <string name="perms_filter_title">Επιλέξτε μια άδεια για φίλτρο, ή πατήστε Άκυρο για να εμφανιστούν όλα</string>
+
+    <!-- Saving settings -->
+    <string name="settings_unsaved_title">Προσοχή</string>
+    <string name="settings_unsaved_detail">Δεν αποθηκεύσατε τις ρυθμίσεις.
+Αλήθεια θέλετε να πάτε πίσω και να ακυρώσετε τις αλλαγές;</string>
+    <string name="settings_apply_title">Επιβολή ρυθμίσεων</string>
+    <string name="settings_apply_detail">Επίσης τερματισμός εφαρμογής για να χρησιμοποιεί τις καινούριες ρυθμίσεις όταν ξανανοίξει;</string>
+
+
+    <!-- Filter dialog -->
+    <string name="filter_title">Φιλτράρισμα</string>
+    <string name="filter_all">Όλα</string>
+    <string name="filter_overridden">Αλλαγμένο</string>
+    <string name="filter_unchanged">Μη αλλαγμένο</string>
+    <string name="filter_type">Τύπος</string>
+    <string name="filter_user">Χρήστης</string>
+    <string name="filter_system">Σύστημα</string>
+    <string name="filter_settingsactive">Ρυθμίσεις ενεργές</string>
+    <string name="filter_active">Ενεργό</string>
+    <string name="filter_notactive">Μη ενεργό</string>
+    <string name="filter_resources">Φόρτωση πόρων</string>
+    <string name="filter_cancel">Άκυρο</string>
+    <string name="filter_clear">Διαγραφή</string>
+    <string name="filter_apply">Επιβολή</string>
+
+
+    <string name="translator">Vagelis1608</string>
+</resources>

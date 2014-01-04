@@ -160,7 +160,9 @@ public class PermissionsListAdapter extends ArrayAdapter<PermissionInfo> impleme
 		@Override
 		protected void publishResults(CharSequence constraint, FilterResults results) {
 			clear();
-			addAll((List<PermissionInfo>) results.values);
+			for (PermissionInfo value : (List<PermissionInfo>) results.values) {
+				add(value);
+			}
 			notifyDataSetChanged();
 		}
 

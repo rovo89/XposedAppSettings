@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.support.v7.app.ActionBarActivity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -50,12 +50,12 @@ import de.robv.android.xposed.mods.appsettings.Common;
 import de.robv.android.xposed.mods.appsettings.R;
 
 @SuppressLint("WorldReadableFiles")
-public class ApplicationSettings extends Activity {
+public class ApplicationSettings extends ActionBarActivity {
 
 	private boolean dirty = false;
 
 
-	Switch swtActive;
+	CompoundButton swtActive;
 
     private String pkgName;
     SharedPreferences prefs;
@@ -73,9 +73,13 @@ public class ApplicationSettings extends Activity {
     	
         super.onCreate(savedInstanceState);
         
-        swtActive = new Switch(this);
-        getActionBar().setCustomView(swtActive);
-        getActionBar().setDisplayShowCustomEnabled(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            swtActive = new Switch(this);
+        } else {
+            swtActive = new CheckBox(this);
+        }
+        getSupportActionBar().setCustomView(swtActive);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
 
         setContentView(R.layout.app_settings);
         
@@ -409,7 +413,7 @@ public class ApplicationSettings extends Activity {
 
 		// Setting for permissions revoking
 		allowRevoking = prefs.getBoolean(pkgName + Common.PREF_REVOKEPERMS, false);
-		disabledPermissions = prefs.getStringSet(pkgName + Common.PREF_REVOKELIST, new HashSet<String>());
+		disabledPermissions = getStringSet(prefs, pkgName + Common.PREF_REVOKELIST, new HashSet<String>());
 
 		Button btnPermissions = (Button) findViewById(R.id.btnPermissions);
 		btnPermissions.setOnClickListener(new View.OnClickListener() {
@@ -446,7 +450,9 @@ public class ApplicationSettings extends Activity {
     	// Require confirmation to exit the screen and lose configuration changes
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.settings_unsaved_title);
-        builder.setIconAttribute(android.R.attr.alertDialogIcon);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
+            builder.setIconAttribute(android.R.attr.alertDialogIcon);
+        }
         builder.setMessage(R.string.settings_unsaved_detail);
         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             @Override
@@ -608,7 +614,7 @@ public class ApplicationSettings extends Activity {
 					// Commit and reopen the editor, as it seems to be bugged when updating a StringSet
                     prefsEditor.commit();
                     prefsEditor = prefs.edit();
-                    prefsEditor.putStringSet(pkgName + Common.PREF_REVOKELIST, disabledPermissions);
+                    putStringSet(prefsEditor, pkgName + Common.PREF_REVOKELIST, disabledPermissions);
                 }
                 
             } else {
@@ -676,7 +682,50 @@ public class ApplicationSettings extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-    
-    
-    
+
+	// prefs.getStringSet(pkgName + Common.PREF_REVOKELIST, new HashSet<String>());
+	public static Set<String> getStringSet(SharedPreferences prefs, String key, Set<String> defValues) {
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
+			return prefs.getStringSet(key, defValues);
+		}
+		String s = prefs.getString(key, null);
+		if (s == null || s.length() == 0) {
+			return defValues;
+		}
+		return StringToSet(s);
+	}
+
+	// prefsEditor.putStringSet(pkgName + Common.PREF_REVOKELIST, disabledPermissions);
+	public static void putStringSet(Editor prefsEditor, String key, Set<String> values) {
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
+			prefsEditor.putStringSet(key, values);
+		} else {
+			prefsEditor.putString(key, SetToString(values));
+		}
+	}
+
+	// just assume there is no @@ in the values
+	private static final String SPLITER = "@@";
+
+	private static String SetToString(Set<String> values) {
+		StringBuilder sb = new StringBuilder();
+		for (String s : values) {
+			sb.append(s);
+			sb.append(SPLITER);
+		}
+		if (sb.length() > 0) {
+			return sb.substring(0, sb.length() - SPLITER.length());
+		} else {
+			return sb.toString();
+		}
+	}
+
+	private static Set<String> StringToSet(String ss) {
+		Set<String> set = new HashSet<String>();
+		for (String s : ss.split(SPLITER)) {
+			set.add(s);
+		}
+		return set;
+	}
+
 }

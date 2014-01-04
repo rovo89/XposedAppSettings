@@ -19,7 +19,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
-import android.widget.Switch;
 import de.robv.android.xposed.mods.appsettings.R;
 
 
@@ -54,7 +53,7 @@ public class PermissionSettings {
 		else
 			disabledPerms = new HashSet<String>();
 
-		Switch swtRevoke = (Switch) dialog.findViewById(R.id.swtRevokePerms);
+		CompoundButton swtRevoke = (CompoundButton) dialog.findViewById(R.id.swtRevokePerms);
 		swtRevoke.setChecked(revokeActive);
 
 		// Load the list of permissions for the package and present them
@@ -141,7 +140,7 @@ public class PermissionSettings {
 		PackageManager pm = dialog.getContext().getPackageManager();
 		PackageInfo pkgInfo = pm.getPackageInfo(pkgName, PackageManager.GET_PERMISSIONS);
 		if (pkgInfo.sharedUserId != null) {
-			Switch swtRevoke = (Switch) dialog.findViewById(R.id.swtRevokePerms);
+			CompoundButton swtRevoke = (CompoundButton) dialog.findViewById(R.id.swtRevokePerms);
 			swtRevoke.setText(R.string.perms_shared_warning);
 			swtRevoke.setTextColor(Color.RED);
 		}

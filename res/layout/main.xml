@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yourapp="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     <ImageButton
@@ -7,15 +8,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@android:drawable/ic_menu_view"
+        android:layout_alignBottom="@+id/btnPermsFilter"
         android:contentDescription="@string/filter_title"/>
     <ImageButton
-        android:id="@+id/btnPermsFilter"
+        android:id="@id/btnPermsFilter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/btnFilter"
         android:src="@android:drawable/ic_lock_lock"
         android:contentDescription="@string/perms_title"/>
-    <SearchView
+    <android.support.v7.widget.SearchView
         android:id="@+id/searchApp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/searchApp"
-        android:divider="@android:color/holo_blue_dark"
+        android:divider="@color/holo_blue_dark"
         android:dividerHeight="1dp"
         android:fadingEdge="vertical"
         android:fastScrollEnabled="true"

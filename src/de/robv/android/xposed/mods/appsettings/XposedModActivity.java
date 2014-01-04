@@ -20,7 +20,7 @@ import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.support.v7.app.ActionBarActivity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
@@ -57,7 +57,7 @@ import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SearchView;
+import android.support.v7.widget.SearchView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,7 +65,7 @@ import de.robv.android.xposed.mods.appsettings.FilterItemComponent.FilterState;
 import de.robv.android.xposed.mods.appsettings.settings.ApplicationSettings;
 import de.robv.android.xposed.mods.appsettings.settings.PermissionsListAdapter;
 
-public class XposedModActivity extends Activity {
+public class XposedModActivity extends ActionBarActivity {
 
 	private ArrayList<ApplicationInfo> appList = new ArrayList<ApplicationInfo>();
 	private ArrayList<ApplicationInfo> filteredAppList = new ArrayList<ApplicationInfo>();
@@ -101,7 +101,7 @@ public class XposedModActivity extends Activity {
 	@SuppressLint("WorldReadableFiles")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		setTitle(R.string.app_name);
+
 		super.onCreate(savedInstanceState);
 
 		prefsFile.setReadable(true, false);

@@ -4,7 +4,7 @@
     <string name="app_mod_summary">アプリ毎に様々な設定ができます:
 DPI; フォントスケール; 読み込むリソースの上書き; 言語;
 全画面; タイトル非表示; 画面常時点灯; ロック画面上に表示;
-常駐化; 画面の向き; 通知の繰り返し; 大きい通知無効化; 権限の拒否</string>
+常駐化; No Fullscreen IME; 画面の向き; 通知の繰り返し; 大きい通知無効化; 権限の拒否</string>
 
 
     <!-- Main screen -->
@@ -22,6 +22,7 @@ DPI; フォントスケール; 読み込むリソースの上書き; 言語;
 \n- アプリ起動中に画面を常時点灯する
 \n- ロック画面上にアプリを表示する
 \n- メモリに常駐するようにする
+\n- disable fullscreen keyboard input
 \n- 画面の向きの強制(縦/横/自動)
 \n- 通知の繰り返し(通地音をループ)
 \n- 大きな(拡大された)通知の無効化
@@ -66,6 +67,7 @@ DPI; フォントスケール; 読み込むリソースの上書き; 言語;
     <string name="settings_screenon">画面常時点灯</string>
     <string name="settings_showwhenlocked">ロック画面に表示</string>
     <string name="settings_resident">常駐化</string>
+    <string name="settings_nofullscreenime">No Fullscreen IME</string>
     <string name="settings_orientation">画面の向き</string>
     <string name="settings_insistentnotif">通知の繰り返し</string>
     <string name="settings_nobignotif">大きい通知無効化</string>

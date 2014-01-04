@@ -86,6 +86,7 @@ public class XposedModActivity extends Activity {
 	private FilterState filterScreenOn;
 	private FilterState filterAllowOnLockscreen;
 	private FilterState filterResident;
+	private FilterState filterNoFullscreenIME;
 	private FilterState filterOrientation;
 	private FilterState filterInsNotif;
 	private FilterState filterNoBigNotif;
@@ -498,6 +499,7 @@ public class XposedModActivity extends Activity {
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltScreenOn)).setFilterState(filterScreenOn);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltAllowOnLockscreen)).setFilterState(filterAllowOnLockscreen);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltResident)).setFilterState(filterResident);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltNoFullscreenIME)).setFilterState(filterNoFullscreenIME);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltOrientation)).setFilterState(filterOrientation);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltInsNotif)).setFilterState(filterInsNotif);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltNoBigNotif)).setFilterState(filterNoBigNotif);
@@ -533,6 +535,7 @@ public class XposedModActivity extends Activity {
 						filterScreenOn = FilterState.ALL;
 						filterAllowOnLockscreen = FilterState.ALL;
 						filterResident = FilterState.ALL;
+						filterNoFullscreenIME = FilterState.ALL;
 						filterOrientation = FilterState.ALL;
 						filterInsNotif = FilterState.ALL;
 						filterNoBigNotif = FilterState.ALL;
@@ -556,6 +559,7 @@ public class XposedModActivity extends Activity {
 						filterScreenOn = ((FilterItemComponent) filterDialog.findViewById(R.id.fltScreenOn)).getFilterState();
 						filterAllowOnLockscreen = ((FilterItemComponent) filterDialog.findViewById(R.id.fltAllowOnLockscreen)).getFilterState();
 						filterResident = ((FilterItemComponent) filterDialog.findViewById(R.id.fltResident)).getFilterState();
+						filterNoFullscreenIME = ((FilterItemComponent) filterDialog.findViewById(R.id.fltNoFullscreenIME)).getFilterState();
 						filterOrientation = ((FilterItemComponent) filterDialog.findViewById(R.id.fltOrientation)).getFilterState();
 						filterInsNotif = ((FilterItemComponent) filterDialog.findViewById(R.id.fltInsNotif)).getFilterState();
 						filterNoBigNotif = ((FilterItemComponent) filterDialog.findViewById(R.id.fltNoBigNotif)).getFilterState();
@@ -770,6 +774,8 @@ public class XposedModActivity extends Activity {
 			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_ALLOW_ON_LOCKSCREEN, false), filterAllowOnLockscreen))
 				return true;
 			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_RESIDENT, false), filterResident))
+				return true;
+			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_NO_FULLSCREEN_IME, false), filterNoFullscreenIME))
 				return true;
 			if (filteredOut(prefs.getInt(packageName + Common.PREF_ORIENTATION, 0) > 0, filterOrientation))
 				return true;

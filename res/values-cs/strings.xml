@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">App Settings</string>
     <string name="app_mod_summary">Možnost nastavit několik základních nastavení pro jednotlivé aplikace:
-DPI, velikost písma, jazyk, načítání zdrojů, zobrazení na celou obrazovku, skrýt záhlaví, ponechat obrazovku zapnutou, zobrazit nad uzamykací obrazovkou, ponechat v paměti, orientace, neústupné oznámení, zrušit povolení</string>
+DPI, velikost písma, jazyk, načítání zdrojů, zobrazení na celou obrazovku, skrýt záhlaví, ponechat obrazovku zapnutou, zobrazit nad uzamykací obrazovkou, ponechat v paměti, no fullscreen IME, orientace, neústupné oznámení, zrušit povolení</string>
 
 
     <!-- Main screen -->
@@ -21,6 +21,7 @@ DPI, velikost písma, jazyk, načítání zdrojů, zobrazení na celou obrazovku
 \n- nevypínat obrazovku, když je aplikace aktivní
 \n- zobrazit aplikaci nad uzamykací obrazovkou
 \n- ponechat v paměti
+\n- disable fullscreen keyboard input
 \n- vynutit orientaci (na výšku, na šírku, autom.)
 \n- neústupné oznámení (opakovat zvuk)
 \n- zrušit velké (rozšířené) oznámení
@@ -65,6 +66,7 @@ DPI, velikost písma, jazyk, načítání zdrojů, zobrazení na celou obrazovku
     <string name="settings_screenon">Ponechat zap. obrazovku</string>
     <string name="settings_showwhenlocked">Zobrazit při uzamknuté obrazovce</string>
     <string name="settings_resident">Ponechat v paměti</string>
+    <string name="settings_nofullscreenime">No Fullscreen IME</string>
     <string name="settings_orientation">Orientace</string>
     <string name="settings_insistentnotif">Neústupné oznámení</string>
     <string name="settings_nobignotif">Nezobrazovat velké oznámení</string>

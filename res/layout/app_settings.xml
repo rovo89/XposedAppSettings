@@ -144,11 +144,21 @@
                     android:singleLine="true"
                     android:text="@string/settings_showwhenlocked" />
             </LinearLayout>
-            <CheckBox
-                android:id="@+id/chkResident"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/settings_resident" />
+                android:orientation="horizontal" >
+                <CheckBox
+                    android:id="@+id/chkResident"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_resident" />
+                <CheckBox
+                    android:id="@+id/chkNoFullscreenIME"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_nofullscreenime" />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

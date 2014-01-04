@@ -77,6 +77,11 @@
                 android:layout_height="wrap_content"
                 app:label="@string/settings_resident" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+                android:id="@+id/fltNoFullscreenIME"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:label="@string/settings_nofullscreenime" />
+            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
                 android:id="@+id/fltOrientation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

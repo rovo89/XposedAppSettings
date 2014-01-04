@@ -4,7 +4,7 @@
     <string name="app_mod_summary">允许为每个应用程序设置一些通用配置：
 DPI；字号缩放；覆盖加载资源；区域设置；
 全屏；无标题栏；保持屏幕开启；在锁屏界面上显示；
-常驻内存；方向；持续通知；没有大的通知；权限管理</string>
+常驻内存；No Fullscreen IME;方向；持续通知；没有大的通知；权限管理</string>
 
 
     <!-- Main screen -->
@@ -22,6 +22,7 @@ DPI；字号缩放；覆盖加载资源；区域设置；
 \n- 程序前台时屏幕保持开启
 \n- 在锁屏界面之上显示程序
 \n- 常驻内存
+\n- disable fullscreen keyboard input
 \n- 强制方向（纵向/横向/自动）
 \n- 持续通知（声音循环）
 \n- 禁用大的（扩展）通知
@@ -66,6 +67,7 @@ DPI；字号缩放；覆盖加载资源；区域设置；
     <string name="settings_screenon">屏幕常亮</string>
     <string name="settings_showwhenlocked">锁屏时显示</string>
     <string name="settings_resident">常驻内存</string>
+    <string name="settings_nofullscreenime">No Fullscreen IME</string>
     <string name="settings_orientation">方向</string>
     <string name="settings_insistentnotif">持续通知</string>
     <string name="settings_nobignotif">无大型通知</string>

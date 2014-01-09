@@ -6,9 +6,6 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
 
 
     <!-- Main screen -->
-    <string name="app_tab_main">Aplikácie</string>
-    <string name="app_tab_about">O aplikácii</string>
-
     <string name="app_loading">Načítavam aplikácie, prosím čakajte</string>
     <string name="app_searchhint">meno, alebo balíček</string>
     <string name="app_about"><a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> modul od
@@ -24,6 +21,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
 \n- nevypínať obrazovku, ak je aplikácia aktívna
 \n- zobraziť aplikáciu nad uzamykacou obrazovkou
 \n- ponechať v pamäti
+\n- disable fullscreen keyboard input
 \n- vynútiť orientáciu (na výšku, na šírku, autom.)
 \n- neústupné oznámenia (opakovať zvuk)
 \n- zrušiť veľké (rozšírené) oznámenia
@@ -31,6 +29,21 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
     <string name="app_version">Verzia: %s</string>
     <string name="app_translation">Prekladateľ: %s</string>
     <string name="app_notactive_warning">Poznámka: Aj keď nastavenia môžu byť zmenené, vplyv na aplikácie budú mať iba ak bude Xposed framework nainštalovaný a tento modul bude povolený!</string>
+
+
+    <!-- main menu -->
+    <string name="menu_export">Export</string>
+    <string name="menu_import">Import</string>
+    <string name="menu_about">O aplikácii</string>
+
+    <!-- Import / Export -->
+    <string name="imp_exp_file_doesnt_exist">Súbor neexistuje: %s</string>
+    <string name="imp_exp_confirm">Nahradiť všetky nastavenia tými, ktoré chcete importovať?</string>
+    <string name="imp_exp_exported">Nastavenia exportované do súboru: %s</string>
+    <string name="imp_exp_export_error">Export zlyhal: %s</string>
+    <string name="imp_exp_import_error">Import zlyhal: %s</string>
+    <string name="imp_exp_invalid_import_file">Neplatný, alebo prázdny súbor importu: %s</string>
+    <string name="imp_exp_imported">Import úspešný; nastavenia prepísané</string>
 
 
     <!-- app-specific menu -->
@@ -53,6 +66,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
     <string name="settings_screenon">Ponechať zap. obrazovku</string>
     <string name="settings_showwhenlocked">Zobraziť pri uzamknutej obrazovke</string>
     <string name="settings_resident">Ponechať v pamäti</string>
+    <string name="settings_nofullscreenime">No Fullscreen IME</string>
     <string name="settings_orientation">Orientácia</string>
     <string name="settings_insistentnotif">Neústupné oznámenia</string>
     <string name="settings_nobignotif">Nezobrazovať veľké oznámenia</string>
@@ -62,6 +76,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
 
     <string name="settings_force">Vynútiť</string>
     <string name="settings_prevent">Zabrániť</string>
+    <string name="settings_immersive">Immersive</string>
 
     <string name="settings_ori_normal">Predvolené otočenie</string>
     <string name="settings_ori_portrait">Vždy na výšku</string>

@@ -79,11 +79,11 @@ public class Activities {
 
 					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_NO_TITLE, false))
 						window.requestFeature(Window.FEATURE_NO_TITLE);
-					
+
 					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_ALLOW_ON_LOCKSCREEN, false))
-		    				window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
-		    				    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-		    				    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+							window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+								WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+								WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
 					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_SCREEN_ON, false)) {
 						window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -100,7 +100,7 @@ public class Activities {
 		} catch (Throwable e) {
 			XposedBridge.log(e);
 		}
-		
+
 		try {
 			findAndHookMethod(Window.class, "setFlags", int.class, int.class,
 					new XC_MethodHook() {
@@ -168,10 +168,10 @@ public class Activities {
 			}
 			hookMethod(mthRealStartActivityLocked, new XC_MethodHook() {
 
-	    		@Override
-	    		protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-	    			String pkgName = (String) getObjectField(param.args[0], "packageName");
-	    			if (XposedMod.isActive(pkgName, Common.PREF_RESIDENT)) {
+				@Override
+				protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+					String pkgName = (String) getObjectField(param.args[0], "packageName");
+					if (XposedMod.isActive(pkgName, Common.PREF_RESIDENT)) {
 						int adj = -12;
 						Object proc = getObjectField(param.args[0], "app");
 
@@ -190,11 +190,11 @@ public class Activities {
 						Intent intent = (Intent) getObjectField(param.args[0], "intent");
 						intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 					}
-	    		}
-	    	});
-	    } catch (Throwable e) {
-	        XposedBridge.log(e);
-	    }
+				}
+			});
+		} catch (Throwable e) {
+			XposedBridge.log(e);
+		}
 
 		try {
 			findAndHookMethod(InputMethodService.class, "doStartInput",

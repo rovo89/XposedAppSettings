@@ -378,15 +378,15 @@ public class ApplicationSettings extends Activity {
 		});
 
 		// Setting for making the app resident in memory
-        ((CheckBox) findViewById(R.id.chkResident)).setChecked(prefs.getBoolean(pkgName + Common.PREF_RESIDENT, false));
+		((CheckBox) findViewById(R.id.chkResident)).setChecked(prefs.getBoolean(pkgName + Common.PREF_RESIDENT, false));
 		// Track changes to know if the settings were changed
-        ((CheckBox) findViewById(R.id.chkResident)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dirty = true;
-            }
-        });
-        
+		((CheckBox) findViewById(R.id.chkResident)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			dirty = true;
+			}
+		});
+
 		// Setting for disabling fullscreen IME
 		((CheckBox) findViewById(R.id.chkNoFullscreenIME)).setChecked(prefs.getBoolean(pkgName + Common.PREF_NO_FULLSCREEN_IME, false));
 		// Track changes to know if the settings were changed
@@ -420,6 +420,16 @@ public class ApplicationSettings extends Activity {
 		// Setting for permissions revoking
 		allowRevoking = prefs.getBoolean(pkgName + Common.PREF_REVOKEPERMS, false);
 		disabledPermissions = prefs.getStringSet(pkgName + Common.PREF_REVOKELIST, new HashSet<String>());
+
+		// Update Exclude from Recents field
+		((CheckBox) findViewById(R.id.chkExcludeFromRecents)).setChecked(prefs.getBoolean(pkgName + Common.PREF_EXCLUDE_FROM_RECENTS, false));
+		// Track changes to the Exclude from Recents checkbox to know if the settings were changed
+		((CheckBox) findViewById(R.id.chkExcludeFromRecents)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				dirty = true;
+			}
+		});
 
 		Button btnPermissions = (Button) findViewById(R.id.btnPermissions);
 		btnPermissions.setOnClickListener(new View.OnClickListener() {
@@ -613,6 +623,11 @@ public class ApplicationSettings extends Activity {
 				} else {
 					prefsEditor.remove(pkgName + Common.PREF_INSISTENT_NOTIF);
 				}
+				if (((CheckBox) findViewById(R.id.chkExcludeFromRecents)).isChecked()) {
+					prefsEditor.putBoolean(pkgName + Common.PREF_EXCLUDE_FROM_RECENTS, true);
+				} else {
+					prefsEditor.remove(pkgName + Common.PREF_EXCLUDE_FROM_RECENTS);
+				}
 				if (allowRevoking) {
 					prefsEditor.putBoolean(pkgName + Common.PREF_REVOKEPERMS, true);
 				} else {
@@ -642,7 +657,8 @@ public class ApplicationSettings extends Activity {
                 prefsEditor.remove(pkgName + Common.PREF_NO_FULLSCREEN_IME);
                 prefsEditor.remove(pkgName + Common.PREF_NO_BIG_NOTIFICATIONS);
                 prefsEditor.remove(pkgName + Common.PREF_INSISTENT_NOTIF);
-                prefsEditor.remove(pkgName + Common.PREF_REVOKEPERMS);
+				prefsEditor.remove(pkgName + Common.PREF_EXCLUDE_FROM_RECENTS);
+				prefsEditor.remove(pkgName + Common.PREF_REVOKEPERMS);
                 prefsEditor.remove(pkgName + Common.PREF_REVOKELIST);
             }
             prefsEditor.commit();

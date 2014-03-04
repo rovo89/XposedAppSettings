@@ -190,11 +190,20 @@
                     android:singleLine="true"
                     android:text="@string/settings_nobignotif" />
             </LinearLayout>
-            <Button
-                android:id="@+id/btnPermissions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_permissions" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+                <CheckBox
+                    android:id="@+id/chkExcludeFromRecents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_excludefromrecents"/>
+                <Button
+                    android:id="@+id/btnPermissions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_permissions" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

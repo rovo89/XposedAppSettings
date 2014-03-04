@@ -97,6 +97,11 @@
                 android:layout_height="wrap_content"
                 app:label="@string/settings_nobignotif" />
             <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+                android:id="@+id/fltExcludeFromRecents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:label="@string/settings_excludefromrecents" />
+            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
                 android:id="@+id/fltPermissions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

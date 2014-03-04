@@ -1,7 +1,9 @@
 package de.robv.android.xposed.mods.appsettings.hooks;
 
+import static de.robv.android.xposed.XposedBridge.hookAllConstructors;
 import static de.robv.android.xposed.XposedBridge.hookMethod;
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
+import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.findMethodExact;
 import static de.robv.android.xposed.XposedHelpers.getAdditionalInstanceField;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
@@ -13,6 +15,7 @@ import java.lang.reflect.Method;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
 import android.os.Build;
 import android.view.View;
@@ -168,21 +171,24 @@ public class Activities {
 	    		@Override
 	    		protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 	    			String pkgName = (String) getObjectField(param.args[0], "packageName");
-	    			if (!XposedMod.isActive(pkgName, Common.PREF_RESIDENT))
-	    				return;
-	    			
-					int adj = -12;
-					Object proc = getObjectField(param.args[0], "app");
-					
-					// Override the *Adj values if meant to be resident in memory
-					if (proc != null) {
-						setIntField(proc, "maxAdj", adj);
-						if (Build.VERSION.SDK_INT <= 18)
-							setIntField(proc, "hiddenAdj", adj);
-						setIntField(proc, "curRawAdj", adj);
-						setIntField(proc, "setRawAdj", adj);
-						setIntField(proc, "curAdj", adj);
-						setIntField(proc, "setAdj", adj);
+	    			if (XposedMod.isActive(pkgName, Common.PREF_RESIDENT)) {
+						int adj = -12;
+						Object proc = getObjectField(param.args[0], "app");
+
+						// Override the *Adj values if meant to be resident in memory
+						if (proc != null) {
+							setIntField(proc, "maxAdj", adj);
+							if (Build.VERSION.SDK_INT <= 18)
+								setIntField(proc, "hiddenAdj", adj);
+							setIntField(proc, "curRawAdj", adj);
+							setIntField(proc, "setRawAdj", adj);
+							setIntField(proc, "curAdj", adj);
+							setIntField(proc, "setAdj", adj);
+						}
+					}
+					if (XposedMod.isActive(pkgName, Common.PREF_EXCLUDE_FROM_RECENTS)) {
+						Intent intent = (Intent) getObjectField(param.args[0], "intent");
+						intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 					}
 	    		}
 	    	});
@@ -205,5 +211,5 @@ public class Activities {
 		} catch (Throwable e) {
 			XposedBridge.log(e);
 		}
-    }
+	}
 }

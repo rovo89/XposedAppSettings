@@ -4,7 +4,8 @@
     <string name="app_mod_summary">Ability to set several generic configurations on a per-app basis:
 DPI; Font scale; Override loaded resouces; Locale;
 Fullscreen; No title; Keep screen on; Show above lockscreen;
-Resident in memory; No fullscreen IME; Orientation; Insistent notifications; No big notifications; Revoke Permissions</string>
+Resident in memory; No fullscreen IME; Orientation; Insistent notifications; No big notifications;
+Exclude from recents; Revoke Permissions</string>
 
 
     <!-- Main screen -->
@@ -27,6 +28,7 @@ Resident in memory; No fullscreen IME; Orientation; Insistent notifications; No 
 \n- force orientation (portrait/landscape/auto)
 \n- insistent notifications (loop the sound)
 \n- disable big (expanded) notifications
+\n- exclude app from recents
 \n- revoke permissions</string>
     <string name="app_version">Version: %s</string>
     <string name="app_translation">Translator: %s</string>
@@ -75,6 +77,7 @@ is enabled in its configuration!</string>
     <string name="settings_insistentnotif">Insistent notifications</string>
     <string name="settings_nobignotif">No big notifications</string>
     <string name="settings_permissions">Permissions</string>
+    <string name="settings_excludefromrecents">Exclude from recents</string>
 
     <string name="settings_default">(default)</string>
 

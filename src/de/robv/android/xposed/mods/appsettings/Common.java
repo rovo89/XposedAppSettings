@@ -34,6 +34,7 @@ public class Common {
 	public static final String PREF_ALLOW_ON_LOCKSCREEN = "/allow-on-lockscreen";
 	public static final String PREF_SCREEN_ON = "/screen-on";
 	public static final String PREF_ORIENTATION = "/orientation";
+	public static final String PREF_EXCLUDE_FROM_RECENTS = "/exclude-from-recents";
 
 	public static final int[] swdp = { 0, 320, 480, 600, 800, 1000 };
 	public static final int[] wdp = { 0, 320, 480, 600, 800, 1000 };

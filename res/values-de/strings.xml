@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">App-Einstellungen</string>
+    <string name="app_mod_summary">Möglichkeit einige Einstellungen auf Pro-App-Basis zu setzen:
+DPI; Schriftgröße; geladene Resourcen überschreiben; Sprache ändern;
+Vollbildschrim; Kein Titel; Bildschirm anbehalten; Über Sperrbildschirm anzeigen;
+Im Speicher behalten; keine Eingabeauswahl bei Vollbild; Orientierung; bleibende Benachrichtigungen; keine erweiterten Benachrichtigungen; Berechtigungen bearbeiten</string>
+
+
+    <!-- Main screen -->
+    <string name="app_loading">Apps laden, bitte warten</string>
+    <string name="app_searchhint">Name oder Paket<string>
+    <string name="app_about">Ein <a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a>-Module von
+ <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> und <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
+ \nDu kannst <a href="http://forum.xda-developers.com/showthread.php?t=2437377">diesen Thread</a> für Fragen und Wünsche benutzen.</string>
+    <string name="app_description">Diese Mod erlaubt bestimmte generische Einstellungen auf Pro-App-Basis, ohne die APKs zu editieren:
+\n- Auflösung / DPI
+\n- Schriftgröße
+\n- Gefälschte Bildschirmgröße für das Laden von Resourcen
+\n- Locale (Sprace)
+\n- Vollbildschirm-Modus
+\n- Titelleiste ausblenden
+\n- Bildschirm anbehalten
+\n- App über Sperrbildschirm anzeigen
+\n- Im Speicher behalten
+\n- Tastatur-Eingabe im Vollbildmodus deaktivieren
+\n- Ausrichtung erzwingen (Portät/Landschaft/automatisch)
+\n- dauerhafte Beanchrichtigungen (Ton als Schleife)
+\n- Große (erweiterte) Benachrichtigungen deaktivieren
+\n- Berechtigungen entziehen</string>
+    <string name="app_version">Version: %s</string>
+    <string name="app_translation">Übersetzer: %s</string>
+    <string name="app_notactive_warning">Anmerkung: Obwohl die Einstellungs-Ansicht auch so genutzt werden kann, werden die Einstellungen nur übernommen, falls das Xposed-Framework installiert ist und dieses Modul aktiviert wurde!</string>
+
+
+    <!-- main menu -->
+    <string name="menu_export">Exportieren</string>
+    <string name="menu_import">Importieren</string>
+    <string name="menu_about">Über</string>
+
+    <!-- Import / Export -->
+    <string name="imp_exp_file_doesnt_exist">Datei existiert nicht: %s</string>
+    <string name="imp_exp_confirm">Alle Einstellungen mit den zu importierenden ersetzen?</string>
+    <string name="imp_exp_exported">Einstellungen in Datei exportiert: %s</string>
+    <string name="imp_exp_export_error">Export fehlgeschlagen: %s</string>
+    <string name="imp_exp_import_error">Import fehlgeschlagen: %s</string>
+    <string name="imp_exp_invalid_import_file">Ungültige oder leere Datei zum importieren: %s</string>
+    <string name="imp_exp_imported">Import vollständig, Einstellungen überschrieben</string>
+
+
+    <!-- app-specific menu -->
+    <string name="menu_save">Speichern</string>
+    <string name="menu_launch">Starten</string>
+    <string name="menu_settings">Einstellungen</string>
+    <string name="menu_playstore">Play Store</string>
+
+
+    <!-- Settings screen -->
+    <string name="settings_title">Einstellungen</string>
+    <string name="settings_dpi">DPI</string>
+    <string name="settings_fontscale">Schriftgröße</string>
+    <string name="settings_listres">Res.zeigen</string>
+    <string name="settings_screen">Bildschirm (dp)</string>
+    <string name="settings_xlargeres">extragroße Res.</string>
+    <string name="settings_locale">Sprache</string>
+    <string name="settings_fullscreen">Vollbild</string>
+    <string name="settings_notitle">Kein Titel</string>
+    <string name="settings_screenon">Bildschirm anlassen</string>
+    <string name="settings_showwhenlocked">Anzeigen, wenn gesperrt</string>
+    <string name="settings_resident">Resident</string>
+    <string name="settings_nofullscreenime">Keine Vollbild-Eingabe</string>
+    <string name="settings_orientation">Ausrichtung</string>
+    <string name="settings_insistentnotif">Dauerhafte Beanchrichtigung</string>
+    <string name="settings_nobignotif">Keine großen Benachrichtigungen</string>
+    <string name="settings_permissions">Berechtigungen</string>
+
+    <string name="settings_default">(Standard)</string>
+
+    <string name="settings_force">Erzwingen</string>
+    <string name="settings_prevent">Verhinden</string>
+    <string name="settings_immersive">Immersive</string>
+
+    <string name="settings_ori_normal">Normale Rotation</string>
+    <string name="settings_ori_portrait">Immer vertikal</string>
+    <string name="settings_ori_landscape">Immer horizontal</string>
+    <string name="settings_ori_forceauto">Auto-Rotation erzwingen</string>
+
+    <!-- List resources -->
+    <string name="res_title">Resourcen</string>
+    <string name="res_noentries">Keine Resourcen gefunden</string>
+    <string name="res_failedtoload">APK-Inhalte konnten nicht geladen werden</string>
+
+    <!-- Show / search / revoke permissions -->
+    <string name="perms_title">Berechtigungen</string>
+    <string name="perms_revoke">Berechtigungen entziehen</string>
+    <string name="perms_shared_warning">WARNUNG: Gemeinsam genutztes Paket!</string>
+    <string name="perms_searchhint">Name oder Beschreibung</string>
+    <string name="perms_nodescription">( keine Beschreibung gefunden )</string>
+    <string name="perms_filter_title">Wähle Berechtigung, um nach ihr zu filtern, oder Abbrechen, um alle zu zeigen</string>
+
+    <!-- Saving settings -->
+    <string name="settings_unsaved_title">Warnung</string>
+    <string name="settings_unsaved_detail">Du hast die Konfiguration nicht gespeichert. Möchtest du wirklich zurückgehen und die Änderungen rückgängig machen?</string>
+    <string name="settings_apply_title">Einstellungen anwenden</string>
+    <string name="settings_apply_detail">Anwendung zusätzlich schließen, danmit die neuen Einstellungen beim nächsten Start direkt angewendet werden?</string>
+
+
+    <!-- Filter dialog -->
+    <string name="filter_title">Filter</string>
+    <string name="filter_all">Alle</string>
+    <string name="filter_overridden">Überschrieben</string>
+    <string name="filter_unchanged">Unverändert</string>
+    <string name="filter_type">Typ</string>
+    <string name="filter_user">Nutzer</string>
+    <string name="filter_system">System</string>
+    <string name="filter_settingsactive">Einstellungen aktiv</string>
+    <string name="filter_active">Aktiv</string>
+    <string name="filter_notactive">Nicht aktiv</string>
+    <string name="filter_resources">Resourcen werden geladen</string>
+    <string name="filter_cancel">Abbrechen</string>
+    <string name="filter_clear">Löschen</string>
+    <string name="filter_apply">Anwenden</string>
+
+
+    <string name="translator">Sanguinus</string>
+</resources>

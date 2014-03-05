@@ -421,13 +421,30 @@ public class ApplicationSettings extends Activity {
 		allowRevoking = prefs.getBoolean(pkgName + Common.PREF_REVOKEPERMS, false);
 		disabledPermissions = prefs.getStringSet(pkgName + Common.PREF_REVOKELIST, new HashSet<String>());
 
-		// Update Exclude from Recents field
-		((CheckBox) findViewById(R.id.chkExcludeFromRecents)).setChecked(prefs.getBoolean(pkgName + Common.PREF_EXCLUDE_FROM_RECENTS, false));
-		// Track changes to the Exclude from Recents checkbox to know if the settings were changed
-		((CheckBox) findViewById(R.id.chkExcludeFromRecents)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+		// Setup recents mode options
+		final int selectedRecentsMode = prefs.getInt(pkgName + Common.PREF_RECENTS_MODE, Common.PREF_RECENTS_DEFAULT);
+		Spinner spnFullscreen = (Spinner) findViewById(R.id.spnFullscreen);
+		// Note: the order of these items must match the Common.RECENTS_... constants
+		String[] recentsModeArray = new String[] { getString(R.string.settings_default),
+				getString(R.string.settings_force), getString(R.string.settings_prevent) };
+
+		Spinner spnRecentsMode = (Spinner) findViewById(R.id.spnRecentsMode);
+		List<String> lstRecentsMode = Arrays.asList(recentsModeArray);
+		ArrayAdapter<String> recentsModeAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, lstRecentsMode);
+		recentsModeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spnRecentsMode.setAdapter(recentsModeAdapter);
+		spnRecentsMode.setSelection(selectedRecentsMode);
+		// Track changes to the recents mode option to know if the settings were changed
+		spnRecentsMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				dirty = true;
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
+				if (pos != selectedRecentsMode) {
+					dirty = true;
+				}
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
 			}
 		});
 
@@ -623,10 +640,11 @@ public class ApplicationSettings extends Activity {
 				} else {
 					prefsEditor.remove(pkgName + Common.PREF_INSISTENT_NOTIF);
 				}
-				if (((CheckBox) findViewById(R.id.chkExcludeFromRecents)).isChecked()) {
-					prefsEditor.putBoolean(pkgName + Common.PREF_EXCLUDE_FROM_RECENTS, true);
+				int recentsMode = ((Spinner) findViewById(R.id.spnRecentsMode)).getSelectedItemPosition();
+				if (recentsMode > 0) {
+					prefsEditor.putInt(pkgName + Common.PREF_RECENTS_MODE, recentsMode);
 				} else {
-					prefsEditor.remove(pkgName + Common.PREF_EXCLUDE_FROM_RECENTS);
+					prefsEditor.remove(pkgName + Common.PREF_RECENTS_MODE);
 				}
 				if (allowRevoking) {
 					prefsEditor.putBoolean(pkgName + Common.PREF_REVOKEPERMS, true);
@@ -657,7 +675,7 @@ public class ApplicationSettings extends Activity {
 				prefsEditor.remove(pkgName + Common.PREF_NO_FULLSCREEN_IME);
 				prefsEditor.remove(pkgName + Common.PREF_NO_BIG_NOTIFICATIONS);
 				prefsEditor.remove(pkgName + Common.PREF_INSISTENT_NOTIF);
-				prefsEditor.remove(pkgName + Common.PREF_EXCLUDE_FROM_RECENTS);
+				prefsEditor.remove(pkgName + Common.PREF_RECENTS_MODE);
 				prefsEditor.remove(pkgName + Common.PREF_REVOKEPERMS);
 				prefsEditor.remove(pkgName + Common.PREF_REVOKELIST);
 			}

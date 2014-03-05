@@ -77,7 +77,7 @@ is enabled in its configuration!</string>
     <string name="settings_insistentnotif">Insistent notifications</string>
     <string name="settings_nobignotif">No big notifications</string>
     <string name="settings_permissions">Permissions</string>
-    <string name="settings_excludefromrecents">Exclude from recents</string>
+    <string name="settings_recents_mode">Show in recents</string>
 
     <string name="settings_default">(default)</string>
 

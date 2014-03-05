@@ -1,9 +1,7 @@
 package de.robv.android.xposed.mods.appsettings.hooks;
 
-import static de.robv.android.xposed.XposedBridge.hookAllConstructors;
 import static de.robv.android.xposed.XposedBridge.hookMethod;
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
-import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.findMethodExact;
 import static de.robv.android.xposed.XposedHelpers.getAdditionalInstanceField;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
@@ -186,9 +184,17 @@ public class Activities {
 							setIntField(proc, "setAdj", adj);
 						}
 					}
-					if (XposedMod.isActive(pkgName, Common.PREF_EXCLUDE_FROM_RECENTS)) {
+					if (XposedMod.prefs.getInt(pkgName + Common.PREF_RECENTS_MODE, Common.PREF_RECENTS_DEFAULT) > 0) {
+						int recentsMode = XposedMod.prefs.getInt(pkgName + Common.PREF_RECENTS_MODE, Common.PREF_RECENTS_DEFAULT);
+						if (recentsMode == Common.PREF_RECENTS_DEFAULT)
+							return;
 						Intent intent = (Intent) getObjectField(param.args[0], "intent");
-						intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+						if (recentsMode == Common.PREF_RECENTS_FORCE) {
+							int flags = (intent.getFlags() & ~Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+							intent.setFlags(flags);
+						}
+						else if (recentsMode == Common.PREF_RECENTS_PREVENT)
+							intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 					}
 				}
 			});

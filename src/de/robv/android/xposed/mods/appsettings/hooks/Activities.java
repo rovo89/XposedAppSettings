@@ -188,7 +188,7 @@ public class Activities {
 					}
 					if (XposedMod.isActive(pkgName, Common.PREF_EXCLUDE_FROM_RECENTS)) {
 						Intent intent = (Intent) getObjectField(param.args[0], "intent");
-						intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+						intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 					}
 				}
 			});

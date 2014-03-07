@@ -90,6 +90,7 @@ public class XposedModActivity extends Activity {
 	private FilterState filterOrientation;
 	private FilterState filterInsNotif;
 	private FilterState filterNoBigNotif;
+	private FilterState filterRecentsMode;
 	private FilterState filterPermissions;
 
 	private String filterPermissionUsage;
@@ -503,6 +504,7 @@ public class XposedModActivity extends Activity {
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltOrientation)).setFilterState(filterOrientation);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltInsNotif)).setFilterState(filterInsNotif);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltNoBigNotif)).setFilterState(filterNoBigNotif);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltRecentsMode)).setFilterState(filterRecentsMode);
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltPermissions)).setFilterState(filterPermissions);
 
 				// Block or unblock the details based on the Active setting
@@ -539,6 +541,7 @@ public class XposedModActivity extends Activity {
 						filterOrientation = FilterState.ALL;
 						filterInsNotif = FilterState.ALL;
 						filterNoBigNotif = FilterState.ALL;
+						filterRecentsMode = FilterState.ALL;
 						filterPermissions = FilterState.ALL;
 
 						filterDialog.dismiss();
@@ -563,6 +566,7 @@ public class XposedModActivity extends Activity {
 						filterOrientation = ((FilterItemComponent) filterDialog.findViewById(R.id.fltOrientation)).getFilterState();
 						filterInsNotif = ((FilterItemComponent) filterDialog.findViewById(R.id.fltInsNotif)).getFilterState();
 						filterNoBigNotif = ((FilterItemComponent) filterDialog.findViewById(R.id.fltNoBigNotif)).getFilterState();
+						filterRecentsMode = ((FilterItemComponent) filterDialog.findViewById(R.id.fltRecentsMode)).getFilterState();
 						filterPermissions = ((FilterItemComponent) filterDialog.findViewById(R.id.fltPermissions)).getFilterState();
 
 						filterDialog.dismiss();
@@ -782,6 +786,8 @@ public class XposedModActivity extends Activity {
 			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_INSISTENT_NOTIF, false), filterInsNotif))
 				return true;
 			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_NO_BIG_NOTIFICATIONS, false), filterNoBigNotif))
+				return true;
+			if (filteredOut(prefs.getInt(packageName + Common.PREF_RECENTS_MODE, Common.PREF_RECENTS_DEFAULT) > 0, filterRecentsMode))
 				return true;
 			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_REVOKEPERMS, false), filterPermissions))
 				return true;

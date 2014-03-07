@@ -1,2 +1,6 @@
+/.idea
 /bin
 /gen
+/out
+*.apk
+*.iml

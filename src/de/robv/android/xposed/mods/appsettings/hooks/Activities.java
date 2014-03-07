@@ -1,7 +1,9 @@
 package de.robv.android.xposed.mods.appsettings.hooks;
 
+import static de.robv.android.xposed.XposedBridge.hookAllConstructors;
 import static de.robv.android.xposed.XposedBridge.hookMethod;
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
+import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.findMethodExact;
 import static de.robv.android.xposed.XposedHelpers.getAdditionalInstanceField;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
@@ -13,6 +15,8 @@ import java.lang.reflect.Method;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.inputmethodservice.InputMethodService;
 import android.os.Build;
 import android.view.View;
@@ -76,11 +80,11 @@ public class Activities {
 
 					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_NO_TITLE, false))
 						window.requestFeature(Window.FEATURE_NO_TITLE);
-					
+
 					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_ALLOW_ON_LOCKSCREEN, false))
-		    				window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
-		    				    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-		    				    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+							window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+								WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+								WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
 					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_SCREEN_ON, false)) {
 						window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -97,7 +101,7 @@ public class Activities {
 		} catch (Throwable e) {
 			XposedBridge.log(e);
 		}
-		
+
 		try {
 			findAndHookMethod(Window.class, "setFlags", int.class, int.class,
 					new XC_MethodHook() {
@@ -165,30 +169,55 @@ public class Activities {
 			}
 			hookMethod(mthRealStartActivityLocked, new XC_MethodHook() {
 
-	    		@Override
-	    		protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-	    			String pkgName = (String) getObjectField(param.args[0], "packageName");
-	    			if (!XposedMod.isActive(pkgName, Common.PREF_RESIDENT))
-	    				return;
-	    			
-					int adj = -12;
-					Object proc = getObjectField(param.args[0], "app");
-					
-					// Override the *Adj values if meant to be resident in memory
-					if (proc != null) {
-						setIntField(proc, "maxAdj", adj);
-						if (Build.VERSION.SDK_INT <= 18)
-							setIntField(proc, "hiddenAdj", adj);
-						setIntField(proc, "curRawAdj", adj);
-						setIntField(proc, "setRawAdj", adj);
-						setIntField(proc, "curAdj", adj);
-						setIntField(proc, "setAdj", adj);
+				@Override
+				protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+					String pkgName = (String) getObjectField(param.args[0], "packageName");
+					if (XposedMod.isActive(pkgName, Common.PREF_RESIDENT)) {
+						int adj = -12;
+						Object proc = getObjectField(param.args[0], "app");
+
+						// Override the *Adj values if meant to be resident in memory
+						if (proc != null) {
+							setIntField(proc, "maxAdj", adj);
+							if (Build.VERSION.SDK_INT <= 18)
+								setIntField(proc, "hiddenAdj", adj);
+							setIntField(proc, "curRawAdj", adj);
+							setIntField(proc, "setRawAdj", adj);
+							setIntField(proc, "curAdj", adj);
+							setIntField(proc, "setAdj", adj);
+						}
 					}
-	    		}
-	    	});
-	    } catch (Throwable e) {
-	        XposedBridge.log(e);
-	    }
+				}
+			});
+		} catch (Throwable e) {
+			XposedBridge.log(e);
+		}
+
+		try {
+			hookAllConstructors(findClass("com.android.server.am.ActivityRecord", null), new XC_MethodHook() {
+				@Override
+				protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+					ActivityInfo aInfo = (ActivityInfo) getObjectField(param.thisObject, "info");
+                    if (aInfo == null)
+                        return;
+					String pkgName = aInfo.packageName;
+					if (XposedMod.prefs.getInt(pkgName + Common.PREF_RECENTS_MODE, Common.PREF_RECENTS_DEFAULT) > 0) {
+						int recentsMode = XposedMod.prefs.getInt(pkgName + Common.PREF_RECENTS_MODE, Common.PREF_RECENTS_DEFAULT);
+						if (recentsMode == Common.PREF_RECENTS_DEFAULT)
+							return;
+						Intent intent = (Intent) getObjectField(param.thisObject, "intent");
+						if (recentsMode == Common.PREF_RECENTS_FORCE) {
+							int flags = (intent.getFlags() & ~Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+							intent.setFlags(flags);
+						}
+						else if (recentsMode == Common.PREF_RECENTS_PREVENT)
+							intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+					}
+				}
+			});
+		} catch (Throwable e) {
+			XposedBridge.log(e);
+		}
 
 		try {
 			findAndHookMethod(InputMethodService.class, "doStartInput",
@@ -205,5 +234,5 @@ public class Activities {
 		} catch (Throwable e) {
 			XposedBridge.log(e);
 		}
-    }
+	}
 }

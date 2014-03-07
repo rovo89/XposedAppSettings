@@ -198,6 +198,8 @@ public class Activities {
 				@Override
 				protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 					ActivityInfo aInfo = (ActivityInfo) getObjectField(param.thisObject, "info");
+                    if (aInfo == null)
+                        return;
 					String pkgName = aInfo.packageName;
 					if (XposedMod.prefs.getInt(pkgName + Common.PREF_RECENTS_MODE, Common.PREF_RECENTS_DEFAULT) > 0) {
 						int recentsMode = XposedMod.prefs.getInt(pkgName + Common.PREF_RECENTS_MODE, Common.PREF_RECENTS_DEFAULT);

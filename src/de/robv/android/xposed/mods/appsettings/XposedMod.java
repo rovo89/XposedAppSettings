@@ -17,7 +17,6 @@ import android.content.res.XResources;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Display;
-import de.robv.android.xposed.IXposedHookCmdInit;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
@@ -28,7 +27,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 import de.robv.android.xposed.mods.appsettings.hooks.Activities;
 import de.robv.android.xposed.mods.appsettings.hooks.PackagePermissions;
 
-public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage, IXposedHookCmdInit {
+public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage {
 
 	public static final String this_package = XposedMod.class.getPackage().getName();
 
@@ -256,12 +255,6 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage,
 	}
 
 
-	@Override
-    public void initCmdApp(de.robv.android.xposed.IXposedHookCmdInit.StartupParam startupParam) throws Throwable {
-		loadPrefs();
-    }
-	
-	
 	public static void loadPrefs() {
 		prefs = new XSharedPreferences(Common.MY_PACKAGE_NAME, Common.PREFS);
 		prefs.makeWorldReadable();

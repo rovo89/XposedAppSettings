@@ -10,7 +10,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
     <string name="app_searchhint">meno, alebo balíček</string>
     <string name="app_about"><a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> modul od
  <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> a <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
- \nMôžete použiť <a href="http://forum.xda-developers.com/showthread.php?t=2437377">toto vlákno</a> pre otázky a návrhy.</string>
+ \nMôžete použiť <a href="http://forum.xda-developers.com/showthread.php?t=2437377">toto vlákno</a> pre otázky a návrhy. Ak nájdete chybu v preklade, nahláste ju prosím <a href="http://ja-som5.webnode.sk/xposed-framework-moduly/appsettings">tu</a>.</string>
     <string name="app_description">Tento modul vám umožní zmeniť niekoľko základných nastavení pre jednotlivé aplikácie beznutnosti upravovať APK:
 \n- dpi
 \n- veľkosť písma
@@ -21,7 +21,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
 \n- nevypínať obrazovku, ak je aplikácia aktívna
 \n- zobraziť aplikáciu nad uzamykacou obrazovkou
 \n- ponechať v pamäti
-\n- disable fullscreen keyboard input
+\n- zakázať vstup cez klávesnicu na celú obrazovku
 \n- vynútiť orientáciu (na výšku, na šírku, autom.)
 \n- neústupné oznámenia (opakovať zvuk)
 \n- zrušiť veľké (rozšírené) oznámenia
@@ -66,7 +66,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
     <string name="settings_screenon">Ponechať zap. obrazovku</string>
     <string name="settings_showwhenlocked">Zobraziť pri uzamknutej obrazovke</string>
     <string name="settings_resident">Ponechať v pamäti</string>
-    <string name="settings_nofullscreenime">No Fullscreen IME</string>
+    <string name="settings_nofullscreenime">Žiadna celá obrazovka pre IME</string>
     <string name="settings_orientation">Orientácia</string>
     <string name="settings_insistentnotif">Neústupné oznámenia</string>
     <string name="settings_nobignotif">Nezobrazovať veľké oznámenia</string>

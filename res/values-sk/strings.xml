@@ -76,7 +76,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
 
     <string name="settings_force">Vynútiť</string>
     <string name="settings_prevent">Zabrániť</string>
-    <string name="settings_immersive">Immersive</string>
+    <string name="settings_immersive">Režim na celú obrazovku</string>
 
     <string name="settings_ori_normal">Predvolené otočenie</string>
     <string name="settings_ori_portrait">Vždy na výšku</string>

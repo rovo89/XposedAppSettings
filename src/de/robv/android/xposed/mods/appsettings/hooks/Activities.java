@@ -11,6 +11,7 @@ import static de.robv.android.xposed.XposedHelpers.setIntField;
 import java.lang.reflect.Method;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.inputmethodservice.InputMethodService;
@@ -29,6 +30,7 @@ import de.robv.android.xposed.mods.appsettings.XposedMod;
 public class Activities {
 
 	private static final String PROP_FULLSCREEN = "AppSettings-Fullscreen";
+	private static final String PROP_IMMERSIVE = "AppSettings-Immersive";
 	private static final String PROP_KEEP_SCREEN_ON = "AppSettings-KeepScreenOn";
 	private static final String PROP_ORIENTATION = "AppSettings-Orientation";
 
@@ -40,6 +42,7 @@ public class Activities {
 				@SuppressLint("InlinedApi")
 				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 					Window window = (Window) param.thisObject;
+					View decorView = (View) param.args[0];
 					Context context = window.getContext();
 					String packageName = context.getPackageName();
 
@@ -61,17 +64,14 @@ public class Activities {
 					} else if (fullscreen == Common.FULLSCREEN_PREVENT) {
 						window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 						setAdditionalInstanceField(window, PROP_FULLSCREEN, Boolean.FALSE);
-					} else if (fullscreen == Common.FULLSCREEN_IMMERSIVE) {
-						if (Build.VERSION.SDK_INT >= 19) {
-							window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-							setAdditionalInstanceField(window, PROP_FULLSCREEN, Boolean.TRUE);
-
-							View decorView = window.getDecorView();
-							decorView.setSystemUiVisibility(
-									View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-									| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-									| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-						}
+					} else if (fullscreen == Common.FULLSCREEN_IMMERSIVE && Build.VERSION.SDK_INT >= 19) {
+						window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+						setAdditionalInstanceField(window, PROP_FULLSCREEN, Boolean.TRUE);
+						setAdditionalInstanceField(decorView, PROP_IMMERSIVE, Boolean.TRUE);
+						decorView.setSystemUiVisibility(
+								View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+								| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+								| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 					}
 
 					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_NO_TITLE, false))
@@ -130,6 +130,37 @@ public class Activities {
 			});
 		} catch (Throwable e) {
 			XposedBridge.log(e);
+		}
+
+		if (Build.VERSION.SDK_INT >= 19) {
+			try {
+				findAndHookMethod("android.view.ViewRootImpl", null, "dispatchSystemUiVisibilityChanged",
+						int.class, int.class, int.class, int.class, new XC_MethodHook() {
+					@TargetApi(19)
+					@Override
+					protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+						// Has the navigation bar been shown?
+						int localChanges = (Integer) param.args[3];
+						if ((localChanges & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0)
+							return;
+
+						// Should it be hidden?
+						View decorView = (View) getObjectField(param.thisObject, "mView");
+						Boolean immersive = (Boolean) getAdditionalInstanceField(decorView, PROP_IMMERSIVE);
+						if (immersive == null || !immersive.booleanValue())
+							return;
+
+						// Enforce SYSTEM_UI_FLAG_HIDE_NAVIGATION and hide changes to this flag
+						int globalVisibility = (Integer) param.args[1];
+						int localValue = (Integer) param.args[2];
+						param.args[1] = globalVisibility | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+						param.args[2] = localValue | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+						param.args[3] = localChanges & ~View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+					}
+				});
+			} catch (Throwable e) {
+				XposedBridge.log(e);
+			}
 		}
 
 		try {

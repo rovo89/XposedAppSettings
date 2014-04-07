@@ -9,7 +9,7 @@ Im Speicher behalten; keine Eingabeauswahl bei Vollbild; Orientierung; bleibende
 
     <!-- Main screen -->
     <string name="app_loading">Apps laden, bitte warten</string>
-    <string name="app_searchhint">Name oder Paket<string>
+    <string name="app_searchhint">Name oder Paket</string>
     <string name="app_about">Ein <a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a>-Module von
  <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> und <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
  \nDu kannst <a href="http://forum.xda-developers.com/showthread.php?t=2437377">diesen Thread</a> für Fragen und Wünsche benutzen.</string>

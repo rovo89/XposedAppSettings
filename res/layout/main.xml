@@ -4,16 +4,16 @@
     android:layout_height="match_parent" >
     <ImageButton
         android:id="@+id/btnFilter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@android:drawable/ic_menu_view"
         android:contentDescription="@string/filter_title"/>
     <ImageButton
         android:id="@+id/btnPermsFilter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_toRightOf="@id/btnFilter"
-        android:src="@android:drawable/ic_lock_lock"
+        android:src="@android:drawable/ic_lock_idle_lock"
         android:contentDescription="@string/perms_title"/>
     <SearchView
         android:id="@+id/searchApp"

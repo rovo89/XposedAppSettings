@@ -68,7 +68,7 @@ DPI, Μέγεθος γραμματοσειράς, Αλλαγή φορτωμέν�
     <string name="settings_screenon">Διατήρηση αναμμένης οθόνης</string>
     <string name="settings_showwhenlocked">Εμφάνιση πάνω από την οθόνη κλειδώματος</string>
     <string name="settings_resident">Μόνιμο</string>
-    <string name="settings_nofullscreenime">No Fullscreen IME</string>
+    <string name="settings_nofullscreenime">Όχι πληρης οθόνη IME</string>
     <string name="settings_orientation">Προσανατολισμός</string>
     <string name="settings_insistentnotif">Επίμονες ειδοποιήσεις</string>
     <string name="settings_nobignotif">Όχι μεγάλες ειδοποιήσεις</string>
@@ -123,5 +123,5 @@ DPI, Μέγεθος γραμματοσειράς, Αλλαγή φορτωμέν�
     <string name="filter_apply">Επιβολή</string>
 
 
-    <string name="translator">Vagelis1608</string>
+    <string name="translator"><a href="http://forum.xda-developers.com/member.php?u=4849551">Vagelis1608</a></string>
 </resources>

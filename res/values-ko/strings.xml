@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App name must be static to English. -->
+    
+    <string name="app_mod_summary">앱마다 다른 설정을 적용시켜줍니다. :
+DPI; 글씨 크기; 특정 리소스만 사용; 언어;
+전체 화면 여부; 타이틀바 여부; 화면 계속 켜기 여부; 잠금 화면에서 보이기;
+메모리에 유지; 풀스크린 IME 방지; 화면 방향; 집요한 알림; 알림 확장 가능 여부; 권한 수정</string>
+
+
+    <!-- Main screen -->
+    <string name="app_loading">어플리케이션을 불러오는 중입니다. 잠시만 기다려 주세요!</string>
+    <string name="app_searchhint">이름 혹은 패키지</string>
+    <string name="app_about">이 어플리케이션은 <a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> 모듈 중 하나입니다.
+ 개발자 : <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a>와 <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
+ \n<a href="http://forum.xda-developers.com/showthread.php?t=2437377">이 스레드</a>에서 질문과 의견을 나눌 수 있습니다.</string>
+    <string name="app_description">APK 파일을 수정하지 않고 앱마다 각각 다른 설정을 적용시켜줍니다. :
+\n- 화면 밀도 / DPI
+\n- 글씨 크기
+\n- 특정 리소스만 사용하기 위한 가짜 화면 크기
+\n- 언어
+\n- 전체 화면 모드
+\n- 타이틀바 숨기기
+\n- 앱 실행 중 화면 꺼짐 방지
+\n- 앱이 켜져 있을 때 잠금 화면 바이패스
+\n- RAM에 앱 상주
+\n- 풀스크린 IME 방지
+\n- 강제 화면 방향 (세로 / 가로 / 자동)
+\n- 집요한 알림 (알림 소리 반복)
+\n- 확장 알림 비활성화
+\n- 권한 수정</string>
+    <string name="app_version">버전 : %s</string>
+    <string name="app_translation">번역자 : %s</string>
+    <string name="app_notactive_warning">알림 : 앱 별로 설정할 수 있는 패널은 들어갈 수 있지만,
+Xposed 프레임워크가 설치되어 있고 이 모듈을 활성화해야만 설정한 값들이 적용됩니다!</string>
+
+
+    <!-- main menu -->
+    <string name="menu_export">내보내기</string>
+    <string name="menu_import">가져오기</string>
+    <string name="menu_about">어플리케이션 정보</string>
+
+    <!-- Import / Export -->
+    <string name="imp_exp_file_doesnt_exist">파일이 존재하지 않음 : %s</string>
+    <string name="imp_exp_confirm">가져오기를 진행하면 기존 설정은 전부 지워지고 교체될 것입니다. 계속 하시겠습니까?</string>
+    <string name="imp_exp_exported">설정이 파일로 내보내짐 : %s</string>
+    <string name="imp_exp_export_error">내보내기 실패 : %s</string>
+    <string name="imp_exp_import_error">가져오기 실패 : %s</string>
+    <string name="imp_exp_invalid_import_file">파일이 잘못됬거나 비어있음 : %s</string>
+    <string name="imp_exp_imported">가져오기가 완료되었습니다. 설정이 교체됩니다.</string>
+
+
+    <!-- app-specific menu -->
+    <string name="menu_save">설정 저장</string>
+    <string name="menu_launch">어플리케이션 실행</string>
+    <string name="menu_settings">어플리케이션 설정</string>
+    <string name="menu_playstore">Play 스토어</string>
+
+
+    <!-- Settings screen -->
+    <string name="settings_title">설정</string>
+    <string name="settings_dpi">DPI</string>
+    <string name="settings_fontscale">글자 크기</string>
+    <string name="settings_listres">리소스 목록</string>
+    <string name="settings_screen">화면 크기 (dp)</string>
+    <string name="settings_xlargeres">xlarge 리소스 사용</string>
+    <string name="settings_locale">언어</string>
+    <string name="settings_fullscreen">전체 화면</string>
+    <string name="settings_notitle">타이틀바 숨기기</string>
+    <string name="settings_screenon">화면 꺼짐 방지</string>
+    <string name="settings_showwhenlocked">잠금 화면 바이패스 (잠금 화면 생략)</string>
+    <string name="settings_resident">RAM에 상주</string>
+    <string name="settings_nofullscreenime">풀스크린 IME 방지</string>
+    <string name="settings_orientation">화면 방향</string>
+    <string name="settings_insistentnotif">집요한 알림</string>
+    <string name="settings_nobignotif">확장 알림 방지</string>
+    <string name="settings_permissions">권한 수정</string>
+
+    <string name="settings_default">(기본 값 사용)</string>
+
+    <string name="settings_force">강제</string>
+    <string name="settings_prevent">방지</string>
+    <string name="settings_immersive">Immersive 모드</string>
+
+    <string name="settings_ori_normal">기본 회전</string>
+    <string name="settings_ori_portrait">항상 세로 회전</string>
+    <string name="settings_ori_landscape">항상 가로 회전</string>
+    <string name="settings_ori_forceauto">강제로 자동 회전</string>
+
+    <!-- List resources -->
+    <string name="res_title">리소스</string>
+    <string name="res_noentries">리소스를 찾을 수 없음</string>
+    <string name="res_failedtoload">APK 컨텐츠를 로드할 수 없음</string>
+
+    <!-- Show / search / revoke permissions -->
+    <string name="perms_title">권한</string>
+    <string name="perms_revoke">권한 수정</string>
+    <string name="perms_shared_warning">경고 : 공유된 패키지입니다!</string>
+    <string name="perms_searchhint">이름이나 상세 정보</string>
+    <string name="perms_nodescription">( 상세 정보 없음 )</string>
+    <string name="perms_filter_title">권한을 선택하여 필터링하거나, 취소를 눌러서 모든 앱이 보여지게 합니다.</string>
+
+    <!-- Saving settings -->
+    <string name="settings_unsaved_title">경고!</string>
+    <string name="settings_unsaved_detail">현재 설정을 저장하지 않으셨습니다.
+정말 뒤로 이동하고 설정을 저장하지 않으시겠습니까?</string>
+    <string name="settings_apply_title">설정 저장하기</string>
+    <string name="settings_apply_detail">선택한 어플리케이션은 종료됩니다. 해당 어플리케이션을 다시 실행하면 새로운 값이 적용됩니다.</string>
+
+
+    <!-- Filter dialog -->
+    <string name="filter_title">필터링</string>
+    <string name="filter_all">모두</string>
+    <string name="filter_overridden">설정됨</string>
+    <string name="filter_unchanged">변경되지 않음</string>
+    <string name="filter_type">종류</string>
+    <string name="filter_user">사용자 앱</string>
+    <string name="filter_system">시스템 앱</string>
+    <string name="filter_settingsactive">설정 활성화 여부</string>
+    <string name="filter_active">활성화됨</string>
+    <string name="filter_notactive">비활성화됨</string>
+    <string name="filter_resources">리소스 불러오는 중</string>
+    <string name="filter_cancel">취소</string>
+    <string name="filter_clear">비우기</string>
+    <string name="filter_apply">적용</string>
+
+
+    <string name="translator">SDKoongchi</string>
+</resources>

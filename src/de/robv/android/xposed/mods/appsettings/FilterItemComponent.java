@@ -10,22 +10,20 @@ import android.widget.TextView;
 
 /**
  * Composite component that displays a header and a triplet of radio buttons for
- * selection of All / Overriden / Unchanged settings for each parameter
+ * selection of All / Overridden / Unchanged settings for each parameter
  */
 public class FilterItemComponent extends LinearLayout {
 
 	private OnFilterChangeListener listener;
 
-	public FilterItemComponent(Context context) {
-		super(context);
-	}
-
+	/** Constructor for designer instantiation */
 	public FilterItemComponent(Context context, AttributeSet attrs) {
 		super(context, attrs);
 
 		LayoutInflater.from(context).inflate(R.layout.filter_item, this);
 
 		TypedArray atts = context.obtainStyledAttributes(attrs, R.styleable.FilterItem);
+
 		// Load label values, if any
 		setLabel(R.id.txtFilterName, atts.getString(R.styleable.FilterItem_label));
 		setLabel(R.id.radAll, atts.getString(R.styleable.FilterItem_all_label));
@@ -33,7 +31,26 @@ public class FilterItemComponent extends LinearLayout {
 		setLabel(R.id.radUnchanged, atts.getString(R.styleable.FilterItem_unchanged_label));
 		atts.recycle();
 
-		// Notify any listener of changes in the selected option
+		setupListener();
+	}
+
+	/** Constructor for programmatic instantiation */
+	public FilterItemComponent(Context context, String filterName, String labelAll, String labelOverriden, String labelUnchanged) {
+		super(context);
+
+		LayoutInflater.from(context).inflate(R.layout.filter_item, this);
+
+		// Load label values, if any
+		setLabel(R.id.txtFilterName, filterName);
+		setLabel(R.id.radAll, labelAll);
+		setLabel(R.id.radOverridden, labelOverriden);
+		setLabel(R.id.radUnchanged, labelUnchanged);
+
+		setupListener();
+	}
+
+	private void setupListener() {
+	    // Notify any listener of changes in the selected option
 		((RadioGroup) findViewById(R.id.radOptions)).setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -52,7 +69,7 @@ public class FilterItemComponent extends LinearLayout {
 				}
 			}
 		});
-	}
+    }
 
 	/*
 	 * Update the label of a view id, if non-null

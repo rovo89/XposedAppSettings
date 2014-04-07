@@ -32,11 +32,11 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 	public static final String this_package = XposedMod.class.getPackage().getName();
 
 	public static XSharedPreferences prefs;
-	
+
 	@Override
 	public void initZygote(IXposedHookZygoteInit.StartupParam startupParam) throws Throwable {
 		loadPrefs();
-		
+
 		// Hook to override DPI (globally, including resource load + rendering)
 		try {
 			if (Build.VERSION.SDK_INT < 17) {
@@ -96,7 +96,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 						String packageName = res.getPackageName();
 						String hostPackageName = AndroidAppHelper.currentPackageName();
 						boolean isActiveApp = hostPackageName.equals(packageName);
-						
+
 						// Workaround for KitKat. The keyguard is a different package now but runs in the
 						// same process as SystemUI and displays as main package
 						if (Build.VERSION.SDK_INT >= 19 && hostPackageName.equals("com.android.keyguard"))
@@ -109,7 +109,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 								prefs.getInt(Common.PREF_DEFAULT + Common.PREF_SCREEN, 0));
 							if (screen < 0 || screen >= Common.swdp.length)
 								screen = 0;
-							
+
 							int dpi = prefs.getInt(hostPackageName + Common.PREF_DPI,
 									prefs.getInt(Common.PREF_DEFAULT + Common.PREF_DPI, 0));
 							int fontScale = prefs.getInt(hostPackageName + Common.PREF_FONT_SCALE,
@@ -117,12 +117,12 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 							int swdp = Common.swdp[screen];
 							int wdp = Common.wdp[screen];
 							int hdp = Common.hdp[screen];
-							
+
 							boolean xlarge = prefs.getBoolean(hostPackageName + Common.PREF_XLARGE, false);
-							
+
 							if (swdp > 0 || xlarge || dpi > 0 || fontScale > 0) {
 								newConfig = new Configuration((Configuration) param.args[0]);
-								
+
 								DisplayMetrics newMetrics;
 								if (param.args[1] != null) {
 									newMetrics = new DisplayMetrics();
@@ -131,7 +131,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 								} else {
 									newMetrics = res.getDisplayMetrics();
 								}
-								
+
 								if (swdp > 0) {
 									newConfig.smallestScreenWidthDp = swdp;
 									newConfig.screenWidthDp = wdp;
@@ -142,7 +142,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 								if (dpi > 0) {
 									newMetrics.density = dpi / 160f;
 									newMetrics.densityDpi = dpi;
-									
+
 									if (Build.VERSION.SDK_INT >= 17)
 										setIntField(newConfig, "densityDpi", dpi);
 								}
@@ -224,7 +224,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         Activities.hookActivitySettings();
 	}
 
-	
+
     @Override
     public void handleLoadPackage(LoadPackageParam lpparam) throws Throwable {
     	prefs.reload();
@@ -259,11 +259,11 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 		prefs = new XSharedPreferences(Common.MY_PACKAGE_NAME, Common.PREFS);
 		prefs.makeWorldReadable();
 	}
-	
+
 	public static boolean isActive(String packageName) {
 		return prefs.getBoolean(packageName + Common.PREF_ACTIVE, false);
 	}
-	
+
 	public static boolean isActive(String packageName, String sub) {
 		return prefs.getBoolean(packageName + Common.PREF_ACTIVE, false) && prefs.getBoolean(packageName + sub, false);
 	}

@@ -204,6 +204,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
             </LinearLayout>
+            <CheckBox
+                android:id="@+id/chkMute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_mute" />
             <Button
                 android:id="@+id/btnPermissions"
                 android:layout_width="wrap_content"

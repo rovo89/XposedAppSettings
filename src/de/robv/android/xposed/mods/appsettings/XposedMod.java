@@ -2,7 +2,10 @@ package de.robv.android.xposed.mods.appsettings;
 
 
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
+import static de.robv.android.xposed.XposedHelpers.getAdditionalInstanceField;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
+import static de.robv.android.xposed.XposedHelpers.removeAdditionalInstanceField;
+import static de.robv.android.xposed.XposedHelpers.setAdditionalInstanceField;
 import static de.robv.android.xposed.XposedHelpers.setFloatField;
 import static de.robv.android.xposed.XposedHelpers.setIntField;
 import static de.robv.android.xposed.XposedHelpers.setObjectField;
@@ -14,9 +17,15 @@ import android.app.Notification;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.XResources;
+import android.media.AudioTrack;
+import android.media.JetPlayer;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.Surface;
+import android.view.SurfaceHolder;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
@@ -239,6 +248,50 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 		if (this_package.equals(lpparam.packageName)) {
 			findAndHookMethod("de.robv.android.xposed.mods.appsettings.XposedModActivity",
 					lpparam.classLoader, "isModActive", XC_MethodReplacement.returnConstant(true));
+		}
+
+		try {
+			if (isActive(lpparam.packageName, Common.PREF_MUTE)) {
+
+				// Hook the AudioTrack API
+				findAndHookMethod(AudioTrack.class, "play", XC_MethodReplacement.returnConstant(null));
+
+				// Hook the JetPlayer API
+				findAndHookMethod(JetPlayer.class, "play", XC_MethodReplacement.returnConstant(null));
+
+				// Hook the MediaPlayer API
+				XC_MethodHook displayHook = new XC_MethodHook() {
+					@Override
+					protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+						// Detect if video will be used for this media
+						if (param.args[0] != null)
+							setAdditionalInstanceField(param.thisObject, "HasVideo", true);
+						else
+							removeAdditionalInstanceField(param.thisObject, "HasVideo");
+					}
+				};
+				findAndHookMethod(MediaPlayer.class, "setSurface", Surface.class, displayHook);
+				findAndHookMethod(MediaPlayer.class, "setDisplay", SurfaceHolder.class, displayHook);
+				findAndHookMethod(MediaPlayer.class, "start", new XC_MethodHook() {
+					@Override
+					protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+						if (getAdditionalInstanceField(param.thisObject, "HasVideo") != null)
+							// Video will be used - still start the media but with muted volume
+							((MediaPlayer) param.thisObject).setVolume(0, 0);
+						else
+							// No video - skip starting to play the media altogether
+							param.setResult(null);
+					}
+				});
+
+				// Hook the SoundPool API
+				findAndHookMethod(SoundPool.class, "play", int.class, float.class, float.class,
+						int.class, int.class, float.class,
+						XC_MethodReplacement.returnConstant(0));
+				findAndHookMethod(SoundPool.class, "resume", int.class, XC_MethodReplacement.returnConstant(null));
+			}
+		} catch (Throwable t) {
+			XposedBridge.log(t);
 		}
     }
 

@@ -281,6 +281,9 @@ public class ApplicationSettings extends Activity {
 		// Update Insistent Notifications field
 		((CheckBox) findViewById(R.id.chkInsistentNotifications)).setChecked(prefs.getBoolean(pkgName + Common.PREF_INSISTENT_NOTIF, false));
 
+		// Update Mute field
+		((CheckBox) findViewById(R.id.chkMute)).setChecked(prefs.getBoolean(pkgName + Common.PREF_MUTE, false));
+
 		// Setting for permissions revoking
 		allowRevoking = prefs.getBoolean(pkgName + Common.PREF_REVOKEPERMS, false);
 		disabledPermissions = prefs.getStringSet(pkgName + Common.PREF_REVOKELIST, new HashSet<String>());
@@ -342,6 +345,7 @@ public class ApplicationSettings extends Activity {
 		settingKeys.add(pkgName + Common.PREF_NO_BIG_NOTIFICATIONS);
 		settingKeys.add(pkgName + Common.PREF_INSISTENT_NOTIF);
 		settingKeys.add(pkgName + Common.PREF_RECENTS_MODE);
+		settingKeys.add(pkgName + Common.PREF_MUTE);
 		settingKeys.add(pkgName + Common.PREF_REVOKEPERMS);
 		settingKeys.add(pkgName + Common.PREF_REVOKELIST);
 		return settingKeys;
@@ -414,6 +418,9 @@ public class ApplicationSettings extends Activity {
 			int recentsMode = ((Spinner) findViewById(R.id.spnRecentsMode)).getSelectedItemPosition();
 			if (recentsMode > 0)
 				settings.put(pkgName + Common.PREF_RECENTS_MODE, recentsMode);
+
+			if (((CheckBox) findViewById(R.id.chkMute)).isChecked())
+				settings.put(pkgName + Common.PREF_MUTE, true);
 
 			if (allowRevoking)
 				settings.put(pkgName + Common.PREF_REVOKEPERMS, true);

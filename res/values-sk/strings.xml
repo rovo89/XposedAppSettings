@@ -70,6 +70,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
     <string name="settings_orientation">Orientácia</string>
     <string name="settings_insistentnotif">Neústupné oznámenia</string>
     <string name="settings_nobignotif">Nezobrazovať veľké oznámenia</string>
+    <string name="settings_mute">Vypnúť zvuk</string>
     <string name="settings_permissions">Povolenia</string>
 
     <string name="settings_default">(predvolené)</string>

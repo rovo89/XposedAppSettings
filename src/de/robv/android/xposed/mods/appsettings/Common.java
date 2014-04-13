@@ -3,6 +3,11 @@ package de.robv.android.xposed.mods.appsettings;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR;
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE;
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT;
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE;
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT;
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
 
 public class Common {
@@ -41,9 +46,15 @@ public class Common {
 	public static final int[] wdp = { 0, 320, 480, 600, 800, 1000 };
 	public static final int[] hdp = { 0, 480, 854, 1024, 1280, 1600 };
 
-	public static final int[] orientationCodes = { Integer.MIN_VALUE, SCREEN_ORIENTATION_UNSPECIFIED, SCREEN_ORIENTATION_PORTRAIT, SCREEN_ORIENTATION_LANDSCAPE, SCREEN_ORIENTATION_SENSOR };
+	public static final int[] orientationCodes = { Integer.MIN_VALUE, SCREEN_ORIENTATION_UNSPECIFIED, SCREEN_ORIENTATION_PORTRAIT, SCREEN_ORIENTATION_LANDSCAPE, SCREEN_ORIENTATION_SENSOR,
+		SCREEN_ORIENTATION_SENSOR_PORTRAIT, SCREEN_ORIENTATION_SENSOR_LANDSCAPE,
+		SCREEN_ORIENTATION_REVERSE_PORTRAIT, SCREEN_ORIENTATION_REVERSE_LANDSCAPE,
+		SCREEN_ORIENTATION_FULL_SENSOR };
 	public static final int[] orientationLabels = { R.string.settings_default, R.string.settings_ori_normal,
-		R.string.settings_ori_portrait, R.string.settings_ori_landscape, R.string.settings_ori_forceauto };
+		R.string.settings_ori_portrait, R.string.settings_ori_landscape, R.string.settings_ori_forceauto,
+		R.string.settings_ori_portrait_sensor, R.string.settings_ori_landscape_sensor,
+		R.string.settings_ori_portrait_reverse, R.string.settings_ori_landscape_reverse,
+		R.string.settings_ori_forceauto_4way };
 
 	public static final int FULLSCREEN_DEFAULT = 0;
 	public static final int FULLSCREEN_FORCE = 1;

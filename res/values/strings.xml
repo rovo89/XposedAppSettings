@@ -91,6 +91,11 @@ is enabled in its configuration!</string>
     <string name="settings_ori_portrait">Always portrait</string>
     <string name="settings_ori_landscape">Always landscape</string>
     <string name="settings_ori_forceauto">Force auto-rotation</string>
+    <string name="settings_ori_portrait_sensor">Always portrait (sensor)</string>
+    <string name="settings_ori_landscape_sensor">Always landscape (sensor)</string>
+    <string name="settings_ori_portrait_reverse">Always portrait (reverse)</string>
+    <string name="settings_ori_landscape_reverse">Always landscape (reverse)</string>
+    <string name="settings_ori_forceauto_4way">Force auto-rotation (4-way)</string>
 
     <!-- List resources -->
     <string name="res_title">Resources</string>

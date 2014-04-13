@@ -29,6 +29,7 @@ Exclude from recents; Revoke Permissions</string>
 \n- insistent notifications (loop the sound)
 \n- disable big (expanded) notifications
 \n- exclude app from recents
+\n- mute audio (for most apps)
 \n- revoke permissions</string>
     <string name="app_version">Version: %s</string>
     <string name="app_translation">Translator: %s</string>

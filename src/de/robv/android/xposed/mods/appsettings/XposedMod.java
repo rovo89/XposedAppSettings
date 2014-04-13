@@ -24,6 +24,7 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.ViewConfiguration;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -248,6 +249,14 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 		if (this_package.equals(lpparam.packageName)) {
 			findAndHookMethod("de.robv.android.xposed.mods.appsettings.XposedModActivity",
 					lpparam.classLoader, "isModActive", XC_MethodReplacement.returnConstant(true));
+		}
+
+		try {
+			if (isActive(lpparam.packageName, Common.PREF_LEGACY_MENU))
+				findAndHookMethod(ViewConfiguration.class, "hasPermanentMenuKey",
+						 XC_MethodReplacement.returnConstant(true));
+		} catch (Throwable t) {
+			XposedBridge.log(t);
 		}
 
 		try {

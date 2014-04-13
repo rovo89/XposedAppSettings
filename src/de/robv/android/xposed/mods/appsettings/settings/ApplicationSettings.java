@@ -284,6 +284,9 @@ public class ApplicationSettings extends Activity {
 		// Update Mute field
 		((CheckBox) findViewById(R.id.chkMute)).setChecked(prefs.getBoolean(pkgName + Common.PREF_MUTE, false));
 
+		// Update Legacy Menu field
+		((CheckBox) findViewById(R.id.chkLegacyMenu)).setChecked(prefs.getBoolean(pkgName + Common.PREF_LEGACY_MENU, false));
+
 		// Setting for permissions revoking
 		allowRevoking = prefs.getBoolean(pkgName + Common.PREF_REVOKEPERMS, false);
 		disabledPermissions = prefs.getStringSet(pkgName + Common.PREF_REVOKELIST, new HashSet<String>());
@@ -346,6 +349,7 @@ public class ApplicationSettings extends Activity {
 		settingKeys.add(pkgName + Common.PREF_INSISTENT_NOTIF);
 		settingKeys.add(pkgName + Common.PREF_RECENTS_MODE);
 		settingKeys.add(pkgName + Common.PREF_MUTE);
+		settingKeys.add(pkgName + Common.PREF_LEGACY_MENU);
 		settingKeys.add(pkgName + Common.PREF_REVOKEPERMS);
 		settingKeys.add(pkgName + Common.PREF_REVOKELIST);
 		return settingKeys;
@@ -421,6 +425,9 @@ public class ApplicationSettings extends Activity {
 
 			if (((CheckBox) findViewById(R.id.chkMute)).isChecked())
 				settings.put(pkgName + Common.PREF_MUTE, true);
+
+			if (((CheckBox) findViewById(R.id.chkLegacyMenu)).isChecked())
+				settings.put(pkgName + Common.PREF_LEGACY_MENU, true);
 
 			if (allowRevoking)
 				settings.put(pkgName + Common.PREF_REVOKEPERMS, true);

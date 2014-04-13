@@ -30,6 +30,7 @@ Exclude from recents; Revoke Permissions</string>
 \n- disable big (expanded) notifications
 \n- exclude app from recents
 \n- mute audio (for most apps)
+\n- force using legacy (navbar) menu button
 \n- revoke permissions</string>
     <string name="app_version">Version: %s</string>
     <string name="app_translation">Translator: %s</string>
@@ -78,6 +79,7 @@ is enabled in its configuration!</string>
     <string name="settings_insistentnotif">Insistent notifications</string>
     <string name="settings_nobignotif">No big notifications</string>
     <string name="settings_mute">Mute audio</string>
+    <string name="settings_legacy_menu">Legacy menu button</string>
     <string name="settings_permissions">Permissions</string>
     <string name="settings_recents_mode">Show in recents</string>
 

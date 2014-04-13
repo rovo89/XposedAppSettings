@@ -7,6 +7,7 @@ import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.findMethodExact;
 import static de.robv.android.xposed.XposedHelpers.getAdditionalInstanceField;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
+import static de.robv.android.xposed.XposedHelpers.getStaticIntField;
 import static de.robv.android.xposed.XposedHelpers.setAdditionalInstanceField;
 import static de.robv.android.xposed.XposedHelpers.setIntField;
 
@@ -36,7 +37,10 @@ public class Activities {
 	private static final String PROP_FULLSCREEN = "AppSettings-Fullscreen";
 	private static final String PROP_IMMERSIVE = "AppSettings-Immersive";
 	private static final String PROP_KEEP_SCREEN_ON = "AppSettings-KeepScreenOn";
+	private static final String PROP_LEGACY_MENU = "AppSettings-LegacyMenu";
 	private static final String PROP_ORIENTATION = "AppSettings-Orientation";
+
+	private static int FLAG_NEEDS_MENU_KEY = getStaticIntField(WindowManager.LayoutParams.class, "FLAG_NEEDS_MENU_KEY");
 
 	public static void hookActivitySettings() {
 		try {
@@ -91,6 +95,11 @@ public class Activities {
 						setAdditionalInstanceField(window, PROP_KEEP_SCREEN_ON, Boolean.TRUE);
 					}
 
+					if (XposedMod.prefs.getBoolean(packageName + Common.PREF_LEGACY_MENU, false)) {
+						window.setFlags(FLAG_NEEDS_MENU_KEY, FLAG_NEEDS_MENU_KEY);
+						setAdditionalInstanceField(window, PROP_LEGACY_MENU, Boolean.TRUE);
+					}
+
 					int orientation = XposedMod.prefs.getInt(packageName + Common.PREF_ORIENTATION, XposedMod.prefs.getInt(Common.PREF_DEFAULT + Common.PREF_ORIENTATION, 0));
 					if (orientation > 0 && orientation < Common.orientationCodes.length && context instanceof Activity) {
 						((Activity) context).setRequestedOrientation(Common.orientationCodes[orientation]);
@@ -126,6 +135,15 @@ public class Activities {
 						if (keepScreenOn != null) {
 							if (keepScreenOn.booleanValue()) {
 								flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+							}
+							param.args[0] = flags;
+						}
+					}
+					if ((mask & FLAG_NEEDS_MENU_KEY) != 0) {
+						Boolean menu = (Boolean) getAdditionalInstanceField(param.thisObject, PROP_LEGACY_MENU);
+						if (menu != null) {
+							if (menu.booleanValue()) {
+								flags |= FLAG_NEEDS_MENU_KEY;
 							}
 							param.args[0] = flags;
 						}

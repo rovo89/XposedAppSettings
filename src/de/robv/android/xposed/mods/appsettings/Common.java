@@ -41,6 +41,7 @@ public class Common {
 	public static final String PREF_ORIENTATION = "/orientation";
 	public static final String PREF_RECENTS_MODE = "/recents-mode";
 	public static final String PREF_MUTE = "/mute";
+	public static final String PREF_LEGACY_MENU = "/legacy-menu";
 
 	public static final int[] swdp = { 0, 320, 480, 600, 800, 1000 };
 	public static final int[] wdp = { 0, 320, 480, 600, 800, 1000 };

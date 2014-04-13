@@ -204,11 +204,20 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
             </LinearLayout>
-            <CheckBox
-                android:id="@+id/chkMute"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_mute" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+                <CheckBox
+                    android:id="@+id/chkMute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_mute" />
+                <CheckBox
+                    android:id="@+id/chkLegacyMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_legacy_menu" />
+            </LinearLayout>
             <Button
                 android:id="@+id/btnPermissions"
                 android:layout_width="wrap_content"

@@ -2,13 +2,12 @@
 <resources>
     <string name="app_name">App Settings</string>
     <string name="app_mod_summary">アプリ毎に様々な設定ができます:
-DPI; フォントスケール; 読み込むリソースの上書き; 言語;
-全画面; タイトル非表示; 画面常時点灯; ロック画面上に表示;
-常駐化; No Fullscreen IME; 画面の向き; 通知の繰り返し; 大きい通知無効化; 権限の拒否</string>
+DPI; フォントスケール; 言語;全画面; タイトル非表示; 画面常時点灯; ロック画面上に表示;
+常駐化; 画面の向き; 通知の繰り返し; 権限の拒否など</string>
 
 
     <!-- Main screen -->
-    <string name="app_loading">アプリの読み込み中、しばらくお待ちください</string>
+    <string name="app_loading">アプリの読み込み中</string>
     <string name="app_searchhint">名前かパッケージ名</string>
     <string name="app_about">この<a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a>モジュールは<a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a>と<a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>により制作されました。
  \n<a href="http://forum.xda-developers.com/showthread.php?t=2437377">このスレ</a>で質問や提案をしてください。</string>
@@ -22,10 +21,13 @@ DPI; フォントスケール; 読み込むリソースの上書き; 言語;
 \n- アプリ起動中に画面を常時点灯する
 \n- ロック画面上にアプリを表示する
 \n- メモリに常駐するようにする
-\n- disable fullscreen keyboard input
+\n- 全画面キーボードの無効化
 \n- 画面の向きの強制(縦/横/自動)
 \n- 通知の繰り返し(通地音をループ)
 \n- 大きな(拡大された)通知の無効化
+\n- アプリ履歴からの除外
+\n- 無音化(たいていの場合)
+\n- ナビバーのメニューボタンを使うようにする
 \n- 権限の拒否</string>
     <string name="app_version">バージョン: %s</string>
     <string name="app_translation">翻訳: %s</string>
@@ -67,11 +69,14 @@ DPI; フォントスケール; 読み込むリソースの上書き; 言語;
     <string name="settings_screenon">画面常時点灯</string>
     <string name="settings_showwhenlocked">ロック画面に表示</string>
     <string name="settings_resident">常駐化</string>
-    <string name="settings_nofullscreenime">No Fullscreen IME</string>
+    <string name="settings_nofullscreenime">全画面IME無効化</string>
     <string name="settings_orientation">画面の向き</string>
     <string name="settings_insistentnotif">通知の繰り返し</string>
     <string name="settings_nobignotif">大きい通知無効化</string>
+    <string name="settings_mute">無音化</string>
+    <string name="settings_legacy_menu">メニューボタン表示</string>
     <string name="settings_permissions">権限</string>
+    <string name="settings_recents_mode">アプリ履歴に表示</string>
 
     <string name="settings_default">(デフォルト)</string>
 
@@ -83,6 +88,11 @@ DPI; フォントスケール; 読み込むリソースの上書き; 言語;
     <string name="settings_ori_portrait">常に縦向き</string>
     <string name="settings_ori_landscape">常に横向き</string>
     <string name="settings_ori_forceauto">自動回転を強制</string>
+    <string name="settings_ori_portrait_sensor">常に縦向き(センサー)</string>
+    <string name="settings_ori_landscape_sensor">常に横向き(センサー)</string>
+    <string name="settings_ori_portrait_reverse">常に縦向き(逆転)</string>
+    <string name="settings_ori_landscape_reverse">常に横向き(逆転)</string>
+    <string name="settings_ori_forceauto_4way">自動回転を強制(4方向)</string>
 
     <!-- List resources -->
     <string name="res_title">リソース</string>
@@ -122,5 +132,5 @@ DPI; フォントスケール; 読み込むリソースの上書き; 言語;
     <string name="filter_apply">適用</string>
 
 
-    <string name="translator">WedyDQ10</string>
+    <string name="translator">＠WedyDQ10</string>
 </resources>

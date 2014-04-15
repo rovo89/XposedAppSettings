@@ -1,15 +1,19 @@
 package de.robv.android.xposed.mods.appsettings;
 
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE;
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT;
-import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE;
-import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT;
-import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
+import android.annotation.TargetApi;
+import android.app.Notification;
+import android.os.Build;
 
+@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 public class Common {
 
 	public static final String TAG = "AppSettings";
@@ -32,6 +36,7 @@ public class Common {
 	public static final String PREF_NO_FULLSCREEN_IME = "/no-fullscreen-ime";
 	public static final String PREF_NO_BIG_NOTIFICATIONS = "/no-big-notifications";
 	public static final String PREF_INSISTENT_NOTIF = "/insistent-notif";
+	public static final String PREF_NOTIF_PRIORITY = "/notif-priority";
 	public static final String PREF_REVOKEPERMS = "/revoke-perms";
 	public static final String PREF_REVOKELIST = "/revoke-list";
 	public static final String PREF_FULLSCREEN = "/fullscreen";
@@ -56,6 +61,16 @@ public class Common {
 		R.string.settings_ori_portrait_sensor, R.string.settings_ori_landscape_sensor,
 		R.string.settings_ori_portrait_reverse, R.string.settings_ori_landscape_reverse,
 		R.string.settings_ori_forceauto_4way };
+
+	public static final int[] notifPriCodes = { Integer.MIN_VALUE,
+		Notification.PRIORITY_MAX, Notification.PRIORITY_HIGH,
+		Notification.PRIORITY_DEFAULT,
+		Notification.PRIORITY_LOW, Notification.PRIORITY_MIN };
+	public static final int[] notifPriLabels = { R.string.settings_default,
+		R.string.settings_npri_max, R.string.settings_npri_high,
+		R.string.settings_npri_normal,
+		R.string.settings_npri_low,
+		R.string.settings_npri_min };
 
 	public static final int FULLSCREEN_DEFAULT = 0;
 	public static final int FULLSCREEN_FORCE = 1;

@@ -26,6 +26,7 @@ Resident in memory; Orientation; Revoke Permissions; &#8230;</string>
 \n- force orientation (portrait/landscape/auto)
 \n- insistent notifications (loop the sound)
 \n- disable big (expanded) notifications
+\n- notifications priority
 \n- exclude app from recents
 \n- mute audio (for most apps)
 \n- force using legacy (navbar) menu button
@@ -76,6 +77,7 @@ is enabled in its configuration!</string>
     <string name="settings_orientation">Orientation</string>
     <string name="settings_insistentnotif">Insistent notifications</string>
     <string name="settings_nobignotif">No big notifications</string>
+    <string name="settings_notifpriority">Notifications priority</string>
     <string name="settings_mute">Mute audio</string>
     <string name="settings_legacy_menu">Legacy menu button</string>
     <string name="settings_permissions">Permissions</string>
@@ -96,6 +98,12 @@ is enabled in its configuration!</string>
     <string name="settings_ori_portrait_reverse">Always portrait (reverse)</string>
     <string name="settings_ori_landscape_reverse">Always landscape (reverse)</string>
     <string name="settings_ori_forceauto_4way">Force auto-rotation (4-way)</string>
+
+    <string name="settings_npri_max">Max</string>
+    <string name="settings_npri_high">High</string>
+    <string name="settings_npri_normal">Normal</string>
+    <string name="settings_npri_low">Low</string>
+    <string name="settings_npri_min">Min</string>
 
     <!-- List resources -->
     <string name="res_title">Resources</string>

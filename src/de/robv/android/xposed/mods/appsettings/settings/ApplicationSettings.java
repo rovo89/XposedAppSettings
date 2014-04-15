@@ -281,6 +281,26 @@ public class ApplicationSettings extends Activity {
 		// Update Insistent Notifications field
 		((CheckBox) findViewById(R.id.chkInsistentNotifications)).setChecked(prefs.getBoolean(pkgName + Common.PREF_INSISTENT_NOTIF, false));
 
+		// Load and render notifications priority
+		if (Build.VERSION.SDK_INT >= 16) {
+			int notifPriority = prefs.getInt(pkgName + Common.PREF_NOTIF_PRIORITY, 0);
+			if (notifPriority < 0 || notifPriority >= Common.notifPriCodes.length)
+				notifPriority = 0;
+			final int selectedNotifPriority = notifPriority;
+
+			Spinner spnNotifPri = (Spinner) findViewById(R.id.spnNotifPriority);
+			List<String> lstNotifPriorities = new ArrayList<String>(Common.notifPriLabels.length);
+			for (int j = 0; j < Common.notifPriLabels.length; j++)
+				lstNotifPriorities.add(getString(Common.notifPriLabels[j]));
+			ArrayAdapter<String> notifPriAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, lstNotifPriorities);
+			notifPriAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			spnNotifPri.setAdapter(notifPriAdapter);
+			spnNotifPri.setSelection(selectedNotifPriority);
+		} else {
+			findViewById(R.id.viewNotifPriority).setVisibility(View.GONE);
+		}
+
 		// Update Mute field
 		((CheckBox) findViewById(R.id.chkMute)).setChecked(prefs.getBoolean(pkgName + Common.PREF_MUTE, false));
 
@@ -347,6 +367,8 @@ public class ApplicationSettings extends Activity {
 		settingKeys.add(pkgName + Common.PREF_NO_FULLSCREEN_IME);
 		settingKeys.add(pkgName + Common.PREF_NO_BIG_NOTIFICATIONS);
 		settingKeys.add(pkgName + Common.PREF_INSISTENT_NOTIF);
+		if (Build.VERSION.SDK_INT >= 16)
+			settingKeys.add(pkgName + Common.PREF_NOTIF_PRIORITY);
 		settingKeys.add(pkgName + Common.PREF_RECENTS_MODE);
 		settingKeys.add(pkgName + Common.PREF_MUTE);
 		settingKeys.add(pkgName + Common.PREF_LEGACY_MENU);
@@ -418,6 +440,12 @@ public class ApplicationSettings extends Activity {
 
 			if (((CheckBox) findViewById(R.id.chkInsistentNotifications)).isChecked())
 				settings.put(pkgName + Common.PREF_INSISTENT_NOTIF, true);
+
+			if (Build.VERSION.SDK_INT >= 16) {
+				int notifPriority = ((Spinner) findViewById(R.id.spnNotifPriority)).getSelectedItemPosition();
+				if (notifPriority > 0)
+					settings.put(pkgName + Common.PREF_NOTIF_PRIORITY, notifPriority);
+			}
 
 			int recentsMode = ((Spinner) findViewById(R.id.spnRecentsMode)).getSelectedItemPosition();
 			if (recentsMode > 0)

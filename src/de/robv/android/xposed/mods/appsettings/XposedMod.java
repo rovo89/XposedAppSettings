@@ -12,6 +12,7 @@ import static de.robv.android.xposed.XposedHelpers.setObjectField;
 
 import java.util.Locale;
 
+import android.annotation.TargetApi;
 import android.app.AndroidAppHelper;
 import android.app.Notification;
 import android.content.res.Configuration;
@@ -24,9 +25,9 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Display;
-import android.view.ViewConfiguration;
 import android.view.Surface;
 import android.view.SurfaceHolder;
+import android.view.ViewConfiguration;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
@@ -188,6 +189,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 		try {
 			final int sdk = Build.VERSION.SDK_INT;
 			XC_MethodHook notifyHook = new XC_MethodHook() {
+				@SuppressWarnings("deprecation")
+				@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 				@Override
 				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 					String packageName = (String) param.args[0];
@@ -206,6 +209,13 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 						try {
 							setObjectField(n, "bigContentView", null);
 						} catch (Exception e) { }
+					}
+					if (sdk >= 16 && isActive(packageName) && prefs.contains(packageName + Common.PREF_NOTIF_PRIORITY)) {
+						int priority = XposedMod.prefs.getInt(packageName + Common.PREF_NOTIF_PRIORITY, 0);
+						if (priority > 0 && priority < Common.notifPriCodes.length) {
+							n.flags &= ~Notification.FLAG_HIGH_PRIORITY;
+							n.priority = Common.notifPriCodes[priority];
+						}
 					}
 				}
 			};

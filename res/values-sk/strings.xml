@@ -25,6 +25,10 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
 \n- vynútiť orientáciu (na výšku, na šírku, autom.)
 \n- neústupné oznámenia (opakovať zvuk)
 \n- zrušiť veľké (rozšírené) oznámenia
+\n- priorita oznámení
+\n- vylúčiť aplikáciu z panela nedávnych aplikácií
+\n- vypnúť zvuk (pre väčšinu aplikácií)
+\n- vynútiť zobrazenie tlačidla Menu v navigačnej lište
 \n- zakázať oznámenia</string>
     <string name="app_version">Verzia: %s</string>
     <string name="app_translation">Prekladateľ: %s</string>
@@ -70,7 +74,11 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
     <string name="settings_orientation">Orientácia</string>
     <string name="settings_insistentnotif">Neústupné oznámenia</string>
     <string name="settings_nobignotif">Nezobrazovať veľké oznámenia</string>
+    <string name="settings_notifpriority">Priorita oznámení</string>
+    <string name="settings_mute">Vypnúť zvuk</string>
+    <string name="settings_legacy_menu">Zobraziť tlačidlo Menu</string>
     <string name="settings_permissions">Povolenia</string>
+    <string name="settings_recents_mode">Zobraziť medzi nedávnymi aplikáciami</string>
 
     <string name="settings_default">(predvolené)</string>
 
@@ -82,6 +90,17 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
     <string name="settings_ori_portrait">Vždy na výšku</string>
     <string name="settings_ori_landscape">Vždy na šírku</string>
     <string name="settings_ori_forceauto">Vynútiť autom. otáčanie</string>
+    <string name="settings_ori_portrait_sensor">Vždy na výšku (senzor)</string>
+    <string name="settings_ori_landscape_sensor">Vždy na šírku (senzor)</string>
+    <string name="settings_ori_portrait_reverse">Vždy na výšku (opačne)</string>
+    <string name="settings_ori_landscape_reverse">Vždy na šírku (opačne)</string>
+    <string name="settings_ori_forceauto_4way">Vynútiť autom. otáčanie (4-smery)</string>
+  
+    <string name="settings_npri_max">Maximálna</string>
+    <string name="settings_npri_high">Vysoká</string>
+    <string name="settings_npri_normal">Normálna</string>
+    <string name="settings_npri_low">Nízka</string>
+    <string name="settings_npri_min">Minimálna</string>
 
     <!-- List resources -->
     <string name="res_title">Zdroje</string>

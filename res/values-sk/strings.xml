@@ -25,10 +25,10 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
 \n- vynútiť orientáciu (na výšku, na šírku, autom.)
 \n- neústupné oznámenia (opakovať zvuk)
 \n- zrušiť veľké (rozšírené) oznámenia
-\n- pririta oznámení
+\n- priorita oznámení
 \n- vylúčiť aplikáciu z panela nedávnych aplikácií
 \n- vypnúť zvuk (pre väčšinu aplikácií)
-\n- vynúťiť zobrazenie tlačidla Menu v navigačnej lište
+\n- vynútiť zobrazenie tlačidla Menu v navigačnej lište
 \n- zakázať oznámenia</string>
     <string name="app_version">Verzia: %s</string>
     <string name="app_translation">Prekladateľ: %s</string>
@@ -76,7 +76,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
     <string name="settings_nobignotif">Nezobrazovať veľké oznámenia</string>
     <string name="settings_notifpriority">Priorita oznámení</string>
     <string name="settings_mute">Vypnúť zvuk</string>
-    <string name="settings_legacy_menu">Zobrazíť tlačidlo Menu</string>
+    <string name="settings_legacy_menu">Zobraziť tlačidlo Menu</string>
     <string name="settings_permissions">Povolenia</string>
     <string name="settings_recents_mode">Zobraziť medzi nedávnymi aplikáciami</string>
 

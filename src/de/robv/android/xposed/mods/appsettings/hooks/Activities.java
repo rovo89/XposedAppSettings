@@ -168,7 +168,9 @@ public class Activities {
 
 						// Should it be hidden?
 						View decorView = (View) getObjectField(param.thisObject, "mView");
-						Boolean immersive = (Boolean) getAdditionalInstanceField(decorView, PROP_IMMERSIVE);
+						Boolean immersive = (decorView == null)
+								? null
+								: (Boolean) getAdditionalInstanceField(decorView, PROP_IMMERSIVE);
 						if (immersive == null || !immersive.booleanValue())
 							return;
 

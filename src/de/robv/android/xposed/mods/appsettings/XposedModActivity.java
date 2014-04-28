@@ -125,6 +125,7 @@ public class XposedModActivity extends Activity {
 		settings.add(new SettingInfo(Common.PREF_FONT_SCALE, getString(R.string.settings_fontscale)));
 		settings.add(new SettingInfo(Common.PREF_SCREEN, getString(R.string.settings_screen)));
 		settings.add(new SettingInfo(Common.PREF_XLARGE, getString(R.string.settings_xlargeres)));
+		settings.add(new SettingInfo(Common.PREF_RES_ON_WIDGETS, getString(R.string.settings_resonwidgets)));
 		settings.add(new SettingInfo(Common.PREF_LOCALE, getString(R.string.settings_locale)));
 		settings.add(new SettingInfo(Common.PREF_FULLSCREEN, getString(R.string.settings_fullscreen)));
 		settings.add(new SettingInfo(Common.PREF_NO_TITLE, getString(R.string.settings_notitle)));

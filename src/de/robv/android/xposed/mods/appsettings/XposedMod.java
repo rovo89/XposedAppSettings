@@ -113,6 +113,12 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 						if (Build.VERSION.SDK_INT >= 19 && hostPackageName.equals("com.android.keyguard"))
 							hostPackageName = "com.android.systemui";
 
+						// If setting enabled to also modify resources on other host packages (typically
+						// for widgets), simulate that this package is not hosted by another one
+						// For everything except the process-wide default Locale - see below
+						if (isActive(packageName, Common.PREF_RES_ON_WIDGETS))
+							hostPackageName = packageName;
+
 						// settings related to the density etc. are calculated for the running app...
 						Configuration newConfig = null;
 						if (hostPackageName != null && isActive(hostPackageName)) {
@@ -172,6 +178,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 								newConfig.locale = loc;
 								// Also set the locale as the app-wide default,
 								// for purposes other than resource loading
+								// Only do this when the package's res are not being loaded by a different
+								// host, regardless of the Widgets setting
 								if (isActiveApp)
 									Locale.setDefault(loc);
 							}

@@ -147,6 +147,9 @@ public class ApplicationSettings extends Activity {
 		// Update Tablet field
 		((CheckBox) findViewById(R.id.chkXlarge)).setChecked(prefs.getBoolean(pkgName + Common.PREF_XLARGE, false));
 
+		// Update Res On Widgets field
+		((CheckBox) findViewById(R.id.chkResOnWidgets)).setChecked(prefs.getBoolean(pkgName + Common.PREF_RES_ON_WIDGETS, false));
+
 		// Update Language and list of possibilities
 		localeList = new LocaleList(getString(R.string.settings_default));
 
@@ -357,6 +360,7 @@ public class ApplicationSettings extends Activity {
 		settingKeys.add(pkgName + Common.PREF_FONT_SCALE);
 		settingKeys.add(pkgName + Common.PREF_SCREEN);
 		settingKeys.add(pkgName + Common.PREF_XLARGE);
+		settingKeys.add(pkgName + Common.PREF_RES_ON_WIDGETS);
 		settingKeys.add(pkgName + Common.PREF_LOCALE);
 		settingKeys.add(pkgName + Common.PREF_FULLSCREEN);
 		settingKeys.add(pkgName + Common.PREF_NO_TITLE);
@@ -407,6 +411,9 @@ public class ApplicationSettings extends Activity {
 
 			if (((CheckBox) findViewById(R.id.chkXlarge)).isChecked())
 				settings.put(pkgName + Common.PREF_XLARGE, true);
+
+			if (((CheckBox) findViewById(R.id.chkResOnWidgets)).isChecked())
+				settings.put(pkgName + Common.PREF_RES_ON_WIDGETS, true);
 
 			int selectedLocalePos = ((Spinner) findViewById(R.id.spnLocale)).getSelectedItemPosition();
 			if (selectedLocalePos > 0)

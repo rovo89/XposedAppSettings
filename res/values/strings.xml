@@ -67,6 +67,7 @@ is enabled in its configuration!</string>
     <string name="settings_listres">List res.</string>
     <string name="settings_screen">Screen (dp)</string>
     <string name="settings_xlargeres">xlarge res.</string>
+    <string name="settings_resonwidgets">Apply res to widgets</string>
     <string name="settings_locale">Locale</string>
     <string name="settings_fullscreen">Fullscreen</string>
     <string name="settings_notitle">No title</string>

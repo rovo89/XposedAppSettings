@@ -93,6 +93,11 @@
                     android:layout_height="wrap_content"
                     android:text="@string/settings_xlargeres" />
             </LinearLayout>
+            <CheckBox
+                    android:id="@+id/chkResOnWidgets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_resonwidgets" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

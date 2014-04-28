@@ -32,6 +32,7 @@ public class Common {
 	public static final String PREF_LOCALE = "/locale";
 	public static final String PREF_SCREEN = "/screen";
 	public static final String PREF_XLARGE = "/tablet";
+	public static final String PREF_RES_ON_WIDGETS = "/res-on-widgets";
 	public static final String PREF_RESIDENT = "/resident";
 	public static final String PREF_NO_FULLSCREEN_IME = "/no-fullscreen-ime";
 	public static final String PREF_NO_BIG_NOTIFICATIONS = "/no-big-notifications";

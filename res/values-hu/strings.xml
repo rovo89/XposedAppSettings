@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">App Settings</string>
+    <string name="app_mod_summary">Megváltoztathat néhány általános konfigurációt egy-egy alklamazásban: DPI, Betűméret, Erőforrások felülbirálása, Nyelv, Teljes képernyő, Címsor rejtése, Bekapcsolva tartja a képernyőt, Tájolás, Kitartó és kis értesítések ; Engedélyek visszavonása &#8230;</string>
+
+
+    <!-- Main screen -->
+    <string name="app_loading">Alkalmazások betöltése, kérem várjon...</string>
+    <string name="app_searchhint">Név vagy csomag</string>
+    <string name="app_about">Ez egy <a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> mudul
+ <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> és <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a> től.
+ \nHasználhatja <a href="http://forum.xda-developers.com/showthread.php?t=2437377">ezt a témát</a> ha kérdése, vagy javaslata van.</string>
+    <string name="app_description">"Ez a modul lehetővé teszi bizonyos általános konfigurációk megváltoztatását egy-egy alkalmazáson, anélkül, hogy szerkeszteni kellene az APK-t:
+\n- sűrűség / dpi
+\n- betűméret
+\n- hamis képméret betöltéskor
+\n- hely (nyelv)
+\n- teljes képernyős mód
+\n- címsor elrejtése
+\n- folyamatos képernyőkép, amíg az alkalmazást használja
+\n- megjeleniti az alklamazást zárképernyőn feloldáskor
+\n- memóriában tartás
+\n- tiltja a teljes képernyős billentyűzetet
+\n- tájolás (álló / fekvő / auto)
+\n- folyamatos értesítések (folyamatos hang)
+\n- tiltja a nagy (bővíthető) értesítéseket
+\n- értesítések prioritása
+\n- kizárja az alkalmazást a Legutóbbiak menüből
+\n- néma hang (nem fog működni néhány alkalmazásnál)
+\n- kényszeríti a régi (Navigációs sáv) menü gombot
+\n- engedélyek visszavonása</string>
+    <string name="app_version">Verzió: %s</string>
+    <string name="app_translation">Forditó: %s</string>
+    <string name="app_notactive_warning">Megjegyzés:Az alkalmazás csak akkor befolyásolja az alkalmazásokat, ha az Xposed keretrendszer telepítve van, és ha ez a modul engedélyezve van a keretrendszerben!</string>
+
+
+    <!-- main menu -->
+    <string name="menu_export">Exportálás</string>
+    <string name="menu_import">Importálás</string>
+    <string name="menu_about">Névjegy</string>
+
+    <!-- Import / Export -->
+    <string name="imp_exp_file_doesnt_exist">A fájl nem létezik: %s</string>
+    <string name="imp_exp_confirm">Kicseréli az összes beállitást, biztos importálja?</string>
+    <string name="imp_exp_exported">Beállítások exportálása fájlba: %s</string>
+    <string name="imp_exp_export_error">Exportálás sikertelen: %s</string>
+    <string name="imp_exp_import_error">Importálás sikertelen: %s</string>
+    <string name="imp_exp_invalid_import_file">Érvénytelen, vagy üres fájlt akar importálni: %s</string>
+    <string name="imp_exp_imported">Importálása sikeres; beállítások lecserélve</string>
+
+
+    <!-- app-specific menu -->
+    <string name="menu_save">Mentés</string>
+    <string name="menu_launch">Indítás</string>
+    <string name="menu_settings">Beállítások</string>
+    <string name="menu_playstore">Play Store</string>
+
+
+    <!-- Settings screen -->
+    <string name="settings_title">Beállítások</string>
+    <string name="settings_dpi">DPI</string>
+    <string name="settings_fontscale">Betűméret</string>
+    <string name="settings_listres">Erőf.lista</string>
+    <string name="settings_screen">Képernyő (dp)</string>
+    <string name="settings_xlargeres">xlarge res.</string>
+    <string name="settings_resonwidgets">Alkalmazza widgeteken</string>
+    <string name="settings_locale">Hely</string>
+    <string name="settings_fullscreen">Teljes képernyő</string>
+    <string name="settings_notitle">Címsor rejtése</string>
+    <string name="settings_screenon">Folyamatos képernyő</string>
+    <string name="settings_showwhenlocked">Megjeleniti lezárt állapotban</string>
+    <string name="settings_resident">Tartozkodó</string>
+    <string name="settings_nofullscreenime">Nincs teljes képernyős billentyűzet</string>
+    <string name="settings_orientation">Tájolás</string>
+    <string name="settings_insistentnotif">Folyamatos értesítések</string>
+    <string name="settings_nobignotif">Nem Nagy értesítések</string>
+    <string name="settings_notifpriority">Értesítések prioritása</string>
+    <string name="settings_mute">Néma hang</string>
+    <string name="settings_legacy_menu">Régi Menü gomb</string>
+    <string name="settings_permissions">Engedélyek</string>
+    <string name="settings_recents_mode">Legutóbbiakban megjelenítés</string>
+
+    <string name="settings_default">((Alapértelmezett)</string>
+
+    <string name="settings_force">Kényszeritett</string>
+    <string name="settings_prevent">Megakadályozva</string>
+    <string name="settings_immersive">Magával ragadó mód</string>
+
+    <string name="settings_ori_normal">Normál forgatás</string>
+    <string name="settings_ori_portrait">Mindig álló</string>
+    <string name="settings_ori_landscape">Mindig fekvő</string>
+    <string name="settings_ori_forceauto">Automatikus forgatás</string>
+    <string name="settings_ori_portrait_sensor">Mindig álló (érzékelő)</string>
+    <string name="settings_ori_landscape_sensor">Mindig fekvő (érzékelő)</string>
+    <string name="settings_ori_portrait_reverse">Mindig álló (fordított)</string>
+    <string name="settings_ori_landscape_reverse">Mindig fekvő (fordított)</string>
+    <string name="settings_ori_forceauto_4way">Kényszeritett automatikus elforgatás</string>
+
+    <string name="settings_npri_max">Max</string>
+    <string name="settings_npri_high">Magas</string>
+    <string name="settings_npri_normal">Normál</string>
+    <string name="settings_npri_low">Alacsony</string>
+    <string name="settings_npri_min">Min</string>
+
+    <!-- List resources -->
+    <string name="res_title">Erőforrás</string>
+    <string name="res_noentries">Források nem találhatóak</string>
+    <string name="res_failedtoload">Nem sikerült betölteni az APK tartalmat</string>
+
+    <!-- Show / search / revoke permissions -->
+    <string name="perms_title">Engedélyek</string>
+    <string name="perms_revoke">Engedélyek visszavonása</string>
+    <string name="perms_shared_warning">FIGYELEM: Megosztott csomag!</string>
+    <string name="perms_searchhint">Neve vagy leírása</string>
+    <string name="perms_nodescription">( Nincs ilyen leírás )</string>
+    <string name="perms_filter_title">Válassza ki a szűrőt, vagy -Mégse- az összes</string>
+
+    <!-- Saving settings -->
+    <string name="settings_unsaved_title">Figyelmeztetés</string>
+    <string name="settings_unsaved_detail">Nem mentette el a konfigurációt! Visszalép és törli a változásokat?</string>
+    <string name="settings_apply_title">Beállítások alkalmazása</string>
+    <string name="settings_apply_detail">Kilövi az alkalmazásokat, újraindítja, és használja az új beállítások?</string>
+
+
+    <!-- Filter dialog -->
+    <string name="filter_title">Szűrő</string>
+    <string name="filter_all">Összes</string>
+    <string name="filter_overridden">Módositott</string>
+    <string name="filter_unchanged">Változatlan</string>
+    <string name="filter_type">Tipus</string>
+    <string name="filter_user">Felhasználói</string>
+    <string name="filter_system">Rendszer</string>
+    <string name="filter_settingsactive">Beállítások aktívak</string>
+    <string name="filter_active">Aktív</string>
+    <string name="filter_notactive">Nem aktív</string>
+    <string name="filter_resources">Erőforrás-terhelés</string>
+    <string name="filter_cancel">Mégsem</string>
+    <string name="filter_clear">Tisztít</string>
+    <string name="filter_apply">Alkalmaz</string>
+
+
+    <string name="translator">szunyi77</string>
+</resources>

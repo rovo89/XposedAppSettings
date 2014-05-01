@@ -64,6 +64,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
     <string name="settings_listres">Zdroje</string>
     <string name="settings_screen">Rozlíšenie obrazovky</string>
     <string name="settings_xlargeres">extra rozl.</string>
+    <string name="settings_resonwidgets">Použiť rozl. na miniaplikácie</string>
     <string name="settings_locale">Jazyk</string>
     <string name="settings_fullscreen">Na celú obrazovku</string>
     <string name="settings_notitle">Bez záhlavia</string>

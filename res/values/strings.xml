@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">App Settings</string>
     <string name="app_mod_summary">Set generic configurations on a per-app basis:
 DPI; Override loaded resouces; Locale; Fullscreen;
 Resident in memory; Orientation; Revoke Permissions; &#8230;</string>

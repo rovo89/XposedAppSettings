@@ -64,6 +64,7 @@ DPI; フォントスケール; 言語;全画面; タイトル非表示; 画面�
     <string name="settings_listres">ﾘｿｰｽﾘｽﾄ</string>
     <string name="settings_screen">画面サイズ(dp)</string>
     <string name="settings_xlargeres">リソース拡大</string>
+    <string name="settings_resonwidgets">リソースをウィジェットに適用</string>
     <string name="settings_locale">言語</string>
     <string name="settings_fullscreen">全画面</string>
     <string name="settings_notitle">タイトル非表示</string>

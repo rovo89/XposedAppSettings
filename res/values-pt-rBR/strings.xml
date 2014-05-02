@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">App Settings</string>
     <string name="app_mod_summary">Capaz de definir uma série de configurações comuns individualmente por app:
 DPI; Escala de fonte; Substituir recursos carregados; Localidade;
 Tela cheia; Remover barra de título; Manter tela ligada; Exibir sobre a tela de bloqueio;

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">App Settings</string>
     <string name="app_mod_summary">Possibilité de modifier plusieurs points de configuration générale pour des applis individuels
 DPI; Taille des polices; Remplacement des ressouces; Locale;
 Plein écran; Sans titre; Garder l\'écran allumé; Montrer au dessus de l\'écran de verrouillage;

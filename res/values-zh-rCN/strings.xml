@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">App Settings</string>
     <string name="app_mod_summary">允许为每个程序设置一些通用配置：
 DPI；字体大小；覆盖资源；语言；
 全屏；隐藏标题；保持屏幕开启；在锁屏界面上显示；

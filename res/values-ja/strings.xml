@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">App Settings</string>
     <string name="app_mod_summary">アプリ毎に様々な設定ができます:
 DPI; フォントスケール; 言語;全画面; タイトル非表示; 画面常時点灯; ロック画面上に表示;
 常駐化; 画面の向き; 通知の繰り返し; 権限の拒否など</string>

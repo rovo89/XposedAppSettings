@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">App-Einstellungen</string>
     <string name="app_mod_summary">Möglichkeit einige Einstellungen auf Pro-App-Basis zu setzen:
 DPI; Schriftgröße; geladene Resourcen überschreiben; Sprache ändern;
 Vollbildschrim; Kein Titel; Bildschirm anbehalten; Über Sperrbildschirm anzeigen;

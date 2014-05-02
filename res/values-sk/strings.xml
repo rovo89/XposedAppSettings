@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">App Settings</string>
     <string name="app_mod_summary">Možnosť nastaviť niekoľko základných nastavení pre jednotlivé aplikácie:
 DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, bez názvu (skryť záhlavie), ponechať obrazovku zapnutú, zobraziť nad uzamykacou obrazovkou, ponechať v pamäti, žiadna celá obrazovka pre IME, orientácia, neústupné oznámenia, zrušiť povolenia</string>
 

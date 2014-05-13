@@ -39,7 +39,7 @@
             android:value="@string/app_mod_summary" />
         <meta-data
             android:name="xposedminversion"
-            android:value="30+" />
+            android:value="52+" />
     </application>
 
 </manifest>

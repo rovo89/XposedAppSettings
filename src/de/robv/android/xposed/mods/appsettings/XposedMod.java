@@ -18,12 +18,14 @@ import android.app.Notification;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.XResources;
+import android.content.res.XResources.DimensionReplacement;
 import android.media.AudioTrack;
 import android.media.JetPlayer;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -42,11 +44,21 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
 	public static final String this_package = XposedMod.class.getPackage().getName();
 
+	private static final String SYSTEMUI_PACKAGE = "com.android.systemui";
+	private static final String[] SYSTEMUI_ADJUSTED_DIMENSIONS = {
+		"status_bar_height",
+		"navigation_bar_height", "navigation_bar_height_landscape",
+		"navigation_bar_width",
+		"system_bar_height"
+	};
+
 	public static XSharedPreferences prefs;
 
 	@Override
 	public void initZygote(IXposedHookZygoteInit.StartupParam startupParam) throws Throwable {
 		loadPrefs();
+
+		adjustSystemDimensions();
 
 		// Hook to override DPI (globally, including resource load + rendering)
 		try {
@@ -131,7 +143,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 					// Workaround for KitKat. The keyguard is a different package now but runs in the
 					// same process as SystemUI and displays as main package
 					if (Build.VERSION.SDK_INT >= 19 && hostPackageName.equals("com.android.keyguard"))
-						hostPackageName = "com.android.systemui";
+						hostPackageName = SYSTEMUI_PACKAGE;
 
 					// If setting enabled to also modify resources on other host packages (typically
 					// for widgets), simulate that this package is not hosted by another one
@@ -271,6 +283,33 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         Activities.hookActivitySettings();
 	}
 
+
+	/** Adjust all framework dimensions that should reflect
+	 *  changes related with SystemUI, namely statusbar and navbar sizes.
+	 *  The values are adjusted and replaced system-wide by fixed px values.
+	 */
+	private void adjustSystemDimensions() {
+		if (!isActive(SYSTEMUI_PACKAGE))
+			return;
+
+		int systemUiDpi = prefs.getInt(SYSTEMUI_PACKAGE + Common.PREF_DPI,
+				prefs.getInt(Common.PREF_DEFAULT + Common.PREF_DPI, 0));
+		if (systemUiDpi <= 0)
+			return;
+
+		// SystemUI had its DPI overridden.
+		// Adjust the relevant framework dimen resources.
+		Resources sysRes = Resources.getSystem();
+		float sysDensity = sysRes.getDisplayMetrics().density;
+		float scaleFactor = (systemUiDpi / 160f) / sysDensity;
+
+		for (String resName : SYSTEMUI_ADJUSTED_DIMENSIONS) {
+			int id = sysRes.getIdentifier(resName, "dimen", "android");
+			float original = sysRes.getDimension(id);
+			XResources.setSystemWideReplacement(id,
+					new DimensionReplacement(original * scaleFactor, TypedValue.COMPLEX_UNIT_PX));
+		}
+	}
 
     @Override
     public void handleLoadPackage(LoadPackageParam lpparam) throws Throwable {

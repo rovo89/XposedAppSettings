@@ -102,92 +102,111 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
 				@Override
 				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-					if (param.args[0] != null && param.thisObject instanceof XResources) {
-						XResources res = ((XResources) param.thisObject);
-						String packageName = res.getPackageName();
-						String hostPackageName = AndroidAppHelper.currentPackageName();
-						boolean isActiveApp = hostPackageName.equals(packageName);
+					if (param.args[0] == null)
+						return;
 
-						// Workaround for KitKat. The keyguard is a different package now but runs in the
-						// same process as SystemUI and displays as main package
-						if (Build.VERSION.SDK_INT >= 19 && hostPackageName.equals("com.android.keyguard"))
-							hostPackageName = "com.android.systemui";
+					/* Starting with XposedBridge v52, by the time updateConfiguration is called this object
+					 * might not yet be an XResources instance where the package name can be fetched fom.
+					 * If that's the case, use the newly introduced getPackageNameDuringConstruction method
+					 * which was introduced for this purpose and fetches the package name for this Resource
+					 * in the middle of initialization.
+					 */
+					String packageName;
+					Resources res = ((Resources) param.thisObject);
+					if (res instanceof XResources) {
+						packageName = ((XResources) res).getPackageName();
+					} else {
+						try {
+							packageName = XResources.getPackageNameDuringConstruction();
+						} catch (IllegalStateException e) {
+							// That's ok, we might have been called for
+							// non-standard resources
+							return;
+						}
+					}
 
-						// If setting enabled to also modify resources on other host packages (typically
-						// for widgets), simulate that this package is not hosted by another one
-						// For everything except the process-wide default Locale - see below
-						if (isActive(packageName, Common.PREF_RES_ON_WIDGETS))
-							hostPackageName = packageName;
+					String hostPackageName = AndroidAppHelper.currentPackageName();
+					boolean isActiveApp = hostPackageName.equals(packageName);
 
-						// settings related to the density etc. are calculated for the running app...
-						Configuration newConfig = null;
-						if (hostPackageName != null && isActive(hostPackageName)) {
-							int screen = prefs.getInt(hostPackageName + Common.PREF_SCREEN,
-								prefs.getInt(Common.PREF_DEFAULT + Common.PREF_SCREEN, 0));
-							if (screen < 0 || screen >= Common.swdp.length)
-								screen = 0;
+					// Workaround for KitKat. The keyguard is a different package now but runs in the
+					// same process as SystemUI and displays as main package
+					if (Build.VERSION.SDK_INT >= 19 && hostPackageName.equals("com.android.keyguard"))
+						hostPackageName = "com.android.systemui";
 
-							int dpi = prefs.getInt(hostPackageName + Common.PREF_DPI,
-									prefs.getInt(Common.PREF_DEFAULT + Common.PREF_DPI, 0));
-							int fontScale = prefs.getInt(hostPackageName + Common.PREF_FONT_SCALE,
-									prefs.getInt(Common.PREF_DEFAULT + Common.PREF_FONT_SCALE, 0));
-							int swdp = Common.swdp[screen];
-							int wdp = Common.wdp[screen];
-							int hdp = Common.hdp[screen];
+					// If setting enabled to also modify resources on other host packages (typically
+					// for widgets), simulate that this package is not hosted by another one
+					// For everything except the process-wide default Locale - see below
+					if (isActive(packageName, Common.PREF_RES_ON_WIDGETS))
+						hostPackageName = packageName;
 
-							boolean xlarge = prefs.getBoolean(hostPackageName + Common.PREF_XLARGE, false);
+					// settings related to the density etc. are calculated for the running app...
+					Configuration newConfig = null;
+					if (hostPackageName != null && isActive(hostPackageName)) {
+						int screen = prefs.getInt(hostPackageName + Common.PREF_SCREEN,
+							prefs.getInt(Common.PREF_DEFAULT + Common.PREF_SCREEN, 0));
+						if (screen < 0 || screen >= Common.swdp.length)
+							screen = 0;
 
-							if (swdp > 0 || xlarge || dpi > 0 || fontScale > 0) {
+						int dpi = prefs.getInt(hostPackageName + Common.PREF_DPI,
+								prefs.getInt(Common.PREF_DEFAULT + Common.PREF_DPI, 0));
+						int fontScale = prefs.getInt(hostPackageName + Common.PREF_FONT_SCALE,
+								prefs.getInt(Common.PREF_DEFAULT + Common.PREF_FONT_SCALE, 0));
+						int swdp = Common.swdp[screen];
+						int wdp = Common.wdp[screen];
+						int hdp = Common.hdp[screen];
+
+						boolean xlarge = prefs.getBoolean(hostPackageName + Common.PREF_XLARGE, false);
+
+						if (swdp > 0 || xlarge || dpi > 0 || fontScale > 0) {
+							newConfig = new Configuration((Configuration) param.args[0]);
+
+							DisplayMetrics newMetrics;
+							if (param.args[1] != null) {
+								newMetrics = new DisplayMetrics();
+								newMetrics.setTo((DisplayMetrics) param.args[1]);
+								param.args[1] = newMetrics;
+							} else {
+								newMetrics = res.getDisplayMetrics();
+							}
+
+							if (swdp > 0) {
+								newConfig.smallestScreenWidthDp = swdp;
+								newConfig.screenWidthDp = wdp;
+								newConfig.screenHeightDp = hdp;
+							}
+							if (xlarge)
+								newConfig.screenLayout |= Configuration.SCREENLAYOUT_SIZE_XLARGE;
+							if (dpi > 0) {
+								newMetrics.density = dpi / 160f;
+								newMetrics.densityDpi = dpi;
+
+								if (Build.VERSION.SDK_INT >= 17)
+									setIntField(newConfig, "densityDpi", dpi);
+							}
+							if (fontScale > 0)
+								newConfig.fontScale = fontScale / 100.0f;
+						}
+					}
+
+					// ... whereas the locale is taken from the app for which resources are loaded
+					if (packageName != null && isActive(packageName)) {
+						Locale loc = getPackageSpecificLocale(packageName);
+						if (loc != null) {
+							if (newConfig == null)
 								newConfig = new Configuration((Configuration) param.args[0]);
 
-								DisplayMetrics newMetrics;
-								if (param.args[1] != null) {
-									newMetrics = new DisplayMetrics();
-									newMetrics.setTo((DisplayMetrics) param.args[1]);
-									param.args[1] = newMetrics;
-								} else {
-									newMetrics = res.getDisplayMetrics();
-								}
-
-								if (swdp > 0) {
-									newConfig.smallestScreenWidthDp = swdp;
-									newConfig.screenWidthDp = wdp;
-									newConfig.screenHeightDp = hdp;
-								}
-								if (xlarge)
-									newConfig.screenLayout |= Configuration.SCREENLAYOUT_SIZE_XLARGE;
-								if (dpi > 0) {
-									newMetrics.density = dpi / 160f;
-									newMetrics.densityDpi = dpi;
-
-									if (Build.VERSION.SDK_INT >= 17)
-										setIntField(newConfig, "densityDpi", dpi);
-								}
-								if (fontScale > 0)
-									newConfig.fontScale = fontScale / 100.0f;
-							}
+							newConfig.locale = loc;
+							// Also set the locale as the app-wide default,
+							// for purposes other than resource loading
+							// Only do this when the package's res are not being loaded by a different
+							// host, regardless of the Widgets setting
+							if (isActiveApp)
+								Locale.setDefault(loc);
 						}
-
-						// ... whereas the locale is taken from the app for which resources are loaded
-						if (packageName != null && isActive(packageName)) {
-							Locale loc = getPackageSpecificLocale(packageName);
-							if (loc != null) {
-								if (newConfig == null)
-									newConfig = new Configuration((Configuration) param.args[0]);
-
-								newConfig.locale = loc;
-								// Also set the locale as the app-wide default,
-								// for purposes other than resource loading
-								// Only do this when the package's res are not being loaded by a different
-								// host, regardless of the Widgets setting
-								if (isActiveApp)
-									Locale.setDefault(loc);
-							}
-						}
-
-						if (newConfig != null)
-							param.args[0] = newConfig;
 					}
+
+					if (newConfig != null)
+						param.args[0] = newConfig;
 				}
 			});
 		} catch (Throwable t) {

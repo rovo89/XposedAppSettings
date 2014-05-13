@@ -27,6 +27,10 @@
 \n- 指定螢幕方向（垂直/水平/自動）
 \n- 常駐通知（播放音效）
 \n- 停用大型通知
+\n- 通知優先順序
+\n- 在最近任務中隱藏
+\n- 靜音（支援大多數應用）
+\n- 強制使用傳統（導航欄）的選單按鈕
 \n- 限制存取權限</string>
     <string name="app_version">版本: %s</string>
     <string name="app_translation">譯者: %s</string>
@@ -39,11 +43,11 @@
     <string name="menu_about">關於</string>
 
     <!-- Import / Export -->
-    <string name="imp_exp_file_doesnt_exist">找不到檔案： %s</string>
-    <string name="imp_exp_confirm">確定以匯入資料取代現有設定?</string>
-    <string name="imp_exp_exported">設定已匯出至： %s</string>
-    <string name="imp_exp_export_error">匯出失敗： %s</string>
-    <string name="imp_exp_import_error">匯入失敗： %s</string>
+    <string name="imp_exp_file_doesnt_exist">找不到檔案：%s</string>
+    <string name="imp_exp_confirm">確定以匯入資料取代現有設定？</string>
+    <string name="imp_exp_exported">設定已匯出至：%s</string>
+    <string name="imp_exp_export_error">匯出失敗：%s</string>
+    <string name="imp_exp_import_error">匯入失敗：%s</string>
     <string name="imp_exp_invalid_import_file">無效或空白設定檔： %s</string>
     <string name="imp_exp_imported">匯入成功，設定已變更。</string>
 
@@ -62,6 +66,7 @@
     <string name="settings_listres">資源</string>
     <string name="settings_screen">螢幕(dp)</string>
     <string name="settings_xlargeres">放大</string>
+    <string name="settings_resonwidgets">同時應用資源到小部件</string>
     <string name="settings_locale">區域設定</string>
     <string name="settings_fullscreen">全螢幕</string>
     <string name="settings_notitle">無標題列</string>
@@ -72,17 +77,33 @@
     <string name="settings_orientation">方向</string>
     <string name="settings_insistentnotif">常駐通知</string>
     <string name="settings_nobignotif">停用大型通知</string>
+    <string name="settings_notifpriority">通知優先順序</string>
+    <string name="settings_mute">靜音</string>
+    <string name="settings_legacy_menu">傳統選單按鈕</string>
     <string name="settings_permissions">權限設定</string>
+    <string name="settings_recents_mode">在最近任務中顯示</string>
 
     <string name="settings_default">（預設-依app設定）</string>
 
     <string name="settings_force">強制</string>
     <string name="settings_prevent">停用</string>
+    <string name="settings_immersive">沉浸</string>
 
-    <string name="settings_ori_normal">依系統設定</string>
-    <string name="settings_ori_portrait">垂直</string>
-    <string name="settings_ori_landscape">水平</string>
-    <string name="settings_ori_forceauto">自動旋轉</string>
+    <string name="settings_ori_normal">採用系統設定</string>
+    <string name="settings_ori_portrait">強制正向豎屏</string>
+    <string name="settings_ori_landscape">強制正向橫屏</string>
+    <string name="settings_ori_forceauto">強制自動旋轉</string>
+    <string name="settings_ori_portrait_sensor">通過感測器判斷豎屏方向</string>
+    <string name="settings_ori_landscape_sensor">通過感測器判斷橫屏方向</string>
+    <string name="settings_ori_portrait_reverse">通過感測器反向豎屏</string>
+    <string name="settings_ori_landscape_reverse">通過感測器反向橫屏</string>
+    <string name="settings_ori_forceauto_4way">強制四向自動旋轉</string>
+
+    <string name="settings_npri_max">最高</string>
+    <string name="settings_npri_high">較高</string>
+    <string name="settings_npri_normal">普通</string>
+    <string name="settings_npri_low">較低</string>
+    <string name="settings_npri_min">最低</string>
 
     <!-- List resources -->
     <string name="res_title">資源列表</string>
@@ -92,7 +113,7 @@
     <!-- Show / search / revoke permissions -->
     <string name="perms_title">權限設定</string>
     <string name="perms_revoke">啟用</string>
-    <string name="perms_shared_warning">警告：共享程式!</string>
+    <string name="perms_shared_warning">警告：共享程式！</string>
     <string name="perms_searchhint">權限名稱或描述</string>
     <string name="perms_nodescription">（沒有描述）</string>
     <string name="perms_filter_title">權限篩選器</string>
@@ -121,5 +142,5 @@
     <string name="filter_apply">套用</string>
 
 
-    <string name="translator">Chih-Hsun, Liao @TAIWAN, ROC</string>
+    <string name="translator">Chih-Hsun、Liao @TAIWAN、ROC、Felix2yu</string>
 </resources>

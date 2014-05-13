@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_mod_summary">允许为每个程序设置一些通用配置：
-DPI；字体大小；覆盖资源；语言；
-全屏；隐藏标题；保持屏幕开启；在锁屏界面上显示；
-常驻内存；禁用全屏输入；方向；持续通知；关闭大型通知；撤销权限</string>
+    <string name="app_mod_summary">允许为每个程序设置一些通用配置：\n
+DPI、字体大小、覆盖资源、语言、全屏、隐藏标题、保持屏幕开启、在锁屏界面上显示、常驻内存、方向、持续通知、撤销权限等</string>
 
 
     <!-- Main screen -->
     <string name="app_loading">正在加载程序，请稍候</string>
-    <string name="app_searchhint">名称或包</string>
-    <string name="app_about"><a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a>和<a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>编写的<a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a>模块。
- \n您可访问<a href="http://forum.xda-developers.com/showthread.php?t=2437377">此帖</a>提问和建议。</string>
-    <string name="app_description">这个模块允许在每个程序基础上修改一些通用配置，而无需编辑APK：
-\n- DPI
+    <string name="app_searchhint">名称或包名</string>
+    <string name="app_about">由<a href="http://forum.xda-developers.com/member.php?u=4419114"> rovo89 </a>和<a href="http://forum.xda-developers.com/member.php?u=4322181"> Tungstwenty </a>开发的<a href="http://forum.xda-developers.com/showthread.php?t=1574401"> Xposed </a>模块。
+ \n您可访问<a href="http://forum.xda-developers.com/showthread.php?t=2437377">此帖</a>提问及建议。</string>
+    <string name="app_description">本模块允许您在不修改资源文件的情况下，修改应用程序的一些通用配置：
+\n- 像素密度/DPI
 \n- 字体大小
 \n- 伪装屏幕尺寸以加载资源
 \n- 语言设置
 \n- 全屏模式
 \n- 隐藏标题栏
-\n- 程序运行时保持屏幕开启
+\n- 程序运行时保持屏幕常亮
 \n- 在锁屏界面上面显示程序
 \n- 常驻内存
 \n- 禁止全屏键盘输入
 \n- 强制方向（纵向/横向/自动）
-\n- 持续通知（循环声音）
+\n- 持续通知（循环提示音）
 \n- 禁用大型（扩展）通知
+\n- 通知优先级
+\n- 在最近任务中隐藏
+\n- 静音（支持大多数应用）
+\n- 强制使用传统（导航栏）的菜单按钮
 \n- 撤销权限</string>
     <string name="app_version">版本: %s</string>
-    <string name="app_translation">翻译: %s</string>
-    <string name="app_notactive_warning">注意：虽然配置界面可用，但只有在已安装Xposed框架并且此模块启用的前提下才会影响程序！</string>
+    <string name="app_translation">翻者: %s</string>
+    <string name="app_notactive_warning">注意：虽然您现在可以直接进行配置，但只有在已安装 Xposed 框架并启用本模块时才会生效！</string>
 
 
     <!-- main menu -->
@@ -37,13 +39,13 @@ DPI；字体大小；覆盖资源；语言；
     <string name="menu_about">关于</string>
 
     <!-- Import / Export -->
-    <string name="imp_exp_file_doesnt_exist">文件不存在: %s</string>
-    <string name="imp_exp_confirm">是否使用导入文件替换所有设置？</string>
-    <string name="imp_exp_exported">设置已导出: %s</string>
-    <string name="imp_exp_export_error">导出失败: %s</string>
-    <string name="imp_exp_import_error">导入失败: %s</string>
-    <string name="imp_exp_invalid_import_file">导入文件无效或为空: %s</string>
-    <string name="imp_exp_imported">导入成功; 设置已替换</string>
+    <string name="imp_exp_file_doesnt_exist">文件不存在：%s</string>
+    <string name="imp_exp_confirm">是否使用导入文件覆盖所有设置？</string>
+    <string name="imp_exp_exported">设置已导出到：%s</string>
+    <string name="imp_exp_export_error">导出失败：%s</string>
+    <string name="imp_exp_import_error">导入失败：%s</string>
+    <string name="imp_exp_invalid_import_file">导入文件无效或为空：%s</string>
+    <string name="imp_exp_imported">导入成功，设置已覆盖！</string>
 
 
     <!-- app-specific menu -->
@@ -58,49 +60,65 @@ DPI；字体大小；覆盖资源；语言；
     <string name="settings_dpi">DPI</string>
     <string name="settings_fontscale">字体大小</string>
     <string name="settings_listres">资源列表</string>
-    <string name="settings_screen">屏幕(dp)</string>
+    <string name="settings_screen">分辨率(dp)</string>
     <string name="settings_xlargeres">超大资源</string>
-    <string name="settings_locale">区域设置</string>
+    <string name="settings_resonwidgets">同时应用资源到小部件</string>
+    <string name="settings_locale">语言</string>
     <string name="settings_fullscreen">全屏</string>
     <string name="settings_notitle">隐藏标题</string>
-    <string name="settings_screenon">屏幕开启</string>
+    <string name="settings_screenon">屏幕常亮</string>
     <string name="settings_showwhenlocked">锁屏时显示</string>
     <string name="settings_resident">常驻内存</string>
     <string name="settings_nofullscreenime">禁用全屏输入</string>
     <string name="settings_orientation">方向</string>
-    <string name="settings_insistentnotif">持续通知</string>
-    <string name="settings_nobignotif">禁用大型通知</string>
+    <string name="settings_insistentnotif">常驻通知</string>
+    <string name="settings_nobignotif">禁用扩展通知</string>
+    <string name="settings_notifpriority">通知优先级</string>
+    <string name="settings_mute">静音</string>
+    <string name="settings_legacy_menu">传统菜单按钮</string>
     <string name="settings_permissions">权限管理</string>
+    <string name="settings_recents_mode">在最近任务中显示</string>
 
-    <string name="settings_default">（默认）</string>
+    <string name="settings_default">默认</string>
 
     <string name="settings_force">强制</string>
     <string name="settings_prevent">阻止</string>
+    <string name="settings_immersive">沉浸</string>
 
-    <string name="settings_ori_normal">根据系统设置</string>
-    <string name="settings_ori_portrait">保持纵向</string>
-    <string name="settings_ori_landscape">保持横向</string>
+    <string name="settings_ori_normal">采用系统设置</string>
+    <string name="settings_ori_portrait">强制正向竖屏</string>
+    <string name="settings_ori_landscape">强制正向横屏</string>
     <string name="settings_ori_forceauto">强制自动旋转</string>
+    <string name="settings_ori_portrait_sensor">通过传感器判断竖屏方向</string>
+    <string name="settings_ori_landscape_sensor">通过传感器判断横屏方向</string>
+    <string name="settings_ori_portrait_reverse">通过传感器反向竖屏</string>
+    <string name="settings_ori_landscape_reverse">通过传感器反向横屏</string>
+    <string name="settings_ori_forceauto_4way">强制四向自动旋转</string>
+
+    <string name="settings_npri_max">最高</string>
+    <string name="settings_npri_high">较高</string>
+    <string name="settings_npri_normal">普通</string>
+    <string name="settings_npri_low">较低</string>
+    <string name="settings_npri_min">最低</string>
 
     <!-- List resources -->
     <string name="res_title">资源</string>
-    <string name="res_noentries">没有找到资源</string>
+    <string name="res_noentries">未找到资源</string>
     <string name="res_failedtoload">加载资源内容失败</string>
 
     <!-- Show / search / revoke permissions -->
     <string name="perms_title">权限管理</string>
-    <string name="perms_revoke">取消权限</string>
-    <string name="perms_shared_warning">警告：共享程序！</string>
-    <string name="perms_searchhint">权限名称或描述</string>
-    <string name="perms_nodescription">（没有提供描述）</string>
+    <string name="perms_revoke">修改权限</string>
+    <string name="perms_shared_warning">警告：共享包！</string>
+    <string name="perms_searchhint">权限名称及描述</string>
+    <string name="perms_nodescription">（未提供描述）</string>
     <string name="perms_filter_title">选择要过滤的权限，或取消显示全部</string>
 
     <!-- Saving settings -->
     <string name="settings_unsaved_title">警告</string>
-    <string name="settings_unsaved_detail">您没有保存设置。
-是否放弃修改直接返回？</string>
+    <string name="settings_unsaved_detail">您尚未保存设置。\n确定放弃修改直接返回？</string>
     <string name="settings_apply_title">应用设置</string>
-    <string name="settings_apply_detail">是否终止进程以便下次启动时使用新设置？</string>
+    <string name="settings_apply_detail">是否终止进程以便下次启动时采用新设置？</string>
 
 
     <!-- Filter dialog -->
@@ -108,7 +126,7 @@ DPI；字体大小；覆盖资源；语言；
     <string name="filter_all">全部</string>
     <string name="filter_overridden">已覆盖</string>
     <string name="filter_unchanged">未修改</string>
-    <string name="filter_type">程序类型</string>
+    <string name="filter_type">应用类型</string>
     <string name="filter_user">用户</string>
     <string name="filter_system">系统</string>
     <string name="filter_settingsactive">设置状态</string>
@@ -120,5 +138,5 @@ DPI；字体大小；覆盖资源；语言；
     <string name="filter_apply">应用</string>
 
 
-    <string name="translator">qhq</string>
+    <string name="translator">qhq、liudongmiao、Felix2yu</string>
 </resources>

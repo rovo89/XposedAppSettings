@@ -2,7 +2,7 @@
 <resources>
     <string name="app_mod_summary">Möglichkeit einige Einstellungen auf Pro-App-Basis zu setzen:
 DPI; Schriftgröße; geladene Resourcen überschreiben; Sprache ändern;
-Vollbildschrim; Kein Titel; Bildschirm anbehalten; Über Sperrbildschirm anzeigen;
+Vollbild; Kein Titel; Bildschirm anbehalten; Über Sperrbildschirm anzeigen;
 Im Speicher behalten; keine Eingabeauswahl bei Vollbild; Orientierung; bleibende Benachrichtigungen; keine erweiterten Benachrichtigungen; Berechtigungen bearbeiten</string>
 
 
@@ -16,8 +16,8 @@ Im Speicher behalten; keine Eingabeauswahl bei Vollbild; Orientierung; bleibende
 \n- Auflösung / DPI
 \n- Schriftgröße
 \n- Gefälschte Bildschirmgröße für das Laden von Resourcen
-\n- Locale (Sprace)
-\n- Vollbildschirm-Modus
+\n- Locale (Sprache)
+\n- Vollbild-Modus
 \n- Titelleiste ausblenden
 \n- Bildschirm anbehalten
 \n- App über Sperrbildschirm anzeigen
@@ -66,7 +66,7 @@ Im Speicher behalten; keine Eingabeauswahl bei Vollbild; Orientierung; bleibende
     <string name="settings_notitle">Kein Titel</string>
     <string name="settings_screenon">Bildschirm anlassen</string>
     <string name="settings_showwhenlocked">Anzeigen, wenn gesperrt</string>
-    <string name="settings_resident">Resident</string>
+    <string name="settings_resident">Permanent</string>
     <string name="settings_nofullscreenime">Keine Vollbild-Eingabe</string>
     <string name="settings_orientation">Ausrichtung</string>
     <string name="settings_insistentnotif">Dauerhafte Beanchrichtigung</string>
@@ -83,6 +83,11 @@ Im Speicher behalten; keine Eingabeauswahl bei Vollbild; Orientierung; bleibende
     <string name="settings_ori_portrait">Immer vertikal</string>
     <string name="settings_ori_landscape">Immer horizontal</string>
     <string name="settings_ori_forceauto">Auto-Rotation erzwingen</string>
+	<string name="settings_ori_portrait_sensor">Immer vertikal (sensor)</string>
+    <string name="settings_ori_landscape_sensor">Immer horizontal (sensor)</string>
+    <string name="settings_ori_portrait_reverse">Immer vertikal (umgedreht)</string>
+    <string name="settings_ori_landscape_reverse">Immer horizontal (umgedreht)</string>
+    <string name="settings_ori_forceauto_4way">Erzwinge Auto-Rotation (4-Weg)</string>
 
     <!-- List resources -->
     <string name="res_title">Resourcen</string>
@@ -101,7 +106,7 @@ Im Speicher behalten; keine Eingabeauswahl bei Vollbild; Orientierung; bleibende
     <string name="settings_unsaved_title">Warnung</string>
     <string name="settings_unsaved_detail">Du hast die Konfiguration nicht gespeichert. Möchtest du wirklich zurückgehen und die Änderungen rückgängig machen?</string>
     <string name="settings_apply_title">Einstellungen anwenden</string>
-    <string name="settings_apply_detail">Anwendung zusätzlich schließen, danmit die neuen Einstellungen beim nächsten Start direkt angewendet werden?</string>
+    <string name="settings_apply_detail">Anwendung zusätzlich schließen, damit die neuen Einstellungen beim nächsten Start angewendet werden?</string>
 
 
     <!-- Filter dialog -->
@@ -121,5 +126,5 @@ Im Speicher behalten; keine Eingabeauswahl bei Vollbild; Orientierung; bleibende
     <string name="filter_apply">Anwenden</string>
 
 
-    <string name="translator">Sanguinus</string>
+    <string name="translator">Sanguinus, Paul27</string>
 </resources>

@@ -4,21 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="4dp" >
+
         <ImageView
             android:id="@+id/app_icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentRight="true" />
+
         <TextView
             android:id="@+id/app_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/app_icon"
             android:textAppearance="?android:attr/textAppearanceLarge" />
+
         <TextView
             android:id="@+id/package_name"
             android:layout_width="match_parent"
@@ -27,23 +31,28 @@
             android:layout_toLeftOf="@id/app_icon"
             android:textColor="#0099CC" />
     </RelativeLayout>
+
     <ScrollView
         android:id="@+id/viewTweaks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_dpi" >
                 </TextView>
+
                 <EditText
                     android:id="@+id/txtDPI"
                     android:layout_width="0dip"
@@ -53,11 +62,13 @@
                     android:imeOptions="actionDone|flagNavigateNext"
                     android:inputType="number" >
                 </EditText>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_fontscale" >
                 </TextView>
+
                 <EditText
                     android:id="@+id/txtFontScale"
                     android:layout_width="0dip"
@@ -67,81 +78,97 @@
                     android:imeOptions="actionDone|flagNavigateNext"
                     android:inputType="number" >
                 </EditText>
+
                 <Button
                     android:id="@+id/btnListRes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_listres" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_screen" >
                 </TextView>
+
                 <Spinner
                     android:id="@+id/spnScreen"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
+
                 <CheckBox
                     android:id="@+id/chkXlarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_xlargeres" />
             </LinearLayout>
+
             <CheckBox
-                    android:id="@+id/chkResOnWidgets"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/settings_resonwidgets" />
+                android:id="@+id/chkResOnWidgets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_resonwidgets" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/settings_locale" />
+
                 <Spinner
                     android:id="@+id/spnLocale"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/settings_fullscreen" />
+
                 <Spinner
                     android:id="@+id/spnFullscreen"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
+
                 <CheckBox
                     android:id="@+id/chkNoTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_notitle" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
+
                 <CheckBox
                     android:id="@+id/chkScreenOn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_screenon" />
+
                 <CheckBox
                     android:id="@+id/chkAllowOnLockscreen"
                     android:layout_width="wrap_content"
@@ -149,45 +176,54 @@
                     android:singleLine="true"
                     android:text="@string/settings_showwhenlocked" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
+
                 <CheckBox
                     android:id="@+id/chkResident"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_resident" />
+
                 <CheckBox
                     android:id="@+id/chkNoFullscreenIME"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_nofullscreenime" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/settings_orientation" />
+
                 <Spinner
                     android:id="@+id/spnOrientation"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
+
                 <CheckBox
                     android:id="@+id/chkInsistentNotifications"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_insistentnotif" />
+
                 <CheckBox
                     android:id="@+id/chkNoBigNotifications"
                     android:layout_width="wrap_content"
@@ -195,50 +231,60 @@
                     android:singleLine="true"
                     android:text="@string/settings_nobignotif" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/viewNotifPriority"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/settings_notifpriority" />
+
                 <Spinner
                     android:id="@+id/spnNotifPriority"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/settings_recents_mode" />
+
                 <Spinner
                     android:id="@+id/spnRecentsMode"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
+
                 <CheckBox
                     android:id="@+id/chkMute"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_mute" />
+
                 <CheckBox
                     android:id="@+id/chkLegacyMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/settings_legacy_menu" />
             </LinearLayout>
+
             <Button
                 android:id="@+id/btnPermissions"
                 android:layout_width="wrap_content"
@@ -246,4 +292,5 @@
                 android:text="@string/settings_permissions" />
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

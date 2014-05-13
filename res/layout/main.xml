@@ -2,19 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+
     <ImageButton
         android:id="@+id/btnFilter"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@android:drawable/ic_menu_view"
-        android:contentDescription="@string/filter_title"/>
+        android:contentDescription="@string/filter_title"
+        android:src="@android:drawable/ic_menu_view" />
+
     <ImageButton
         android:id="@+id/btnPermsFilter"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_toRightOf="@id/btnFilter"
-        android:src="@android:drawable/ic_lock_idle_lock"
-        android:contentDescription="@string/perms_title"/>
+        android:contentDescription="@string/perms_title"
+        android:src="@android:drawable/ic_lock_idle_lock" />
+
     <SearchView
         android:id="@+id/searchApp"
         android:layout_width="match_parent"
@@ -25,6 +28,7 @@
         android:imeOptions="actionSearch|flagNoEnterAction|flagNoExtractUi"
         android:inputType="textFilter"
         android:queryHint="@string/app_searchhint" />
+
     <ListView
         android:id="@+id/lstApps"
         android:layout_width="match_parent"
@@ -36,4 +40,5 @@
         android:fastScrollEnabled="true"
         android:scrollbars="vertical"
         android:textFilterEnabled="true" />
+
 </RelativeLayout>

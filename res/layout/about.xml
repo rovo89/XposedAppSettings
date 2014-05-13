@@ -4,40 +4,47 @@
     android:layout_height="match_parent"
     android:paddingLeft="?android:attr/scrollbarSize"
     android:paddingRight="?android:attr/scrollbarSize" >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
+
         <TextView
             android:id="@+id/about_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_about"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
             android:text="@string/app_description" />
+
         <TextView
             android:id="@+id/version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
             android:text="@string/app_version" />
+
         <TextView
             android:id="@+id/about_translation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
             android:text="@string/app_translation" />
+
         <TextView
             android:id="@+id/about_notactive"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
             android:text="@string/app_notactive_warning"
-            android:textColor="@android:color/holo_red_dark" />
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="gone" />
     </LinearLayout>
+
 </ScrollView>

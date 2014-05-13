@@ -95,7 +95,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
     <string name="settings_ori_portrait_reverse">Vždy na výšku (opačne)</string>
     <string name="settings_ori_landscape_reverse">Vždy na šírku (opačne)</string>
     <string name="settings_ori_forceauto_4way">Vynútiť autom. otáčanie (4-smery)</string>
-  
+
     <string name="settings_npri_max">Maximálna</string>
     <string name="settings_npri_high">Vysoká</string>
     <string name="settings_npri_normal">Normálna</string>

@@ -30,7 +30,7 @@ Garder résident en mémoire; Pas de plein écran IME; Orientation; Notification
     <string name="app_version">Vérsion: %s</string>
     <string name="app_translation">Traducteur: %s</string>
     <string name="app_notactive_warning">N.B.: Même si les pages de configuration peuvent être utilisées comme tel
-elles n\'auront d\'effet que si la structure Xposed est installé et que ce 
+elles n\'auront d\'effet que si la structure Xposed est installé et que ce
 module est activé dans sa configuration!</string>
 
 

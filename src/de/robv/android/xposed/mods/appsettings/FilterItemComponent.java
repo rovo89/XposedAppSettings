@@ -50,7 +50,7 @@ public class FilterItemComponent extends LinearLayout {
 	}
 
 	private void setupListener() {
-	    // Notify any listener of changes in the selected option
+		// Notify any listener of changes in the selected option
 		((RadioGroup) findViewById(R.id.radOptions)).setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -69,7 +69,7 @@ public class FilterItemComponent extends LinearLayout {
 				}
 			}
 		});
-    }
+	}
 
 	/*
 	 * Update the label of a view id, if non-null

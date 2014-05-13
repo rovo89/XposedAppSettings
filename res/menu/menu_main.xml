@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_export"
-          android:title="@string/menu_export"
-          android:showAsAction="withText" /> 
-    <item android:id="@+id/menu_import"
-          android:title="@string/menu_import"
-          android:showAsAction="withText" />
-    <item android:id="@+id/menu_about"
-          android:icon="@android:drawable/ic_menu_help"
-          android:title="@string/menu_about"
-          android:showAsAction="withText" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_export"
+        android:showAsAction="withText"
+        android:title="@string/menu_export"/>
+    <item
+        android:id="@+id/menu_import"
+        android:showAsAction="withText"
+        android:title="@string/menu_import"/>
+    <item
+        android:id="@+id/menu_about"
+        android:icon="@android:drawable/ic_menu_help"
+        android:showAsAction="withText"
+        android:title="@string/menu_about"/>
+
 </menu>

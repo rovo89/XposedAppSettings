@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App name must be static to English. -->
-    
+
     <string name="app_mod_summary">앱마다 다른 설정을 적용시켜줍니다. :
 DPI; 글씨 크기; 특정 리소스만 사용; 언어;
 전체 화면 여부; 타이틀바 여부; 화면 계속 켜기 여부; 잠금 화면에서 보이기;

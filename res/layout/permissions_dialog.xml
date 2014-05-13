@@ -6,12 +6,14 @@
     android:gravity="fill_vertical"
     android:orientation="vertical"
     android:padding="10dp" >
+
     <Switch
         android:id="@+id/swtRevokePerms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
         android:text="@string/perms_revoke" />
+
     <ListView
         android:id="@+id/lstPermissions"
         android:layout_width="match_parent"
@@ -20,24 +22,28 @@
         android:fadingEdge="vertical"
         android:fastScrollEnabled="false"
         android:textFilterEnabled="false" />
+
     <LinearLayout
+        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="?android:attr/buttonBarStyle"
         android:gravity="right"
         android:orientation="horizontal"
         android:paddingTop="10dp" >
+
         <Button
             android:id="@+id/btnPermsCancel"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="?android:attr/buttonBarButtonStyle"
             android:text="@android:string/cancel" />
+
         <Button
             android:id="@+id/btnPermsOk"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="?android:attr/buttonBarButtonStyle"
             android:text="@android:string/ok" />
     </LinearLayout>
+
 </LinearLayout>

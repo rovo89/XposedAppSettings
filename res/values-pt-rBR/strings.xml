@@ -30,7 +30,7 @@ Permanecer na memória; No Fullscreen IME; Orientação; Notificações persiste
     <string name="app_version">Versão: %s</string>
     <string name="app_translation">Tradutor: %s</string>
     <string name="app_notactive_warning">Nota: Apesar das configurações poderem ser ajustadas do jeito que estão,
-elas só afetarão os apps se o Xposed framework estiver instalado e este módulo 
+elas só afetarão os apps se o Xposed framework estiver instalado e este módulo
 ativado nas configurações!</string>
 
 

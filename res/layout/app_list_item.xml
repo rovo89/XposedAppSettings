@@ -3,10 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="left|center" >
+
     <ImageView
         android:id="@+id/app_icon"
         android:layout_width="36dp"
         android:layout_height="36dp" />
+
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="wrap_content"
@@ -14,11 +16,13 @@
         android:orientation="vertical"
         android:paddingLeft="10sp"
         android:paddingRight="10sp" >
+
         <TextView
             android:id="@+id/app_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left" />
+
         <TextView
             android:id="@+id/app_package"
             android:layout_width="match_parent"
@@ -26,4 +30,5 @@
             android:gravity="left"
             android:textColor="#0099CC" />
     </LinearLayout>
+
 </LinearLayout>

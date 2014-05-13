@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_save"
-          android:icon="@android:drawable/ic_menu_save"
-          android:title="@string/menu_save"
-          android:showAsAction="always|withText" /> 
-    <item android:id="@+id/menu_app_launch"
-          android:icon="@android:drawable/ic_media_play"
-          android:title="@string/menu_launch"
-          android:showAsAction="withText" />
-    <item android:id="@+id/menu_app_settings"
-          android:icon="@android:drawable/ic_menu_manage"
-          android:title="@string/menu_settings"
-          android:showAsAction="withText" />
-    <item android:id="@+id/menu_app_store"
-          android:title="@string/menu_playstore"
-          android:showAsAction="withText" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_save"
+        android:icon="@android:drawable/ic_menu_save"
+        android:showAsAction="always|withText"
+        android:title="@string/menu_save"/>
+    <item
+        android:id="@+id/menu_app_launch"
+        android:icon="@android:drawable/ic_media_play"
+        android:showAsAction="withText"
+        android:title="@string/menu_launch"/>
+    <item
+        android:id="@+id/menu_app_settings"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:showAsAction="withText"
+        android:title="@string/menu_settings"/>
+    <item
+        android:id="@+id/menu_app_store"
+        android:showAsAction="withText"
+        android:title="@string/menu_playstore"/>
+
 </menu>

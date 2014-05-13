@@ -619,7 +619,7 @@ public class ApplicationSettings extends Activity {
 			startActivity(LaunchIntent);
 		} else if (item.getItemId() == R.id.menu_app_settings) {
 			startActivity(new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-									 Uri.parse("package:" + pkgName)));
+									Uri.parse("package:" + pkgName)));
 		} else if (item.getItemId() == R.id.menu_app_store) {
 			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + pkgName)));
 		}

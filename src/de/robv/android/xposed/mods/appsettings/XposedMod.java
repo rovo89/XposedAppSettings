@@ -279,8 +279,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 			XposedBridge.log(t);
 		}
 
-        PackagePermissions.initHooks();
-        Activities.hookActivitySettings();
+		PackagePermissions.initHooks();
+		Activities.hookActivitySettings();
 	}
 
 
@@ -311,16 +311,16 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 		}
 	}
 
-    @Override
-    public void handleLoadPackage(LoadPackageParam lpparam) throws Throwable {
-    	prefs.reload();
+	@Override
+	public void handleLoadPackage(LoadPackageParam lpparam) throws Throwable {
+		prefs.reload();
 
-        // Override the default Locale if one is defined (not res-related, here)
-        if (isActive(lpparam.packageName)) {
-    		Locale packageLocale = getPackageSpecificLocale(lpparam.packageName);
-    		if (packageLocale != null)
-    			Locale.setDefault(packageLocale);
-        }
+		// Override the default Locale if one is defined (not res-related, here)
+		if (isActive(lpparam.packageName)) {
+			Locale packageLocale = getPackageSpecificLocale(lpparam.packageName);
+			if (packageLocale != null)
+				Locale.setDefault(packageLocale);
+		}
 
 		if (this_package.equals(lpparam.packageName)) {
 			findAndHookMethod("de.robv.android.xposed.mods.appsettings.XposedModActivity",
@@ -330,7 +330,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 		try {
 			if (isActive(lpparam.packageName, Common.PREF_LEGACY_MENU))
 				findAndHookMethod(ViewConfiguration.class, "hasPermanentMenuKey",
-						 XC_MethodReplacement.returnConstant(true));
+						XC_MethodReplacement.returnConstant(true));
 		} catch (Throwable t) {
 			XposedBridge.log(t);
 		}
@@ -378,7 +378,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 		} catch (Throwable t) {
 			XposedBridge.log(t);
 		}
-    }
+	}
 
 	private static Locale getPackageSpecificLocale(String packageName) {
 		String locale = prefs.getString(packageName + Common.PREF_LOCALE, null);

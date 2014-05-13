@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <declare-styleable name="FilterItem">
         <attr name="label" format="string" />
         <attr name="all_label" format="string" />
         <attr name="overridden_label" format="string" />
         <attr name="unchanged_label" format="string" />
     </declare-styleable>
+
 </resources>

@@ -277,6 +277,7 @@ public class Activities {
 				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 					EditorInfo info = (EditorInfo) param.args[1];
 					if (info != null && info.packageName != null) {
+						XposedMod.prefs.reload();
 						if (XposedMod.isActive(info.packageName, Common.PREF_NO_FULLSCREEN_IME))
 							info.imeOptions |= EditorInfo.IME_FLAG_NO_FULLSCREEN;
 					}

@@ -305,9 +305,11 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
 		for (String resName : SYSTEMUI_ADJUSTED_DIMENSIONS) {
 			int id = sysRes.getIdentifier(resName, "dimen", "android");
-			float original = sysRes.getDimension(id);
-			XResources.setSystemWideReplacement(id,
-					new DimensionReplacement(original * scaleFactor, TypedValue.COMPLEX_UNIT_PX));
+			if (id != 0) {
+				float original = sysRes.getDimension(id);
+				XResources.setSystemWideReplacement(id,
+						new DimensionReplacement(original * scaleFactor, TypedValue.COMPLEX_UNIT_PX));
+			}
 		}
 	}
 

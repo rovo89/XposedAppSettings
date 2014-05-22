@@ -28,9 +28,9 @@
 \n- 常駐通知（播放音效）
 \n- 停用大型通知
 \n- 通知優先順序
-\n- 在最近任務中隱藏
-\n- 靜音（支援大多數應用）
-\n- 強制使用傳統（導航欄）的選單按鈕
+\n- 不顯示在最近開啟程式
+\n- 靜音（支援大多數app）
+\n- 強制使用傳統選單按鈕 (黑海苔)
 \n- 限制存取權限</string>
     <string name="app_version">版本: %s</string>
     <string name="app_translation">譯者: %s</string>
@@ -66,7 +66,7 @@
     <string name="settings_listres">資源</string>
     <string name="settings_screen">螢幕(dp)</string>
     <string name="settings_xlargeres">放大</string>
-    <string name="settings_resonwidgets">同時應用資源到小部件</string>
+    <string name="settings_resonwidgets">同時套用資源小工具</string>
     <string name="settings_locale">區域設定</string>
     <string name="settings_fullscreen">全螢幕</string>
     <string name="settings_notitle">無標題列</string>
@@ -81,7 +81,7 @@
     <string name="settings_mute">靜音</string>
     <string name="settings_legacy_menu">傳統選單按鈕</string>
     <string name="settings_permissions">權限設定</string>
-    <string name="settings_recents_mode">在最近任務中顯示</string>
+    <string name="settings_recents_mode">於最近開啟程式中顯示</string>
 
     <string name="settings_default">（預設-依app設定）</string>
 
@@ -90,14 +90,14 @@
     <string name="settings_immersive">沉浸</string>
 
     <string name="settings_ori_normal">採用系統設定</string>
-    <string name="settings_ori_portrait">強制正向豎屏</string>
-    <string name="settings_ori_landscape">強制正向橫屏</string>
+    <string name="settings_ori_portrait">強制垂直</string>
+    <string name="settings_ori_landscape">強制水平</string>
     <string name="settings_ori_forceauto">強制自動旋轉</string>
-    <string name="settings_ori_portrait_sensor">通過感測器判斷豎屏方向</string>
-    <string name="settings_ori_landscape_sensor">通過感測器判斷橫屏方向</string>
-    <string name="settings_ori_portrait_reverse">通過感測器反向豎屏</string>
-    <string name="settings_ori_landscape_reverse">通過感測器反向橫屏</string>
-    <string name="settings_ori_forceauto_4way">強制四向自動旋轉</string>
+    <string name="settings_ori_portrait_sensor">垂直(感應器方向)</string>
+    <string name="settings_ori_landscape_sensor">水平(感應器方向)</string>
+    <string name="settings_ori_portrait_reverse">反向垂直(感應器方向)</string>
+    <string name="settings_ori_landscape_reverse">反向水平(感應器方向)</string>
+    <string name="settings_ori_forceauto_4way">強制四向任意旋轉</string>
 
     <string name="settings_npri_max">最高</string>
     <string name="settings_npri_high">較高</string>
@@ -142,5 +142,5 @@
     <string name="filter_apply">套用</string>
 
 
-    <string name="translator">Chih-Hsun、Liao @TAIWAN、ROC、Felix2yu</string>
+    <string name="translator">Chih-Hsun Liao @TAIWAN, ROC、Felix2yu</string>
 </resources>

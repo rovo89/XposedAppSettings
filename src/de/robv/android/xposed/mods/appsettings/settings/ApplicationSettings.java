@@ -284,6 +284,9 @@ public class ApplicationSettings extends Activity {
 		// Update Insistent Notifications field
 		((CheckBox) findViewById(R.id.chkInsistentNotifications)).setChecked(prefs.getBoolean(pkgName + Common.PREF_INSISTENT_NOTIF, false));
 
+        // Update Insistent Notifications field
+        ((CheckBox) findViewById(R.id.chkOngoingNotifications)).setChecked(prefs.getBoolean(pkgName + Common.PREF_ONGOING_NOTIF, false));
+
 		// Load and render notifications priority
 		if (Build.VERSION.SDK_INT >= 16) {
 			int notifPriority = prefs.getInt(pkgName + Common.PREF_NOTIF_PRIORITY, 0);
@@ -371,6 +374,7 @@ public class ApplicationSettings extends Activity {
 		settingKeys.add(pkgName + Common.PREF_NO_FULLSCREEN_IME);
 		settingKeys.add(pkgName + Common.PREF_NO_BIG_NOTIFICATIONS);
 		settingKeys.add(pkgName + Common.PREF_INSISTENT_NOTIF);
+        settingKeys.add(pkgName + Common.PREF_ONGOING_NOTIF);
 		if (Build.VERSION.SDK_INT >= 16)
 			settingKeys.add(pkgName + Common.PREF_NOTIF_PRIORITY);
 		settingKeys.add(pkgName + Common.PREF_RECENTS_MODE);
@@ -447,6 +451,9 @@ public class ApplicationSettings extends Activity {
 
 			if (((CheckBox) findViewById(R.id.chkInsistentNotifications)).isChecked())
 				settings.put(pkgName + Common.PREF_INSISTENT_NOTIF, true);
+
+            if (((CheckBox) findViewById(R.id.chkOngoingNotifications)).isChecked())
+                settings.put(pkgName + Common.PREF_ONGOING_NOTIF, true);
 
 			if (Build.VERSION.SDK_INT >= 16) {
 				int notifPriority = ((Spinner) findViewById(R.id.spnNotifPriority)).getSelectedItemPosition();

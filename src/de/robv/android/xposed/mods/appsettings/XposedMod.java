@@ -244,6 +244,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 					if (isActive(packageName, Common.PREF_INSISTENT_NOTIF)) {
 						n.flags |= Notification.FLAG_INSISTENT;
 					}
+                    if (isActive(packageName, Common.PREF_ONGOING_NOTIF)) {
+                        n.flags |= Notification.FLAG_ONGOING_EVENT;
+                    }
 					if (isActive(packageName, Common.PREF_NO_BIG_NOTIFICATIONS)) {
 						try {
 							setObjectField(n, "bigContentView", null);

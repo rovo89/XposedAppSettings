@@ -66,7 +66,7 @@
     <string name="settings_listres">資源</string>
     <string name="settings_screen">螢幕(dp)</string>
     <string name="settings_xlargeres">放大</string>
-    <string name="settings_resonwidgets">同時套用資源小工具</string>
+    <string name="settings_resonwidgets">同時套用資源到小工具</string>
     <string name="settings_locale">區域設定</string>
     <string name="settings_fullscreen">全螢幕</string>
     <string name="settings_notitle">無標題列</string>

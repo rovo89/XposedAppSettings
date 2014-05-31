@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_mod_summary">Ajustar configuraciones genéricas por aplicación:
-DPI; Sobreescribir recursos cargados; Lenguage; Pantalla completa;
-Residente en memoria; Orientación; Revocar permisos; &#8230;</string>
+DPI; sobreescribir recursos cargados; lenguaje; pantalla completa;
+residente en memoria; orientación; revocar permisos; &#8230;</string>
 
 
     <!-- Main screen -->
-    <string name="app_loading">Cargando aplicaciones, por favor espere</string>
+    <string name="app_loading">Cargando aplicaciones, por favor espere...</string>
     <string name="app_searchhint">nombre o paquete</string>
     <string name="app_about">Un módulo <a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> creado por
  <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> y <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
  \nPuede ingresar a <a href="http://forum.xda-developers.com/showthread.php?t=2437377">este hilo</a> para realizar preguntas o sugerencias.</string>
-    <string name="app_description">Este módulo permite cambiar ciertos ajustes genéricos por cada aplicación sin la necesidad de editar APKs:
-\n- densitdad/ dpi
+    <string name="app_description">Este módulo permite cambiar ciertos ajustes genéricos para cada aplicación sin la necesidad de editar APKs:
+\n- densidad / dpi
 \n- escala de la fuente
 \n- simular tamaño de pantalla para cargar recursos
 \n- lenguaje
 \n- modo a pantalla completa
 \n- ocultar la barra de título
-\n- mantener la pantalla encendida mientras la aplicación es visible
+\n- mantener la pantalla encendida mientras la aplicación sea visible
 \n- mostrar aplicación por encima de la pantalla de bloque
 \n- mantener residente en memoria
 \n- desactivar teclado a pantalla completa
@@ -27,12 +27,12 @@ Residente en memoria; Orientación; Revocar permisos; &#8230;</string>
 \n- desactivar notificaciones expandidas
 \n- prioridad de notificaciones
 \n- excluir aplicaciones de la lista de recientes
-\n- silenciar sonidos (para la mayoría de las aplicaciones)
+\n- silenciar sonidos (en la mayoría de las aplicaciones)
 \n- forzar el uso del menú de botón heredado (navbar)
 \n- revocar permisos</string>
     <string name="app_version">Versión: %s</string>
     <string name="app_translation">Traductor: %s</string>
-    <string name="app_notactive_warning">Nota: Aunque los paneles de configuración puede ser usados como están, solo tendrán efecto sobre las aplicaciones si el marco Xposed se encuentra instalado y si éste módulo se encuentra activo en su configuración.</string>
+    <string name="app_notactive_warning">Nota: Aunque los paneles de configuración pueden ser usados como están, solo tendrán efecto sobre las aplicaciones si el marco Xposed se encuentra instalado y si éste módulo se encuentra activo en su configuración.</string>
 
 
     <!-- main menu -->
@@ -72,10 +72,10 @@ Residente en memoria; Orientación; Revocar permisos; &#8230;</string>
     <string name="settings_showwhenlocked">Mostrar en bloqueo</string>
     <string name="settings_resident">Residente</string>
     <string name="settings_nofullscreenime">Sin teclado pant. completa</string>
-    <string name="settings_orientation">Orientaci+on</string>
+    <string name="settings_orientation">Orientación</string>
     <string name="settings_insistentnotif">Notificaciones insistentes</string>
     <string name="settings_nobignotif">Sin notificaciones expandidas</string>
-    <string name="settings_notifpriority">Prioridad de notificaciones</string>
+    <string name="settings_notifpriority">Prioridad de notificación</string>
     <string name="settings_mute">Silenciar sonidos</string>
     <string name="settings_legacy_menu">Botón de menú heredado</string>
     <string name="settings_permissions">Permisos</string>
@@ -97,11 +97,11 @@ Residente en memoria; Orientación; Revocar permisos; &#8230;</string>
     <string name="settings_ori_landscape_reverse">Siempre paisaje (inverso)</string>
     <string name="settings_ori_forceauto_4way">Forzar rotación automática (4 caras)</string>
 
-    <string name="settings_npri_max">Max</string>
+    <string name="settings_npri_max">Máx</string>
     <string name="settings_npri_high">Alto</string>
     <string name="settings_npri_normal">Normal</string>
     <string name="settings_npri_low">Bajo</string>
-    <string name="settings_npri_min">Min</string>
+    <string name="settings_npri_min">Mín</string>
 
     <!-- List resources -->
     <string name="res_title">Recursos</string>

@@ -28,7 +28,7 @@ residente en memoria; orientación; revocar permisos; &#8230;</string>
 \n- prioridad de notificaciones
 \n- excluir aplicaciones de la lista de recientes
 \n- silenciar sonidos (en la mayoría de las aplicaciones)
-\n- forzar el uso del menú de botón heredado (navbar)
+\n- forzar el uso del botón de menú heredado (navbar)
 \n- revocar permisos</string>
     <string name="app_version">Versión: %s</string>
     <string name="app_translation">Traductor: %s</string>

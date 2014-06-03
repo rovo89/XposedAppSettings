@@ -279,7 +279,11 @@ public class ApplicationSettings extends Activity {
 		((CheckBox) findViewById(R.id.chkNoFullscreenIME)).setChecked(prefs.getBoolean(pkgName + Common.PREF_NO_FULLSCREEN_IME, false));
 
 		// Update No Big Notifications field
-		((CheckBox) findViewById(R.id.chkNoBigNotifications)).setChecked(prefs.getBoolean(pkgName + Common.PREF_NO_BIG_NOTIFICATIONS, false));
+		if (Build.VERSION.SDK_INT >= 16) {
+			((CheckBox) findViewById(R.id.chkNoBigNotifications)).setChecked(prefs.getBoolean(pkgName + Common.PREF_NO_BIG_NOTIFICATIONS, false));
+		} else {
+			findViewById(R.id.chkNoBigNotifications).setVisibility(View.GONE);
+		}
 
 		// Update Insistent Notifications field
 		((CheckBox) findViewById(R.id.chkInsistentNotifications)).setChecked(prefs.getBoolean(pkgName + Common.PREF_INSISTENT_NOTIF, false));

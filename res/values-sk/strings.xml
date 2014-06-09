@@ -6,7 +6,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
 
     <!-- Main screen -->
     <string name="app_loading">Načítavam aplikácie, prosím čakajte</string>
-    <string name="app_searchhint">meno, alebo balíček</string>
+    <string name="app_searchhint">meno alebo balíček</string>
     <string name="app_about"><a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> modul od
  <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> a <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
  \nMôžete použiť <a href="http://forum.xda-developers.com/showthread.php?t=2437377">toto vlákno</a> pre otázky a návrhy. Ak nájdete chybu v preklade, nahláste ju prosím <a href="http://ja-som5.webnode.sk/xposed-framework-moduly/appsettings">tu</a>.</string>

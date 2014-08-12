@@ -1,6 +1,7 @@
 package de.robv.android.xposed.mods.appsettings;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR;
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_FULL_USER;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE;
@@ -9,6 +10,8 @@ import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_USER_LANDSCAPE;
+import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT;
 import android.annotation.TargetApi;
 import android.app.Notification;
 import android.os.Build;
@@ -53,15 +56,42 @@ public class Common {
 	public static final int[] wdp = { 0, 320, 480, 600, 800, 1000 };
 	public static final int[] hdp = { 0, 480, 854, 1024, 1280, 1600 };
 
-	public static final int[] orientationCodes = { Integer.MIN_VALUE, SCREEN_ORIENTATION_UNSPECIFIED, SCREEN_ORIENTATION_PORTRAIT, SCREEN_ORIENTATION_LANDSCAPE, SCREEN_ORIENTATION_SENSOR,
+	public static int[] orientationCodes = { Integer.MIN_VALUE,
+		SCREEN_ORIENTATION_UNSPECIFIED,
+		SCREEN_ORIENTATION_PORTRAIT, SCREEN_ORIENTATION_LANDSCAPE,
+		SCREEN_ORIENTATION_SENSOR,
 		SCREEN_ORIENTATION_SENSOR_PORTRAIT, SCREEN_ORIENTATION_SENSOR_LANDSCAPE,
 		SCREEN_ORIENTATION_REVERSE_PORTRAIT, SCREEN_ORIENTATION_REVERSE_LANDSCAPE,
-		SCREEN_ORIENTATION_FULL_SENSOR };
-	public static final int[] orientationLabels = { R.string.settings_default, R.string.settings_ori_normal,
-		R.string.settings_ori_portrait, R.string.settings_ori_landscape, R.string.settings_ori_forceauto,
+		SCREEN_ORIENTATION_FULL_SENSOR,
+		// These require API 18
+		SCREEN_ORIENTATION_USER_PORTRAIT, SCREEN_ORIENTATION_USER_LANDSCAPE,
+		SCREEN_ORIENTATION_FULL_USER };
+	{
+		if (Build.VERSION.SDK_INT < 18) {
+			// Strip out the last 3 entries
+			int[] newCodes = new int[orientationCodes.length - 3];
+			System.arraycopy(orientationCodes, 0, newCodes, 0, orientationCodes.length - 3);
+			orientationCodes = newCodes;
+		}
+	}
+	public static int[] orientationLabels = { R.string.settings_default,
+		R.string.settings_ori_normal,
+		R.string.settings_ori_portrait, R.string.settings_ori_landscape,
+		R.string.settings_ori_forceauto,
 		R.string.settings_ori_portrait_sensor, R.string.settings_ori_landscape_sensor,
 		R.string.settings_ori_portrait_reverse, R.string.settings_ori_landscape_reverse,
-		R.string.settings_ori_forceauto_4way };
+		R.string.settings_ori_forceauto_4way,
+		// These require API 18
+		R.string.settings_ori_portrait_user, R.string.settings_ori_landscape_user,
+		R.string.settings_ori_user_4way };
+	{
+		if (Build.VERSION.SDK_INT < 18) {
+			// Strip out the last 3 entries
+			int[] newLabels = new int[orientationLabels.length - 3];
+			System.arraycopy(orientationLabels, 0, newLabels, 0, orientationLabels.length - 3);
+			orientationLabels = newLabels;
+		}
+	}
 
 	public static final int[] notifPriCodes = { Integer.MIN_VALUE,
 		Notification.PRIORITY_MAX, Notification.PRIORITY_HIGH,

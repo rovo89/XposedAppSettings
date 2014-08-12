@@ -98,6 +98,9 @@ is enabled in its configuration!</string>
     <string name="settings_ori_portrait_reverse">Always portrait (reverse)</string>
     <string name="settings_ori_landscape_reverse">Always landscape (reverse)</string>
     <string name="settings_ori_forceauto_4way">Force auto-rotation (4-way)</string>
+    <string name="settings_ori_portrait_user">Always portrait (user setting)</string>
+    <string name="settings_ori_landscape_user">Always landscape (user setting)</string>
+    <string name="settings_ori_user_4way">4-way rotation (user setting)</string>
 
     <string name="settings_npri_max">Max</string>
     <string name="settings_npri_high">High</string>

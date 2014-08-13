@@ -249,6 +249,10 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 							setObjectField(n, "bigContentView", null);
 						} catch (Exception e) { }
 					}
+					if (isActive(packageName, Common.PREF_MUTE)) {
+						n.sound = null;
+						n.flags &= ~Notification.DEFAULT_SOUND;
+					}
 					if (sdk >= 16 && isActive(packageName) && prefs.contains(packageName + Common.PREF_NOTIF_PRIORITY)) {
 						int priority = XposedMod.prefs.getInt(packageName + Common.PREF_NOTIF_PRIORITY, 0);
 						if (priority > 0 && priority < Common.notifPriCodes.length) {

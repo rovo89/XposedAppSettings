@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_mod_summary">Ajustar configuraciones genéricas por aplicación:
+DPI; sobreescribir recursos cargados; lenguaje; pantalla completa;
+residente en memoria; orientación; revocar permisos; &#8230;</string>
+
+
+    <!-- Main screen -->
+    <string name="app_loading">Cargando aplicaciones, por favor espere...</string>
+    <string name="app_searchhint">nombre o paquete</string>
+    <string name="app_about">Un módulo <a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> creado por
+ <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> y <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
+ \nPuede ingresar a <a href="http://forum.xda-developers.com/showthread.php?t=2437377">este hilo</a> para realizar preguntas o sugerencias.</string>
+    <string name="app_description">Este módulo permite cambiar ciertos ajustes genéricos para cada aplicación sin la necesidad de editar APKs:
+\n- densidad / dpi
+\n- escala de la fuente
+\n- simular tamaño de pantalla para cargar recursos
+\n- lenguaje
+\n- modo a pantalla completa
+\n- ocultar la barra de título
+\n- mantener la pantalla encendida mientras la aplicación sea visible
+\n- mostrar aplicación por encima de la pantalla de bloque
+\n- mantener residente en memoria
+\n- desactivar teclado a pantalla completa
+\n- forzar orientación (retrato/paisaje/auto)
+\n- notificaciones insistentes (sonido en bucle)
+\n- desactivar notificaciones expandidas
+\n- prioridad de notificaciones
+\n- excluir aplicaciones de la lista de recientes
+\n- silenciar sonidos (en la mayoría de las aplicaciones)
+\n- forzar el uso del botón de menú heredado (navbar)
+\n- revocar permisos</string>
+    <string name="app_version">Versión: %s</string>
+    <string name="app_translation">Traductor: %s</string>
+    <string name="app_notactive_warning">Nota: Aunque los paneles de configuración pueden ser usados como están, solo tendrán efecto sobre las aplicaciones si el marco Xposed se encuentra instalado y si éste módulo se encuentra activo en su configuración.</string>
+
+
+    <!-- main menu -->
+    <string name="menu_export">Exportar</string>
+    <string name="menu_import">Importar</string>
+    <string name="menu_about">Acerca de...</string>
+
+    <!-- Import / Export -->
+    <string name="imp_exp_file_doesnt_exist">Archivo no existe: %s</string>
+    <string name="imp_exp_confirm">¿Reemplazar toda la configuración con los valores a punto de ser importados?</string>
+    <string name="imp_exp_exported">Configuración exportada al archivo: %s</string>
+    <string name="imp_exp_export_error">Falló la exportación: %s</string>
+    <string name="imp_exp_import_error">Falló la importación: %s</string>
+    <string name="imp_exp_invalid_import_file">Archivo a importar no válido o vacío: %s</string>
+    <string name="imp_exp_imported">Importación exitosa; valores reemplazados</string>
+
+
+    <!-- app-specific menu -->
+    <string name="menu_save">Guardar</string>
+    <string name="menu_launch">Ejecutar</string>
+    <string name="menu_settings">Ajustes</string>
+    <string name="menu_playstore">Play Store</string>
+
+
+    <!-- Settings screen -->
+    <string name="settings_title">Ajustes</string>
+    <string name="settings_dpi">DPI</string>
+    <string name="settings_fontscale">Escala de fuente</string>
+    <string name="settings_listres">Lista res.</string>
+    <string name="settings_screen">Pantalla (dp)</string>
+    <string name="settings_xlargeres">Res. xlarge</string>
+    <string name="settings_resonwidgets">Aplicar resolución a widgets</string>
+    <string name="settings_locale">Lenguaje</string>
+    <string name="settings_fullscreen">Pantalla completa</string>
+    <string name="settings_notitle">Sin título</string>
+    <string name="settings_screenon">Mantener pantalla encendida</string>
+    <string name="settings_showwhenlocked">Mostrar en bloqueo</string>
+    <string name="settings_resident">Residente</string>
+    <string name="settings_nofullscreenime">Sin teclado pant. completa</string>
+    <string name="settings_orientation">Orientación</string>
+    <string name="settings_insistentnotif">Notificaciones insistentes</string>
+    <string name="settings_nobignotif">Sin notificaciones expandidas</string>
+    <string name="settings_notifpriority">Prioridad de notificación</string>
+    <string name="settings_mute">Silenciar sonidos</string>
+    <string name="settings_legacy_menu">Botón de menú heredado</string>
+    <string name="settings_permissions">Permisos</string>
+    <string name="settings_recents_mode">Mostrar en recientes</string>
+
+    <string name="settings_default">(predeterminado)</string>
+
+    <string name="settings_force">Forzar</string>
+    <string name="settings_prevent">Prevenir</string>
+    <string name="settings_immersive">Inmersivo</string>
+
+    <string name="settings_ori_normal">Rotación normal</string>
+    <string name="settings_ori_portrait">Siempre retrato</string>
+    <string name="settings_ori_landscape">Siempre paisaje</string>
+    <string name="settings_ori_forceauto">Forzar rotación automática</string>
+    <string name="settings_ori_portrait_sensor">Siempre retrato (sensor)</string>
+    <string name="settings_ori_landscape_sensor">Siempre paisaje (sensor)</string>
+    <string name="settings_ori_portrait_reverse">Siempre retrato (inverso)</string>
+    <string name="settings_ori_landscape_reverse">Siempre paisaje (inverso)</string>
+    <string name="settings_ori_forceauto_4way">Forzar rotación automática (4 caras)</string>
+
+    <string name="settings_npri_max">Máx</string>
+    <string name="settings_npri_high">Alto</string>
+    <string name="settings_npri_normal">Normal</string>
+    <string name="settings_npri_low">Bajo</string>
+    <string name="settings_npri_min">Mín</string>
+
+    <!-- List resources -->
+    <string name="res_title">Recursos</string>
+    <string name="res_noentries">No se encontraron recursos</string>
+    <string name="res_failedtoload">Fallo al cargar contenido de APK</string>
+
+    <!-- Show / search / revoke permissions -->
+    <string name="perms_title">Permisos</string>
+    <string name="perms_revoke">Revocar permisos</string>
+    <string name="perms_shared_warning">ATENCIÓN: ¡Paquete compartido!</string>
+    <string name="perms_searchhint">nombre o descripción</string>
+    <string name="perms_nodescription">( no tiene descripción )</string>
+    <string name="perms_filter_title">Seleccione los permisos por los que filtrar o presione Cancelar para mostrar todos</string>
+
+    <!-- Saving settings -->
+    <string name="settings_unsaved_title">Atención</string>
+    <string name="settings_unsaved_detail">No ha guardado los ajustes.
+¿Desea realmente volver y descartar los cambios?</string>
+    <string name="settings_apply_title">Aplicar ajustes</string>
+    <string name="settings_apply_detail">¿También terminar aplicación para que cuando sea ejecutada nuevamente utilice los nuevos ajustes?</string>
+
+
+    <!-- Filter dialog -->
+    <string name="filter_title">Filtro</string>
+    <string name="filter_all">Todo</string>
+    <string name="filter_overridden">Sobreescrito</string>
+    <string name="filter_unchanged">Sin cambios</string>
+    <string name="filter_type">Tipo</string>
+    <string name="filter_user">Usuario</string>
+    <string name="filter_system">Sistema</string>
+    <string name="filter_settingsactive">Ajustes activos</string>
+    <string name="filter_active">Activo</string>
+    <string name="filter_notactive">No activo</string>
+    <string name="filter_resources">Carga de recursos</string>
+    <string name="filter_cancel">Cancelar</string>
+    <string name="filter_clear">Limpiar</string>
+    <string name="filter_apply">Aplicar</string>
+
+
+    <string name="translator">José Vera (J_M_V_S @xda)</string>
+</resources>

@@ -6,35 +6,6 @@
     android:orientation="vertical"
     android:padding="10dp" >
 
-    <de.robv.android.xposed.mods.appsettings.FilterItemComponent
-        android:id="@+id/fltAppType"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:label="@string/filter_type"
-        app:overridden_label="@string/filter_user"
-        app:unchanged_label="@string/filter_system" />
-
-    <de.robv.android.xposed.mods.appsettings.FilterItemComponent
-        android:id="@+id/fltAppState"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:label="@string/filter_state"
-        app:overridden_label="@string/filter_enabled"
-        app:unchanged_label="@string/filter_disabled" />
-
-    <de.robv.android.xposed.mods.appsettings.FilterItemComponent
-        android:id="@+id/fltActive"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:label="@string/filter_settingsactive"
-        app:overridden_label="@string/filter_active"
-        app:unchanged_label="@string/filter_notactive" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -45,6 +16,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
+
+            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+                android:id="@+id/fltAppType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:label="@string/filter_type"
+                app:overridden_label="@string/filter_user"
+                app:unchanged_label="@string/filter_system" />
+
+            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+                android:id="@+id/fltAppState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:label="@string/filter_state"
+                app:overridden_label="@string/filter_enabled"
+                app:unchanged_label="@string/filter_disabled" />
+
+            <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+                android:id="@+id/fltActive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:label="@string/filter_settingsactive"
+                app:overridden_label="@string/filter_active"
+                app:unchanged_label="@string/filter_notactive" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
+
+            <!-- Additional filter controls are appended here programmatically -->
         </LinearLayout>
     </ScrollView>
 

@@ -15,6 +15,14 @@
         app:unchanged_label="@string/filter_system" />
 
     <de.robv.android.xposed.mods.appsettings.FilterItemComponent
+        android:id="@+id/fltAppState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:label="@string/filter_state"
+        app:overridden_label="@string/filter_enabled"
+        app:unchanged_label="@string/filter_disabled" />
+
+    <de.robv.android.xposed.mods.appsettings.FilterItemComponent
         android:id="@+id/fltActive"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

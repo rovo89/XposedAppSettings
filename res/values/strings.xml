@@ -141,6 +141,9 @@ Really go back and discard changes?</string>
     <string name="filter_type">Type</string>
     <string name="filter_user">User</string>
     <string name="filter_system">System</string>
+    <string name="filter_state">State</string>
+    <string name="filter_enabled">Enabled</string>
+    <string name="filter_disabled">Disabled</string>
     <string name="filter_settingsactive">Settings active</string>
     <string name="filter_active">Active</string>
     <string name="filter_notactive">Not active</string>

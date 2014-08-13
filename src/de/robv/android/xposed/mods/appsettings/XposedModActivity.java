@@ -83,6 +83,7 @@ public class XposedModActivity extends Activity {
 
 	private String nameFilter;
 	private FilterState filterAppType;
+	private FilterState filterAppState;
 	private FilterState filterActive;
 	private String filterPermissionUsage;
 
@@ -594,6 +595,7 @@ public class XposedModActivity extends Activity {
 					@Override
 					public void onClick(View v) {
 						filterAppType = FilterState.ALL;
+						filterAppState = FilterState.ALL;
 						filterActive = FilterState.ALL;
 						for (SettingInfo setting : settings)
 							setting.filter = FilterState.ALL;
@@ -606,6 +608,7 @@ public class XposedModActivity extends Activity {
 					@Override
 					public void onClick(View v) {
 						filterAppType = ((FilterItemComponent) filterDialog.findViewById(R.id.fltAppType)).getFilterState();
+						filterAppState = ((FilterItemComponent) filterDialog.findViewById(R.id.fltAppState)).getFilterState();
 						filterActive = ((FilterItemComponent) filterDialog.findViewById(R.id.fltActive)).getFilterState();
 						for (SettingInfo setting : settings)
 							setting.filter = filterComponents.get(setting.settingKey).getFilterState();
@@ -789,6 +792,10 @@ public class XposedModActivity extends Activity {
 
 			// AppType = Overridden is used for USER apps
 			if (filteredOut(isUser, filterAppType))
+				return true;
+
+			// AppState = Overridden is used for ENABLED apps
+			if (filteredOut(app.enabled, filterAppState))
 				return true;
 
 			if (filteredOut(prefs.getBoolean(packageName + Common.PREF_ACTIVE, false), filterActive))

@@ -35,6 +35,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
 
 
     <!-- main menu -->
+    <string name="menu_recents">Nedávne apl.</string>
     <string name="menu_export">Export</string>
     <string name="menu_import">Import</string>
     <string name="menu_about">O aplikácii</string>
@@ -96,12 +97,18 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
     <string name="settings_ori_portrait_reverse">Vždy na výšku (opačne)</string>
     <string name="settings_ori_landscape_reverse">Vždy na šírku (opačne)</string>
     <string name="settings_ori_forceauto_4way">Vynútiť autom. otáčanie (4-smery)</string>
+    <string name="settings_ori_portrait_user">Vždy na výšku (užívateľské nast.)</string>
+    <string name="settings_ori_landscape_user">Vždy na šírku (užívateľské nast.)</string>
+    <string name="settings_ori_user_4way">Otáčanie na všetky strany (užívateľské nast.)</string>
 
     <string name="settings_npri_max">Maximálna</string>
     <string name="settings_npri_high">Vysoká</string>
     <string name="settings_npri_normal">Normálna</string>
     <string name="settings_npri_low">Nízka</string>
     <string name="settings_npri_min">Minimálna</string>
+    
+    <!-- Recent apps -->
+    <string name="recents_title">Nedávne aplikácie</string>
 
     <!-- List resources -->
     <string name="res_title">Zdroje</string>

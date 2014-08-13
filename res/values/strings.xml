@@ -38,6 +38,7 @@ is enabled in its configuration!</string>
 
 
     <!-- main menu -->
+    <string name="menu_recents">Recent apps</string>
     <string name="menu_export">Export</string>
     <string name="menu_import">Import</string>
     <string name="menu_about">About</string>
@@ -107,6 +108,9 @@ is enabled in its configuration!</string>
     <string name="settings_npri_normal">Normal</string>
     <string name="settings_npri_low">Low</string>
     <string name="settings_npri_min">Min</string>
+
+    <!-- Recent apps -->
+    <string name="recents_title">Recent Applications</string>
 
     <!-- List resources -->
     <string name="res_title">Resources</string>

@@ -21,12 +21,15 @@ import java.util.regex.Pattern;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RecentTaskInfo;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
@@ -61,6 +64,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SectionIndexer;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import de.robv.android.xposed.mods.appsettings.FilterItemComponent.FilterState;
@@ -153,6 +157,8 @@ public class XposedModActivity extends Activity {
 				requestCode <= list.getLastVisiblePosition()) {
 			View v = list.getChildAt(requestCode - list.getFirstVisiblePosition());
 			list.getAdapter().getView(requestCode, v, list);
+		} else if (requestCode == Integer.MAX_VALUE) {
+			list.invalidateViews();
 		}
 	}
 
@@ -165,6 +171,9 @@ public class XposedModActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.menu_recents:
+			showRecents();
+			return true;
 		case R.id.menu_export:
 			doExport();
 			return true;
@@ -177,6 +186,59 @@ public class XposedModActivity extends Activity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	private void showRecents() {
+		ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+		PackageManager pm = getPackageManager();
+
+		final List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+		for (RecentTaskInfo task : am.getRecentTasks(30, ActivityManager.RECENT_WITH_EXCLUDED)) {
+			Intent i = task.baseIntent;
+			if (i.getComponent() == null)
+				continue;
+
+			Map<String, Object> entry = new HashMap<String, Object>();
+			try {
+				entry.put("image", pm.getActivityIcon(i));
+			} catch (NameNotFoundException e) {
+				entry.put("image", pm.getDefaultActivityIcon());
+			}
+			try {
+				entry.put("label", pm.getActivityInfo(i.getComponent(), 0).loadLabel(pm).toString());
+			} catch (NameNotFoundException e) {
+				entry.put("label", "");
+			}
+
+			entry.put("package", i.getComponent().getPackageName());
+			data.add(entry);
+		}
+		String[] from = new String[] { "image", "label", "package" };
+		int[] to = new int[] { R.id.recent_icon, R.id.recent_label, R.id.recent_package };
+
+		SimpleAdapter adapter = new SimpleAdapter(this, data, R.layout.recent_item, from, to);
+		adapter.setViewBinder(new SimpleAdapter.ViewBinder() {
+			@Override
+			public boolean setViewValue(final View view, final Object data, final String textRepresentation) {
+				if (view instanceof ImageView) {
+					((ImageView) view).setImageDrawable((Drawable) data);
+					return true;
+				}
+				return false;
+			}
+		});
+
+		new AlertDialog.Builder(this)
+			.setTitle(R.string.recents_title)
+			.setAdapter(adapter, new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Intent i = new Intent(getApplicationContext(), ApplicationSettings.class);
+					i.putExtra("package", (String) data.get(which).get("package"));
+					startActivityForResult(i, Integer.MAX_VALUE);
+				}
+			})
+			.show();
 	}
 
 	private void doExport() {

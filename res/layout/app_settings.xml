@@ -232,7 +232,13 @@
                     android:text="@string/settings_nobignotif" />
             </LinearLayout>
 
-            <LinearLayout
+            <CheckBox
+                android:id="@+id/chkOngoingNotifications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_ongoingnotif" />
+
+             <LinearLayout
                 android:id="@+id/viewNotifPriority"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

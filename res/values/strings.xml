@@ -78,6 +78,7 @@ is enabled in its configuration!</string>
     <string name="settings_nofullscreenime">No Fullscreen IME</string>
     <string name="settings_orientation">Orientation</string>
     <string name="settings_insistentnotif">Insistent notifications</string>
+    <string name="settings_ongoingnotif">Ongoing notifications</string>
     <string name="settings_nobignotif">No big notifications</string>
     <string name="settings_notifpriority">Notifications priority</string>
     <string name="settings_mute">Mute audio</string>

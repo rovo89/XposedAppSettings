@@ -576,6 +576,10 @@ public class XposedModActivity extends Activity {
 					filterComponents.put(setting.settingKey, component);
 				}
 
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltAppType)).setFilterState(filterAppType);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltAppState)).setFilterState(filterAppState);
+				((FilterItemComponent) filterDialog.findViewById(R.id.fltActive)).setFilterState(filterActive);
+
 				// Block or unblock the details based on the Active setting
 				enableFilterDetails(!FilterState.UNCHANGED.equals(filterActive));
 				((FilterItemComponent) filterDialog.findViewById(R.id.fltActive)).setOnFilterChangeListener(new FilterItemComponent.OnFilterChangeListener() {
@@ -623,7 +627,6 @@ public class XposedModActivity extends Activity {
 			}
 
 			private void enableFilterDetails(boolean enable) {
-				((FilterItemComponent) filterDialog.findViewById(R.id.fltAppType)).setEnabled(true);
 				for (FilterItemComponent component : filterComponents.values())
 					component.setEnabled(enable);
 			}

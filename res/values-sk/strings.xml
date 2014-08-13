@@ -6,7 +6,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
 
     <!-- Main screen -->
     <string name="app_loading">Načítavam aplikácie, prosím čakajte</string>
-    <string name="app_searchhint">meno, alebo balíček</string>
+    <string name="app_searchhint">meno alebo balíček</string>
     <string name="app_about"><a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> modul od
  <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> a <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
  \nMôžete použiť <a href="http://forum.xda-developers.com/showthread.php?t=2437377">toto vlákno</a> pre otázky a návrhy. Ak nájdete chybu v preklade, nahláste ju prosím <a href="http://ja-som5.webnode.sk/xposed-framework-moduly/appsettings">tu</a>.</string>
@@ -35,6 +35,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
 
 
     <!-- main menu -->
+    <string name="menu_recents">Nedávne apl.</string>
     <string name="menu_export">Export</string>
     <string name="menu_import">Import</string>
     <string name="menu_about">O aplikácii</string>
@@ -73,6 +74,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
     <string name="settings_nofullscreenime">Žiadna celá obrazovka pre IME</string>
     <string name="settings_orientation">Orientácia</string>
     <string name="settings_insistentnotif">Neústupné oznámenia</string>
+    <string name="settings_ongoingnotif">Prebiehajúce oznámenia</string>
     <string name="settings_nobignotif">Nezobrazovať veľké oznámenia</string>
     <string name="settings_notifpriority">Priorita oznámení</string>
     <string name="settings_mute">Vypnúť zvuk</string>
@@ -95,12 +97,18 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
     <string name="settings_ori_portrait_reverse">Vždy na výšku (opačne)</string>
     <string name="settings_ori_landscape_reverse">Vždy na šírku (opačne)</string>
     <string name="settings_ori_forceauto_4way">Vynútiť autom. otáčanie (4-smery)</string>
+    <string name="settings_ori_portrait_user">Vždy na výšku (užívateľské nast.)</string>
+    <string name="settings_ori_landscape_user">Vždy na šírku (užívateľské nast.)</string>
+    <string name="settings_ori_user_4way">Otáčanie na všetky strany (užívateľské nast.)</string>
 
     <string name="settings_npri_max">Maximálna</string>
     <string name="settings_npri_high">Vysoká</string>
     <string name="settings_npri_normal">Normálna</string>
     <string name="settings_npri_low">Nízka</string>
     <string name="settings_npri_min">Minimálna</string>
+
+    <!-- Recent apps -->
+    <string name="recents_title">Nedávne aplikácie</string>
 
     <!-- List resources -->
     <string name="res_title">Zdroje</string>

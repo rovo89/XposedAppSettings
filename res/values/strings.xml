@@ -25,9 +25,10 @@ Resident in memory; Orientation; Revoke Permissions; &#8230;</string>
 \n- force orientation (portrait/landscape/auto)
 \n- insistent notifications (loop the sound)
 \n- disable big (expanded) notifications
+\n- force or prevent ongoing notifications
 \n- notifications priority
-\n- exclude app from recents
-\n- mute audio (for most apps)
+\n- force or exclude app from recents
+\n- mute audio (for most apps) including notifications
 \n- force using legacy (navbar) menu button
 \n- revoke permissions</string>
     <string name="app_version">Version: %s</string>

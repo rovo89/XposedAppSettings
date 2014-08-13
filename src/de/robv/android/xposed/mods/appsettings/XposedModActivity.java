@@ -38,6 +38,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PermissionInfo;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -924,6 +925,14 @@ public class XposedModActivity extends Activity {
 					? Color.RED : Color.parseColor("#0099CC"));
 			holder.app_package.setText(app.packageName);
 			holder.app_icon.setImageDrawable(defaultIcon);
+
+			if (app.enabled) {
+				holder.app_name.setPaintFlags(holder.app_name.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+				holder.app_package.setPaintFlags(holder.app_package.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+			} else {
+				holder.app_name.setPaintFlags(holder.app_name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+				holder.app_package.setPaintFlags(holder.app_package.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+			}
 
 			holder.imageLoader = new AsyncTask<AppListViewHolder, Void, Drawable>() {
 				private AppListViewHolder v;

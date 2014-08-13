@@ -241,6 +241,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 						n = (Notification) param.args[5];
 
 					prefs.reload();
+					if (!isActive(packageName))
+						return;
+
 					if (isActive(packageName, Common.PREF_INSISTENT_NOTIF)) {
 						n.flags |= Notification.FLAG_INSISTENT;
 					}
@@ -249,6 +252,14 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 							setObjectField(n, "bigContentView", null);
 						} catch (Exception e) { }
 					}
+					int ongoingNotif = XposedMod.prefs.getInt(packageName + Common.PREF_ONGOING_NOTIF,
+							Common.ONGOING_NOTIF_DEFAULT);
+					if (ongoingNotif == Common.ONGOING_NOTIF_FORCE) {
+						n.flags |= Notification.FLAG_ONGOING_EVENT;
+					} else if (ongoingNotif == Common.ONGOING_NOTIF_PREVENT) {
+						n.flags &= ~Notification.FLAG_ONGOING_EVENT & ~Notification.FLAG_FOREGROUND_SERVICE;
+					}
+
 					if (isActive(packageName, Common.PREF_MUTE)) {
 						n.sound = null;
 						n.flags &= ~Notification.DEFAULT_SOUND;

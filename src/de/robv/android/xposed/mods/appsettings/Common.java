@@ -40,6 +40,7 @@ public class Common {
 	public static final String PREF_NO_FULLSCREEN_IME = "/no-fullscreen-ime";
 	public static final String PREF_NO_BIG_NOTIFICATIONS = "/no-big-notifications";
 	public static final String PREF_INSISTENT_NOTIF = "/insistent-notif";
+	public static final String PREF_ONGOING_NOTIF = "/ongoing-notif";
 	public static final String PREF_NOTIF_PRIORITY = "/notif-priority";
 	public static final String PREF_REVOKEPERMS = "/revoke-perms";
 	public static final String PREF_REVOKELIST = "/revoke-list";
@@ -107,6 +108,10 @@ public class Common {
 	public static final int FULLSCREEN_FORCE = 1;
 	public static final int FULLSCREEN_PREVENT = 2;
 	public static final int FULLSCREEN_IMMERSIVE = 3;
+
+	public static final int ONGOING_NOTIF_DEFAULT = 0;
+	public static final int ONGOING_NOTIF_FORCE = 1;
+	public static final int ONGOING_NOTIF_PREVENT = 2;
 
 	public static final int PREF_RECENTS_DEFAULT = 0;
 	public static final int PREF_RECENTS_FORCE = 1;

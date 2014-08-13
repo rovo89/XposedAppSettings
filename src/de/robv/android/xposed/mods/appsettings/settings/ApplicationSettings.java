@@ -285,6 +285,24 @@ public class ApplicationSettings extends Activity {
 			findViewById(R.id.chkNoBigNotifications).setVisibility(View.GONE);
 		}
 
+		// Setup Ongoing Notifications settings
+		{
+			int ongoingNotifs = prefs.getInt(pkgName + Common.PREF_ONGOING_NOTIF, Common.ONGOING_NOTIF_DEFAULT);
+			Spinner spnOngoingNotif = (Spinner) findViewById(R.id.spnOngoingNotifications);
+			// Note: the order of these items must match the Common.ONGOING_NOTIF_... constants
+			String[] ongoingNotifArray = new String[] {
+						getString(R.string.settings_default),
+						getString(R.string.settings_force),
+						getString(R.string.settings_prevent) };
+
+			List<String> lstOngoingNotif = Arrays.asList(ongoingNotifArray);
+			ArrayAdapter<String> ongoingNotifAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, lstOngoingNotif);
+			ongoingNotifAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			spnOngoingNotif.setAdapter(ongoingNotifAdapter);
+			spnOngoingNotif.setSelection(ongoingNotifs);
+		}
+
 		// Update Insistent Notifications field
 		((CheckBox) findViewById(R.id.chkInsistentNotifications)).setChecked(prefs.getBoolean(pkgName + Common.PREF_INSISTENT_NOTIF, false));
 
@@ -375,6 +393,7 @@ public class ApplicationSettings extends Activity {
 		settingKeys.add(pkgName + Common.PREF_NO_FULLSCREEN_IME);
 		settingKeys.add(pkgName + Common.PREF_NO_BIG_NOTIFICATIONS);
 		settingKeys.add(pkgName + Common.PREF_INSISTENT_NOTIF);
+		settingKeys.add(pkgName + Common.PREF_ONGOING_NOTIF);
 		if (Build.VERSION.SDK_INT >= 16)
 			settingKeys.add(pkgName + Common.PREF_NOTIF_PRIORITY);
 		settingKeys.add(pkgName + Common.PREF_RECENTS_MODE);
@@ -451,6 +470,10 @@ public class ApplicationSettings extends Activity {
 
 			if (((CheckBox) findViewById(R.id.chkInsistentNotifications)).isChecked())
 				settings.put(pkgName + Common.PREF_INSISTENT_NOTIF, true);
+
+			int ongoingNotif = ((Spinner) findViewById(R.id.spnOngoingNotifications)).getSelectedItemPosition();
+			if (ongoingNotif > 0)
+				settings.put(pkgName + Common.PREF_ONGOING_NOTIF, ongoingNotif);
 
 			if (Build.VERSION.SDK_INT >= 16) {
 				int notifPriority = ((Spinner) findViewById(R.id.spnNotifPriority)).getSelectedItemPosition();

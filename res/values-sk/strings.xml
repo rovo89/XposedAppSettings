@@ -5,12 +5,12 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
 
 
     <!-- Main screen -->
-    <string name="app_loading">Načítavam aplikácie, prosím čakajte</string>
+    <string name="app_loading">Načítavanie aplikácií, prosím, čakajte</string>
     <string name="app_searchhint">meno alebo balíček</string>
     <string name="app_about"><a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> modul od
  <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> a <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
  \nMôžete použiť <a href="http://forum.xda-developers.com/showthread.php?t=2437377">toto vlákno</a> pre otázky a návrhy. Ak nájdete chybu v preklade, nahláste ju prosím <a href="http://ja-som5.webnode.sk/xposed-framework-moduly/appsettings">tu</a>.</string>
-    <string name="app_description">Tento modul vám umožní zmeniť niekoľko základných nastavení pre jednotlivé aplikácie beznutnosti upravovať APK:
+    <string name="app_description">Tento modul vám umožní zmeniť niekoľko základných nastavení pre jednotlivé aplikácie bez nutnosti upravovať APK:
 \n- dpi
 \n- veľkosť písma
 \n- fake screen size for resources loading
@@ -24,9 +24,10 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
 \n- vynútiť orientáciu (na výšku, na šírku, autom.)
 \n- neústupné oznámenia (opakovať zvuk)
 \n- zrušiť veľké (rozšírené) oznámenia
+\n- vynútiť alebo zabrániť prebiehajúce oznámenia
 \n- priorita oznámení
-\n- vylúčiť aplikáciu z panela nedávnych aplikácií
-\n- vypnúť zvuk (pre väčšinu aplikácií)
+\n- vynútiť alebo vylúčiť aplikáciu z panela nedávnych aplikácií
+\n- vypnúť zvuk (pre väčšinu aplikácií) vrátane oznámení
 \n- vynútiť zobrazenie tlačidla Menu v navigačnej lište
 \n- zakázať oznámenia</string>
     <string name="app_version">Verzia: %s</string>
@@ -35,6 +36,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
 
 
     <!-- main menu -->
+    <string name="menu_refresh">Obnoviť</string>
     <string name="menu_recents">Nedávne apl.</string>
     <string name="menu_export">Export</string>
     <string name="menu_import">Import</string>
@@ -46,7 +48,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
     <string name="imp_exp_exported">Nastavenia exportované do súboru: %s</string>
     <string name="imp_exp_export_error">Export zlyhal: %s</string>
     <string name="imp_exp_import_error">Import zlyhal: %s</string>
-    <string name="imp_exp_invalid_import_file">Neplatný, alebo prázdny súbor importu: %s</string>
+    <string name="imp_exp_invalid_import_file">Neplatný alebo prázdny súbor importu: %s</string>
     <string name="imp_exp_imported">Import úspešný; nastavenia prepísané</string>
 
 
@@ -76,6 +78,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
     <string name="settings_insistentnotif">Neústupné oznámenia</string>
     <string name="settings_ongoingnotif">Prebiehajúce oznámenia</string>
     <string name="settings_nobignotif">Nezobrazovať veľké oznámenia</string>
+    <string name="settings_ongoingnotif">Prebiehajúce oznámenia</string>
     <string name="settings_notifpriority">Priorita oznámení</string>
     <string name="settings_mute">Vypnúť zvuk</string>
     <string name="settings_legacy_menu">Zobraziť tlačidlo Menu</string>
@@ -121,14 +124,14 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
     <string name="perms_shared_warning">UPOZORNENIE: Zdieľaný balíček!</string>
     <string name="perms_searchhint">meno alebo popis</string>
     <string name="perms_nodescription">( nie je dostupný žiadny opis )</string>
-    <string name="perms_filter_title">Vyberte povolenie pre filtrovanie, alebo Zrušiť pre zobrazenie všetkých</string>
+    <string name="perms_filter_title">Vyberte povolenie pre filtrovanie alebo Zrušiť pre zobrazenie všetkých</string>
 
     <!-- Saving settings -->
     <string name="settings_unsaved_title">Upozornenie</string>
     <string name="settings_unsaved_detail">Neuložili ste nastavenie.
 Naozaj sa chcete vrátiť a zrušiť zmeny?</string>
     <string name="settings_apply_title">Použiť nastavenia</string>
-    <string name="settings_apply_detail">Chcte aj ukončiť aplikáciu aby po opätovnom spustení použila nové nastavenia?</string>
+    <string name="settings_apply_detail">Chcete aj ukončiť aplikáciu aby po opätovnom spustení použila nové nastavenia?</string>
 
 
     <!-- Filter dialog -->
@@ -138,7 +141,10 @@ Naozaj sa chcete vrátiť a zrušiť zmeny?</string>
     <string name="filter_unchanged">Nezmenené</string>
     <string name="filter_type">Typ</string>
     <string name="filter_user">Užívateľské</string>
-    <string name="filter_system">Systemové</string>
+    <string name="filter_system">Systémové</string>
+    <string name="filter_state">Stav</string>
+    <string name="filter_enabled">Povolené</string>
+    <string name="filter_disabled">Zakázané</string>
     <string name="filter_settingsactive">Aktívne nastavenia</string>
     <string name="filter_active">Aktívne</string>
     <string name="filter_notactive">Neaktívne</string>

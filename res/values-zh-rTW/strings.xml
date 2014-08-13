@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_mod_summary">針對每個app設定環境變數，包括：
+    <string name="app_mod_summary">針對每個程式設定環境變數，包括：
     DPI、字體大小、資源存取、語言、
     全螢幕、有無標題列、保持螢幕開啟、顯示在鎖定螢幕、
     常駐背景、關閉全螢幕輸入、橫/豎介面、常駐通知、關閉大型通知、存取權限</string>
@@ -13,7 +13,7 @@
 \n如有任何建議或問題請洽<a href="http://forum.xda-developers.com/showthread.php?t=2437377">本討論串</a>。
     </string>
 
-    <string name="app_description">本模組可針對每個app設定環境變數而不需自行修改APK檔；可修改功能包括：
+    <string name="app_description">本模組可針對每個程式設定環境變數而不需自行修改APK檔；可修改功能包括：
 \n- DPI
 \n- 字體大小
 \n- 改變程式解析度
@@ -83,7 +83,7 @@
     <string name="settings_permissions">權限設定</string>
     <string name="settings_recents_mode">於最近開啟程式中顯示</string>
 
-    <string name="settings_default">（預設-依app設定）</string>
+    <string name="settings_default">（預設-依程式設定）</string>
 
     <string name="settings_force">強制</string>
     <string name="settings_prevent">停用</string>
@@ -142,5 +142,5 @@
     <string name="filter_apply">套用</string>
 
 
-    <string name="translator">Chih-Hsun Liao @TAIWAN, ROC、Felix2yu</string>
+    <string name="translator">Chih-Hsun、Liao @TAIWAN、ROC、Felix2yu、momomok</string>
 </resources>

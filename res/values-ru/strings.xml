@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_mod_summary">Изменение настроек для каждого приложения:
+DPI; Замена ресурсов; Язык; Полный экран;
+Удержание в памяти; Ориентация; Изменение прав; &#8230;</string>
+
+
+    <!-- Main screen -->
+    <string name="app_loading">Загрузка приложений, подождите</string>
+    <string name="app_searchhint">имя или пакет</string>
+    <string name="app_about"><a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> модуль от
+ <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> и <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
+ \nВы можете открыть <a href="http://forum.xda-developers.com/showthread.php?t=2437377">этот топик</a> для вопросов и предложений (на английском).</string>
+    <string name="app_description">Этот модуль позволяет изменить некоторые общие настройки без необходимости редактирования APK, для каждого приложения:
+\n- плотность / dpi
+\n- масштаб шрифта
+\n- подделка размера экрана
+\n- локаль (язык)
+\n- полный экран
+\n- скрыть заголовок
+\n- удержание экрана
+\n- удержание приложения поверх локскрина
+\n- держать в памяти
+\n- отключение клавиатуры в полном экране
+\n- форсирование ориентации (портрет/ландшафт/авто)
+\n- настойчивые уведомления (повтор звука)
+\n- отключение увеличенных уведомлений
+\n- приоритет уведомлений
+\n- удаление приложения из недавних
+\n- отключение звука (большинство приложений)
+\n- активация старой кнопки меню
+\n- изменение прав</string>
+    <string name="app_version">Версия: %s</string>
+    <string name="app_translation">Перевод: %s</string>
+    <string name="app_notactive_warning">Примечание: хотя панели конфигурации могут быть использованы как есть, они могут влиять на приложения, только если установлен Xposed framework и модуль активирован!</string>
+
+
+    <!-- main menu -->
+    <string name="menu_export">Экспорт</string>
+    <string name="menu_import">Импорт</string>
+    <string name="menu_about">О программе</string>
+
+    <!-- Import / Export -->
+    <string name="imp_exp_file_doesnt_exist">Файл не существует: %s</string>
+    <string name="imp_exp_confirm">Заменить все настройки импортированными?</string>
+    <string name="imp_exp_exported">Настройки экспортированы в файл: %s</string>
+    <string name="imp_exp_export_error">Ошибка экспорта: %s</string>
+    <string name="imp_exp_import_error">Ошибка импорта: %s</string>
+    <string name="imp_exp_invalid_import_file">Неверный или пустой файл для импорта: %s</string>
+    <string name="imp_exp_imported">Импорт успешен; настройки заменены</string>
+
+
+    <!-- app-specific menu -->
+    <string name="menu_save">Сохранить</string>
+    <string name="menu_launch">Запустить</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="menu_playstore">Play Store</string>
+
+
+    <!-- Settings screen -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_dpi">DPI</string>
+    <string name="settings_fontscale">Масштаб</string>
+    <string name="settings_listres">Ресурсы</string>
+    <string name="settings_screen">Экран (dp)</string>
+    <string name="settings_xlargeres">xlarge рес.</string>
+    <string name="settings_resonwidgets">Вкл. для виджета</string>
+    <string name="settings_locale">Язык</string>
+    <string name="settings_fullscreen">Полный экран</string>
+    <string name="settings_notitle">Нет титла</string>
+    <string name="settings_screenon">Держать экран</string>
+    <string name="settings_showwhenlocked">Показ. заблок.</string>
+    <string name="settings_resident">Резидент</string>
+    <string name="settings_nofullscreenime">Нет клав. в полном экране</string>
+    <string name="settings_orientation">Ориентация</string>
+    <string name="settings_insistentnotif">Настойчивые уведомления</string>
+    <string name="settings_nobignotif">Нет больших уведомлений</string>
+    <string name="settings_notifpriority">Приоритет уведомлений</string>
+    <string name="settings_mute">Без звука</string>
+    <string name="settings_legacy_menu">Старая кнопка меню</string>
+    <string name="settings_permissions">Права</string>
+    <string name="settings_recents_mode">Показ. в недавних</string>
+
+    <string name="settings_default">(по умолч.)</string>
+
+    <string name="settings_force">Принудительно</string>
+    <string name="settings_prevent">Запретить</string>
+    <string name="settings_immersive">Погружение</string>
+
+    <string name="settings_ori_normal">Нормальное вращение</string>
+    <string name="settings_ori_portrait">Всегда портрет</string>
+    <string name="settings_ori_landscape">Всегда ландшафт</string>
+    <string name="settings_ori_forceauto">Всегда вращаться</string>
+    <string name="settings_ori_portrait_sensor">Всегда портрет (сенсор)</string>
+    <string name="settings_ori_landscape_sensor">Всегда ландшафт (сенсор)</string>
+    <string name="settings_ori_portrait_reverse">Всегда портрет (обратно)</string>
+    <string name="settings_ori_landscape_reverse">Всегда ландшафт (обратно)</string>
+    <string name="settings_ori_forceauto_4way">Всегда вращаться (все стороны)</string>
+
+    <string name="settings_npri_max">Max</string>
+    <string name="settings_npri_high">High</string>
+    <string name="settings_npri_normal">Normal</string>
+    <string name="settings_npri_low">Low</string>
+    <string name="settings_npri_min">Min</string>
+
+    <!-- List resources -->
+    <string name="res_title">Ресурсы</string>
+    <string name="res_noentries">Ресурсы не найдены</string>
+    <string name="res_failedtoload">Ошибка загрузки ресурсов APK</string>
+
+    <!-- Show / search / revoke permissions -->
+    <string name="perms_title">Права</string>
+    <string name="perms_revoke">Изменить права</string>
+    <string name="perms_shared_warning">Внимание: Общий пакет!</string>
+    <string name="perms_searchhint">имя или описание</string>
+    <string name="perms_nodescription">(описание отсутствует)</string>
+    <string name="perms_filter_title">Выберите права для фильтрации, или отмените, чтобы показать все</string>
+
+    <!-- Saving settings -->
+    <string name="settings_unsaved_title">Внимание</string>
+    <string name="settings_unsaved_detail">Вы не сохранили настройки.
+Вы действительно хотите отменить их?</string>
+    <string name="settings_apply_title">Применить</string>
+    <string name="settings_apply_detail">Так же, убить приложение, чтобы оно подхватило новые настройки?</string>
+
+
+    <!-- Filter dialog -->
+    <string name="filter_title">Фильтр</string>
+    <string name="filter_all">Все</string>
+    <string name="filter_overridden">Изменен</string>
+    <string name="filter_unchanged">Не изменен</string>
+    <string name="filter_type">Тип</string>
+    <string name="filter_user">Пользовательские</string>
+    <string name="filter_system">Системные</string>
+    <string name="filter_settingsactive">Настройки активны</string>
+    <string name="filter_active">Активны</string>
+    <string name="filter_notactive">Не активны</string>
+    <string name="filter_resources">Загрузка ресурсов</string>
+    <string name="filter_cancel">Отменить</string>
+    <string name="filter_clear">Очистить</string>
+    <string name="filter_apply">Применить</string>
+
+
+    <string name="translator">webserfer</string>
+</resources>

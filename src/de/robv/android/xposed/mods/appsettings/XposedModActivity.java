@@ -120,8 +120,7 @@ public class XposedModActivity extends Activity {
 			}
 		});
 
-		// Load the list of apps in the background
-		new PrepareAppsAdapter().execute();
+		refreshApps();
 	}
 
 	private void loadSettings() {
@@ -173,6 +172,9 @@ public class XposedModActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.menu_refresh:
+			refreshApps();
+			return true;
 		case R.id.menu_recents:
 			showRecents();
 			return true;
@@ -188,6 +190,12 @@ public class XposedModActivity extends Activity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	private void refreshApps() {
+		appList.clear();
+		// (re)load the list of apps in the background
+		new PrepareAppsAdapter().execute();
 	}
 
 	private void showRecents() {
@@ -534,6 +542,7 @@ public class XposedModActivity extends Activity {
 		final AppListAdapter appListAdapter = new AppListAdapter(XposedModActivity.this, appList);
 
 		((ListView) findViewById(R.id.lstApps)).setAdapter(appListAdapter);
+		appListAdapter.getFilter().filter(nameFilter);
 		((SearchView) findViewById(R.id.searchApp)).setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
 			@Override

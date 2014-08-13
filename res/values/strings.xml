@@ -38,6 +38,7 @@ is enabled in its configuration!</string>
 
 
     <!-- main menu -->
+    <string name="menu_refresh">Refresh</string>
     <string name="menu_recents">Recent apps</string>
     <string name="menu_export">Export</string>
     <string name="menu_import">Import</string>

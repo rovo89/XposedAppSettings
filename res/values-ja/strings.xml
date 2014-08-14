@@ -8,7 +8,8 @@ DPI; フォントスケール; 言語;全画面; タイトル非表示; 画面�
     <!-- Main screen -->
     <string name="app_loading">アプリの読み込み中</string>
     <string name="app_searchhint">名前かパッケージ名</string>
-    <string name="app_about">この<a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a>モジュールは<a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a>と<a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>により制作されました。
+    <string name="app_about">この<a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a>モジュールは
+<a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a>と<a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>により制作されました。
  \n<a href="http://forum.xda-developers.com/showthread.php?t=2437377">このスレ</a>で質問や提案をしてください。</string>
     <string name="app_description">このモジュールではapkを編集することなくアプリ毎に様々な設定ができます:
 \n- 画面密度 / dpi
@@ -24,6 +25,7 @@ DPI; フォントスケール; 言語;全画面; タイトル非表示; 画面�
 \n- 画面の向きの強制(縦/横/自動)
 \n- 通知の繰り返し(通地音をループ)
 \n- 大きな(拡大された)通知の無効化
+\n- 実行中通知の無効化や強制
 \n- 通知の優先度
 \n- アプリ履歴からの除外
 \n- 無音化(たいていの場合)
@@ -31,10 +33,14 @@ DPI; フォントスケール; 言語;全画面; タイトル非表示; 画面�
 \n- 権限の拒否</string>
     <string name="app_version">バージョン: %s</string>
     <string name="app_translation">翻訳: %s</string>
-    <string name="app_notactive_warning">注意:Xposedフレームワークがインストールされていてこのモジュールが有効化されているときのみ設定が反映されます!</string>
+    <string name="app_notactive_warning">注意:設定はいつでも出来ますが、
+Xposedフレームワークがインストールされていてこのモジュールが
+有効化されているときのみ設定が反映されます!</string>
 
 
     <!-- main menu -->
+    <string name="menu_refresh">再読み込み</string>
+    <string name="menu_recents">アプリ履歴</string>
     <string name="menu_export">保存</string>
     <string name="menu_import">読み込み</string>
     <string name="menu_about">情報</string>
@@ -74,6 +80,7 @@ DPI; フォントスケール; 言語;全画面; タイトル非表示; 画面�
     <string name="settings_orientation">画面の向き</string>
     <string name="settings_insistentnotif">通知の繰り返し</string>
     <string name="settings_nobignotif">大きい通知無効化</string>
+    <string name="settings_ongoingnotif">実行中通知</string>
     <string name="settings_notifpriority">通知の優先度</string>
     <string name="settings_mute">無音化</string>
     <string name="settings_legacy_menu">メニューボタン表示</string>
@@ -95,12 +102,18 @@ DPI; フォントスケール; 言語;全画面; タイトル非表示; 画面�
     <string name="settings_ori_portrait_reverse">常に縦向き(逆転)</string>
     <string name="settings_ori_landscape_reverse">常に横向き(逆転)</string>
     <string name="settings_ori_forceauto_4way">自動回転を強制(4方向)</string>
+    <string name="settings_ori_portrait_user">常に縦向き(ユーザー設定)</string>
+    <string name="settings_ori_landscape_user">常に横向き(ユーザー設定)</string>
+    <string name="settings_ori_user_4way">4方向回転(ユーザー設定)</string>
 
     <string name="settings_npri_max">最高</string>
     <string name="settings_npri_high">高</string>
     <string name="settings_npri_normal">中</string>
     <string name="settings_npri_low">低</string>
     <string name="settings_npri_min">最低</string>
+
+    <!-- Recent apps -->
+    <string name="recents_title">最近のアプリ</string>
 
     <!-- List resources -->
     <string name="res_title">リソース</string>
@@ -131,6 +144,9 @@ DPI; フォントスケール; 言語;全画面; タイトル非表示; 画面�
     <string name="filter_type">タイプ</string>
     <string name="filter_user">ユーザー</string>
     <string name="filter_system">システム</string>
+    <string name="filter_state">状態</string>
+    <string name="filter_enabled">有効</string>
+    <string name="filter_disabled">無効</string>
     <string name="filter_settingsactive">アプリ毎の設定</string>
     <string name="filter_active">有効化済み</string>
     <string name="filter_notactive">無効</string>

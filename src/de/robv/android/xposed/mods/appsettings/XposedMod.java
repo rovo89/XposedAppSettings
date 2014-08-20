@@ -9,9 +9,8 @@ import static de.robv.android.xposed.XposedHelpers.setAdditionalInstanceField;
 import static de.robv.android.xposed.XposedHelpers.setFloatField;
 import static de.robv.android.xposed.XposedHelpers.setIntField;
 import static de.robv.android.xposed.XposedHelpers.setObjectField;
-
 import java.util.Locale;
-
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AndroidAppHelper;
 import android.app.Notification;
@@ -207,7 +206,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 							if (newConfig == null)
 								newConfig = new Configuration((Configuration) param.args[0]);
 
-							newConfig.locale = loc;
+							setConfigurationLocale(newConfig, loc);
 							// Also set the locale as the app-wide default,
 							// for purposes other than resource loading
 							// Only do this when the package's res are not being loaded by a different
@@ -296,6 +295,16 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
 		PackagePermissions.initHooks();
 		Activities.hookActivitySettings();
+	}
+
+
+	@SuppressLint("NewApi")
+	private void setConfigurationLocale(Configuration config, Locale loc) {
+		config.locale = loc;
+		if (Build.VERSION.SDK_INT >= 17) {
+			// Don't use setLocale() in order not to trigger userSetLocale
+			config.setLayoutDirection(loc);
+		}
 	}
 
 

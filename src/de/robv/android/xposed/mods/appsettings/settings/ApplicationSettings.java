@@ -45,6 +45,7 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 import de.robv.android.xposed.mods.appsettings.Common;
 import de.robv.android.xposed.mods.appsettings.R;
 
@@ -153,13 +154,23 @@ public class ApplicationSettings extends Activity {
 		// Update Language and list of possibilities
 		localeList = new LocaleList(getString(R.string.settings_default));
 
-		Spinner spnLanguage = (Spinner) findViewById(R.id.spnLocale);
+		final Spinner spnLanguage = (Spinner) findViewById(R.id.spnLocale);
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
 			android.R.layout.simple_spinner_item, localeList.getDescriptionList());
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spnLanguage.setAdapter(dataAdapter);
 		int selectedLocalePos = localeList.getLocalePos(prefs.getString(pkgName + Common.PREF_LOCALE, null));
 		spnLanguage.setSelection(selectedLocalePos);
+		spnLanguage.setLongClickable(true);
+		spnLanguage.setOnLongClickListener(new View.OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View arg0) {
+				int selPos = spnLanguage.getSelectedItemPosition();
+				if (selPos > 0)
+					Toast.makeText(getApplicationContext(), localeList.getLocale(selPos), Toast.LENGTH_SHORT).show();
+				return true;
+			}
+		});
 
 
 		// Helper to list all apk folders under /res

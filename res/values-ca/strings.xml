@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_mod_summary">Establiu configuracions genèriques o segons l\'app:
+DPI; Invalidació de recursos carregats; Idioma; Pantalla completa;
+Residència a la memòria; Orientació; Revocació de permisos; &#8230;</string>
+<!-- Main screen -->
+<string name="app_loading">S\'està carregant les apps, espereu</string>
+<string name="app_searchhint">nom o paquet</string>
+<string name="app_about">Un mòdul <a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> per
+<a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> i <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
+\nPodeu utilitzar <a href="http://forum.xda-developers.com/showthread.php?t=2437377">aquest fil</a> per a preguntes o suggerències.</string>
+<string name="app_description">Aquesta modificació permet que alguns paràmetres genèrics es puguin canviar segons l\'app, sense necessitar d\'editar APKs:
+\n- densitat / dpi
+\n- canvi d\'escala de lletra
+\n- mida de pantalla falsa per carregar recursos
+\n- idioma
+\n- mode de pantalla completa
+\n- oculta la barra de títol
+\n- manté la pantalla activa si l\'app és visible
+\n- mostra l\'app al damunt de la pantalla de bloqueig
+\n- roman resident a la memòria
+\n- innabilita l\'entrada de teclat a pantalla completa
+\n- força l\'orientació (vertical/horitzontal/automàtica)
+\n- avisos insistents (repetició del so)
+\n- inhabilita els avisos grans (expandits)
+\n- força o evita els avisos en curs
+\n- prioritat dels avisos
+\n- força o exclou app dels recents
+\n- silencia l\'àudio (per a la majoria d\'apps) incluent els avisos
+\n- força l\'ús del botó de menú antic (barra de navegació)
+\n- revoca permisos</string>
+<string name="app_version">Versió: %s</string>
+<string name="app_translation">Traductor: %s</string>
+<string name="app_notactive_warning">Nota: Tot i que els quadres de configuració es poden utilitzar tal i com estan,
+només tindran efecte a les apps si el marc Xposed està instal·lat i aquest mòdul
+està habilitat a la seva configuració!</string>
+<!-- main menu -->
+<string name="menu_refresh">Refresca</string>
+<string name="menu_recents">Apps recents</string>
+<string name="menu_export">Exporta</string>
+<string name="menu_import">Importa</string>
+<string name="menu_about">Quant a</string>
+<!-- Import / Export -->
+<string name="imp_exp_file_doesnt_exist">El fitxer no existeix: %s</string>
+<string name="imp_exp_confirm">S\'ha de reemplaçar tots els paràmetres pels que s\'importaran?</string>
+<string name="imp_exp_exported">S\'ha exportat la configuració al fitxer: %s</string>
+<string name="imp_exp_export_error">Ha fallat l\'exportació: %s</string>
+<string name="imp_exp_import_error">Ha fallat la importació: %s</string>
+<string name="imp_exp_invalid_import_file">Fitxer per importar no vàlid o buit: %s</string>
+<string name="imp_exp_imported">Importació amb èxit; s\'han reemplçat la configuració</string>
+<!-- app-specific menu -->
+<string name="menu_save">Desa</string>
+<string name="menu_launch">Executa</string>
+<string name="menu_settings">Configuració</string>
+<string name="menu_playstore">Play Store</string>
+<!-- Settings screen -->
+<string name="settings_title">Configuració</string>
+<string name="settings_dpi">Punts per polzada</string>
+<string name="settings_fontscale">Escala de lletra</string>
+<string name="settings_listres">Llista res.</string>
+<string name="settings_screen">Pantalla (dp)</string>
+<string name="settings_xlargeres">res. xgran</string>
+<string name="settings_resonwidgets">Applica res. als estris</string>
+<string name="settings_locale">Idioma</string>
+<string name="settings_fullscreen">Pantalla completa</string>
+<string name="settings_notitle">Sense títol</string>
+<string name="settings_screenon">Manté la pantalla activa</string>
+<string name="settings_showwhenlocked">Mostra quan està bloquejat</string>
+<string name="settings_resident">Resident</string>
+<string name="settings_nofullscreenime">No teclat a pantalla completa</string>
+<string name="settings_orientation">Orientació</string>
+<string name="settings_insistentnotif">Avisos insistents</string>
+<string name="settings_nobignotif">No avisos grans</string>
+<string name="settings_ongoingnotif">Avisos en curs</string>
+<string name="settings_notifpriority">Prioritat dels avisos</string>
+<string name="settings_mute">Silencia l\'àudio</string>
+<string name="settings_legacy_menu">Botó de menú antic</string>
+<string name="settings_permissions">Permisos</string>
+<string name="settings_recents_mode">Mostra a recents</string>
+<string name="settings_default">(per defecte)</string>
+<string name="settings_force">Força</string>
+<string name="settings_prevent">Evitat</string>
+<string name="settings_immersive">Immersiu</string>
+<string name="settings_ori_normal">Rotació normal</string>
+<string name="settings_ori_portrait">Sempre vertical</string>
+<string name="settings_ori_landscape">Sempre horitzontal</string>
+<string name="settings_ori_forceauto">Força la rotació automàtica</string>
+<string name="settings_ori_portrait_sensor">Sempre vertical (sensor)</string>
+<string name="settings_ori_landscape_sensor">Sempre horitzontal (sensor)</string>
+<string name="settings_ori_portrait_reverse">Sempre vertical (inversa)</string>
+<string name="settings_ori_landscape_reverse">Sempre horitzontal (inversa)</string>
+<string name="settings_ori_forceauto_4way">Força la rotació automàtica (4 costats)</string>
+<string name="settings_ori_portrait_user">Sempre vertical (configuració d\'usuari)</string>
+<string name="settings_ori_landscape_user">Sempre horitzontal (configuració d\'usuari)</string>
+<string name="settings_ori_user_4way">Rotació als 4 costats (configuració d\'usuari)</string>
+<string name="settings_npri_max">Màxima</string>
+<string name="settings_npri_high">Alta</string>
+<string name="settings_npri_normal">Normal</string>
+<string name="settings_npri_low">Baixa</string>
+<string name="settings_npri_min">Mínima</string>
+<!-- Recent apps -->
+<string name="recents_title">Aplicacions recents</string>
+<!-- List resources -->
+<string name="res_title">Recursos</string>
+<string name="res_noentries">No s\'ha trobat cap recurs</string>
+<string name="res_failedtoload">Ha fallat la càrrega dels contiguts de l\'APK</string>
+<!-- Show / search / revoke permissions -->
+<string name="perms_title">Permisos</string>
+<string name="perms_revoke">Revoca permisos</string>
+<string name="perms_shared_warning">AVÍS: Paquet compartit!</string>
+<string name="perms_searchhint">nom o descripció</string>
+<string name="perms_nodescription">( no hi ha descripció )</string>
+<string name="perms_filter_title">Seleccioneu el permís pel qual s\'ha de filtrar, o Cancel·la per mostrar-ho tot</string>
+<!-- Saving settings -->
+<string name="settings_unsaved_title">Avís</string>
+<string name="settings_unsaved_detail">No heu desat la configuració.
+Segur que voleu tornar i descartar els canvis?</string>
+<string name="settings_apply_title">Aplica la configuració</string>
+<string name="settings_apply_detail">S\'ha de matar també l\'aplicació perquè quan es torni a executar utilitzi la configuració nova?</string>
+<!-- Filter dialog -->
+<string name="filter_title">Filtre</string>
+<string name="filter_all">Tot</string>
+<string name="filter_overridden">Invalidat</string>
+<string name="filter_unchanged">Sense canvis</string>
+<string name="filter_type">Tipus</string>
+<string name="filter_user">Usuari</string>
+<string name="filter_system">Sistema</string>
+<string name="filter_state">Estat</string>
+<string name="filter_enabled">Habilitat</string>
+<string name="filter_disabled">Inhabilitat</string>
+<string name="filter_settingsactive">Paràmetres actius</string>
+<string name="filter_active">Actius</string>
+<string name="filter_notactive">Inactius</string>
+<string name="filter_resources">Càrrega de recursos</string>
+<string name="filter_cancel">Cancel·la</string>
+<string name="filter_clear">Neteja</string>
+<string name="filter_apply">Aplica</string>
+<string name="translator">Ferri64</string>
+</resources>

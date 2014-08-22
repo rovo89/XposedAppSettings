@@ -20,7 +20,7 @@ DPI, velikost písma, jazyk, načítání zdrojů, zobrazení na celou obrazovku
 \n- nevypínat obrazovku, když je aplikace aktivní
 \n- zobrazit aplikaci nad uzamykací obrazovkou
 \n- ponechat v paměti
-\n- disable fullscreen keyboard input
+\n- zakázat vstup přes klávesnici na celou obrazovku
 \n- vynutit orientaci (na výšku, na šírku, autom.)
 \n- neústupné oznámení (opakovat zvuk)
 \n- zrušit velké (rozšířené) oznámení

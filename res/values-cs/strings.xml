@@ -11,7 +11,7 @@ DPI, velikost písma, jazyk, načítání zdrojů, zobrazení na celou obrazovku
  <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> a <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
  \nMůžete použít <a href="http://forum.xda-developers.com/showthread.php?t=2437377">toto vlákno</a> pro otázky a návrhy.</string>
     <string name="app_description">Tento modul vám umožní změnit několik základních nastavení pro jednotlivé aplikace bez nutnosti upravovat APK:
-\n- DPI
+\n- dpi
 \n- velikost písma
 \n- falešná velikost obrazovky pro načítání zdrojů
 \n- jazyk

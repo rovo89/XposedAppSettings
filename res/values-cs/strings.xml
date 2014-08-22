@@ -20,10 +20,15 @@ DPI, velikost písma, jazyk, načítání zdrojů, zobrazení na celou obrazovku
 \n- nevypínat obrazovku, když je aplikace aktivní
 \n- zobrazit aplikaci nad uzamykací obrazovkou
 \n- ponechat v paměti
-\n- disable fullscreen keyboard input
-\n- vynutit orientaci (na výšku, na šírku, autom.)
+\n- zakázat vstup přes klávesnici na celou obrazovku
+\n- vynutit orientaci (na výšku, na šířku, autom.)
 \n- neústupné oznámení (opakovat zvuk)
 \n- zrušit velké (rozšířené) oznámení
+\n- vynutit nebo zabránit probíhající oznámení
+\n- priorita oznámení
+\n- vyloučit aplikaci z panelu nedávných aplikací
+\n- vypnout zvuk (pro většinu aplikací)
+\n- vynutit zobrazení tlačítka Menu v navigační liště
 \n- zakázat oznámení</string>
     <string name="app_version">Verze: %s</string>
     <string name="app_translation">Překladatel: %s</string>
@@ -31,6 +36,8 @@ DPI, velikost písma, jazyk, načítání zdrojů, zobrazení na celou obrazovku
 
 
     <!-- main menu -->
+    <string name="menu_refresh">Obnovit</string>
+	<string name="menu_recents">Nedávné apl.</string>
     <string name="menu_export">Exportovat</string>
     <string name="menu_import">Importovat</string>
     <string name="menu_about">O aplikaci</string>
@@ -59,19 +66,25 @@ DPI, velikost písma, jazyk, načítání zdrojů, zobrazení na celou obrazovku
     <string name="settings_listres">Zdroje</string>
     <string name="settings_screen">Rozlišení obrazovky</string>
     <string name="settings_xlargeres">extra rozl.</string>
+    <string name="settings_resonwidgets">Použít rozl. na miniaplikace</string>
     <string name="settings_locale">Jazyk</string>
     <string name="settings_fullscreen">Na celou obrazovku</string>
     <string name="settings_notitle">Bez záhlaví</string>
     <string name="settings_screenon">Ponechat zap. obrazovku</string>
     <string name="settings_showwhenlocked">Zobrazit při uzamknuté obrazovce</string>
     <string name="settings_resident">Ponechat v paměti</string>
-    <string name="settings_nofullscreenime">No Fullscreen IME</string>
+    <string name="settings_nofullscreenime">Ne Celoobraz. IME</string>
     <string name="settings_orientation">Orientace</string>
     <string name="settings_insistentnotif">Neústupné oznámení</string>
     <string name="settings_nobignotif">Nezobrazovat velké oznámení</string>
+    <string name="settings_ongoingnotif">Probíhající oznámení</string>
+    <string name="settings_notifpriority">Priorita oznámení</string>
+    <string name="settings_mute">Vypnout zvuk</string>
+    <string name="settings_legacy_menu">Zobrazit tlačítko Menu</string>
     <string name="settings_permissions">Povolení</string>
+    <string name="settings_recents_mode">Zobrazit mezi nedávnými aplikacemi</string>
 
-    <string name="settings_default">(předvolené)</string>
+    <string name="settings_default">(výchozí)</string>
 
     <string name="settings_force">Vynutit</string>
     <string name="settings_prevent">Zabránit</string>
@@ -79,8 +92,22 @@ DPI, velikost písma, jazyk, načítání zdrojů, zobrazení na celou obrazovku
 
     <string name="settings_ori_normal">Předvolené otočení</string>
     <string name="settings_ori_portrait">Vždy na výšku</string>
-    <string name="settings_ori_landscape">Vždy na šírku</string>
-    <string name="settings_ori_forceauto">Vynutit automatické otáčaní</string>
+    <string name="settings_ori_landscape">Vždy na šířku</string>
+    <string name="settings_ori_forceauto">Vynutit automatické otáčení</string>
+    <string name="settings_ori_portrait_sensor">Vždy na výšku (senzor)</string>
+    <string name="settings_ori_landscape_sensor">Vždy na šířku (senzor)</string>
+    <string name="settings_ori_portrait_reverse">Vždy na výšku (opačně)</string>
+    <string name="settings_ori_landscape_reverse">Vždy na šířku (opačně)</string>
+    <string name="settings_ori_forceauto_4way">Vynutit autom. otáčení (4-směry)</string>
+    <string name="settings_ori_portrait_user">Vždy na výšku (uživatelské nast.)</string>
+    <string name="settings_ori_landscape_user">Vždy na šířku (uživatelské nast.)</string>
+    <string name="settings_ori_user_4way">Otáčení na všechny strany (uživatelské nast.)</string>
+    <string name="settings_npri_max">Maximální</string>
+    <string name="settings_npri_high">Vysoká</string>
+    <string name="settings_npri_normal">Normální</string>
+    <string name="settings_npri_low">Nízká</string>
+    <string name="settings_npri_min">Minimální</string>
+    <string name="recents_title">Nedávné aplikace</string>
 
     <!-- List resources -->
     <string name="res_title">Zdroje</string>
@@ -90,13 +117,13 @@ DPI, velikost písma, jazyk, načítání zdrojů, zobrazení na celou obrazovku
     <!-- Show / search / revoke permissions -->
     <string name="perms_title">Povolení</string>
     <string name="perms_revoke">Zakázat povolení</string>
-    <string name="perms_shared_warning">UPOZORNENIE: Sdílený balíček!</string>
+    <string name="perms_shared_warning">UPOZORNĚNÍ: Sdílený balíček!</string>
     <string name="perms_searchhint">Jméno nebo popis</string>
-    <string name="perms_nodescription">(není dostupný žiadny popis)</string>
+    <string name="perms_nodescription">(není dostupný žádný popis)</string>
     <string name="perms_filter_title">Vyberte povolení pro filtrování, nebo Zrušte pro zobrazení všech</string>
 
     <!-- Saving settings -->
-    <string name="settings_unsaved_title">Upozornení</string>
+    <string name="settings_unsaved_title">Upozornění</string>
     <string name="settings_unsaved_detail">Neuložili jste nastavení.
 Opravdu se chcete vrátit a zrušit změny?</string>
     <string name="settings_apply_title">Použít nastavení</string>
@@ -107,10 +134,13 @@ Opravdu se chcete vrátit a zrušit změny?</string>
     <string name="filter_title">Filtr</string>
     <string name="filter_all">Všechny</string>
     <string name="filter_overridden">Přepsané</string>
-    <string name="filter_unchanged">Nezměnené</string>
+    <string name="filter_unchanged">Nezměněné</string>
     <string name="filter_type">Typ</string>
-    <string name="filter_user">Užívatelské</string>
+    <string name="filter_user">Uživatelské</string>
     <string name="filter_system">Systémové</string>
+    <string name="filter_state">Stav</string>
+    <string name="filter_enabled">Povoleno</string>
+    <string name="filter_disabled">Zakázáno</string>
     <string name="filter_settingsactive">Aktivní nastavení</string>
     <string name="filter_active">Aktivní</string>
     <string name="filter_notactive">Neaktivní</string>
@@ -120,5 +150,5 @@ Opravdu se chcete vrátit a zrušit změny?</string>
     <string name="filter_apply">Použít</string>
 
 
-    <string name="translator">ja_som (Slovenština) korekce pro češtinu WodokCZ</string>
+    <string name="translator">renek</string>
 </resources>

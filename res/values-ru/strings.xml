@@ -7,7 +7,7 @@ DPI; Замена ресурсов; Язык; Полный экран;
 
     <!-- Main screen -->
     <string name="app_loading">Загрузка приложений, подождите</string>
-    <string name="app_searchhint">имя или пакет</string>
+    <string name="app_searchhint">название приложения или пакета</string>
     <string name="app_about"><a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> модуль от
  <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> и <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
  \nВы можете открыть <a href="http://forum.xda-developers.com/showthread.php?t=2437377">этот топик</a> для вопросов и предложений (на английском).</string>
@@ -64,24 +64,25 @@ DPI; Замена ресурсов; Язык; Полный экран;
     <string name="settings_listres">Ресурсы</string>
     <string name="settings_screen">Экран (dp)</string>
     <string name="settings_xlargeres">xlarge рес.</string>
-    <string name="settings_resonwidgets">Вкл. для виджета</string>
+    <string name="settings_resonwidgets">Использовать ресурсы для виджета</string>
     <string name="settings_locale">Язык</string>
     <string name="settings_fullscreen">Полный экран</string>
     <string name="settings_notitle">Нет титла</string>
-    <string name="settings_screenon">Держать экран</string>
-    <string name="settings_showwhenlocked">Показ. заблок.</string>
+    <string name="settings_screenon">Держать экран включенным</string>
+    <string name="settings_showwhenlocked">Показ. при блокировке</string>
     <string name="settings_resident">Резидент</string>
     <string name="settings_nofullscreenime">Нет клав. в полном экране</string>
     <string name="settings_orientation">Ориентация</string>
     <string name="settings_insistentnotif">Настойчивые уведомления</string>
-    <string name="settings_nobignotif">Нет больших уведомлений</string>
+    <string name="settings_nobignotif">Компактные уведомления</string>
+	<string name="settings_ongoingnotif">Постоянные уведомления</string>
     <string name="settings_notifpriority">Приоритет уведомлений</string>
     <string name="settings_mute">Без звука</string>
-    <string name="settings_legacy_menu">Старая кнопка меню</string>
-    <string name="settings_permissions">Права</string>
+    <string name="settings_legacy_menu">Классическое меню</string>
+    <string name="settings_permissions">Управление разрешениями</string>
     <string name="settings_recents_mode">Показ. в недавних</string>
 
-    <string name="settings_default">(по умолч.)</string>
+    <string name="settings_default">(по умолчанию)</string>
 
     <string name="settings_force">Принудительно</string>
     <string name="settings_prevent">Запретить</string>
@@ -97,11 +98,11 @@ DPI; Замена ресурсов; Язык; Полный экран;
     <string name="settings_ori_landscape_reverse">Всегда ландшафт (обратно)</string>
     <string name="settings_ori_forceauto_4way">Всегда вращаться (все стороны)</string>
 
-    <string name="settings_npri_max">Max</string>
-    <string name="settings_npri_high">High</string>
-    <string name="settings_npri_normal">Normal</string>
-    <string name="settings_npri_low">Low</string>
-    <string name="settings_npri_min">Min</string>
+    <string name="settings_npri_max">Максимальные</string>
+    <string name="settings_npri_high">Высокие</string>
+    <string name="settings_npri_normal">Нормальные</string>
+    <string name="settings_npri_low">Низкие</string>
+    <string name="settings_npri_min">Минимальные</string>
 
     <!-- List resources -->
     <string name="res_title">Ресурсы</string>
@@ -109,12 +110,12 @@ DPI; Замена ресурсов; Язык; Полный экран;
     <string name="res_failedtoload">Ошибка загрузки ресурсов APK</string>
 
     <!-- Show / search / revoke permissions -->
-    <string name="perms_title">Права</string>
-    <string name="perms_revoke">Изменить права</string>
+    <string name="perms_title">Управление разрешениями</string>
+    <string name="perms_revoke">Изменить разрешения</string>
     <string name="perms_shared_warning">Внимание: Общий пакет!</string>
     <string name="perms_searchhint">имя или описание</string>
     <string name="perms_nodescription">(описание отсутствует)</string>
-    <string name="perms_filter_title">Выберите права для фильтрации, или отмените, чтобы показать все</string>
+    <string name="perms_filter_title">Выберите разрешения для фильтрации, или отмените, чтобы показать все</string>
 
     <!-- Saving settings -->
     <string name="settings_unsaved_title">Внимание</string>

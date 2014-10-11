@@ -128,6 +128,32 @@ public class ApplicationSettings extends Activity {
 			((EditText) findViewById(R.id.txtFontScale)).setText("100");
 		}
 
+        // Update XDPI field
+        if (prefs.getBoolean(pkgName + Common.PREF_ACTIVE, false)) {
+            ((EditText) findViewById(R.id.txtXDPI)).setText(String.valueOf(prefs.getInt(pkgName + Common.PREF_XDPI, 0)));
+        } else {
+            ((EditText) findViewById(R.id.txtXDPI)).setText("0");
+        }
+
+        // Update YDPI field
+        if (prefs.getBoolean(pkgName + Common.PREF_ACTIVE, false)) {
+            ((EditText) findViewById(R.id.txtYDPI)).setText(String.valueOf(prefs.getInt(pkgName + Common.PREF_XDPI, 0)));
+        } else {
+            ((EditText) findViewById(R.id.txtYDPI)).setText("0");
+        }
+
+        // Update Use DPI field
+        if (prefs.getBoolean(pkgName + Common.PREF_ACTIVE, false)) {
+            ((CheckBox) findViewById(R.id.chkUseDPI)).setChecked(prefs.getBoolean(pkgName + Common.PREF_XYDPI_USE_DPI, false));
+            configureUseDpiCheckbox(((CheckBox) findViewById(R.id.chkUseDPI)).isChecked());
+            ((CheckBox) findViewById(R.id.chkUseDPI)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    configureUseDpiCheckbox(isChecked);
+                }
+            });
+        }
+
 		// Load and render current screen setting + possible options
 		int screen = prefs.getInt(pkgName + Common.PREF_SCREEN, 0);
 		if (screen < 0 || screen >= Common.swdp.length)
@@ -385,6 +411,20 @@ public class ApplicationSettings extends Activity {
 		settingKeys = getSettingKeys();
 		initialSettings = getSettings();
 	}
+
+    private void configureUseDpiCheckbox(boolean isChecked) {
+        if (isChecked) {
+            findViewById(R.id.txtXDPI).setEnabled(false);
+            findViewById(R.id.txtYDPI).setEnabled(false);
+            ((EditText) findViewById(R.id.txtXDPI)).setText(((EditText) findViewById(R.id.txtDPI)).getText().toString());
+            ((EditText) findViewById(R.id.txtYDPI)).setText(((EditText) findViewById(R.id.txtDPI)).getText().toString());
+        } else {
+            findViewById(R.id.txtXDPI).setEnabled(true);
+            findViewById(R.id.txtYDPI).setEnabled(true);
+            ((EditText) findViewById(R.id.txtXDPI)).setText("0");
+            ((EditText) findViewById(R.id.txtYDPI)).setText("0");
+        }
+    }
 
 	private Set<String> getSettingKeys() {
 		HashSet<String> settingKeys = new HashSet<String>();

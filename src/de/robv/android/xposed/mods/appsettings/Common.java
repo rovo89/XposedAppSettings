@@ -31,6 +31,9 @@ public class Common {
 
 	public static final String PREF_ACTIVE = "/active";
 	public static final String PREF_DPI = "/dpi";
+    public static final String PREF_XDPI = "/xdpi";
+    public static final String PREF_YDPI = "/ydpi";
+    public static final String PREF_XYDPI_USE_DPI = "/xydpi-use-dpi";
 	public static final String PREF_FONT_SCALE = "/font-scale";
 	public static final String PREF_LOCALE = "/locale";
 	public static final String PREF_SCREEN = "/screen";

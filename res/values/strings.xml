@@ -13,6 +13,7 @@ Resident in memory; Orientation; Revoke Permissions; &#8230;</string>
  \nYou can use <a href="http://forum.xda-developers.com/showthread.php?t=2437377">this thread</a> for questions or suggestions.</string>
     <string name="app_description">This mod allows certain generic configurations to be changed on a per-app basis, without needing to edit APKs:
 \n- density / dpi
+\n- xdpi / ydpi
 \n- font scale
 \n- fake screen size for resources loading
 \n- locale (language)

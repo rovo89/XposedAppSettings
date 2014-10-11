@@ -105,6 +105,67 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 			XposedBridge.log(t);
 		}
 
+        
+        // Override settings used when loading resources
+        try {
+            findAndHookMethod(Display.class, "getMetrics", DisplayMetrics.class, new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    if (param.args[0] == null) {
+                        return;
+                    }
+
+                    String hostPackageName = AndroidAppHelper.currentPackageName();
+
+                    // Workaround for KitKat. The keyguard is a different package now but runs in the
+                    // same process as SystemUI and displays as main package
+                    if (Build.VERSION.SDK_INT >= 19 && hostPackageName.equals("com.android.keyguard"))
+                        hostPackageName = SYSTEMUI_PACKAGE;
+
+                    // settings related to the density etc. are calculated for the running app...
+                    DisplayMetrics newMetrics = null;
+                    if (hostPackageName != null && isActive(hostPackageName)) {
+
+                        int dpi = prefs.getInt(hostPackageName + Common.PREF_DPI,
+                                prefs.getInt(Common.PREF_DEFAULT + Common.PREF_DPI, 0));
+                        int xdpi = prefs.getInt(hostPackageName + Common.PREF_XDPI,
+                                prefs.getInt(Common.PREF_DEFAULT + Common.PREF_XDPI, 0));
+                        int ydpi = prefs.getInt(hostPackageName + Common.PREF_YDPI,
+                                prefs.getInt(Common.PREF_DEFAULT + Common.PREF_YDPI, 0));
+
+                        if (dpi > 0 || xdpi > 0 || ydpi > 0) {
+                            newMetrics = (DisplayMetrics) param.args[0];
+
+                            if (dpi > 0) {
+                                newMetrics.density = dpi / 160f;
+                                newMetrics.densityDpi = dpi;
+                                if (Build.VERSION.SDK_INT >= 17) {
+                                    setIntField(newMetrics, "densityDpi", dpi);
+                                }
+                            }
+                            if (xdpi > 0) {
+                                newMetrics.xdpi = (float) xdpi;
+                                if (Build.VERSION.SDK_INT >= 17) {
+                                    setFloatField(newMetrics, "xdpi", (float) xdpi);
+                                }
+                            }
+                            if (ydpi > 0) {
+                                newMetrics.ydpi = (float) ydpi;
+                                if (Build.VERSION.SDK_INT >= 17) {
+                                    setFloatField(newMetrics, "ydpi", (float) ydpi);
+                                }
+                            }
+                        }
+                    }
+                    if (newMetrics != null)
+                        param.args[0] = newMetrics;
+                }
+            });
+        } catch (Throwable t) {
+            XposedBridge.log(t);
+        }
+
+
 		// Override settings used when loading resources
 		try {
 			findAndHookMethod(Resources.class, "updateConfiguration",

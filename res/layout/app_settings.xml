@@ -127,7 +127,7 @@
                         android:id="@+id/chkUseDPI"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/settings_same_as_dpi"/>
+                        android:text="@string/settings_xydpi_use_dpi"/>
             </LinearLayout>
 
 

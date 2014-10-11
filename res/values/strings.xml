@@ -66,9 +66,9 @@ is enabled in its configuration!</string>
     <!-- Settings screen -->
     <string name="settings_title">Settings</string>
     <string name="settings_dpi">DPI</string>
-    <string name="settings_xdpi">X DPI</string>
-    <string name="settings_ydpi">Y DPI</string>
-    <string name="settings_same_as_dpi">Use DPI</string>
+    <string name="settings_xdpi">XDPI</string>
+    <string name="settings_ydpi">YDPI</string>
+    <string name="settings_xydpi_use_dpi">Use DPI</string>
     <string name="settings_fontscale">Font scale</string>
     <string name="settings_listres">List res.</string>
     <string name="settings_screen">Screen (dp)</string>

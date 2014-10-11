@@ -145,14 +145,14 @@ public class ApplicationSettings extends Activity {
 
         // Update XDPI field
         if (prefs.getBoolean(pkgName + Common.PREF_ACTIVE, false)) {
-            ((EditText) findViewById(R.id.txtXDPI)).setText(String.valueOf(prefs.getFloat(pkgName + Common.PREF_XDPI, 0)));
+            ((EditText) findViewById(R.id.txtXDPI)).setText(String.valueOf(prefs.getInt(pkgName + Common.PREF_XDPI, 0)));
         } else {
             ((EditText) findViewById(R.id.txtXDPI)).setText("0");
         }
 
         // Update YDPI field
         if (prefs.getBoolean(pkgName + Common.PREF_ACTIVE, false)) {
-            ((EditText) findViewById(R.id.txtYDPI)).setText(String.valueOf(prefs.getFloat(pkgName + Common.PREF_XDPI, 0)));
+            ((EditText) findViewById(R.id.txtYDPI)).setText(String.valueOf(prefs.getInt(pkgName + Common.PREF_YDPI, 0)));
         } else {
             ((EditText) findViewById(R.id.txtYDPI)).setText("0");
         }
@@ -436,8 +436,6 @@ public class ApplicationSettings extends Activity {
         } else {
             findViewById(R.id.txtXDPI).setEnabled(true);
             findViewById(R.id.txtYDPI).setEnabled(true);
-            ((EditText) findViewById(R.id.txtXDPI)).setText("0");
-            ((EditText) findViewById(R.id.txtYDPI)).setText("0");
         }
     }
 
@@ -497,18 +495,18 @@ public class ApplicationSettings extends Activity {
 			if (fontScale != 0 && fontScale != 100)
 				settings.put(pkgName + Common.PREF_FONT_SCALE, fontScale);
 
-            float xdpi;
+            int xdpi;
             try {
-                xdpi = Float.parseFloat(((EditText) findViewById(R.id.txtXDPI)).getText().toString());
+                xdpi = Integer.parseInt(((EditText) findViewById(R.id.txtXDPI)).getText().toString());
             } catch (Exception ex) {
                 xdpi = 0;
             }
             if (xdpi != 0)
                 settings.put(pkgName + Common.PREF_XDPI, xdpi);
 
-            float ydpi;
+            int ydpi;
             try {
-                ydpi = Float.parseFloat(((EditText) findViewById(R.id.txtYDPI)).getText().toString());
+                ydpi = Integer.parseInt(((EditText) findViewById(R.id.txtYDPI)).getText().toString());
             } catch (Exception ex) {
                 ydpi = 0;
             }
@@ -680,9 +678,7 @@ public class ApplicationSettings extends Activity {
 						prefsEditor.putBoolean(key, ((Boolean) value).booleanValue());
 					} else if (value instanceof Integer) {
 						prefsEditor.putInt(key, ((Integer) value).intValue());
-					} else if (value instanceof Float) {
-                        prefsEditor.putFloat(key, ((Float) value).floatValue());
-                    } else if (value instanceof String) {
+					} else if (value instanceof String) {
 						prefsEditor.putString(key, (String) value);
 					} else if (value instanceof Set) {
 						prefsEditor.remove(key);

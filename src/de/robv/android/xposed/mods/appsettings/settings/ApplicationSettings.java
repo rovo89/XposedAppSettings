@@ -32,6 +32,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -120,6 +122,19 @@ public class ApplicationSettings extends Activity {
 		} else {
 			((EditText) findViewById(R.id.txtDPI)).setText("0");
 		}
+        ((EditText) findViewById(R.id.txtDPI)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(((CheckBox) findViewById(R.id.chkUseDPI)).isChecked()) {
+                    ((EditText) findViewById(R.id.txtXDPI)).setText(((EditText) findViewById(R.id.txtDPI)).getText().toString());
+                    ((EditText) findViewById(R.id.txtYDPI)).setText(((EditText) findViewById(R.id.txtDPI)).getText().toString());
+                }
+            }
+        });
 
 		// Update Font Scaling field
 		if (prefs.getBoolean(pkgName + Common.PREF_ACTIVE, false)) {
@@ -130,14 +145,14 @@ public class ApplicationSettings extends Activity {
 
         // Update XDPI field
         if (prefs.getBoolean(pkgName + Common.PREF_ACTIVE, false)) {
-            ((EditText) findViewById(R.id.txtXDPI)).setText(String.valueOf(prefs.getInt(pkgName + Common.PREF_XDPI, 0)));
+            ((EditText) findViewById(R.id.txtXDPI)).setText(String.valueOf(prefs.getFloat(pkgName + Common.PREF_XDPI, 0)));
         } else {
             ((EditText) findViewById(R.id.txtXDPI)).setText("0");
         }
 
         // Update YDPI field
         if (prefs.getBoolean(pkgName + Common.PREF_ACTIVE, false)) {
-            ((EditText) findViewById(R.id.txtYDPI)).setText(String.valueOf(prefs.getInt(pkgName + Common.PREF_XDPI, 0)));
+            ((EditText) findViewById(R.id.txtYDPI)).setText(String.valueOf(prefs.getFloat(pkgName + Common.PREF_XDPI, 0)));
         } else {
             ((EditText) findViewById(R.id.txtYDPI)).setText("0");
         }
@@ -665,7 +680,9 @@ public class ApplicationSettings extends Activity {
 						prefsEditor.putBoolean(key, ((Boolean) value).booleanValue());
 					} else if (value instanceof Integer) {
 						prefsEditor.putInt(key, ((Integer) value).intValue());
-					} else if (value instanceof String) {
+					} else if (value instanceof Float) {
+                        prefsEditor.putFloat(key, ((Float) value).floatValue());
+                    } else if (value instanceof String) {
 						prefsEditor.putString(key, (String) value);
 					} else if (value instanceof Set) {
 						prefsEditor.remove(key);

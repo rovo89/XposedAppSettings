@@ -32,6 +32,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -120,6 +122,19 @@ public class ApplicationSettings extends Activity {
 		} else {
 			((EditText) findViewById(R.id.txtDPI)).setText("0");
 		}
+        ((EditText) findViewById(R.id.txtDPI)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(((CheckBox) findViewById(R.id.chkUseDPI)).isChecked()) {
+                    ((EditText) findViewById(R.id.txtXDPI)).setText(((EditText) findViewById(R.id.txtDPI)).getText().toString());
+                    ((EditText) findViewById(R.id.txtYDPI)).setText(((EditText) findViewById(R.id.txtDPI)).getText().toString());
+                }
+            }
+        });
 
 		// Update Font Scaling field
 		if (prefs.getBoolean(pkgName + Common.PREF_ACTIVE, false)) {
@@ -127,6 +142,32 @@ public class ApplicationSettings extends Activity {
 		} else {
 			((EditText) findViewById(R.id.txtFontScale)).setText("100");
 		}
+
+        // Update XDPI field
+        if (prefs.getBoolean(pkgName + Common.PREF_ACTIVE, false)) {
+            ((EditText) findViewById(R.id.txtXDPI)).setText(String.valueOf(prefs.getInt(pkgName + Common.PREF_XDPI, 0)));
+        } else {
+            ((EditText) findViewById(R.id.txtXDPI)).setText("0");
+        }
+
+        // Update YDPI field
+        if (prefs.getBoolean(pkgName + Common.PREF_ACTIVE, false)) {
+            ((EditText) findViewById(R.id.txtYDPI)).setText(String.valueOf(prefs.getInt(pkgName + Common.PREF_YDPI, 0)));
+        } else {
+            ((EditText) findViewById(R.id.txtYDPI)).setText("0");
+        }
+
+        // Update Use DPI field
+        if (prefs.getBoolean(pkgName + Common.PREF_ACTIVE, false)) {
+            ((CheckBox) findViewById(R.id.chkUseDPI)).setChecked(prefs.getBoolean(pkgName + Common.PREF_XYDPI_USE_DPI, false));
+        }
+        configureUseDpiCheckbox(((CheckBox) findViewById(R.id.chkUseDPI)).isChecked());
+        ((CheckBox) findViewById(R.id.chkUseDPI)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                configureUseDpiCheckbox(isChecked);
+            }
+        });
 
 		// Load and render current screen setting + possible options
 		int screen = prefs.getInt(pkgName + Common.PREF_SCREEN, 0);
@@ -386,6 +427,18 @@ public class ApplicationSettings extends Activity {
 		initialSettings = getSettings();
 	}
 
+    private void configureUseDpiCheckbox(boolean isChecked) {
+        if (isChecked) {
+            findViewById(R.id.txtXDPI).setEnabled(false);
+            findViewById(R.id.txtYDPI).setEnabled(false);
+            ((EditText) findViewById(R.id.txtXDPI)).setText(((EditText) findViewById(R.id.txtDPI)).getText().toString());
+            ((EditText) findViewById(R.id.txtYDPI)).setText(((EditText) findViewById(R.id.txtDPI)).getText().toString());
+        } else {
+            findViewById(R.id.txtXDPI).setEnabled(true);
+            findViewById(R.id.txtYDPI).setEnabled(true);
+        }
+    }
+
 	private Set<String> getSettingKeys() {
 		HashSet<String> settingKeys = new HashSet<String>();
 		settingKeys.add(pkgName + Common.PREF_ACTIVE);
@@ -412,6 +465,9 @@ public class ApplicationSettings extends Activity {
 		settingKeys.add(pkgName + Common.PREF_LEGACY_MENU);
 		settingKeys.add(pkgName + Common.PREF_REVOKEPERMS);
 		settingKeys.add(pkgName + Common.PREF_REVOKELIST);
+        settingKeys.add(pkgName + Common.PREF_XDPI);
+        settingKeys.add(pkgName + Common.PREF_YDPI);
+        settingKeys.add(pkgName + Common.PREF_XYDPI_USE_DPI);
 		return settingKeys;
 	}
 
@@ -438,6 +494,27 @@ public class ApplicationSettings extends Activity {
 			}
 			if (fontScale != 0 && fontScale != 100)
 				settings.put(pkgName + Common.PREF_FONT_SCALE, fontScale);
+
+            int xdpi;
+            try {
+                xdpi = Integer.parseInt(((EditText) findViewById(R.id.txtXDPI)).getText().toString());
+            } catch (Exception ex) {
+                xdpi = 0;
+            }
+            if (xdpi != 0)
+                settings.put(pkgName + Common.PREF_XDPI, xdpi);
+
+            int ydpi;
+            try {
+                ydpi = Integer.parseInt(((EditText) findViewById(R.id.txtYDPI)).getText().toString());
+            } catch (Exception ex) {
+                ydpi = 0;
+            }
+            if (ydpi != 0)
+                settings.put(pkgName + Common.PREF_YDPI, ydpi);
+
+            if (((CheckBox) findViewById(R.id.chkUseDPI)).isChecked())
+                settings.put(pkgName + Common.PREF_XYDPI_USE_DPI, true);
 
 			int screen = ((Spinner) findViewById(R.id.spnScreen)).getSelectedItemPosition();
 			if (screen > 0)

@@ -87,6 +87,51 @@
             </LinearLayout>
 
             <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_xdpi" >
+                </TextView>
+
+                <EditText
+                        android:id="@+id/txtXDPI"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="3"
+                        android:imeOptions="actionDone|flagNavigateNext"
+                        android:inputType="number" >
+                </EditText>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_ydpi" >
+                </TextView>
+
+                <EditText
+                        android:id="@+id/txtYDPI"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="3"
+                        android:imeOptions="actionDone|flagNavigateNext"
+                        android:inputType="number" >
+                </EditText>
+
+                <CheckBox
+                        android:id="@+id/chkUseDPI"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_xydpi_use_dpi"/>
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >

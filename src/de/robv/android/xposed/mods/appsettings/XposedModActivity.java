@@ -128,6 +128,9 @@ public class XposedModActivity extends Activity {
 
 		settings.add(new SettingInfo(Common.PREF_DPI, getString(R.string.settings_dpi)));
 		settings.add(new SettingInfo(Common.PREF_FONT_SCALE, getString(R.string.settings_fontscale)));
+        settings.add(new SettingInfo(Common.PREF_XDPI, getString(R.string.settings_xdpi)));
+        settings.add(new SettingInfo(Common.PREF_YDPI, getString(R.string.settings_ydpi)));
+        settings.add(new SettingInfo(Common.PREF_XYDPI_USE_DPI, getString(R.string.settings_xydpi_use_dpi)));
 		settings.add(new SettingInfo(Common.PREF_SCREEN, getString(R.string.settings_screen)));
 		settings.add(new SettingInfo(Common.PREF_XLARGE, getString(R.string.settings_xlargeres)));
 		settings.add(new SettingInfo(Common.PREF_RES_ON_WIDGETS, getString(R.string.settings_resonwidgets)));

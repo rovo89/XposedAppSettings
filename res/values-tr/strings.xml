@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_mod_summary">Uygulamalara özel ayarlar belirleyin:
+DPI; Yüklenen Kaynakları Değiştirme; Dil ve Bölge; Tam Ekran;
+Bellekte Tutma; Ekran Yönü; İzin Kaldırma; &#8230;</string>
+
+
+    <!-- Main screen -->
+    <string name="app_loading">Uygulamalar taranıyor, lütfen bekleyin</string>
+    <string name="app_searchhint">Ad veya Paket</string>
+    <string name="app_about"><a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> ve <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a> 
+	tarafından sunulan bir <a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> modülü.
+ \nSoru ve önerileriniz için <a href="http://forum.xda-developers.com/showthread.php?t=2437377">bu başlığı</a> kullanabilirsiniz.</string>
+    <string name="app_description">Bu mod APK dosyalarını değiştirmeden her uygulama için farklı ayarlar seçmenize olanak sağlar:
+\n- ekran yoğunluğu / dpi
+\n- yazı ölçeği
+\n- kaynak dosyalar için sahte ekran boyutu
+\n- yerel bölge (dil)
+\n- tam ekran modu
+\n- başlık çubuğunu gizle
+\n- uygulama aktifken ekranı açık tut
+\n- uygulamayı kilit ekranı üzerinde göster
+\n- bellekte tut
+\n- tam ekran klavyeyi kapat
+\n- ekran yönüne zorla (dikey/yatay/otomatik)
+\n- sürekli bildirim (bildirim sesi tekrarı)
+\n- genişletilmiş bildirimleri devre dışı bırak
+\n- kalıcı bildirime zorla ya da engelle
+\n- bildirim önceliği
+\n- son uygulamalarda göstermeye/gizlemeye zorla
+\n- bildirimler de dahil (çoğu uygulama için) sesleri kapat
+\n- klasik menü butonunu (gezinme çubuğu) kullanmaya zorla
+\n- izinleri kaldır</string>
+    <string name="app_version">Versiyon: %s</string>
+    <string name="app_translation">Çevirmen: %s</string>
+    <string name="app_notactive_warning">Not: Ayar paneli her durumda kullanılabilir olsa da,
+ayarlar uygulamaları sadece Xposed framework yüklüyse ve 
+bu modül aktifleştirilmişse etkiler.</string>
+
+
+    <!-- main menu -->
+    <string name="menu_refresh">Yenile</string>
+    <string name="menu_recents">Son uygulamalar</string>
+    <string name="menu_export">Dışa aktar</string>
+    <string name="menu_import">İçe al</string>
+    <string name="menu_about">Hakkında</string>
+
+    <!-- Import / Export -->
+    <string name="imp_exp_file_doesnt_exist">Dosya bulunamadı: %s</string>
+    <string name="imp_exp_confirm">Tüm ayarları içe alınan yeni ayarlarla değiştirilsin mi?</string>
+    <string name="imp_exp_exported">Ayarlar şu dosyaya aktarıldı: %s</string>
+    <string name="imp_exp_export_error">Dışa aktarma başarısız: %s</string>
+    <string name="imp_exp_import_error">İçe alma başarısız: %s</string>
+    <string name="imp_exp_invalid_import_file">Geçersiz veya boş dosya: %s</string>
+    <string name="imp_exp_imported">İçe alma başarılı; ayarlar değiştirildi</string>
+
+
+    <!-- app-specific menu -->
+    <string name="menu_save">Kaydet</string>
+    <string name="menu_launch">Çalıştır</string>
+    <string name="menu_settings">Ayarlar</string>
+    <string name="menu_playstore">Play Store</string>
+
+
+    <!-- Settings screen -->
+    <string name="settings_title">Ayarlar</string>
+    <string name="settings_dpi">DPI</string>
+    <string name="settings_fontscale">Yazı ölçeği</string>
+    <string name="settings_listres">Liste</string>
+    <string name="settings_screen">Ekran (dp)</string>
+    <string name="settings_xlargeres">xlarge res.</string>
+    <string name="settings_resonwidgets">Apply res to widgets</string>
+    <string name="settings_locale">Dil</string>
+    <string name="settings_fullscreen">Tam Ekran</string>
+    <string name="settings_notitle">Başlıksız</string>
+    <string name="settings_screenon">Ekranı açık tut</string>
+    <string name="settings_showwhenlocked">Kilitliyken göster</string>
+    <string name="settings_resident">Bellekte tut</string>
+    <string name="settings_nofullscreenime">Tam ekr. klavye engelle</string>
+    <string name="settings_orientation">Ekran yönü</string>
+    <string name="settings_insistentnotif">Sürekli bildirim</string>
+    <string name="settings_nobignotif">Büyük bildirim engelle</string>
+    <string name="settings_ongoingnotif">Kalıcı bildirim</string>
+    <string name="settings_notifpriority">Bildirim önceliği</string>
+    <string name="settings_mute">Sesi kapat</string>
+    <string name="settings_legacy_menu">Klasik menü butonu</string>
+    <string name="settings_permissions">İzinler</string>
+    <string name="settings_recents_mode">Son uyg. göster</string>
+
+    <string name="settings_default">(varsayılan)</string>
+
+    <string name="settings_force">Zorla</string>
+    <string name="settings_prevent">Engelle</string>
+    <string name="settings_immersive">Immersive</string>
+
+    <string name="settings_ori_normal">Normal yön</string>
+    <string name="settings_ori_portrait">Sürekli dikey</string>
+    <string name="settings_ori_landscape">Sürekli yatay</string>
+    <string name="settings_ori_forceauto">Otomatik döndür</string>
+    <string name="settings_ori_portrait_sensor">Sürekli dikey (sensör)</string>
+    <string name="settings_ori_landscape_sensor">Sürekli yatay (sensör)</string>
+    <string name="settings_ori_portrait_reverse">Sürekli dikey	(ters)</string>
+    <string name="settings_ori_landscape_reverse">Sürekli yatay (ters)</string>
+    <string name="settings_ori_forceauto_4way">Otomatik döndür (4-yön)</string>
+    <string name="settings_ori_portrait_user">Sürekli dikey (kullanıcı ayarı)</string>
+    <string name="settings_ori_landscape_user">Sürekli yatay (kullanıcı ayarı)</string>
+    <string name="settings_ori_user_4way">4 yönlü döndür (kullanıcı ayarı)</string>
+
+    <string name="settings_npri_max">Maks.</string>
+    <string name="settings_npri_high">Yüksek</string>
+    <string name="settings_npri_normal">Normal</string>
+    <string name="settings_npri_low">Alçak</string>
+    <string name="settings_npri_min">Min.</string>
+
+    <!-- Recent apps -->
+    <string name="recents_title">Son Uygulamalar</string>
+
+    <!-- List resources -->
+    <string name="res_title">Kaynaklar</string>
+    <string name="res_noentries">Kaynak bulunamadı</string>
+    <string name="res_failedtoload">APK içeriği yüklenemedi</string>
+
+    <!-- Show / search / revoke permissions -->
+    <string name="perms_title">İzinler</string>
+    <string name="perms_revoke">İzinleri kaldır</string>
+    <string name="perms_shared_warning">UYARI: Paylaşılan paket!</string>
+    <string name="perms_searchhint">ad ya da tanım</string>
+    <string name="perms_nodescription">( tanım yok )</string>
+    <string name="perms_filter_title">Filtrelemek için izin, veya tümünü göstermek için İptali seçin.</string>
+
+    <!-- Saving settings -->
+    <string name="settings_unsaved_title">Uyarı</string>
+    <string name="settings_unsaved_detail">Ayarları kaydetmediniz.
+Değişiklikler yoksayılsın mı?</string>
+    <string name="settings_apply_title">Ayarları Uygula</string>
+    <string name="settings_apply_detail">Yeni ayarları kullanması için uygulama sonlandırılsın mı?</string>
+
+
+    <!-- Filter dialog -->
+    <string name="filter_title">Filtre</string>
+    <string name="filter_all">Hepsi</string>
+    <string name="filter_overridden">Değişti</string>
+    <string name="filter_unchanged">Değişmedi</string>
+    <string name="filter_type">Tür</string>
+    <string name="filter_user">Kullanıcı</string>
+    <string name="filter_system">Sistem</string>
+    <string name="filter_state">Durum</string>
+    <string name="filter_enabled">Etkin</string>
+    <string name="filter_disabled">Devre dışı</string>
+    <string name="filter_settingsactive">Ayarlar aktif</string>
+    <string name="filter_active">Aktif</string>
+    <string name="filter_notactive">Aktif değil</string>
+    <string name="filter_resources">Kaynak yükleme</string>
+    <string name="filter_cancel">İptal</string>
+    <string name="filter_clear">Temizle</string>
+    <string name="filter_apply">Uygulama</string>
+
+
+    <string name="translator">halloga</string>
+</resources>

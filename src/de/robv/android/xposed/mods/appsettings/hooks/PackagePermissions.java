@@ -34,13 +34,13 @@ public class PackagePermissions extends BroadcastReceiver {
 		this.mSettings = getObjectField(pmSvc, "mSettings");
 	}
 
-	public static void initHooks() {
+	public static void initHooks(ClassLoader classLoader) {
 		/* Hook to the PackageManager service in order to
 		 * - Listen for broadcasts to apply new settings and restart the app
 		 * - Intercept the permission granting function to remove disabled permissions
 		 */
 		try {
-			final Class<?> clsPMS = findClass("com.android.server.pm.PackageManagerService", XposedMod.class.getClassLoader());
+			final Class<?> clsPMS = findClass("com.android.server.pm.PackageManagerService", classLoader);
 
 			// Listen for broadcasts from the Settings part of the mod, so it's applied immediately
 			findAndHookMethod(clsPMS, "systemReady", new XC_MethodHook() {
@@ -56,8 +56,7 @@ public class PackagePermissions extends BroadcastReceiver {
 			});
 
 			// if the user has disabled certain permissions for an app, do as if the hadn't requested them
-			findAndHookMethod(clsPMS, "grantPermissionsLPw", "android.content.pm.PackageParser$Package", boolean.class,
-					new XC_MethodHook() {
+			XC_MethodHook hookGrantPermissions = new XC_MethodHook() {
 				@SuppressWarnings("unchecked")
 				@Override
 				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
@@ -94,7 +93,12 @@ public class PackagePermissions extends BroadcastReceiver {
 					if (origRequestedPermissions != null)
 						setObjectField(param.args[0], "requestedPermissions", origRequestedPermissions);
 				}
-			});
+			};
+			if (Build.VERSION.SDK_INT < 21) {
+				findAndHookMethod(clsPMS, "grantPermissionsLPw", "android.content.pm.PackageParser$Package", boolean.class, hookGrantPermissions);
+			} else {
+				findAndHookMethod(clsPMS, "grantPermissionsLPw", "android.content.pm.PackageParser$Package", boolean.class, String.class, hookGrantPermissions);
+			}
 		} catch (Throwable e) {
 			XposedBridge.log(e);
 		}
@@ -117,7 +121,11 @@ public class PackagePermissions extends BroadcastReceiver {
 			Object pkgInfo;
 			synchronized (mPackages) {
 				pkgInfo = mPackages.get(pkgName);
-				callMethod(pmSvc, "grantPermissionsLPw", pkgInfo, true);
+				if (Build.VERSION.SDK_INT < 21) {
+					callMethod(pmSvc, "grantPermissionsLPw", pkgInfo, true);
+				} else {
+					callMethod(pmSvc, "grantPermissionsLPw", pkgInfo, true, pkgName);
+				}
 				callMethod(mSettings, "writeLPr");
 			}
 

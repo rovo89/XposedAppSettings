@@ -201,25 +201,43 @@ public class Activities {
 		}
 
 		try {
+			findAndHookMethod(InputMethodService.class, "doStartInput",
+					InputConnection.class, EditorInfo.class, boolean.class, new XC_MethodHook() {
+				@Override
+				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+					EditorInfo info = (EditorInfo) param.args[1];
+					if (info != null && info.packageName != null) {
+						XposedMod.prefs.reload();
+						if (XposedMod.isActive(info.packageName, Common.PREF_NO_FULLSCREEN_IME))
+							info.imeOptions |= EditorInfo.IME_FLAG_NO_FULLSCREEN;
+					}
+				}
+			});
+		} catch (Throwable e) {
+			XposedBridge.log(e);
+		}
+	}
+
+	public static void hookActivitySettingsInSystemServer(ClassLoader classLoader) {
+		try {
 			// Hook one of the several variations of ActivityStack.realStartActivityLocked from different ROMs
 			Method mthRealStartActivityLocked;
 			if (Build.VERSION.SDK_INT <= 18) {
 				try {
-					mthRealStartActivityLocked = findMethodExact("com.android.server.am.ActivityStack", null, "realStartActivityLocked",
+					mthRealStartActivityLocked = findMethodExact("com.android.server.am.ActivityStack", classLoader, "realStartActivityLocked",
 							"com.android.server.am.ActivityRecord", "com.android.server.am.ProcessRecord",
 							boolean.class, boolean.class, boolean.class);
 				} catch (NoSuchMethodError t) {
-					mthRealStartActivityLocked = findMethodExact("com.android.server.am.ActivityStack", null, "realStartActivityLocked",
+					mthRealStartActivityLocked = findMethodExact("com.android.server.am.ActivityStack", classLoader, "realStartActivityLocked",
 							"com.android.server.am.ActivityRecord", "com.android.server.am.ProcessRecord",
 							boolean.class, boolean.class);
 				}
 			} else {
-				mthRealStartActivityLocked = findMethodExact("com.android.server.am.ActivityStackSupervisor", null, "realStartActivityLocked",
+				mthRealStartActivityLocked = findMethodExact("com.android.server.am.ActivityStackSupervisor", classLoader, "realStartActivityLocked",
 						"com.android.server.am.ActivityRecord", "com.android.server.am.ProcessRecord",
 						boolean.class, boolean.class);
 			}
 			hookMethod(mthRealStartActivityLocked, new XC_MethodHook() {
-
 				@Override
 				protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 					String pkgName = (String) getObjectField(param.args[0], "packageName");
@@ -245,7 +263,7 @@ public class Activities {
 		}
 
 		try {
-			hookAllConstructors(findClass("com.android.server.am.ActivityRecord", null), new XC_MethodHook() {
+			hookAllConstructors(findClass("com.android.server.am.ActivityRecord", classLoader), new XC_MethodHook() {
 				@Override
 				protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 					ActivityInfo aInfo = (ActivityInfo) getObjectField(param.thisObject, "info");
@@ -263,23 +281,6 @@ public class Activities {
 						}
 						else if (recentsMode == Common.PREF_RECENTS_PREVENT)
 							intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-					}
-				}
-			});
-		} catch (Throwable e) {
-			XposedBridge.log(e);
-		}
-
-		try {
-			findAndHookMethod(InputMethodService.class, "doStartInput",
-					InputConnection.class, EditorInfo.class, boolean.class, new XC_MethodHook() {
-				@Override
-				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-					EditorInfo info = (EditorInfo) param.args[1];
-					if (info != null && info.packageName != null) {
-						XposedMod.prefs.reload();
-						if (XposedMod.isActive(info.packageName, Common.PREF_NO_FULLSCREEN_IME))
-							info.imeOptions |= EditorInfo.IME_FLAG_NO_FULLSCREEN;
 					}
 				}
 			});

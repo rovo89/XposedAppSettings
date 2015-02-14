@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_mod_summary">Définir des configurations génériques pour chacune de vos applications :  
-DPI, Taille de la police, Locale (langue), Plein écran,
-Résident en mémoire, Orientation, Révoquer permissions, etc&#8230</string>
+DPI, Taille de la police, Langue, Plein écran,
+Résident en mémoire, Orientation, Révoquer autorisations, etc&#8230</string>
 
 
     <!-- Main screen -->
@@ -12,10 +12,10 @@ Résident en mémoire, Orientation, Révoquer permissions, etc&#8230</string>
  <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> et <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
  \nVous pouvez utiliser <a href="http://forum.xda-developers.com/showthread.php?t=2437377">ce forum</a> pour vos questions ou suggestions.</string>
     <string name="app_description">Ce module permet de définir des configurations génériques pour chacune de vos applications, sans modification de fichier APK :
-\n- densité / dpi
+\n- densité/dpi
 \n- taille de la police
 \n- fausse taille d\'écran pour chargement des ressources
-\n- locale (langue)
+\n- langue
 \n- mode plein écran
 \n- masquer la barre de titre
 \n- garder l\'écran allumé quand l\'appli est visible
@@ -30,7 +30,7 @@ Résident en mémoire, Orientation, Révoquer permissions, etc&#8230</string>
 \n- forcer or exclure appli des récents
 \n- audio muet pour la plupart des applis ayant une notification
 \n- forcer l\'utilisation du bouton menu (barre de navigation)
-\n- révoquer permissions</string>
+\n- révoquer autorisations</string>
     <string name="app_version">Version : %s</string>
     <string name="app_translation">Traducteurs : %s</string>
     <string name="app_notactive_warning">Note : Même si les pages de configuration peuvent être utilisées comme tel
@@ -47,12 +47,12 @@ module est activé dans sa configuration !</string>
 
     <!-- Import / Export -->
     <string name="imp_exp_file_doesnt_exist">Fichier inexistant : %s</string>
-    <string name="imp_exp_confirm">Replacer toutes les réglages par ceux qui vont être importés ?</string>
-    <string name="imp_exp_exported">Réglages exportés vers : %s</string>
+    <string name="imp_exp_confirm">Remplacer toutes les paramètres par ceux qui vont être importés ?</string>
+    <string name="imp_exp_exported">Paramètres exportés vers : %s</string>
     <string name="imp_exp_export_error">Exportation échouée : %s</string>
     <string name="imp_exp_import_error">Importation échouée : %s</string>
     <string name="imp_exp_invalid_import_file">Fichier vide ou non-valide : %s</string>
-    <string name="imp_exp_imported">Importation réussie, réglages replacés</string>
+    <string name="imp_exp_imported">Importation réussie, paramètres remplacés</string>
 
 
     <!-- app-specific menu -->
@@ -70,7 +70,7 @@ module est activé dans sa configuration !</string>
     <string name="settings_screen">Écran (dp)</string>
     <string name="settings_xlargeres">Très gd rés.</string>
     <string name="settings_resonwidgets">Appliquer rés. aux widgets</string>    
-    <string name="settings_locale">Locale</string>
+    <string name="settings_locale">Langue</string>
     <string name="settings_fullscreen">Plein écran</string>
     <string name="settings_notitle">Sans titre</string>
     <string name="settings_screenon">Garder allumé</string>
@@ -84,7 +84,7 @@ module est activé dans sa configuration !</string>
     <string name="settings_notifpriority">Priorité des notifs</string>
     <string name="settings_mute">Audio muet</string>
     <string name="settings_legacy_menu">Bouton menu</string>    
-    <string name="settings_permissions">Permissions</string>
+    <string name="settings_permissions">Autorisations</string>
     <string name="settings_recents_mode">Afficher dans récents</string>    
 
     <string name="settings_default">(défaut)</string>
@@ -107,7 +107,7 @@ module est activé dans sa configuration !</string>
     <string name="settings_ori_user_4way">Tous les sens (user setting)</string>
 
     <string name="settings_npri_max">Max</string>
-    <string name="settings_npri_high">Élevée</string>
+    <string name="settings_npri_high">Haute</string>
     <string name="settings_npri_normal">Normale</string>
     <string name="settings_npri_low">Basse</string>
     <string name="settings_npri_min">Min</string>
@@ -117,16 +117,16 @@ module est activé dans sa configuration !</string>
 
     <!-- List resources -->
     <string name="res_title">Ressources</string>
-    <string name="res_noentries">Aucunes ressources trouvées</string>
-    <string name="res_failedtoload">La lecture du contenu de l\'APK échoué</string>
+    <string name="res_noentries">Aucune ressource trouvée</string>
+    <string name="res_failedtoload">Impossible de charger le contenu de l\'APK</string>
 
     <!-- Show / search / revoke permissions -->
-    <string name="perms_title">Permissions</string>
-    <string name="perms_revoke">Révoquer Permissions</string>
+    <string name="perms_title">Autorisations</string>
+    <string name="perms_revoke">Révoquer autorisations</string>
     <string name="perms_shared_warning">ATTENTION : Paquet partagé !</string>
     <string name="perms_searchhint">nom ou description</string>
-    <string name="perms_nodescription">( aucune description fournie )</string>
-    <string name="perms_filter_title">Choisir filtre de permission, ou Annuler pour tout voir</string>
+    <string name="perms_nodescription">(aucune description fournie)</string>
+    <string name="perms_filter_title">Choisir filtre d\'autorisation ou annuler pour tout voir</string>
 
     <!-- Saving settings -->
     <string name="settings_unsaved_title">Attention</string>
@@ -137,7 +137,7 @@ Voulez-vous vraiment abandonner les modifs ?</string>
 
 
     <!-- Filter dialog -->
-    <string name="filter_title">Filtrer</string>
+    <string name="filter_title">Filtre</string>
     <string name="filter_all">Tout</string>
     <string name="filter_overridden">Modifié</string>
     <string name="filter_unchanged">D\'origine</string>
@@ -152,7 +152,7 @@ Voulez-vous vraiment abandonner les modifs ?</string>
     <string name="filter_notactive">Inactif</string>
     <string name="filter_resources">Chargement des ressources</string>
     <string name="filter_cancel">Annuler</string>
-    <string name="filter_clear">Vider</string>
+    <string name="filter_clear">Effacer</string>
     <string name="filter_apply">Appliquer</string>
 
 

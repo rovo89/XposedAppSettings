@@ -141,7 +141,7 @@ Naozaj sa chcete vrátiť a zrušiť zmeny?</string>
     <string name="filter_unchanged">Nezmenené</string>
     <string name="filter_type">Typ</string>
     <string name="filter_user">Užívateľské</string>
-    <string name="filter_system">Systemové</string>
+    <string name="filter_system">Systémové</string>
     <string name="filter_state">Stav</string>
     <string name="filter_enabled">Povolené</string>
     <string name="filter_disabled">Zakázané</string>

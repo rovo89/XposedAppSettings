@@ -35,6 +35,7 @@ DPI, veľkosť písma, jazyk, načítať zdroje, zobraziť na celú obrazovku, b
 
 
     <!-- main menu -->
+    <string name="menu_refresh">Obnoviť</string>
     <string name="menu_recents">Nedávne apl.</string>
     <string name="menu_export">Export</string>
     <string name="menu_import">Import</string>
@@ -139,6 +140,9 @@ Naozaj sa chcete vrátiť a zrušiť zmeny?</string>
     <string name="filter_type">Typ</string>
     <string name="filter_user">Užívateľské</string>
     <string name="filter_system">Systemové</string>
+    <string name="filter_state">Stav</string>
+    <string name="filter_enabled">Povolené</string>
+    <string name="filter_disabled">Zakázané</string>
     <string name="filter_settingsactive">Aktívne nastavenia</string>
     <string name="filter_active">Aktívne</string>
     <string name="filter_notactive">Neaktívne</string>

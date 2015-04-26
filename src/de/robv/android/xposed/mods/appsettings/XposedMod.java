@@ -9,13 +9,16 @@ import static de.robv.android.xposed.XposedHelpers.setAdditionalInstanceField;
 import static de.robv.android.xposed.XposedHelpers.setFloatField;
 import static de.robv.android.xposed.XposedHelpers.setIntField;
 import static de.robv.android.xposed.XposedHelpers.setObjectField;
+
 import java.util.Locale;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AndroidAppHelper;
 import android.app.Notification;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.XModuleResources;
 import android.content.res.XResources;
 import android.content.res.XResources.DimensionReplacement;
 import android.media.AudioTrack;
@@ -126,6 +129,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 					Resources res = ((Resources) param.thisObject);
 					if (res instanceof XResources) {
 						packageName = ((XResources) res).getPackageName();
+					} else if (res instanceof XModuleResources) {
+						return;
 					} else {
 						try {
 							packageName = XResources.getPackageNameDuringConstruction();
@@ -224,76 +229,6 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 			XposedBridge.log(t);
 		}
 
-		try {
-			final int sdk = Build.VERSION.SDK_INT;
-			XC_MethodHook notifyHook = new XC_MethodHook() {
-				@SuppressWarnings("deprecation")
-				@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-				@Override
-				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-					String packageName = (String) param.args[0];
-
-					Notification n;
-					if (sdk <= 15 || sdk >= 18)
-						n = (Notification) param.args[6];
-					else
-						n = (Notification) param.args[5];
-
-					prefs.reload();
-					if (!isActive(packageName))
-						return;
-
-					if (isActive(packageName, Common.PREF_INSISTENT_NOTIF)) {
-						n.flags |= Notification.FLAG_INSISTENT;
-					}
-					if (isActive(packageName, Common.PREF_NO_BIG_NOTIFICATIONS)) {
-						try {
-							setObjectField(n, "bigContentView", null);
-						} catch (Exception e) { }
-					}
-					int ongoingNotif = XposedMod.prefs.getInt(packageName + Common.PREF_ONGOING_NOTIF,
-							Common.ONGOING_NOTIF_DEFAULT);
-					if (ongoingNotif == Common.ONGOING_NOTIF_FORCE) {
-						n.flags |= Notification.FLAG_ONGOING_EVENT;
-					} else if (ongoingNotif == Common.ONGOING_NOTIF_PREVENT) {
-						n.flags &= ~Notification.FLAG_ONGOING_EVENT & ~Notification.FLAG_FOREGROUND_SERVICE;
-					}
-
-					if (isActive(packageName, Common.PREF_MUTE)) {
-						n.sound = null;
-						n.flags &= ~Notification.DEFAULT_SOUND;
-					}
-					if (sdk >= 16 && isActive(packageName) && prefs.contains(packageName + Common.PREF_NOTIF_PRIORITY)) {
-						int priority = XposedMod.prefs.getInt(packageName + Common.PREF_NOTIF_PRIORITY, 0);
-						if (priority > 0 && priority < Common.notifPriCodes.length) {
-							n.flags &= ~Notification.FLAG_HIGH_PRIORITY;
-							n.priority = Common.notifPriCodes[priority];
-						}
-					}
-				}
-			};
-			if (sdk <= 15) {
-				findAndHookMethod("com.android.server.NotificationManagerService", null, "enqueueNotificationInternal", String.class, int.class, int.class,
-						String.class, int.class, int.class, Notification.class, int[].class,
-						notifyHook);
-			} else if (sdk == 16) {
-				findAndHookMethod("com.android.server.NotificationManagerService", null, "enqueueNotificationInternal", String.class, int.class, int.class,
-						String.class, int.class, Notification.class, int[].class,
-						notifyHook);
-			} else if (sdk == 17) {
-				findAndHookMethod("com.android.server.NotificationManagerService", null, "enqueueNotificationInternal", String.class, int.class, int.class,
-						String.class, int.class, Notification.class, int[].class, int.class,
-						notifyHook);
-			} else if (sdk >= 18) {
-				findAndHookMethod("com.android.server.NotificationManagerService", null, "enqueueNotificationInternal", String.class, String.class,
-						int.class, int.class, String.class, int.class, Notification.class, int[].class, int.class,
-						notifyHook);
-			}
-		} catch (Throwable t) {
-			XposedBridge.log(t);
-		}
-
-		PackagePermissions.initHooks();
 		Activities.hookActivitySettings();
 	}
 
@@ -340,6 +275,83 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 	@Override
 	public void handleLoadPackage(LoadPackageParam lpparam) throws Throwable {
 		prefs.reload();
+		if (lpparam.packageName.equals("android")) {
+			try {
+				final int sdk = Build.VERSION.SDK_INT;
+				XC_MethodHook notifyHook = new XC_MethodHook() {
+					@SuppressWarnings("deprecation")
+					@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+					@Override
+					protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+						String packageName = (String) param.args[0];
+
+						Notification n;
+						if (sdk <= 15 || sdk >= 18)
+							n = (Notification) param.args[6];
+						else
+							n = (Notification) param.args[5];
+
+						prefs.reload();
+						if (!isActive(packageName))
+							return;
+
+						if (isActive(packageName, Common.PREF_INSISTENT_NOTIF)) {
+							n.flags |= Notification.FLAG_INSISTENT;
+						}
+						if (isActive(packageName, Common.PREF_NO_BIG_NOTIFICATIONS)) {
+							try {
+								setObjectField(n, "bigContentView", null);
+							} catch (Exception e) { }
+						}
+						int ongoingNotif = XposedMod.prefs.getInt(packageName + Common.PREF_ONGOING_NOTIF,
+								Common.ONGOING_NOTIF_DEFAULT);
+						if (ongoingNotif == Common.ONGOING_NOTIF_FORCE) {
+							n.flags |= Notification.FLAG_ONGOING_EVENT;
+						} else if (ongoingNotif == Common.ONGOING_NOTIF_PREVENT) {
+							n.flags &= ~Notification.FLAG_ONGOING_EVENT & ~Notification.FLAG_FOREGROUND_SERVICE;
+						}
+
+						if (isActive(packageName, Common.PREF_MUTE)) {
+							n.sound = null;
+							n.flags &= ~Notification.DEFAULT_SOUND;
+						}
+						if (sdk >= 16 && isActive(packageName) && prefs.contains(packageName + Common.PREF_NOTIF_PRIORITY)) {
+							int priority = XposedMod.prefs.getInt(packageName + Common.PREF_NOTIF_PRIORITY, 0);
+							if (priority > 0 && priority < Common.notifPriCodes.length) {
+								n.flags &= ~Notification.FLAG_HIGH_PRIORITY;
+								n.priority = Common.notifPriCodes[priority];
+							}
+						}
+					}
+				};
+				if (sdk <= 15) {
+					findAndHookMethod("com.android.server.NotificationManagerService", lpparam.classLoader, "enqueueNotificationInternal",
+							String.class, int.class, int.class, String.class, int.class, int.class, Notification.class, int[].class,
+							notifyHook);
+				} else if (sdk == 16) {
+					findAndHookMethod("com.android.server.NotificationManagerService", lpparam.classLoader, "enqueueNotificationInternal",
+							String.class, int.class, int.class, String.class, int.class, Notification.class, int[].class,
+							notifyHook);
+				} else if (sdk == 17) {
+					findAndHookMethod("com.android.server.NotificationManagerService", lpparam.classLoader, "enqueueNotificationInternal",
+							String.class, int.class, int.class, String.class, int.class, Notification.class, int[].class, int.class,
+							notifyHook);
+				} else if (sdk < 21) {
+					findAndHookMethod("com.android.server.NotificationManagerService", lpparam.classLoader, "enqueueNotificationInternal",
+							String.class, String.class, int.class, int.class, String.class, int.class, Notification.class, int[].class, int.class,
+							notifyHook);
+				} else {
+					findAndHookMethod("com.android.server.notification.NotificationManagerService", lpparam.classLoader, "enqueueNotificationInternal",
+							String.class, String.class, int.class, int.class, String.class, int.class, Notification.class, int[].class, int.class,
+							notifyHook);
+				}
+			} catch (Throwable t) {
+				XposedBridge.log(t);
+			}
+
+			PackagePermissions.initHooks(lpparam.classLoader);
+			Activities.hookActivitySettingsInSystemServer(lpparam.classLoader);
+		}
 
 		// Override the default Locale if one is defined (not res-related, here)
 		if (isActive(lpparam.packageName)) {

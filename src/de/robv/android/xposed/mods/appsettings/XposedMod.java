@@ -18,6 +18,7 @@ import android.app.AndroidAppHelper;
 import android.app.Notification;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.XModuleResources;
 import android.content.res.XResources;
 import android.content.res.XResources.DimensionReplacement;
 import android.media.AudioTrack;
@@ -128,6 +129,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 					Resources res = ((Resources) param.thisObject);
 					if (res instanceof XResources) {
 						packageName = ((XResources) res).getPackageName();
+					} else if (res instanceof XModuleResources) {
+						return;
 					} else {
 						try {
 							packageName = XResources.getPackageNameDuringConstruction();

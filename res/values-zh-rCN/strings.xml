@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_mod_summary">允许为每个程序设置一些通用配置：\n
-DPI、字体大小、覆盖资源、语言、全屏、隐藏标题、保持屏幕开启、在锁屏界面上显示、常驻内存、方向、持续通知、撤销权限等</string>
+DPI、字体大小、覆盖资源、语言、全屏、隐藏标题、保持屏幕开启、在锁屏界面上显示、常驻内存、方向、持续通知、撤销权限等。</string>
 
 
     <!-- Main screen -->
-    <string name="app_loading">正在加载程序，请稍候</string>
+    <string name="app_loading">正在加载程序，请稍候…</string>
     <string name="app_searchhint">名称或包名</string>
     <string name="app_about">由<a href="http://forum.xda-developers.com/member.php?u=4419114"> rovo89 </a>和<a href="http://forum.xda-developers.com/member.php?u=4322181"> Tungstwenty </a>开发的<a href="http://forum.xda-developers.com/showthread.php?t=1574401"> Xposed </a>模块。
- \n您可访问<a href="http://forum.xda-developers.com/showthread.php?t=2437377">此帖</a>提问及建议。</string>
+ \n您可访问<a href="http://forum.xda-developers.com/showthread.php?t=2437377">此帖</a>提出疑问及建议。</string>
     <string name="app_description">本模块允许您在不修改资源文件的情况下，修改应用程序的一些通用配置：
 \n- 像素密度/DPI
 \n- 字体大小
 \n- 伪装屏幕尺寸以加载资源
-\n- 语言设置
+\n- 区域和语言设置
 \n- 全屏模式
 \n- 隐藏标题栏
 \n- 程序运行时保持屏幕常亮
@@ -23,17 +23,20 @@ DPI、字体大小、覆盖资源、语言、全屏、隐藏标题、保持屏�
 \n- 强制方向（纵向/横向/自动）
 \n- 持续通知（循环提示音）
 \n- 禁用大型（扩展）通知
+\n- 强制/禁止应用常驻通知栏
 \n- 通知优先级
-\n- 在最近任务中隐藏
+\n- 在最近任务中显示/隐藏
 \n- 静音（支持大多数应用）
 \n- 强制使用传统（导航栏）的菜单按钮
 \n- 撤销权限</string>
     <string name="app_version">版本: %s</string>
-    <string name="app_translation">翻者: %s</string>
+    <string name="app_translation">译者: %s</string>
     <string name="app_notactive_warning">注意：虽然您现在可以直接进行配置，但只有在已安装 Xposed 框架并启用本模块时才会生效！</string>
 
 
     <!-- main menu -->
+    <string name="menu_refresh">刷新</string>
+    <string name="menu_recents">最近使用的程序</string>
     <string name="menu_export">导出</string>
     <string name="menu_import">导入</string>
     <string name="menu_about">关于</string>
@@ -60,9 +63,9 @@ DPI、字体大小、覆盖资源、语言、全屏、隐藏标题、保持屏�
     <string name="settings_dpi">DPI</string>
     <string name="settings_fontscale">字体大小</string>
     <string name="settings_listres">资源列表</string>
-    <string name="settings_screen">分辨率(dp)</string>
+    <string name="settings_screen">分辨率（dp）</string>
     <string name="settings_xlargeres">超大资源</string>
-    <string name="settings_resonwidgets">同时应用资源到小部件</string>
+    <string name="settings_resonwidgets">将资源应用至小部件</string>
     <string name="settings_locale">语言</string>
     <string name="settings_fullscreen">全屏</string>
     <string name="settings_notitle">隐藏标题</string>
@@ -71,35 +74,42 @@ DPI、字体大小、覆盖资源、语言、全屏、隐藏标题、保持屏�
     <string name="settings_resident">常驻内存</string>
     <string name="settings_nofullscreenime">禁用全屏输入</string>
     <string name="settings_orientation">方向</string>
-    <string name="settings_insistentnotif">常驻通知</string>
+    <string name="settings_insistentnotif">持续通知（循环提示音）</string>
     <string name="settings_nobignotif">禁用扩展通知</string>
     <string name="settings_notifpriority">通知优先级</string>
+    <string name="settings_ongoingnotif">常驻通知栏</string>
     <string name="settings_mute">静音</string>
     <string name="settings_legacy_menu">传统菜单按钮</string>
     <string name="settings_permissions">权限管理</string>
     <string name="settings_recents_mode">在最近任务中显示</string>
 
-    <string name="settings_default">默认</string>
+    <string name="settings_default">（默认）</string>
 
     <string name="settings_force">强制</string>
     <string name="settings_prevent">阻止</string>
     <string name="settings_immersive">沉浸</string>
 
     <string name="settings_ori_normal">采用系统设置</string>
-    <string name="settings_ori_portrait">强制正向竖屏</string>
-    <string name="settings_ori_landscape">强制正向横屏</string>
+    <string name="settings_ori_portrait">强制竖屏（正向）</string>
+    <string name="settings_ori_landscape">强制横屏（正向）</string>
     <string name="settings_ori_forceauto">强制自动旋转</string>
-    <string name="settings_ori_portrait_sensor">通过传感器判断竖屏方向</string>
-    <string name="settings_ori_landscape_sensor">通过传感器判断横屏方向</string>
-    <string name="settings_ori_portrait_reverse">通过传感器反向竖屏</string>
-    <string name="settings_ori_landscape_reverse">通过传感器反向横屏</string>
+    <string name="settings_ori_portrait_sensor">强制竖屏（自动判断正反）</string>
+    <string name="settings_ori_landscape_sensor">强制横屏（自动判断正反）</string>
+    <string name="settings_ori_portrait_reverse">强制竖屏（反向）</string>
+    <string name="settings_ori_landscape_reverse">强制横屏（反向）</string>
     <string name="settings_ori_forceauto_4way">强制四向自动旋转</string>
+    <string name="settings_ori_portrait_user">强制竖屏（用户设置）</string>
+    <string name="settings_ori_landscape_user">强制横屏（用户设置）</string>
+    <string name="settings_ori_user_4way">强制四向自动旋转（用户设置）</string>
 
     <string name="settings_npri_max">最高</string>
     <string name="settings_npri_high">较高</string>
     <string name="settings_npri_normal">普通</string>
     <string name="settings_npri_low">较低</string>
     <string name="settings_npri_min">最低</string>
+
+    <!-- Recent apps -->
+    <string name="recents_title">最近使用的程序</string>
 
     <!-- List resources -->
     <string name="res_title">资源</string>
@@ -109,7 +119,7 @@ DPI、字体大小、覆盖资源、语言、全屏、隐藏标题、保持屏�
     <!-- Show / search / revoke permissions -->
     <string name="perms_title">权限管理</string>
     <string name="perms_revoke">修改权限</string>
-    <string name="perms_shared_warning">警告：共享包！</string>
+    <string name="perms_shared_warning">警告：这是一个共享包！</string>
     <string name="perms_searchhint">权限名称及描述</string>
     <string name="perms_nodescription">（未提供描述）</string>
     <string name="perms_filter_title">选择要过滤的权限，或取消显示全部</string>
@@ -129,6 +139,9 @@ DPI、字体大小、覆盖资源、语言、全屏、隐藏标题、保持屏�
     <string name="filter_type">应用类型</string>
     <string name="filter_user">用户</string>
     <string name="filter_system">系统</string>
+    <string name="filter_state">应用状态</string>
+    <string name="filter_enabled">已启用</string>
+    <string name="filter_disabled">已停用</string>
     <string name="filter_settingsactive">设置状态</string>
     <string name="filter_active">已激活</string>
     <string name="filter_notactive">未激活</string>
@@ -138,5 +151,5 @@ DPI、字体大小、覆盖资源、语言、全屏、隐藏标题、保持屏�
     <string name="filter_apply">应用</string>
 
 
-    <string name="translator">qhq、liudongmiao、Felix2yu</string>
+    <string name="translator">qhq、liudongmiao、Felix2yu、Arnie97</string>
 </resources>

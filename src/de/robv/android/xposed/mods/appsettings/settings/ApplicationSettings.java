@@ -341,7 +341,12 @@ public class ApplicationSettings extends Activity {
 		((CheckBox) findViewById(R.id.chkMute)).setChecked(prefs.getBoolean(pkgName + Common.PREF_MUTE, false));
 
 		// Update Legacy Menu field
-		((CheckBox) findViewById(R.id.chkLegacyMenu)).setChecked(prefs.getBoolean(pkgName + Common.PREF_LEGACY_MENU, false));
+		CheckBox showLegacyMenu = (CheckBox) findViewById(R.id.chkLegacyMenu);
+		if (Build.VERSION.SDK_INT >= 22) {
+			showLegacyMenu.setVisibility(View.GONE);
+		} else {
+			showLegacyMenu.setChecked(prefs.getBoolean(pkgName + Common.PREF_LEGACY_MENU, false));
+		}
 
 		// Setting for permissions revoking
 		allowRevoking = prefs.getBoolean(pkgName + Common.PREF_REVOKEPERMS, false);

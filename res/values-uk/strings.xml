@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_mod_summary">"Зміна налаштувань для кожного додатку:
+DPI; Заміна ресурсів; Мова; Повний екран;
+Утримання в пам'яті; Орієнтація; Зміна дозволів; &#8230;"</string>
+
+
+    <!-- Main screen -->
+    <string name="app_loading">Завантаження додатків, зачекайте</string>
+    <string name="app_searchhint">ім\'я чи пакет</string>
+    <string name="app_about"><a href="http://forum.xda-developers.com/showthread.php?t=1574401">Xposed</a> модуль від
+ <a href="http://forum.xda-developers.com/member.php?u=4419114">rovo89</a> и <a href="http://forum.xda-developers.com/member.php?u=4322181">Tungstwenty</a>.
+ \nВи можете відкрити <a href="http://forum.xda-developers.com/showthread.php?t=2437377">цю тему</a>, якщо у вас є запитання та пропозицій (на англійській).</string>
+    <string name="app_description">"Цей модуль дозволяє змінити деякі загальні налаштування без необхідності редагування APK, для кожного додатку:
+\n- щільність / dpi
+\n- масштаб шрифту
+\n- підробка розміру екрану
+\n- локаль (мова)
+\n- повний екран
+\n- приховати заголовок
+\n- утримання екрану
+\n- утримання додатку поверх екрану блокування
+\n- тримати в пам'яті
+\n- вимкнути клавіатуру у повному екрані
+\n- форсування орієнтації (портрет/ландшафт/авто)
+\n- наполегливі сповіщення (повтор звуку)
+\n- вимкнути збільшені (розширені) сповіщення
+\n- форсувати чи запобігати поточні сповіщення
+\n- пріоритет сповіщень
+\n- видалення додатку з нещодавніх
+\n- вимкнення звуку (більшість додатків)
+\n- активація старої кнопки меню
+\n- зміна дозволів"</string>
+    <string name="app_version">Версія: %s</string>
+    <string name="app_translation">Переклад: %s</string>
+    <string name="app_notactive_warning">Зауваження: хоча панелі конфігурації можуть бути використані такими, як вони є,
+вони можуть впливати на додатки лише за умови,
+що встановлено Xposed framework та модуль активовано!</string>
+
+
+    <!-- main menu -->
+    <string name="menu_refresh">Оновити</string>
+    <string name="menu_recents">Нещодавні додатки</string>
+    <string name="menu_export">Експорт</string>
+    <string name="menu_import">Імпорт</string>
+    <string name="menu_about">Про програму</string>
+
+    <!-- Import / Export -->
+    <string name="imp_exp_file_doesnt_exist">Файл не існує: %s</string>
+    <string name="imp_exp_confirm">Замінити всі налаштування імпортованими?</string>
+    <string name="imp_exp_exported">Налаштування експортовано до файлу: %s</string>
+    <string name="imp_exp_export_error">Помилка експорту: %s</string>
+    <string name="imp_exp_import_error">Помилка імпорту: %s</string>
+    <string name="imp_exp_invalid_import_file">Помилковий чи пустий файл для імпорту: %s</string>
+    <string name="imp_exp_imported">Імпорт пройшов удало; налаштування замінено</string>
+
+
+    <!-- app-specific menu -->
+    <string name="menu_save">Зберегти</string>
+    <string name="menu_launch">Запустити</string>
+    <string name="menu_settings">Налаштування</string>
+    <string name="menu_playstore">Play Store</string>
+
+
+    <!-- Settings screen -->
+    <string name="settings_title">Налаштування</string>
+    <string name="settings_dpi">DPI</string>
+    <string name="settings_fontscale">Масштаб</string>
+    <string name="settings_listres">Ресурси</string>
+    <string name="settings_screen">Екран (dp)</string>
+    <string name="settings_xlargeres">xlarge рес.</string>
+    <string name="settings_resonwidgets">Вкл. для віджета</string>
+    <string name="settings_locale">Мова</string>
+    <string name="settings_fullscreen">Повний екран</string>
+    <string name="settings_notitle">Без заголовку</string>
+    <string name="settings_screenon">Тримати екран</string>
+    <string name="settings_showwhenlocked">Показ. заблок.</string>
+    <string name="settings_resident">Резидент</string>
+    <string name="settings_nofullscreenime">Нема клав. в повн. екрані</string>
+    <string name="settings_orientation">Орієнтація</string>
+    <string name="settings_insistentnotif">Наполегливі сповіщення</string>
+    <string name="settings_nobignotif">Немає великих сповіщень</string>
+
+    <string name="settings_notifpriority">Пріоритет сповіщень</string>
+    <string name="settings_mute">Без звуку</string>
+    <string name="settings_legacy_menu">Стара кнопка меню</string>
+    <string name="settings_permissions">Ljpdjkb</string>
+    <string name="settings_recents_mode">Показ. в нещодавніх</string>
+
+    <string name="settings_default">(типово)</string>
+
+    <string name="settings_force">Примусова</string>
+    <string name="settings_prevent">Заборонити</string>
+    <string name="settings_immersive">Заглиблення</string>
+
+    <string name="settings_ori_normal">Нормальне обертання</string>
+    <string name="settings_ori_portrait">Завжди портрет</string>
+    <string name="settings_ori_landscape">Завжди ландшафт</string>
+    <string name="settings_ori_forceauto">Завжди обертатися</string>
+    <string name="settings_ori_portrait_sensor">Завжди портрет (сенсор)</string>
+    <string name="settings_ori_landscape_sensor">Завжди ландшафт (сенсор)</string>
+    <string name="settings_ori_portrait_reverse">Завжди портрет (навпаки)</string>
+    <string name="settings_ori_landscape_reverse">Завжди ландшафт (навпаки)</string>
+    <string name="settings_ori_forceauto_4way">Завжди обертатися (всі сторони)</string>
+    <string name="settings_ori_portrait_user">Завжди портрет (користувацькі налашт.)</string>
+    <string name="settings_ori_landscape_user">Завжди ландшафт (користувацькі налашт.)</string>
+    <string name="settings_ori_user_4way">Обертання на всі сторони (користувацькі налашт.)</string>
+
+    <string name="settings_npri_max">Max</string>
+    <string name="settings_npri_high">High</string>
+    <string name="settings_npri_normal">Normal</string>
+    <string name="settings_npri_low">Low</string>
+    <string name="settings_npri_min">Min</string>
+
+    <!-- Recent apps -->
+    <string name="recents_title">Нещодавін додатки</string>
+
+    <!-- List resources -->
+    <string name="res_title">Ресурси</string>
+    <string name="res_noentries">Ресурси не знайдено</string>
+    <string name="res_failedtoload">Помилка завантаження ресурсів APK</string>
+
+    <!-- Show / search / revoke permissions -->
+    <string name="perms_title">Дозволи</string>
+    <string name="perms_revoke">Змінити дозволи</string>
+    <string name="perms_shared_warning">Увага: Загальний пакет!</string>
+    <string name="perms_searchhint">ім\'я чи опис</string>
+    <string name="perms_nodescription">(опис відсутній)</string>
+    <string name="perms_filter_title">Виберіть дозволи для фільтрації, або ж скасуйте, аби показати всі</string>
+
+    <!-- Saving settings -->
+    <string name="settings_unsaved_title">Увага</string>
+    <string name="settings_unsaved_detail">Ви не зберегли налаштування.
+Ви дійсно бажаєте скасувати їх?</string>
+    <string name="settings_apply_title">Застосувати</string>
+    <string name="settings_apply_detail">А також, закрити додаток, аби воно підхопило нові налаштування?</string>
+
+
+    <!-- Filter dialog -->
+    <string name="filter_title">Фільтр</string>
+    <string name="filter_all">Всі</string>
+    <string name="filter_overridden">Змінено</string>
+    <string name="filter_unchanged">Не змінено</string>
+    <string name="filter_type">Тип</string>
+    <string name="filter_user">Користувацькі</string>
+    <string name="filter_system">Системні</string>
+    <string name="filter_state">Стан</string>
+    <string name="filter_enabled">Активно</string>
+    <string name="filter_disabled">Неактивно</string>
+    <string name="filter_settingsactive">Налаштування активні</string>
+    <string name="filter_active">Активні</string>
+    <string name="filter_notactive">Не активні</string>
+    <string name="filter_resources">Завантаження ресурсів</string>
+    <string name="filter_cancel">Скасувати</string>
+    <string name="filter_clear">Очистити</string>
+    <string name="filter_apply">Застосувати</string>
+
+
+    <string name="translator">olexn</string>
+</resources>

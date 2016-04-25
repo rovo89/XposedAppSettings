@@ -53,9 +53,9 @@ public class Common {
 	public static final String PREF_MUTE = "/mute";
 	public static final String PREF_LEGACY_MENU = "/legacy-menu";
 
-	public static final int[] swdp = { 0, 320, 480, 600, 800, 1000 };
-	public static final int[] wdp = { 0, 320, 480, 600, 800, 1000 };
-	public static final int[] hdp = { 0, 480, 854, 1024, 1280, 1600 };
+	public static final int[] swdp = { 0, 320, 480, 600, 800, 1000, 1080, 1440 };
+	public static final int[] wdp = { 0, 320, 480, 600, 800, 1000, 1080, 1440 };
+	public static final int[] hdp = { 0, 480, 854, 1024, 1280, 1600, 1920, 2560 };
 
 	public static int[] orientationCodes = { Integer.MIN_VALUE,
 		SCREEN_ORIENTATION_UNSPECIFIED,

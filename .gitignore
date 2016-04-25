@@ -1,6 +1,15 @@
-/.idea
-/bin
-/gen
-/out
-*.apk
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/app/build
+/captures
+/.navigation/
+fabric.properties
+
+# IDEA/Android Studio project files, because
+# the project can be imported from settings.gradle
+.idea
 *.iml

@@ -37,10 +37,11 @@
             android:value="true" />
         <meta-data
             android:name="xposeddescription"
-            android:value="@string/app_mod_summary" />
+            android:value="@string/app_mod_summary"
+            tools:ignore="ManifestResource" />
         <meta-data
             android:name="xposedminversion"
-            android:value="52+" />
+            android:value="82" />
     </application>
 
 </manifest>

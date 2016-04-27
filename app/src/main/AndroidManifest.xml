@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.robv.android.xposed.mods.appsettings"
-    android:versionCode="30"
-    android:versionName="1.11" xmlns:tools="http://schemas.android.com/tools">
+    android:versionCode="31"
+    android:versionName="1.13" xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk android:minSdkVersion="15" tools:ignore="UsesMinSdkAttributes"/>
 
@@ -37,10 +37,11 @@
             android:value="true" />
         <meta-data
             android:name="xposeddescription"
-            android:value="@string/app_mod_summary" />
+            android:value="@string/app_mod_summary"
+            tools:ignore="ManifestResource" />
         <meta-data
             android:name="xposedminversion"
-            android:value="52+" />
+            android:value="82" />
     </application>
 
 </manifest>

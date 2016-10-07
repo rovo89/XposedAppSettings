@@ -499,6 +499,9 @@ public class XposedModActivity extends Activity {
 			if (appInfo == null)
 				continue;
 
+			if (!appInfo.enabled)
+			       continue;
+
 			appInfo.name = appInfo.loadLabel(pm).toString();
 			appList.add(appInfo);
 
